@@ -4,7 +4,7 @@ const { join } = require('path');
 
 module.exports = {
   output: {
-    path: join(__dirname, '../../dist/apps/aiviz'),
+    path: join(__dirname, '../../dist/apps/client'),
   },
   devServer: {
     port: 4200,
