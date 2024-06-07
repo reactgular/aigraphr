@@ -39,7 +39,8 @@
       "plugin": "@nx/jest/plugin",
       "options": {
         "targetName": "test"
-      }
+      },
+      "exclude": ["apps/server-e2e/**/*"]
     }
   ],
   "generators": {
