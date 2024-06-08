@@ -4,10 +4,10 @@ const { join } = require('path');
 
 module.exports = {
   output: {
-    path: join(__dirname, '../../dist/apps/client'),
+    path: join(__dirname, '../../dist/apps/client')
   },
   devServer: {
-    port: 4200,
+    port: 4200
   },
   plugins: [
     new NxAppWebpackPlugin({
@@ -19,12 +19,12 @@ module.exports = {
       assets: ['./src/favicon.ico', './src/assets'],
       styles: ['./src/styles.css'],
       outputHashing: process.env['NODE_ENV'] === 'production' ? 'all' : 'none',
-      optimization: process.env['NODE_ENV'] === 'production',
+      optimization: process.env['NODE_ENV'] === 'production'
     }),
     new NxReactWebpackPlugin({
       // Uncomment this line if you don't want to use SVGR
       // See: https://react-svgr.com/
       // svgr: false
-    }),
-  ],
+    })
+  ]
 };

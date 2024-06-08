@@ -15,13 +15,17 @@
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/plugins/nodes",
         "tsConfig": "plugins/nodes/tsconfig.lib.json",
         "packageJson": "plugins/nodes/package.json",
         "main": "plugins/nodes/src/index.ts",
-        "assets": ["plugins/nodes/*.md"]
+        "assets": [
+          "plugins/nodes/*.md"
+        ]
       }
     },
     "nx-release-publish": {
