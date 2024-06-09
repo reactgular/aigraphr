@@ -6,7 +6,7 @@
     "build": "nx run-many -t build",
     "lint": "nx run-many -t lint",
     "sort": "npx --yes sort-package-json",
-    "test": "nx run-many -t test"
+    "test": "nx run-many -t test --passWithNoTests"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.2",

@@ -1,1 +1,1 @@
-export * from './lib/nodes.module';
+export * from './lib/core.module';
