@@ -80,7 +80,6 @@
       }
     }
   },
-  "nxCloudAccessToken": "NGUyZDliMWUtZTIwYS00ZTA4LTgxY2QtMzZkMjM4MDM0MDUyfHJlYWQtd3JpdGU=",
   "targetDefaults": {
     "@nx/js:tsc": {
       "cache": true,
