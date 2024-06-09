@@ -1,7 +1,7 @@
 {
-  "name": "core",
+  "name": "graph",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/core/src",
+  "sourceRoot": "libs/graph/src",
   "projectType": "library",
   "release": {
     "version": {
@@ -19,12 +19,12 @@
         "{options.outputPath}"
       ],
       "options": {
-        "outputPath": "dist/libs/core",
-        "tsConfig": "libs/core/tsconfig.lib.json",
-        "packageJson": "libs/core/package.json",
-        "main": "libs/core/src/index.ts",
+        "outputPath": "dist/libs/graph",
+        "tsConfig": "libs/graph/tsconfig.lib.json",
+        "packageJson": "libs/graph/package.json",
+        "main": "libs/graph/src/index.ts",
         "assets": [
-          "libs/core/*.md"
+          "libs/graph/*.md"
         ]
       }
     },

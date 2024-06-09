@@ -1,7 +1,7 @@
 {
-  "name": "nodes",
+  "name": "core",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "plugins/nodes/src",
+  "sourceRoot": "plugins/core/src",
   "projectType": "library",
   "release": {
     "version": {
@@ -19,12 +19,12 @@
         "{options.outputPath}"
       ],
       "options": {
-        "outputPath": "dist/plugins/nodes",
-        "tsConfig": "plugins/nodes/tsconfig.lib.json",
-        "packageJson": "plugins/nodes/package.json",
-        "main": "plugins/nodes/src/index.ts",
+        "outputPath": "dist/plugins/core",
+        "tsConfig": "plugins/core/tsconfig.lib.json",
+        "packageJson": "plugins/core/package.json",
+        "main": "plugins/core/src/index.ts",
         "assets": [
-          "plugins/nodes/*.md"
+          "plugins/core/*.md"
         ]
       }
     },
