@@ -1,13 +1,16 @@
 import { cli } from 'cleye';
-import packageJson from '../package.json';
 import { bootstrap } from './bootstrap';
 import { start } from './commands/start';
+import { getBrandConfig } from './config/brand.config';
+
+const brand = getBrandConfig();
 
 cli({
-  name: 'aigraphr',
-  version: packageJson.version,
-  help: { description: packageJson.description },
-  commands: [start]
+  name: brand.name,
+  version: brand.version,
+  help: { version: brand.version, description: brand.description },
+  commands: [start],
+  flags: {}
 }, async () => {
   await bootstrap();
 });
