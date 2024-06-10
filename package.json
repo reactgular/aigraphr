@@ -1,5 +1,5 @@
 {
-  "name": "@aiviz/source",
+  "name": "@aigraphr/source",
   "version": "0.0.1",
   "license": "MIT",
   "scripts": {
@@ -13,6 +13,7 @@
     "@nestjs/core": "^10.0.2",
     "@nestjs/platform-express": "^10.0.2",
     "axios": "^1.6.0",
+    "cleye": "^1.3.2",
     "next": "14.2.3",
     "react": "18.3.1",
     "react-dom": "18.3.1",

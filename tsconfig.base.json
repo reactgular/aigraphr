@@ -18,13 +18,13 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@reactgular/aiviz-core": [
+      "@reactgular/aigraphr-core": [
         "libs/core/src/index.ts"
       ],
-      "@reactgular/aiviz-nodes": [
+      "@reactgular/aigraphr-nodes": [
         "plugins/nodes/src/index.ts"
       ],
-      "@reactgular/aiviz-openai": [
+      "@reactgular/aigraphr-openai": [
         "plugins/openai/src/index.ts"
       ]
     }

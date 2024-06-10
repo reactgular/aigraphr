@@ -60,8 +60,6 @@ jobs:
         uses: ./.github/actions/install
 
       - uses: nrwl/nx-set-shas@v4
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: "🔨 Lint"
         run: ${{ env.NX }} affected -t lint
