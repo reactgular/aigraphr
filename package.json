@@ -1,6 +1,6 @@
 {
-  "name": "@aigraphr/source",
-  "version": "0.0.1",
+  "name": "@reactgular/aigraphr",
+  "version": "1.0.0-beta.1",
   "license": "MIT",
   "scripts": {
     "build": "nx run-many -t build",

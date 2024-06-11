@@ -13,7 +13,8 @@ module.exports = {
       tsConfig: './tsconfig.app.json',
       assets: ['./src/client'],
       optimization: false,
-      outputHashing: 'none'
+      outputHashing: 'none',
+      generatePackageJson: true
     })
   ]
 };

@@ -1,6 +1,17 @@
 {
-  "name": "@aigraphr/cli",
-  "version": "0.0.1",
+  "name": "@reactgular/aigraphr",
+  "version": "1.0.0-beta.1",
   "license": "MIT",
-  "description": "CLI for aigraphr"
+  "description": "CLI for aigraphr",
+  "keywords": [
+    "openai",
+    "ai",
+    "typescript",
+    "editor",
+    "graph",
+    "nodes"
+  ],
+  "bin": {
+    "aigraphr": "main.js"
+  }
 }
