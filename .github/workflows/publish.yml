@@ -50,7 +50,7 @@ jobs:
 
       - name: "🚀 Publish packages"
         run: |
-          ${{ env.NX }} release publish ${{ github.event.inputs.firstRelease == 'true' && '--first-release' || '' }}
+          ${{ env.NX }} release ${{ github.event.inputs.firstRelease == 'true' && '--first-release' || '' }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
