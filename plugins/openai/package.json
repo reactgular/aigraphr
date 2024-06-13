@@ -1,6 +1,23 @@
 {
   "name": "@reactgular/aigraphr-openai",
-  "version": "0.0.1",
+  "version": "1.0.0-beta.1",
+  "license": "MIT",
+  "description": "AIGraphr OpenAI plugin",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/reactgular/aigraphr"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "keywords": [
+    "openai",
+    "ai",
+    "typescript",
+    "editor",
+    "graph",
+    "nodes"
+  ],
   "dependencies": {
     "tslib": "^2.3.0",
     "@nestjs/common": "^10.0.2"

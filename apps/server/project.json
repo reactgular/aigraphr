@@ -23,11 +23,17 @@
         }
       }
     },
+    "nx-release-publish": {
+      "options": {
+        "packageRoot": "dist\\{projectRoot}",
+        "registry": "https://npm.pkg.github.com/"
+      }
+    },
     "publish": {
       "executor": "nx:run-commands",
       "dependsOn": ["build", "lint", "test"],
       "options": {
-        "cwd": "{workspaceRoot}/dist/apps/server",
+        "cwd": "dist/{projectRoot}",
         "command": "npm publish --provenance --access public"
       }
     }
