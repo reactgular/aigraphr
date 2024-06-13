@@ -52,9 +52,16 @@ jobs:
         run: |
           ${{ env.NX }} release version ${{ github.event.inputs.firstRelease == 'true' && '--first-release' || '' }}
 
+      - name: "🔍 Read package.json version"
+        id: version
+        run: |
+          VERSION=$(jq -r .version < package.json)
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+          echo "::notice file={package.json},title={Release Version}::Release version: ${VERSION}"
+
       - name: "📝 Write changelog"
         run: |
-          ${{ env.NX }} release changelog ${{ github.event.inputs.firstRelease == 'true' && '--first-release' || '' }}
+          ${{ env.NX }} release changelog ${{ steps.version.outputs.version }} ${{ github.event.inputs.firstRelease == 'true' && '--first-release' || '' }}
 
       - name: "🚀 Publish packages"
         run: |
