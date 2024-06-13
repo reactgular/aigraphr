@@ -125,11 +125,6 @@
         "stageChanges": false,
         "tag": false
       }
-    },
-    "git": {
-      "commit": false,
-      "tag": false,
-      "stageChanges": false
     }
   }
 }

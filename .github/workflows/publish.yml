@@ -48,11 +48,17 @@ jobs:
       - name: "🔨 Build"
         run: ${{ env.NX }} run-many -t build
 
+      - name: "🔖 Bump version"
+        run: |
+          ${{ env.NX }} release version ${{ github.event.inputs.firstRelease == 'true' && '--first-release' || '' }}
+
+      - name: "📝 Write changelog"
+        run: |
+          ${{ env.NX }} release changelog ${{ github.event.inputs.firstRelease == 'true' && '--first-release' || '' }}
+
       - name: "🚀 Publish packages"
         run: |
-          git config --global user.email "github-action@aigraphr.com"
-          git config --global user.name "Nx"
-          ${{ env.NX }} release ${{ github.event.inputs.firstRelease == 'true' && '--first-release' || '' }}
+          ${{ env.NX }} release publish ${{ github.event.inputs.firstRelease == 'true' && '--first-release' || '' }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
