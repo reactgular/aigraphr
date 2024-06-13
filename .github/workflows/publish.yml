@@ -2,7 +2,18 @@ name: "🚀 Publish"
 
 on:
   workflow_dispatch:
+    inputs:
+      firstRelease:
+        description: "Is this the first release?"
+        required: true
+        type: boolean
+        default: false
   workflow_call:
+    inputs:
+      firstRelease:
+        description: "Is this the first release?"
+        type: boolean
+        default: false
 
 concurrency: "publish"
 
@@ -35,6 +46,7 @@ jobs:
         uses: ./.github/actions/install
 
       - name: "🚀 Publish packages"
-        run: ${{ env.NX }} release
+        run: |
+          ${{ env.NX }} release ${{ github.event.inputs.firstRelease == 'true' && '--first-release' || '' }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
