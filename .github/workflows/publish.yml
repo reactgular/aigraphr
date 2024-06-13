@@ -24,8 +24,12 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       id-token: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      NPM_CONFIG_PROVENANCE: true
     steps:
       - name: "📥 Checkout code"
         uses: actions/checkout@v4
@@ -48,24 +52,6 @@ jobs:
       - name: "🔨 Build"
         run: ${{ env.NX }} run-many -t build
 
-#      - name: "🔖 Bump version"
-#        run: |
-#          ${{ env.NX }} release version ${{ github.event.inputs.firstRelease == 'true' && '--first-release' || '' }}
-#
-#      - name: "🔍 Read package.json version"
-#        id: version
-#        run: |
-#          VERSION=$(jq -r .version < apps/server/package.json)
-#          echo "version=${VERSION}" >> $GITHUB_OUTPUT
-#          echo "::notice file={package.json},title={Release Version}::Release version: ${VERSION}"
-#
-#      - name: "📝 Write changelog"
-#        run: |
-#          ${{ env.NX }} release changelog ${{ steps.version.outputs.version }} ${{ github.event.inputs.firstRelease == 'true' && '--first-release' || '' }}
-
       - name: "🚀 Release packages"
         run: |
           ${{ env.NX }} release ${{ github.event.inputs.firstRelease == 'true' && '--first-release' || '' }}
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_CONFIG_PROVENANCE: true

@@ -1,6 +1,8 @@
 {
   "name": "@reactgular/aigraphr-root",
   "license": "MIT",
+  "homepage": "https://aigraphr.com/",
+  "private": true,
   "scripts": {
     "build": "nx run-many -t build",
     "lint": "nx run-many -t lint",
