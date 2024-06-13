@@ -54,4 +54,4 @@ jobs:
 
       - name: "🚀 Release packages"
         run: |
-          ${{ env.NX }} release ${{ github.event.inputs.firstRelease == 'true' && '--first-release' || '' }}
+          ${{ env.NX }} release --yes ${{ github.event.inputs.firstRelease == 'true' && '--first-release' || '' }}
