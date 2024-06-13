@@ -92,7 +92,7 @@
       ]
     }
   },
-  "nxCloudAccessToken": "NGUyZDliMWUtZTIwYS00ZTA4LTgxY2QtMzZkMjM4MDM0MDUyfHJlYWQtd3JpdGU=",
+  "nxCloudAccessToken": "NTRiYjY4NjItZGM4MS00ZjQzLWJkOGYtYzdlYjhiMDY4OTUzfHJlYWQtd3JpdGU=",
   "release": {
     "version": {
       "preVersionCommand": "yarn nx run-many -t build"

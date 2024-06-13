@@ -1,0 +1,40 @@
+name: "🚀 Publish"
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+concurrency: "publish"
+
+env:
+  NX: node_modules/.bin/nx
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: "📥 Checkout code"
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: "🔧 Setup node"
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "yarn"
+          registry-url: 'https://npm.pkg.github.com/'
+
+      - name: "📜 SHAs for Nx affected"
+        uses: nrwl/nx-set-shas@v4
+
+      - name: "📦 Install dependencies"
+        uses: ./.github/actions/install
+
+      - name: "🚀 Publish packages"
+        run: ${{ NX }} run-many -t publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
