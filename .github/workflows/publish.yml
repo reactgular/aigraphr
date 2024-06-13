@@ -35,6 +35,6 @@ jobs:
         uses: ./.github/actions/install
 
       - name: "🚀 Publish packages"
-        run: ${{ env.NX }} run-many -t publish
+        run: ${{ env.NX }} release
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
