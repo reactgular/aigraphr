@@ -96,8 +96,7 @@
   "release": {
     "projects": ["server", "graph", "core", "openai"],
     "version": {
-      "conventionalCommits": true,
-      "preVersionCommand": "yarn nx run-many -t build"
+      "conventionalCommits": true
     },
     "changelog": {
       "workspaceChangelog": {

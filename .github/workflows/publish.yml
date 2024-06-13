@@ -45,6 +45,9 @@ jobs:
       - name: "📦 Install dependencies"
         uses: ./.github/actions/install
 
+      - name: "🔨 Build"
+        run: ${{ env.NX }} run-many -t build
+
       - name: "🚀 Publish packages"
         run: |
           ${{ env.NX }} release ${{ github.event.inputs.firstRelease == 'true' && '--first-release' || '' }}
