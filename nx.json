@@ -115,19 +115,7 @@
     "changelog": {
       "workspaceChangelog": {
         "createRelease": "github",
-        "renderOptions": {
-          "authors": false,
-          "commitReferences": true,
-          "versionTitleDate": true
-        }
-      },
-      "projectChangelogs": {
-        "createRelease": false,
-        "renderOptions": {
-          "authors": false,
-          "commitReferences": true,
-          "versionTitleDate": true
-        }
+        "file": false
       }
     }
   }
