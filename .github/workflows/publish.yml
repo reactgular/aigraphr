@@ -50,6 +50,8 @@ jobs:
 
       - name: "🚀 Publish packages"
         run: |
+          git config --global user.email "github-action@aigraphr.com"
+          git config --global user.name "Nx"
           ${{ env.NX }} release ${{ github.event.inputs.firstRelease == 'true' && '--first-release' || '' }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
