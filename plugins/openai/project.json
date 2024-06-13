@@ -27,12 +27,6 @@
           "plugins/openai/*.md"
         ]
       }
-    },
-    "nx-release-publish": {
-      "options": {
-        "packageRoot": "dist/{projectRoot}",
-        "registry": "https://npm.pkg.github.com/"
-      }
     }
   }
 }

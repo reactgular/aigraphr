@@ -81,6 +81,11 @@
     }
   },
   "targetDefaults": {
+    "nx-release-publish": {
+      "options": {
+        "packageRoot": "dist/{projectName}"
+      }
+    },
     "@nx/js:tsc": {
       "cache": true,
       "dependsOn": [
@@ -95,11 +100,15 @@
   "nxCloudAccessToken": "NTRiYjY4NjItZGM4MS00ZjQzLWJkOGYtYzdlYjhiMDY4OTUzfHJlYWQtd3JpdGU=",
   "release": {
     "git": {
-      "commit": false,
-      "stageChanges": false,
-      "tag": false
+      "commit": true,
+      "commitArgs": "--no-verify",
+      "commitMessage": "chore(release): release packages 🚀"
     },
-    "projects": ["server", "libs/*", "plugins/*"],
+    "projects": [
+      "server",
+      "libs/*",
+      "plugins/*"
+    ],
     "version": {
       "conventionalCommits": true
     },

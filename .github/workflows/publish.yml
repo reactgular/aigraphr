@@ -49,6 +49,14 @@ jobs:
       - name: "📦 Install dependencies"
         uses: ./.github/actions/install
 
+      - name: "🔧 Configure git"
+        run: |
+          git config --local user.name "${{ github.actor }}"
+          git config --local user.email "${{ github.actor }}@users.noreply.github.com"
+
+      - name: "🔍 Environment Info"
+        run: npx nx report
+
       - name: "🔨 Build"
         run: ${{ env.NX }} run-many -t build
 
