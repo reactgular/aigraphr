@@ -48,24 +48,24 @@ jobs:
       - name: "🔨 Build"
         run: ${{ env.NX }} run-many -t build
 
-      - name: "🔖 Bump version"
-        run: |
-          ${{ env.NX }} release version ${{ github.event.inputs.firstRelease == 'true' && '--first-release' || '' }}
+#      - name: "🔖 Bump version"
+#        run: |
+#          ${{ env.NX }} release version ${{ github.event.inputs.firstRelease == 'true' && '--first-release' || '' }}
+#
+#      - name: "🔍 Read package.json version"
+#        id: version
+#        run: |
+#          VERSION=$(jq -r .version < apps/server/package.json)
+#          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+#          echo "::notice file={package.json},title={Release Version}::Release version: ${VERSION}"
+#
+#      - name: "📝 Write changelog"
+#        run: |
+#          ${{ env.NX }} release changelog ${{ steps.version.outputs.version }} ${{ github.event.inputs.firstRelease == 'true' && '--first-release' || '' }}
 
-      - name: "🔍 Read package.json version"
-        id: version
+      - name: "🚀 Release packages"
         run: |
-          VERSION=$(jq -r .version < package.json)
-          echo "version=${VERSION}" >> $GITHUB_OUTPUT
-          echo "::notice file={package.json},title={Release Version}::Release version: ${VERSION}"
-
-      - name: "📝 Write changelog"
-        run: |
-          ${{ env.NX }} release changelog ${{ steps.version.outputs.version }} ${{ github.event.inputs.firstRelease == 'true' && '--first-release' || '' }}
-
-      - name: "🚀 Publish packages"
-        run: |
-          ${{ env.NX }} release publish ${{ github.event.inputs.firstRelease == 'true' && '--first-release' || '' }}
+          ${{ env.NX }} release ${{ github.event.inputs.firstRelease == 'true' && '--first-release' || '' }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_CONFIG_PROVENANCE: true

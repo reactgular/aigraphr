@@ -94,14 +94,14 @@
   },
   "nxCloudAccessToken": "NTRiYjY4NjItZGM4MS00ZjQzLWJkOGYtYzdlYjhiMDY4OTUzfHJlYWQtd3JpdGU=",
   "release": {
+    "git": {
+      "commit": false,
+      "stageChanges": false,
+      "tag": false
+    },
     "projects": ["server", "libs/*", "plugins/*"],
     "version": {
-      "conventionalCommits": true,
-      "git": {
-        "commit": false,
-        "stageChanges": false,
-        "tag": false
-      }
+      "conventionalCommits": true
     },
     "changelog": {
       "workspaceChangelog": {
@@ -119,11 +119,6 @@
           "commitReferences": true,
           "versionTitleDate": true
         }
-      },
-      "git": {
-        "commit": false,
-        "stageChanges": false,
-        "tag": false
       }
     }
   }
