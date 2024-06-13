@@ -3,12 +3,11 @@
   "version": "1.0.0-beta.1",
   "license": "MIT",
   "description": "CLI for aigraphr",
+  "homepage": "https://aigraphr.com/",
+  "private": false,
   "repository": {
     "type": "git",
     "url": "https://github.com/reactgular/aigraphr"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
   },
   "keywords": [
     "openai",

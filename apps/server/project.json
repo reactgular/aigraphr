@@ -27,7 +27,7 @@
       "executor": "nx:run-commands",
       "dependsOn": ["build", "lint", "test"],
       "options": {
-        "cwd": "{workspaceRoot}/dist/apps/server",
+        "cwd": "dist/{projectRoot}",
         "command": "npm publish --provenance --access public"
       }
     }

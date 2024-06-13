@@ -2,7 +2,18 @@ name: "🚀 Publish"
 
 on:
   workflow_dispatch:
+    inputs:
+      firstRelease:
+        description: "Is this the first release?"
+        required: true
+        type: boolean
+        default: false
   workflow_call:
+    inputs:
+      firstRelease:
+        description: "Is this the first release?"
+        type: boolean
+        default: false
 
 concurrency: "publish"
 
@@ -13,8 +24,12 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       id-token: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      NPM_CONFIG_PROVENANCE: ${{ github.event.inputs.firstRelease == 'false' }}
     steps:
       - name: "📥 Checkout code"
         uses: actions/checkout@v4
@@ -34,7 +49,17 @@ jobs:
       - name: "📦 Install dependencies"
         uses: ./.github/actions/install
 
-      - name: "🚀 Publish packages"
-        run: ${{ NX }} run-many -t publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: "🔧 Configure git"
+        run: |
+          git config --local user.name "${{ github.actor }}"
+          git config --local user.email "${{ github.actor }}@users.noreply.github.com"
+
+      - name: "🔍 Environment Info"
+        run: npx nx report
+
+      - name: "🔨 Build"
+        run: ${{ env.NX }} run-many -t build
+
+      - name: "🚀 Release packages"
+        run: |
+          ${{ env.NX }} release --yes ${{ github.event.inputs.firstRelease == 'true' && '--first-release' || '' }}

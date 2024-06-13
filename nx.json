@@ -81,6 +81,11 @@
     }
   },
   "targetDefaults": {
+    "nx-release-publish": {
+      "options": {
+        "packageRoot": "dist/{projectRoot}"
+      }
+    },
     "@nx/js:tsc": {
       "cache": true,
       "dependsOn": [
@@ -94,8 +99,24 @@
   },
   "nxCloudAccessToken": "NTRiYjY4NjItZGM4MS00ZjQzLWJkOGYtYzdlYjhiMDY4OTUzfHJlYWQtd3JpdGU=",
   "release": {
+    "git": {
+      "commit": true,
+      "commitArgs": "--no-verify",
+      "commitMessage": "chore(release): release packages 🚀"
+    },
+    "projects": [
+      "server",
+      "libs/*",
+      "plugins/*"
+    ],
     "version": {
-      "preVersionCommand": "yarn nx run-many -t build"
+      "conventionalCommits": true
+    },
+    "changelog": {
+      "workspaceChangelog": {
+        "createRelease": "github",
+        "file": false
+      }
     }
   }
 }

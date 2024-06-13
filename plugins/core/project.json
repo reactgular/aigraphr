@@ -6,7 +6,7 @@
   "release": {
     "version": {
       "generatorOptions": {
-        "packageRoot": "dist\\{projectRoot}",
+        "packageRoot": "dist/{projectRoot}",
         "currentVersionResolver": "git-tag"
       }
     }
@@ -26,11 +26,6 @@
         "assets": [
           "plugins/core/*.md"
         ]
-      }
-    },
-    "nx-release-publish": {
-      "options": {
-        "packageRoot": "dist\\{projectRoot}"
       }
     }
   }
