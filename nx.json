@@ -115,6 +115,11 @@
           "versionTitleDate": true
         }
       }
+    },
+    "git": {
+      "commit": false,
+      "tag": false,
+      "stageChanges": true
     }
   }
 }
