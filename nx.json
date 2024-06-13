@@ -94,9 +94,14 @@
   },
   "nxCloudAccessToken": "NTRiYjY4NjItZGM4MS00ZjQzLWJkOGYtYzdlYjhiMDY4OTUzfHJlYWQtd3JpdGU=",
   "release": {
-    "projects": ["server", "graph", "core", "openai"],
+    "projects": ["server", "libs/*", "plugins/*"],
     "version": {
-      "conventionalCommits": true
+      "conventionalCommits": true,
+      "git": {
+        "commit": false,
+        "stageChanges": false,
+        "tag": false
+      }
     },
     "changelog": {
       "workspaceChangelog": {
@@ -114,6 +119,11 @@
           "commitReferences": true,
           "versionTitleDate": true
         }
+      },
+      "git": {
+        "commit": false,
+        "stageChanges": false,
+        "tag": false
       }
     },
     "git": {
