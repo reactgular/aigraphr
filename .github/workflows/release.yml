@@ -1,0 +1,60 @@
+name: "🚀 Release"
+
+on:
+  workflow_dispatch:
+    inputs:
+      firstRelease:
+        description: "Is this the first release?"
+        required: true
+        type: boolean
+        default: false
+  workflow_call:
+    inputs:
+      firstRelease:
+        description: "Is this the first release?"
+        type: boolean
+        default: false
+
+concurrency: "publish"
+
+env:
+  NX: node_modules/.bin/nx
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      NPM_CONFIG_PROVENANCE: ${{ github.event.inputs.firstRelease == 'false' }}
+    steps:
+      - name: "📥 Checkout code"
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: "🔧 Setup node"
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "yarn"
+          registry-url: 'https://npm.pkg.github.com/'
+
+      - name: "📜 SHAs for Nx affected"
+        uses: nrwl/nx-set-shas@v4
+
+      - name: "📦 Install dependencies"
+        uses: ./.github/actions/install
+
+      - name: "🔍 Environment Info"
+        run: npx nx report
+
+      - name: "🔨 Build"
+        run: ${{ env.NX }} run-many -t build
+
+      - name: "🚀 Publish release on GitHub"
+        run: |
+          ${{ env.NX }} release changelog
