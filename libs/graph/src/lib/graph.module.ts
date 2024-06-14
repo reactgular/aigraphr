@@ -3,8 +3,8 @@ import { Module } from '@nestjs/common';
 @Module({
   controllers: [],
   providers: [],
-  // fix wrong exports
-  // exports: []
+  // fix restore exports
+  exports: []
 })
 export class GraphModule {
 }
