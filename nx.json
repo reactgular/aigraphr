@@ -99,21 +99,26 @@
   },
   "nxCloudAccessToken": "NTRiYjY4NjItZGM4MS00ZjQzLWJkOGYtYzdlYjhiMDY4OTUzfHJlYWQtd3JpdGU=",
   "release": {
-    "git": {
-      "commit": true,
-      "commitArgs": "--no-verify",
-      "commitMessage": "chore(release): release packages 🚀"
-    },
     "projects": [
       "server",
       "libs/*",
       "plugins/*"
     ],
     "version": {
-      "conventionalCommits": true
+      "conventionalCommits": true,
+      "preVersionCommand": "yarn nx run-many -t build",
     },
     "changelog": {
       "workspaceChangelog": {
+        "createRelease": "github",
+        "file": false,
+        "renderOptions": {
+          "commitReferences": true,
+          "versionTitleDate": true,
+          "authors": false
+        }
+      },
+      "projectChangelogs": {
         "createRelease": "github",
         "file": false,
         "renderOptions": {
