@@ -19,6 +19,7 @@ concurrency: "publish"
 
 env:
   NX: node_modules/.bin/nx
+  VERSION_PACKAGE_JSON: ./apps/server/package.json
 
 jobs:
   publish:
@@ -55,6 +56,13 @@ jobs:
       - name: "🔨 Build"
         run: ${{ env.NX }} run-many -t build
 
+      - name: "🔍 Read package.json version"
+        id: version
+        run: |
+          VERSION=$(jq -r .version < ${{ env.VERSION_PACKAGE_JSON }})
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+          echo "::notice file={${{ env.VERSION_PACKAGE_JSON }}},title={Release Version}::Release version: ${VERSION}"
+
       - name: "🚀 Publish release on GitHub"
         run: |
-          ${{ env.NX }} release changelog
+          ${{ env.NX }} release changelog ${{ steps.version.outputs.version }}
