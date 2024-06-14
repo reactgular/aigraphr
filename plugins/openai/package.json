@@ -1,6 +1,6 @@
 {
   "name": "@reactgular/aigraphr-openai",
-  "version": "1.0.0-beta.1",
+  "version": "0.1.0",
   "license": "MIT",
   "description": "AIGraphr OpenAI plugin",
   "homepage": "https://aigraphr.com/",
