@@ -3,7 +3,8 @@ import { Module } from '@nestjs/common';
 @Module({
   controllers: [],
   providers: [],
-  exports: []
+  // fix wrong exports
+  // exports: []
 })
 export class OpenaiModule {
 }
