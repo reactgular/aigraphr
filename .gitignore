@@ -46,3 +46,6 @@ Thumbs.db
 out
 
 apps/server/src/client
+
+# Hide .env files
+**/.env
