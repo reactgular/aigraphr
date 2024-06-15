@@ -22,14 +22,6 @@
           "buildTarget": "server:build:production"
         }
       }
-    },
-    "publish": {
-      "executor": "nx:run-commands",
-      "dependsOn": ["build", "lint", "test"],
-      "options": {
-        "cwd": "dist/{projectRoot}",
-        "command": "npm publish --provenance --access public"
-      }
     }
   }
 }
