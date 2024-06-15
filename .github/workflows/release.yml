@@ -62,6 +62,49 @@ jobs:
       - name: "🔨 Build"
         run: ${{ env.NX }} run-many -t build
 
+      - name: "📦 Upload artifacts"
+        uses: actions/upload-artifact@v4
+        with:
+          name: "build"
+          path: dist
+          if-no-files-found: error
+          retention-days: 1
+
+  # We can't publish in the release job, because we changed the git user.
+  publish:
+    runs-on: ubuntu-latest
+    needs: [ release ]
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - name: "📥 Checkout code"
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: "🔧 Setup node"
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "yarn"
+          registry-url: 'https://npm.pkg.github.com/'
+
+      - name: "📜 SHAs for Nx affected"
+        uses: nrwl/nx-set-shas@v4
+
+      - name: "📦 Install dependencies"
+        uses: ./.github/actions/install
+
+      - name: "🔍 Environment Info"
+        run: npx nx report
+
+      - name: "📦 Download artifacts"
+        uses: actions/download-artifact@v4
+        with:
+          name: "build"
+          path: dist
+
       - name: "🚀 Publish npm packages"
         run: |
           ${{ env.NX }} release publish --yes ${{ github.event.inputs.firstRelease == 'true' && '--first-release' || '' }}
