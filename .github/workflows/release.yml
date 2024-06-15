@@ -26,11 +26,6 @@ jobs:
     permissions:
       contents: write
       id-token: write
-      packages: write
-    env:
-      GH_TOKEN: ${{ github.token }}
-      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      NPM_CONFIG_PROVENANCE: ${{ github.event.inputs.firstRelease == 'false' }}
     steps:
       - name: "📥 Checkout code"
         uses: actions/checkout@v4
@@ -61,6 +56,8 @@ jobs:
       - name: "🚀 Update package.json files, commit changes then tag via GitHub Release"
         run: |
           ${{ env.NX }} release --skip-publish ${{ github.event.inputs.firstRelease == 'true' && '--first-release' || '' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       - name: "🔨 Build"
         run: ${{ env.NX }} run-many -t build
@@ -68,3 +65,6 @@ jobs:
       - name: "🚀 Publish npm packages"
         run: |
           ${{ env.NX }} release publish --yes ${{ github.event.inputs.firstRelease == 'true' && '--first-release' || '' }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_PROVENANCE: ${{ github.event.inputs.firstRelease == 'false' }}
