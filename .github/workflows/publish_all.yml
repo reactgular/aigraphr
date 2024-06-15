@@ -35,7 +35,7 @@ jobs:
     needs: [ build ]
     uses: ./.github/workflows/release.yml
     with:
-      firstRelease: ${{ github.event.inputs.firstRelease }}
+      firstRelease: ${{ github.event.inputs.firstRelease == 'true' }}
 
   website:
     needs: [ release ]
