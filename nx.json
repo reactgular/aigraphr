@@ -81,6 +81,11 @@
     }
   },
   "targetDefaults": {
+    "nx-release-publish": {
+      "options": {
+        "packageRoot": "dist/{projectRoot}"
+      }
+    },
     "@nx/js:tsc": {
       "cache": true,
       "dependsOn": [
