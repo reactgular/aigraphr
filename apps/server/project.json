@@ -6,6 +6,14 @@
   "implicitDependencies": [
     "client"
   ],
+  "release": {
+    "version": {
+      "generatorOptions": {
+        "packageRoot": "dist/{projectRoot}",
+        "currentVersionResolver": "disk"
+      }
+    }
+  },
   "tags": [],
   "targets": {
     "serve": {
