@@ -10,7 +10,7 @@ export interface BrandConfig {
 
 const BRAND_CONFIG: BrandConfig = {
   name: 'aigraphr',
-  version: packageJson.version,
+  version: 'x.x.x', // @todo: get version from packageJson at runtime
   description: packageJson.description
 };
 
