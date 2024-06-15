@@ -1,6 +1,6 @@
 {
   "name": "@reactgular/aigraphr-graph",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "license": "MIT",
   "description": "Library of graph nodes used by AIGraphr plugins and editor.",
   "homepage": "https://aigraphr.com/",
