@@ -68,3 +68,7 @@ jobs:
       - name: "🚀 Publish npm packages"
         run: |
           ${{ env.NX }} publish --yes ${{ github.event.inputs.firstRelease == 'true' && '--first-release' || '' }}
+
+  website:
+    needs: [ publish ]
+    uses: ./.github/workflows/website.yml
