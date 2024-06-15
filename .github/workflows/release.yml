@@ -53,16 +53,18 @@ jobs:
       - name: "🔍 Environment Info"
         run: npx nx report
 
+      - name: "🔧 Configure git"
+        run: |
+          git config --local user.name "${{ github.actor }}"
+          git config --local user.email "${{ github.actor }}@users.noreply.github.com"
+
+      - name: "🚀 Update package.json files, commit changes then tag via GitHub Release"
+        run: |
+          ${{ env.NX }} release --skip-publish ${{ github.event.inputs.firstRelease == 'true' && '--first-release' || '' }}
+
       - name: "🔨 Build"
         run: ${{ env.NX }} run-many -t build
 
-      - name: "🔍 Read package.json version"
-        id: version
+      - name: "🚀 Publish npm packages"
         run: |
-          VERSION=$(jq -r .version < ${{ env.VERSION_PACKAGE_JSON }})
-          echo "version=${VERSION}" >> $GITHUB_OUTPUT
-          echo "::notice file={${{ env.VERSION_PACKAGE_JSON }}},title={Release Version}::Release version: ${VERSION}"
-
-      - name: "🚀 Publish release on GitHub"
-        run: |
-          ${{ env.NX }} release changelog ${{ steps.version.outputs.version }}
+          ${{ env.NX }} publish --yes ${{ github.event.inputs.firstRelease == 'true' && '--first-release' || '' }}
