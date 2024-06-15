@@ -15,14 +15,13 @@ on:
         type: boolean
         default: false
 
-concurrency: "publish"
+concurrency: "release"
 
 env:
   NX: node_modules/.bin/nx
-  VERSION_PACKAGE_JSON: ./apps/server/package.json
 
 jobs:
-  publish:
+  release:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -67,8 +66,4 @@ jobs:
 
       - name: "🚀 Publish npm packages"
         run: |
-          ${{ env.NX }} publish --yes ${{ github.event.inputs.firstRelease == 'true' && '--first-release' || '' }}
-
-  website:
-    needs: [ publish ]
-    uses: ./.github/workflows/website.yml
+          ${{ env.NX }} release publish --yes ${{ github.event.inputs.firstRelease == 'true' && '--first-release' || '' }}

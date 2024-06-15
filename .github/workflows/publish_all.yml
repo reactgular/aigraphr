@@ -1,0 +1,43 @@
+name: "🚀 Publish All"
+
+on:
+  workflow_dispatch:
+    inputs:
+      firstRelease:
+        description: "Is this the first release?"
+        required: true
+        type: boolean
+        default: false
+      skipWebsite:
+        description: "Skip website?"
+        required: true
+        type: boolean
+        default: false
+  workflow_call:
+    inputs:
+      firstRelease:
+        description: "Is this the first release?"
+        type: boolean
+        default: false
+      skipWebsite:
+        description: "Skip website?"
+        required: true
+        type: boolean
+        default: false
+
+concurrency: "publish_all"
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+
+  release:
+    needs: [ build ]
+    uses: ./.github/workflows/release.yml
+    with:
+      firstRelease: ${{ github.event.inputs.firstRelease }}
+
+  website:
+    needs: [ release ]
+    if: ${{ github.event.inputs.skipWebsite == 'false' }}
+    uses: ./.github/workflows/website.yml
