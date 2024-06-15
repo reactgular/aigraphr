@@ -8,22 +8,22 @@ on:
         required: true
         type: boolean
         default: false
-      skipWebsite:
-        description: "Skip website?"
+      website:
+        description: "Publish website?"
         required: true
         type: boolean
-        default: false
+        default: true
   workflow_call:
     inputs:
       firstRelease:
         description: "Is this the first release?"
         type: boolean
         default: false
-      skipWebsite:
-        description: "Skip website?"
+      website:
+        description: "Publish website?"
         required: true
         type: boolean
-        default: false
+        default: true
 
 concurrency: "release"
 
@@ -130,7 +130,5 @@ jobs:
 
   website:
     needs: [ release ]
-    if: ${{ github.event.inputs.skipWebsite == 'false' }}
+    if: ${{ github.event.inputs.website == 'true' }}
     uses: ./.github/workflows/website.yml
-    with:
-      skipDeploy: false
