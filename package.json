@@ -1,5 +1,6 @@
 {
   "name": "@reactgular/aigraphr-root",
+  "version": "0.0.1",
   "license": "MIT",
   "homepage": "https://aigraphr.com/",
   "private": false,
