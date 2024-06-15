@@ -132,3 +132,5 @@ jobs:
     needs: [ release ]
     if: ${{ github.event.inputs.skipWebsite == 'false' }}
     uses: ./.github/workflows/website.yml
+    with:
+      skipDeploy: false
