@@ -6,7 +6,7 @@ import { getBrandConfig } from './config/brand.config';
 const brand = getBrandConfig();
 
 cli({
-  name: `${brand.name}ing`, // fix: spelling mistake
+  name: `${brand.name}ly`, // fix: spelling mistake
   version: brand.version,
   help: { version: brand.version, description: brand.description },
   commands: [start],
