@@ -107,7 +107,7 @@
     "git": {
       "commit": true,
       "commitArgs": "--no-verify",
-      "commitMessage": "chore(release): \uD83D\uDE80 publish release"
+      "commitMessage": "chore(release): \uD83D\uDE80 publish release [skip ci]"
     },
     "version": {
       "conventionalCommits": true
