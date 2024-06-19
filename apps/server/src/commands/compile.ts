@@ -1,4 +1,5 @@
 import { command } from 'cleye';
+import { bootstrap } from '../bootstrap';
 
 export const compile = command({
   name: 'compile',
@@ -15,5 +16,5 @@ export const compile = command({
     ]
   }
 }, async (parsed) => {
-  // @todo Implement the command
+  await bootstrap({ pluginsPath: parsed.flags.pluginsPath });
 });

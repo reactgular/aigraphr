@@ -16,7 +16,6 @@ export const start = command({
     ]
   }
 }, async (parsed) => {
-  await bootstrap({
-    pluginsPath: parsed.flags.pluginsPath
-  });
+  const start = await bootstrap({ pluginsPath: parsed.flags.pluginsPath });
+  await start();
 });
