@@ -3,6 +3,12 @@ import { bootstrap } from '../bootstrap';
 
 export const start = command({
   name: 'start',
+  flags: {
+    pluginsPath: {
+      type: String,
+      description: 'Path to the plugins directory'
+    }
+  },
   help: {
     description: 'Start the server',
     examples: [
@@ -10,5 +16,7 @@ export const start = command({
     ]
   }
 }, async (parsed) => {
-  await bootstrap();
+  await bootstrap({
+    pluginsPath: parsed.flags.pluginsPath
+  });
 });

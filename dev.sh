@@ -1,3 +1,7 @@
 #!/usr/bin/env bash
 
-yarn nx run server:serve --args="$*"
+# Join all arguments with a comma
+args=$(IFS=,; echo "$*")
+
+# Execute the command with the modified arguments
+yarn nx run server:serve --args="$args"

@@ -1,9 +1,14 @@
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import * as process from 'node:process';
 import { MainModule } from './main.module';
 
-export const bootstrap = async () => {
+export interface BootstrapOptions {
+  pluginsPath?: string;
+}
+
+export const bootstrap = async ({pluginsPath}: BootstrapOptions) => {
   const app = await NestFactory.create<NestExpressApplication>(MainModule);
 
   app.useStaticAssets('client');

@@ -13,5 +13,5 @@ cli({
   commands: [start, compile],
   flags: {}
 }, async () => {
-  await bootstrap();
+  await bootstrap({});
 });
