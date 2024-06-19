@@ -1,6 +1,7 @@
 import { cli } from 'cleye';
 import { bootstrap } from './bootstrap';
-import { compile, start } from './commands';
+import { compile } from './commands/compile';
+import { start } from './commands/start';
 import { getBrandConfig } from './config/brand.config';
 
 const brand = getBrandConfig();
