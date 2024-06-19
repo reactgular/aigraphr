@@ -11,7 +11,14 @@ cli({
   version: brand.version,
   help: { version: brand.version, description: brand.description },
   commands: [start, compile],
-  flags: {}
-}, async () => {
-  await bootstrap({});
+  flags: {
+    pluginsPath: {
+      type: String,
+      description: 'Path to the plugins directory'
+    }
+  }
+}, async (parsed) => {
+  await bootstrap({
+    pluginsPath: parsed.flags.pluginsPath
+  });
 });

@@ -4,4 +4,4 @@
 args=$(IFS=,; echo "$*")
 
 # Execute the command with the modified arguments
-yarn nx run server:serve --args="$args"
+yarn nx run server:serve --args="$args,--plugins-path=./dist/plugins"

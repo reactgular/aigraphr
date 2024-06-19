@@ -8,13 +8,15 @@ export interface BootstrapOptions {
   pluginsPath?: string;
 }
 
-export const bootstrap = async ({pluginsPath}: BootstrapOptions) => {
-  const app = await NestFactory.create<NestExpressApplication>(MainModule);
+export const bootstrap = async ({ pluginsPath }: BootstrapOptions) => {
+  const app = await NestFactory.create<NestExpressApplication>(MainModule.forBootstrap({ pluginsPath }));
 
   app.useStaticAssets('client');
-
   // app.setBaseViewsDir('views');
   // app.setViewEngine('hbs');
+
+  // Allows the app to be shutdown by a signal from the OS
+  app.enableShutdownHooks();
 
   const port = process.env.PORT || 3000;
   await app.listen(port);
