@@ -1,10 +1,10 @@
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
-import { AppModule } from './app/app.module';
+import { MainModule } from './main.module';
 
 export const bootstrap = async () => {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(MainModule);
 
   app.useStaticAssets('client');
 
