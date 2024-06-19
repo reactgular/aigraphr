@@ -3,7 +3,9 @@ import { ConfigModule } from '@nestjs/config';
 import { ModuleRef } from '@nestjs/core';
 import { AppController } from './app/app.controller';
 import { AppService } from './app/app.service';
+import { CompilerModule } from './compiler/compiler.module';
 import { PluginsModule } from './plugins/plugins.module';
+import { WorkspacesModule } from './workspaces/workspaces.module';
 
 export interface MainModuleOptions {
   pluginsPath?: string;
@@ -15,10 +17,15 @@ export class MainModule implements OnModuleInit {
     //
   }
 
-  public static forBootstrap({pluginsPath}: MainModuleOptions) {
+  public static forBootstrap({ pluginsPath }: MainModuleOptions) {
     return {
       module: MainModule,
-      imports: [ConfigModule.forRoot(), PluginsModule.forRoot({pluginsPath})],
+      imports: [
+        ConfigModule.forRoot(),
+        PluginsModule.forRoot({ pluginsPath }),
+        WorkspacesModule,
+        CompilerModule
+      ],
       controllers: [AppController],
       providers: [AppService]
     };

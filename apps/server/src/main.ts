@@ -1,5 +1,5 @@
 import { cli } from 'cleye';
-import { bootstrap } from './bootstrap';
+import { bootstrap } from './bootstrap/bootstrap';
 import { compile } from './commands/compile';
 import { start } from './commands/start';
 import { getBrandConfig } from './config/brand.config';
@@ -18,6 +18,6 @@ cli({
     }
   }
 }, async (parsed) => {
-  const start = await bootstrap({ pluginsPath: parsed.flags.pluginsPath });
-  await start();
+  const boot = await bootstrap({ pluginsPath: parsed.flags.pluginsPath });
+  await boot.start();
 });
