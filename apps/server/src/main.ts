@@ -1,15 +1,15 @@
 import { cli } from 'cleye';
 import { bootstrap } from './bootstrap';
-import { start } from './commands/start';
+import { compile, start } from './commands';
 import { getBrandConfig } from './config/brand.config';
 
 const brand = getBrandConfig();
 
 cli({
-  name: `${brand.name}ly`, // fix: spelling mistake
+  name: brand.name,
   version: brand.version,
   help: { version: brand.version, description: brand.description },
-  commands: [start],
+  commands: [start, compile],
   flags: {}
 }, async () => {
   await bootstrap();
