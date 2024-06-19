@@ -5,7 +5,7 @@ import { Module } from '@nestjs/common';
   providers: [],
   exports: []
 })
-class OpenaiModule {
+class OpenAIModule {
 }
 
-export default OpenaiModule;
+export default OpenAIModule;
