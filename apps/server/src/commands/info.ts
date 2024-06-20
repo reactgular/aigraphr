@@ -1,21 +1,18 @@
+import { Logger } from '@nestjs/common';
 import { command } from 'cleye';
 import { bootstrap } from '../bootstrap/bootstrap';
 
-export const compile = command({
-  name: 'compile',
+export const info = command({
+  name: 'info',
   flags: {
     pluginsPath: {
       type: String,
       description: 'Path to the plugins directory'
     }
-  },
-  help: {
-    description: 'Compile the graph to source code.',
-    examples: [
-      'cli compile'
-    ]
   }
 }, async (parsed) => {
   const boot = await bootstrap({ pluginsPath: parsed.flags.pluginsPath });
-  await boot.compiler.compile();
+
+  Logger.log('Loaded plugins:', boot.plugins.plugins());
+
 });

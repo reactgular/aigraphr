@@ -4,12 +4,15 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import * as process from 'node:process';
 import { CompilerService } from '../compiler/compiler.service';
 import { MainModule } from '../main.module';
+import { PluginsService } from '../plugins/plugins.service';
 import { WorkspacesService } from '../workspaces/workspaces.service';
 
 export interface Bootstrapped {
   close: () => Promise<void>;
 
   compiler: CompilerService;
+
+  plugins: PluginsService;
 
   start: () => Promise<void>;
 
@@ -41,6 +44,7 @@ export const bootstrap = async ({ pluginsPath }: BootstrapOptions): Promise<Boot
       await app.close();
     },
     compiler: app.get(CompilerService),
-    workspaces: app.get(WorkspacesService)
+    workspaces: app.get(WorkspacesService),
+    plugins: app.get(PluginsService)
   } satisfies Bootstrapped;
 };
