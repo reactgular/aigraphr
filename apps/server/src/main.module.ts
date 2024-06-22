@@ -6,6 +6,7 @@ import { AppService } from './app/app.service';
 import { CompilerModule } from './compiler/compiler.module';
 import { PluginsModule } from './plugins/plugins.module';
 import { WorkspacesModule } from './workspaces/workspaces.module';
+import { WorkspacesService } from './workspaces/workspaces.service';
 
 export interface MainModuleOptions {
   pluginsPath?: string;
@@ -21,7 +22,9 @@ export class MainModule implements OnModuleInit {
     return {
       module: MainModule,
       imports: [
-        ConfigModule.forRoot(),
+        ConfigModule.forRoot({
+          load: [WorkspacesService.load]
+        }),
         PluginsModule.forRoot({ pluginsPath }),
         WorkspacesModule,
         CompilerModule
