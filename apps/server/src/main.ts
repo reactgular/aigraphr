@@ -13,6 +13,9 @@ const brand = getBrandConfig();
 // @see: https://github.com/sindresorhus/log-symbols for console icons
 // @see: https://github.com/sindresorhus/figures for more console icons
 
+// dynamic imports for ESM modules
+// @see https://dev.to/thedubcoder/the-commonjs-vs-es-modules-war-is-taxing-for-us-regular-folks-out-here-one-way-to-interop-55e
+
 cli({
   name: brand.name,
   version: brand.version,

@@ -1,7 +1,7 @@
 import { command } from 'cleye';
 import path from 'node:path';
 import { AIGRAPHR_FOLDER } from '../config/aigraphr-folder';
-import { FileType, getFileType } from '../config/workspace.config';
+import { FileType, getFileType } from '../config/file-type';
 
 export const init = command({
   name: 'init',
