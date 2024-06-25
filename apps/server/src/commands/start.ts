@@ -3,6 +3,7 @@ import { bootstrap } from '../bootstrap/bootstrap';
 
 export const start = command({
   name: 'start',
+  alias: 's',
   flags: {
     pluginsPath: {
       type: String,
@@ -17,7 +18,8 @@ export const start = command({
   help: {
     description: 'Start the server',
     examples: [
-      'cli start'
+      'aigraphr start',
+      'aigraphr -s'
     ]
   }
 }, async (parsed) => {

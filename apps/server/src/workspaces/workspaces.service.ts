@@ -3,6 +3,7 @@ import { promises as fs } from 'fs';
 import * as yaml from 'js-yaml';
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
+import { AIGRAPHR_FOLDER } from '../config/aigraphr-folder';
 import { findFolder } from '../config/find-folder';
 
 @Injectable()
@@ -12,9 +13,9 @@ export class WorkspacesService {
    * @todo if we can't find the folder, user is in wrong folder or didn't run init command. Need to give friendly feedback.
    */
   public static async getAIGraphrFolder() {
-    const aigraphr = await findFolder('.aigraphr', process.cwd());
+    const aigraphr = await findFolder(AIGRAPHR_FOLDER, process.cwd());
     if (!aigraphr) {
-      throw new Error('No .aigraphr folder found');
+      throw new Error(`No ${AIGRAPHR_FOLDER} folder found`);
     }
     return aigraphr;
   }

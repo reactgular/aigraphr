@@ -1,7 +1,6 @@
 import { cli } from 'cleye';
 import { bootstrap } from './bootstrap/bootstrap';
 import { compile } from './commands/compile';
-import { info } from './commands/info';
 import { init } from './commands/init';
 import { start } from './commands/start';
 import { getBrandConfig } from './config/brand.config';
@@ -18,7 +17,7 @@ cli({
   name: brand.name,
   version: brand.version,
   help: { version: brand.version, description: brand.description },
-  commands: [start, compile, info, init],
+  commands: [start, compile, init],
   flags: {
     pluginsPath: {
       type: String,

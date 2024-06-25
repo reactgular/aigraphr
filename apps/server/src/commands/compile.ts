@@ -3,6 +3,7 @@ import { bootstrap } from '../bootstrap/bootstrap';
 
 export const compile = command({
   name: 'compile',
+  alias: 'c',
   flags: {
     pluginsPath: {
       type: String,
@@ -17,7 +18,8 @@ export const compile = command({
   help: {
     description: 'Compile the graph to source code.',
     examples: [
-      'cli compile'
+      'aigraphr compile',
+      'aigraphr -c'
     ]
   }
 }, async (parsed) => {

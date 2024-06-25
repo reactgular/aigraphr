@@ -1,16 +1,19 @@
-import { findFolder } from './find-folder';
+import { promises as fs } from 'fs';
 
-export const getAIGraphrFolder2: () => Promise<string | null> = (() => {
-  let aigraphr: string | null | undefined = undefined;
-
-  return async function() {
-    if (aigraphr === undefined) {
-      aigraphr = (await findFolder('.aigraphr', process.cwd())) ?? null;
-    }
-    return aigraphr;
-  };
-})();
-
-export const getAIGraphrFolder = async () => {
-  return (await findFolder('.aigraphr', process.cwd())) ?? null;
+export enum FileType {
+  DIRECTORY = 'directory',
+  FILE = 'file',
+  NOT_FOUND = 'not_found'
 }
+
+export const getFileType = async (path: string): Promise<FileType> => {
+  try {
+    const stat = await fs.stat(path);
+    return stat.isDirectory() ? FileType.DIRECTORY : FileType.FILE;
+  } catch (err) {
+    if ((err as NodeJS.ErrnoException).code === 'ENOENT') {
+      return FileType.NOT_FOUND;
+    }
+    throw err;
+  }
+};

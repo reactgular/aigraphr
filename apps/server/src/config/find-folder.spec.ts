@@ -1,5 +1,6 @@
 import { promises as fs } from 'fs';
 import path from 'path';
+import { AIGRAPHR_FOLDER } from './aigraphr-folder';
 import { findFolder } from './find-folder';
 
 jest.mock('fs', () => ({
@@ -14,7 +15,7 @@ const notFound: NodeJS.ErrnoException = new Error('Not found');
 notFound.code = 'ENOENT';
 
 describe('findFolder', () => {
-  const find = '.aigraphr';
+  const find = AIGRAPHR_FOLDER;
 
   beforeEach(() => {
     jest.clearAllMocks();
