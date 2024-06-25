@@ -1,7 +1,7 @@
 import { command } from 'cleye';
 import path from 'node:path';
 import { AIGRAPHR_FOLDER } from '../config/aigraphr-folder';
-import { FileType, getFileType } from '../config/file-type';
+import { getFileType } from '../config/file-type';
 
 export const init = command({
   name: 'init',
@@ -34,10 +34,10 @@ export const init = command({
 // Terminals with Unicode support:     ✔ Finished successfully!
 // Terminals without Unicode support:  √ Finished successfully!
 
-  const stat = await getFileType(path.join(process.cwd(), AIGRAPHR_FOLDER));
-  if (stat === FileType.DIRECTORY) {
+  const type = await getFileType(path.join(process.cwd(), AIGRAPHR_FOLDER));
+  if (type === 'directory') {
     // Load workspace.json
-  } else if (stat === FileType.FILE) {
+  } else if (type === 'file') {
     // exists but is a file
   } else {
     // does not exist

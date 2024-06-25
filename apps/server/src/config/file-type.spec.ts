@@ -1,55 +1,53 @@
-import { promises as fs } from 'fs';
-import { FileType, getFileType } from './file-type';
+import promises from 'fs/promises';
+import { Stats } from 'node:fs';
+import { getFileType } from './file-type';
 
-// Mocking fs.stat
-jest.mock('fs', () => {
-  return {
-    promises: {
-      stat: jest.fn()
-    }
-  };
-});
+jest.mock('fs/promises', () => ({
+    stat: jest.fn()
+}));
+
+// const mocked = fs as jest.Mocked<typeof fs>;
+const mocked = jest.mocked(promises);
 
 describe('getFileType', () => {
-  it('returns FileType.DIRECTORY when the path is a directory', async () => {
-    // Mock fs.stat to simulate a directory
-    (fs.stat as jest.Mock).mockResolvedValue({
-      isDirectory: () => true,
-      isFile: () => false
-    });
+  it('returns "file" when the path is a file', async () => {
+    // Setup the mock to simulate a file
+    mocked.stat.mockResolvedValue({
+      isFile: () => true,
+      isDirectory: () => false
+    } as Stats);
 
-    const type = await getFileType('path/to/directory');
-    expect(type).toBe(FileType.DIRECTORY);
+    const result = await getFileType('path/to/file');
+    expect(result).toBe('file');
   });
 
-  it('returns FileType.FILE when the path is a file', async () => {
-    // Mock fs.stat to simulate a file
-    (fs.stat as jest.Mock).mockResolvedValue({
-      isDirectory: () => false,
-      isFile: () => true
-    });
+  it('returns "directory" when the path is a directory', async () => {
+    // Setup the mock to simulate a directory
+    mocked.stat.mockResolvedValue({
+      isFile: () => false,
+      isDirectory: () => true
+    } as Stats);
 
-    const type = await getFileType('path/to/file.txt');
-    expect(type).toBe(FileType.FILE);
+    const result = await getFileType('path/to/directory');
+    expect(result).toBe('directory');
   });
 
-  it('returns FileType.NOT_FOUND when the path does not exist', async () => {
-    // Mock fs.stat to simulate a non-existing path
-    (fs.stat as jest.Mock).mockRejectedValue({
-      code: 'ENOENT'
-    });
+  it('returns false when the path is neither a file nor a directory', async () => {
+    // Setup the mock to simulate neither a file nor a directory
+    mocked.stat.mockResolvedValue({
+      isFile: () => false,
+      isDirectory: () => false
+    } as Stats);
 
-    const type = await getFileType('path/to/nonexistent');
-    expect(type).toBe(FileType.NOT_FOUND);
+    const result = await getFileType('path/to/unknown');
+    expect(result).toBe(false);
   });
 
-  it('throws an error when fs.stat fails with an unexpected error', async () => {
-    // Mock fs.stat to simulate an unexpected error
-    const error = new Error('Unexpected error');
-    (fs.stat as jest.Mock).mockRejectedValue(error);
+  it('returns undefined when there is an error, such as the path does not exist', async () => {
+    // Setup the mock to simulate an error
+    mocked.stat.mockRejectedValue(new Error('ENOENT: no such file or directory, stat'));
 
-    await expect(getFileType('path/to/error'))
-      .rejects
-      .toThrow(error);
+    const result = await getFileType('path/to/nonexistent');
+    expect(result).toBe(undefined);
   });
 });

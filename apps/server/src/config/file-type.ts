@@ -1,19 +1,10 @@
-import { promises as fs } from 'fs';
+import promises from 'fs/promises';
 
-export enum FileType {
-  DIRECTORY = 'directory',
-  FILE = 'file',
-  NOT_FOUND = 'not_found'
-}
-
-export const getFileType = async (path: string): Promise<FileType> => {
+export const getFileType = async (path: string): Promise<'file' | 'directory' | false | undefined> => {
   try {
-    const stat = await fs.stat(path);
-    return stat.isDirectory() ? FileType.DIRECTORY : FileType.FILE;
+    const stat = await promises.stat(path);
+    return stat.isDirectory() ? 'directory' : stat.isFile() ? 'file' : false;
   } catch (err) {
-    if ((err as NodeJS.ErrnoException).code === 'ENOENT') {
-      return FileType.NOT_FOUND;
-    }
-    throw err;
+    return undefined;
   }
 };
