@@ -2,6 +2,7 @@ import { command } from 'cleye';
 import path from 'node:path';
 import { AIGRAPHR_FOLDER } from '../config/aigraphr-folder';
 import { getFileType } from '../config/file-type';
+import { workspacePrompts } from '../workspaces/workspace-prompts';
 
 export const init = command({
   name: 'init',
@@ -31,16 +32,16 @@ export const init = command({
   // 2. If so, load the workspace.json and let the user modify it.
   // 3. If not, create the .aigraphr folder and workspace.json file.
 
-// Terminals with Unicode support:     ✔ Finished successfully!
-// Terminals without Unicode support:  √ Finished successfully!
+  const wpPath = path.resolve(process.cwd(), AIGRAPHR_FOLDER);
+  const type = await getFileType(wpPath);
 
-  const type = await getFileType(path.join(process.cwd(), AIGRAPHR_FOLDER));
   if (type === 'directory') {
-    // Load workspace.json
+    // Read workspace.json file from wpPath and parse JSON using fs
+
   } else if (type === 'file') {
     // exists but is a file
   } else {
-    // does not exist
+    await workspacePrompts();
   }
 
   // const boot = await bootstrap({

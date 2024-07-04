@@ -3,7 +3,7 @@ import { promises as fs } from 'fs';
 import * as yaml from 'js-yaml';
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
-import { AIGRAPHR_FOLDER } from '../config/aigraphr-folder';
+import { AIGRAPHR_FOLDER, AIGRAPHR_WORKSPACE } from '../config/aigraphr-folder';
 import { findFolder } from '../config/find-folder';
 
 @Injectable()
@@ -11,6 +11,7 @@ export class WorkspacesService {
   /**
    * @todo this should go into the ConfigModule
    * @todo if we can't find the folder, user is in wrong folder or didn't run init command. Need to give friendly feedback.
+   * @deprecated
    */
   public static async getAIGraphrFolder() {
     const aigraphr = await findFolder(AIGRAPHR_FOLDER, process.cwd());
@@ -20,13 +21,17 @@ export class WorkspacesService {
     return aigraphr;
   }
 
+  /**
+   * @deprecated
+   */
   public static async getWorkspaceJsonPath() {
     const aigraphr = await WorkspacesService.getAIGraphrFolder();
-    return path.resolve(path.join(aigraphr, 'workspace.json'));
+    return path.resolve(path.join(aigraphr, AIGRAPHR_WORKSPACE));
   }
 
   /**
    * @todo parsing the workspace.json should maybe happen afterwards? what if parsing fails? we should show friendly confole feedback.
+   * @deprecated
    */
   public static async load() {
     const aigraphr = await WorkspacesService.getAIGraphrFolder();
