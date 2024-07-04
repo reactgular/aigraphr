@@ -1,45 +1,127 @@
-import { Injectable } from '@nestjs/common';
-import { promises as fs } from 'fs';
-import * as yaml from 'js-yaml';
-import { readFileSync } from 'node:fs';
+import * as prompts from '@clack/prompts';
+import { Inject, Injectable } from '@nestjs/common';
+import fs from 'fs/promises';
 import path from 'node:path';
-import { AIGRAPHR_FOLDER, AIGRAPHR_WORKSPACE } from '../config/aigraphr-folder';
-import { findFolder } from '../config/find-folder';
+import { AppConfig } from '../config/app.config';
+import { WORKSPACE_VERSION, WorkspaceLanguage, WorkspacesSchema } from './workspaces.schema';
+import { AIGRAPHR_FOLDER, AIGRAPHR_WORKSPACE } from './workspaces.tokens';
 
+type Option<TValue> = {
+  value: TValue;
+  label?: string;
+  hint?: string;
+};
+
+/**
+ * @todo - replace cwd with injectable
+ */
 @Injectable()
 export class WorkspacesService {
-  /**
-   * @todo this should go into the ConfigModule
-   * @todo if we can't find the folder, user is in wrong folder or didn't run init command. Need to give friendly feedback.
-   * @deprecated
-   */
-  public static async getAIGraphrFolder() {
-    const aigraphr = await findFolder(AIGRAPHR_FOLDER, process.cwd());
-    if (!aigraphr) {
-      throw new Error(`No ${AIGRAPHR_FOLDER} folder found`);
+  private readonly workspacePath: string;
+
+  public constructor(
+    @Inject(AIGRAPHR_FOLDER) aigraphrFolder: string,
+    @Inject(AIGRAPHR_WORKSPACE) workspaceFile: string
+  ) {
+    this.workspacePath = path.resolve(aigraphrFolder, workspaceFile);
+  }
+
+  public static async load(): Promise<Partial<AppConfig>> {
+    return {
+      workspace: null
+    };
+  }
+
+  public async initialize() {
+    return await this.exists()
+      ? await this.createOrUpdate(await this.load())
+      : await this.createOrUpdate();
+  }
+
+  private async createOrUpdate(workspace?: WorkspacesSchema) {
+    const newWorkspace = await this.prompts(workspace);
+    if (newWorkspace) {
+      await this.save(newWorkspace);
+      return true;
     }
-    return aigraphr;
+    return false;
+  };
+
+  private async exists() {
+    try {
+      await fs.access(this.workspacePath);
+      return true;
+    } catch (error) {
+      return false;
+    }
   }
 
-  /**
-   * @deprecated
-   */
-  public static async getWorkspaceJsonPath() {
-    const aigraphr = await WorkspacesService.getAIGraphrFolder();
-    return path.resolve(path.join(aigraphr, AIGRAPHR_WORKSPACE));
+  private async load(): Promise<WorkspacesSchema> {
+    try {
+      const fileContent = await fs.readFile(this.workspacePath, 'utf-8');
+      return JSON.parse(fileContent);
+    } catch (error) {
+      console.error(`Error reading or parsing ${this.workspacePath}:`, error);
+      throw error;
+    }
   }
 
-  /**
-   * @todo parsing the workspace.json should maybe happen afterwards? what if parsing fails? we should show friendly confole feedback.
-   * @deprecated
-   */
-  public static async load() {
-    const aigraphr = await WorkspacesService.getAIGraphrFolder();
+  private async prompts(workspace: WorkspacesSchema): Promise<WorkspacesSchema | null> {
+    const values = await prompts.group({
+      intro: () => prompts.intro('Welcome to the workspace setup!'),
+      name: () => prompts.text({
+        message: 'Workspace name?',
+        placeholder: 'workspace',
+        validate(value) {
+          if (value.length === 0) return `Workspace name is required!`;
+        },
+        initialValue: workspace?.name ?? 'workspace'
+      }),
+      langType: () => prompts.select<Option<WorkspaceLanguage>[], WorkspaceLanguage>({
+        message: 'Pick a project type.',
+        options: [
+          { value: WorkspaceLanguage.TYPESCRIPT, label: 'TypeScript' },
+          { value: WorkspaceLanguage.PYTHON, label: 'Python' }
+        ],
+        initialValue: workspace?.langType ?? WorkspaceLanguage.TYPESCRIPT
+      }),
+      plugins: () => prompts.multiselect({
+        message: 'Select plugins.',
+        options: [
+          { value: 'OpenAI', label: 'OpenAI', hint: 'recommended' },
+          { value: 'Google', label: 'Google Cloud AI' },
+          { value: 'AzureAI', label: 'Microsoft Azure AI' }
+        ],
+        required: false,
+        initialValues: workspace?.plugins ?? []
+      }),
+      confirm: () => prompts.confirm({
+        message: 'Is this OK?'
+      })
+    }, {
+      onCancel: (opts) => {
+        prompts.cancel('Cancelled');
+      }
+    });
 
-    const content = await fs.readFile(path.join(aigraphr, 'workspace.yaml'), 'utf8');
+    if(prompts.isCancel(values)) {
+      return null;
+    }
 
-    return yaml.load(
-      readFileSync(path.join(aigraphr, 'workspace.yaml'), 'utf8')
-    ) as Record<string, any>;
+    return {
+      name: values.name,
+      langType: values.langType,
+      plugins: values.plugins,
+      version: WORKSPACE_VERSION
+    }
+  }
+
+  private async save(workspace: WorkspacesSchema) {
+    try {
+      await fs.writeFile(this.workspacePath, JSON.stringify(workspace, null, 2));
+    } catch (error) {
+      console.error(`Error writing ${this.workspacePath}:`, error);
+      throw error;
+    }
   }
 }

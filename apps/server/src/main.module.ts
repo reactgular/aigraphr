@@ -26,7 +26,7 @@ export class MainModule implements OnModuleInit {
           load: [WorkspacesService.load]
         }),
         PluginsModule.forRoot({ pluginsPath }),
-        WorkspacesModule,
+        WorkspacesModule.forRoot(),
         CompilerModule
       ],
       controllers: [AppController],

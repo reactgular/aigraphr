@@ -1,10 +1,6 @@
 import { DynamicModule, Inject, Injectable } from '@nestjs/common';
 import path from 'node:path';
-
-/**
- * @deprecated this could be replaced when the workspace JSON file defines what plugins to load.
- */
-export const BOOTSTRAP_PLUGINS = 'BOOTSTRAP_PLUGINS';
+import { BOOTSTRAP_PLUGINS } from './plugins.tokens';
 
 @Injectable()
 export class PluginsService {

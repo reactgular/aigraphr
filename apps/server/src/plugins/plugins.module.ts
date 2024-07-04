@@ -1,5 +1,6 @@
 import { DynamicModule, Module } from '@nestjs/common';
-import { BOOTSTRAP_PLUGINS, PluginsService } from './plugins.service';
+import { PluginsService } from './plugins.service';
+import { BOOTSTRAP_PLUGINS } from './plugins.tokens';
 
 export interface PluginsModuleOptions {
   pluginsPath?: string;

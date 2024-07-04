@@ -1,6 +1,6 @@
 import { promises as fs } from 'fs';
 import path from 'path';
-import { AIGRAPHR_FOLDER } from './aigraphr-folder';
+import { AIGRAPHR_FOLDER } from '../workspaces/workspaces.tokens';
 import { findFolder } from './find-folder';
 
 jest.mock('fs', () => ({
