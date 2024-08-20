@@ -1,6 +1,5 @@
 import { promises as fs } from 'fs';
 import path from 'path';
-import { AIGRAPHR_FOLDER } from '../workspaces/workspaces.tokens';
 import { findFolder } from './find-folder';
 
 jest.mock('fs', () => ({
@@ -15,7 +14,7 @@ const notFound: NodeJS.ErrnoException = new Error('Not found');
 notFound.code = 'ENOENT';
 
 describe('findFolder', () => {
-  const find = AIGRAPHR_FOLDER;
+  const find = '.aigraphr';
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -63,7 +62,7 @@ describe('findFolder', () => {
   });
 
   it('should return undefined if the root directory is reached', async () => {
-    const start =  path.resolve(path.sep);
+    const start = path.resolve(path.sep);
 
     mockStat.mockRejectedValue(notFound);
 
