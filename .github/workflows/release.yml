@@ -28,6 +28,7 @@ on:
 concurrency: "release"
 
 env:
+  NX_PARALLEL: 1
   NX: node_modules/.bin/nx
 
 jobs:

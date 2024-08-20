@@ -18,6 +18,7 @@ on:
 concurrency: "build"
 
 env:
+  NX_PARALLEL: 1
   NX: node_modules/.bin/nx
 
 jobs:
@@ -89,7 +90,7 @@ jobs:
         uses: ./.github/actions/install
 
       - name: "🔨 Test"
-        run: ${{ env.NX }} run -t test --passWithNoTests
+        run: ${{ env.NX }} run-many -t test --passWithNoTests
 
   build:
     runs-on: ubuntu-latest
