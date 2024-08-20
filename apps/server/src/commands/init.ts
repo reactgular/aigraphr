@@ -1,9 +1,9 @@
 import { command } from 'cleye';
 import { bootstrap } from '../bootstrap/bootstrap';
 
-export const start = command({
-  name: 'start',
-  alias: 's',
+export const init = command({
+  name: 'init',
+  alias: 'i',
   flags: {
     pluginsPath: {
       type: String,
@@ -16,10 +16,10 @@ export const start = command({
     }
   },
   help: {
-    description: 'Start the server',
+    description: `Create .aigraphr folder`,
     examples: [
-      'aigraphr start',
-      'aigraphr -s'
+      'aigraphr init',
+      'aigraphr -i'
     ]
   }
 }, async (parsed) => {
@@ -27,6 +27,5 @@ export const start = command({
     pluginsPath: parsed.flags.pluginsPath,
     logging: parsed.flags.log
   });
-
-  await boot.start();
+  await boot.workspaces.initialize();
 });

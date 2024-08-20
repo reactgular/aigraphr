@@ -1,0 +1,3 @@
+export const AIGRAPHR_FOLDER = Symbol('AIGRAPHR_FOLDER');
+
+export const AIGRAPHR_WORKSPACE = Symbol('AIGRAPHR_WORKSPACE');

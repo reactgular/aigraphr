@@ -49,3 +49,6 @@ apps/server/src/client
 
 # Hide .env files
 **/.env
+
+# Ignored for testing
+.aigraphr
