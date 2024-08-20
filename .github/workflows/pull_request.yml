@@ -17,7 +17,7 @@ jobs:
     needs: [ build ]
     if: ${{ always() }}
     steps:
-      - name: "Debug each needs.build.result"
+      - name: "Debug needs.build.result"
         run: echo "needs.build.result ${{ needs.build.result }}"
 
       - name: "✅ Success"
