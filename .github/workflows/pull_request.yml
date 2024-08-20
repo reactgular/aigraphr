@@ -18,11 +18,11 @@ jobs:
     if: ${{ always() }}
     steps:
       - name: "✅ Success"
-        if: ${{ success() }}
+        if: ${{ needs.build.result == 'success' }}
         run: echo "::notice title={Success}::This step triggers auto merge if all dependencies are met."
 
       - name: "❌ Failure"
-        if: ${{ failure() }}
+        if: ${{ needs.build.result != 'success' }}
         run: |
           echo "::error title={Failure}::This step stops the auto merge process."
           exit 1
