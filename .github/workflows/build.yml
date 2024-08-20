@@ -89,7 +89,7 @@ jobs:
         uses: ./.github/actions/install
 
       - name: "🔨 Test"
-        run: ${{ env.NX }} affected -t test --passWithNoTests
+        run: ${{ env.NX }} run -t test --passWithNoTests
 
   build:
     runs-on: ubuntu-latest
