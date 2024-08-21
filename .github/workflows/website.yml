@@ -33,12 +33,12 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: "🔨 Build"
-        run: ${{ env.NX }} run website:build:production
+        run: ${{ env.NX }} run client:build:production
 
       - name: "📦 Upload artifact"
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist/apps/website
+          path: ./dist/apps/client
 
   deploy:
     permissions:

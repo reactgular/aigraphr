@@ -5,10 +5,9 @@
     "module": "commonjs",
     "types": [
       "jest",
-      "node",
-      "@nx/react/typings/cssmodule.d.ts",
-      "@nx/react/typings/image.d.ts"
-    ]
+      "node"
+    ],
+    "jsx": "react"
   },
   "include": [
     "jest.config.ts",

@@ -1,9 +1,9 @@
 {
   "name": "client",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/client/src",
+  "sourceRoot": "apps/client",
   "projectType": "application",
   "tags": [],
-  "// targets": "to see all targets run: nx show project aigraphr --web",
+  "// targets": "to see all targets run: nx show project website --web",
   "targets": {}
 }
