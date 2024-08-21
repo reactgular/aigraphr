@@ -4,7 +4,8 @@
   "homepage": "https://aigraphr.com/",
   "private": false,
   "scripts": {
-    "dev": "bash -c './dev.sh start'",
+    "client": "nx run client:dev",
+    "server": "bash -c './dev.sh start'",
     "dev:help": "bash -c './dev.sh --help'",
     "dev:compile": "bash -c './dev.sh compile'",
     "dev:init": "bash -c './dev.sh init'",

@@ -1,6 +1,7 @@
+import { FC } from 'react';
 import styles from './page.module.css';
 
-export default function Index() {
+const Index: FC = () => {
   /*
    * Replace the elements below with your own.
    *
@@ -475,4 +476,6 @@ export default function Index() {
       </div>
     </div>
   );
-}
+};
+
+export default Index;
