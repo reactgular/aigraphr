@@ -26,10 +26,9 @@
     "**/*.tsx",
     "**/*.js",
     "**/*.jsx",
-    "../../apps/client/.next/types/**/*.ts",
-    "../../dist/apps/client/.next/types/**/*.ts",
     "next-env.d.ts",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "../../dist/apps/client/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",
