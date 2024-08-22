@@ -7,8 +7,7 @@ import classes from './Header.module.css';
 
 const links = [
     {link: '#features', label: 'Features'},
-    {link: '#faq', label: 'FAQ'},
-    {link: '#about', label: 'About'}
+    {link: '#faq', label: 'FAQ'}
 ];
 
 export function Header() {

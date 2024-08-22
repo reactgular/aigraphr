@@ -1,8 +1,9 @@
 import {ActionIcon, Container, Group, rem} from '@mantine/core';
 import {
     IconBrandInstagram,
-    IconBrandTwitter,
-    IconBrandYoutube
+    IconBrandLinkedin,
+    IconBrandThreads,
+    IconBrandTwitter
 } from '@tabler/icons-react';
 import classes from './Footer.module.css';
 
@@ -16,19 +17,51 @@ export function Footer() {
                     justify="flex-end"
                     wrap="nowrap"
                 >
-                    <ActionIcon size="lg" color="gray" variant="subtle">
+                    <ActionIcon
+                        component={'a'}
+                        href={'https://x.com/NickFoscarini'}
+                        size="lg"
+                        color="gray"
+                        variant="subtle"
+                    >
                         <IconBrandTwitter
                             style={{width: rem(18), height: rem(18)}}
                             stroke={1.5}
                         />
                     </ActionIcon>
-                    <ActionIcon size="lg" color="gray" variant="subtle">
-                        <IconBrandYoutube
+                    <ActionIcon
+                        component={'a'}
+                        href={
+                            'https://www.linkedin.com/in/nick-foscarini-javascript-developer/'
+                        }
+                        size="lg"
+                        color="gray"
+                        variant="subtle"
+                    >
+                        <IconBrandLinkedin
                             style={{width: rem(18), height: rem(18)}}
                             stroke={1.5}
                         />
                     </ActionIcon>
-                    <ActionIcon size="lg" color="gray" variant="subtle">
+                    <ActionIcon
+                        component={'a'}
+                        href={'https://www.threads.net/@nick.foscarini'}
+                        size="lg"
+                        color="gray"
+                        variant="subtle"
+                    >
+                        <IconBrandThreads
+                            style={{width: rem(18), height: rem(18)}}
+                            stroke={1.5}
+                        />
+                    </ActionIcon>
+                    <ActionIcon
+                        component={'a'}
+                        href={'https://www.instagram.com/nick.foscarini/'}
+                        size="lg"
+                        color="gray"
+                        variant="subtle"
+                    >
                         <IconBrandInstagram
                             style={{width: rem(18), height: rem(18)}}
                             stroke={1.5}
