@@ -24,7 +24,6 @@ export function Header() {
                                     key={link.label}
                                     href={link.link}
                                     className={classes.link}
-                                    onClick={(event) => event.preventDefault()}
                                 >
                                     {link.label}
                                 </Link>
