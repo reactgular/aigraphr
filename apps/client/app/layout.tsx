@@ -19,9 +19,11 @@ const Layout: FC<PropsWithChildren> = ({children}) => {
                 />
                 <ColorSchemeScript />
             </head>
-            <MantineProvider theme={mantineTheme}>
-                <body>{children}</body>
-            </MantineProvider>
+            <body>
+                <MantineProvider theme={mantineTheme}>
+                    {children}
+                </MantineProvider>
+            </body>
         </html>
     );
 };
