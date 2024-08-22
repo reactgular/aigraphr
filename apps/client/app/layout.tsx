@@ -1,7 +1,7 @@
 import './global.css';
 import {ColorSchemeScript, MantineProvider} from '@mantine/core';
 import {FC, PropsWithChildren} from 'react';
-import {mantineTheme} from '../mantine-theme';
+import {mantineTheme} from '../src/mantine-theme';
 
 export const metadata = {
     title: 'Welcome to website',
@@ -19,11 +19,9 @@ const Layout: FC<PropsWithChildren> = ({children}) => {
                 />
                 <ColorSchemeScript />
             </head>
-            <body>
-                <MantineProvider theme={mantineTheme}>
-                    {children}
-                </MantineProvider>
-            </body>
+            <MantineProvider theme={mantineTheme}>
+                <body>{children}</body>
+            </MantineProvider>
         </html>
     );
 };
