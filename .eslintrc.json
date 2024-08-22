@@ -3,8 +3,13 @@
   "ignorePatterns": [
     "**/*"
   ],
+  "extends": [
+    "plugin:prettier/recommended",
+    "prettier"
+  ],
   "plugins": [
-    "@nx"
+    "@nx",
+    "prettier"
   ],
   "overrides": [
     {
@@ -29,6 +34,12 @@
               }
             ]
           }
+        ],
+        "prettier/prettier": [
+          "error",
+          {
+            "endOfLine": "auto"
+          }
         ]
       }
     },
@@ -40,7 +51,12 @@
       "extends": [
         "plugin:@nx/typescript"
       ],
-      "rules": {}
+      "rules": {
+        "@typescript-eslint/no-unused-vars": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-non-null-assertion": "off",
+        "@typescript-eslint/no-namespace": "off"
+      }
     },
     {
       "files": [
@@ -53,15 +69,8 @@
       "rules": {}
     },
     {
-      "files": [
-        "*.spec.ts",
-        "*.spec.tsx",
-        "*.spec.js",
-        "*.spec.jsx"
-      ],
-      "env": {
-        "jest": true
-      },
+      "files": "*.json",
+      "parser": "jsonc-eslint-parser",
       "rules": {}
     }
   ]

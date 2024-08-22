@@ -1,5 +1,5 @@
-import { WorkspacesSchema } from '../workspaces/workspaces.schema';
+import {WorkspacesSchema} from '../workspaces/workspaces.schema';
 
 export interface AppConfig {
-  workspace: WorkspacesSchema | null;
+    workspace: WorkspacesSchema | null;
 }

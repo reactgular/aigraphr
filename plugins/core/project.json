@@ -1,24 +1,20 @@
 {
-  "name": "core",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "plugins/core/src",
-  "projectType": "library",
-  "tags": [],
-  "targets": {
-    "build": {
-      "executor": "@nx/js:tsc",
-      "outputs": [
-        "{options.outputPath}"
-      ],
-      "options": {
-        "outputPath": "dist/plugins/core",
-        "tsConfig": "plugins/core/tsconfig.lib.json",
-        "packageJson": "plugins/core/package.json",
-        "main": "plugins/core/src/index.ts",
-        "assets": [
-          "plugins/core/*.md"
-        ]
-      }
+    "name": "core",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "plugins/core/src",
+    "projectType": "library",
+    "tags": [],
+    "targets": {
+        "build": {
+            "executor": "@nx/js:tsc",
+            "outputs": ["{options.outputPath}"],
+            "options": {
+                "outputPath": "dist/plugins/core",
+                "tsConfig": "plugins/core/tsconfig.lib.json",
+                "packageJson": "plugins/core/package.json",
+                "main": "plugins/core/src/index.ts",
+                "assets": ["plugins/core/*.md"]
+            }
+        }
     }
-  }
 }

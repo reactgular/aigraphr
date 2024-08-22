@@ -1,19 +1,19 @@
 import packageJson from '../../package.json';
 
 export interface BrandConfig {
-  description: string;
+    description: string;
 
-  name: string;
+    name: string;
 
-  version: string;
+    version: string;
 }
 
 const BRAND_CONFIG: BrandConfig = {
-  name: 'aigraphr',
-  version: packageJson.version,
-  description: packageJson.description
+    name: 'aigraphr',
+    version: packageJson.version,
+    description: packageJson.description
 };
 
 export const getBrandConfig = (): BrandConfig => {
-  return BRAND_CONFIG;
+    return BRAND_CONFIG;
 };

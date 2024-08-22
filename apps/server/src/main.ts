@@ -1,9 +1,9 @@
-import { cli } from 'cleye';
-import { bootstrap } from './bootstrap/bootstrap';
-import { compile } from './commands/compile';
-import { init } from './commands/init';
-import { start } from './commands/start';
-import { getBrandConfig } from './config/brand.config';
+import {cli} from 'cleye';
+import {bootstrap} from './bootstrap/bootstrap';
+import {compile} from './commands/compile';
+import {init} from './commands/init';
+import {start} from './commands/start';
+import {getBrandConfig} from './config/brand.config';
 
 const brand = getBrandConfig();
 
@@ -16,37 +16,39 @@ const brand = getBrandConfig();
 // dynamic imports for ESM modules
 // @see https://dev.to/thedubcoder/the-commonjs-vs-es-modules-war-is-taxing-for-us-regular-folks-out-here-one-way-to-interop-55e
 
-cli({
-  name: brand.name,
-  version: brand.version,
-  help: { version: brand.version, description: brand.description },
-  commands: [start, compile, init],
-  flags: {
-    pluginsPath: {
-      type: String,
-      description: 'Path to the plugins directory'
+cli(
+    {
+        name: brand.name,
+        version: brand.version,
+        help: {version: brand.version, description: brand.description},
+        commands: [start, compile, init],
+        flags: {
+            pluginsPath: {
+                type: String,
+                description: 'Path to the plugins directory'
+            },
+            log: {
+                type: Boolean,
+                alias: 'l',
+                description: 'Enable logging'
+            }
+        }
     },
-    log: {
-      type: Boolean,
-      alias: 'l',
-      description: 'Enable logging'
+    async (parsed) => {
+        const [command] = parsed._;
+
+        if (!command) {
+            const boot = await bootstrap({
+                pluginsPath: parsed.flags.pluginsPath,
+                logging: parsed.flags.log
+            });
+
+            await boot.start();
+        } else {
+            // await p.text({
+            //   message: `Unknown command: ${command}`
+            // });
+            // p.cancel(`Run ${brand.name} --help for usage information`);
+        }
     }
-  }
-}, async (parsed) => {
-  const [command] = parsed._;
-
-  if (!command) {
-    const boot = await bootstrap({
-      pluginsPath: parsed.flags.pluginsPath,
-      logging: parsed.flags.log
-    });
-
-    await boot.start();
-  } else {
-    // await p.text({
-    //   message: `Unknown command: ${command}`
-    // });
-    // p.cancel(`Run ${brand.name} --help for usage information`);
-  }
-});
-
+);

@@ -1,11 +1,10 @@
-import { Module } from '@nestjs/common';
+import {Module} from '@nestjs/common';
 
 @Module({
-  controllers: [],
-  providers: [],
-  exports: []
+    controllers: [],
+    providers: [],
+    exports: []
 })
-class OpenAIModule {
-}
+class OpenAIModule {}
 
 export default OpenAIModule;
