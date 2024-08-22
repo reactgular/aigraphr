@@ -1,7 +1,7 @@
 'use client';
 
 import {Accordion, Container, Title} from '@mantine/core';
-import classes from './FaqSimple.module.css';
+import classes from './Faq.module.css';
 
 const FAQ = [
     {
@@ -27,10 +27,10 @@ const FAQ = [
     }
 ];
 
-export function FaqSimple() {
+export function Faq() {
     return (
         <Container size="sm" className={classes.wrapper}>
-            <Title ta="center" className={classes.title}>
+            <Title id="faq" ta="center" className={classes.title}>
                 Frequently Asked Questions
             </Title>
 

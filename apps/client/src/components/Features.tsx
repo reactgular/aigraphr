@@ -16,7 +16,7 @@ import {
     IconLayoutDashboardFilled,
     IconPuzzleFilled
 } from '@tabler/icons-react';
-import classes from './FeaturesCards.module.css';
+import classes from './Features.module.css';
 
 const mockdata = [
     {
@@ -39,7 +39,7 @@ const mockdata = [
     }
 ];
 
-export function FeaturesCards() {
+export function Features() {
     const theme = useMantineTheme();
 
     const features = mockdata.map((feature) => (
@@ -72,7 +72,13 @@ export function FeaturesCards() {
                 </Badge>
             </Group>
 
-            <Title order={2} className={classes.title} ta="center" mt="sm">
+            <Title
+                id="features"
+                order={2}
+                className={classes.title}
+                ta="center"
+                mt="sm"
+            >
                 Why Choose AIGraphr?
             </Title>
 

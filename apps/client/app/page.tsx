@@ -1,14 +1,18 @@
 import {FC} from 'react';
-import {FaqSimple} from '../src/components/FaqSimple';
-import {FeaturesCards} from '../src/components/FeaturesCards';
-import {HeroImageRight} from '../src/components/HeroImageRight';
+import {Faq} from '../src/components/Faq';
+import {Features} from '../src/components/Features';
+import {Footer} from '../src/components/Footer';
+import {Header} from '../src/components/Header';
+import {Hero} from '../src/components/Hero';
 
 const Index: FC = () => {
     return (
         <>
-            <HeroImageRight />
-            <FeaturesCards />
-            <FaqSimple />
+            <Header />
+            <Hero />
+            <Features />
+            <Faq />
+            <Footer />
         </>
     );
 };
