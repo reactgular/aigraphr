@@ -25,9 +25,9 @@ export function Hero() {
                             AIGraphr empowers TypeScript developers to visually
                             design AI workflows, instantly generate source code,
                             and debug in real-time—all within your web browser.
-                            Whether you're integrating with OpenAI or building
-                            custom models, AIGraphr streamlines your process
-                            from idea to implementation.
+                            Whether you&apos;re integrating with OpenAI or
+                            building custom models, AIGraphr streamlines your
+                            process from idea to implementation.
                         </Text>
 
                         <Button

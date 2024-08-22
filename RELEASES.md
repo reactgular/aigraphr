@@ -30,8 +30,8 @@ This document provides instructions on how to perform releases for this project 
 
    These commands will:
 
-  - Prepare the release but skip the publishing step.
-  - Build the necessary components.
-  - Publish the release.
+- Prepare the release but skip the publishing step.
+- Build the necessary components.
+- Publish the release.
 
 Please note that these instructions are for local release. For automated releases, refer to the GitHub Actions workflow defined in `.github/workflows/release.yml`.
