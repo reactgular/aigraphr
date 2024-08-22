@@ -33,13 +33,14 @@
     }
 }
 
+/*noinspection CssInvalidFunction*/
 .title {
     color: var(--mantine-color-white);
     font-family: Greycliff CF,
     var(--mantine-font-family);
     font-weight: 900;
     line-height: 1.05;
-    max-width: rem(500px);
+    max-width: rem(600px);
     font-size: rem(48px);
 
     @media (max-width: $mantine-breakpoint-md) {
@@ -49,16 +50,18 @@
     }
 }
 
+/*noinspection CssInvalidFunction*/
 .description {
     color: var(--mantine-color-white);
     opacity: 0.75;
-    max-width: rem(500px);
+    max-width: rem(600px);
 
     @media (max-width: $mantine-breakpoint-md) {
         max-width: 100%;
     }
 }
 
+/*noinspection CssInvalidFunction*/
 .control {
     padding-left: rem(50px);
     padding-right: rem(50px);

@@ -11,27 +11,31 @@ import {
     Title,
     useMantineTheme
 } from '@mantine/core';
-import {IconCookie, IconGauge, IconUser} from '@tabler/icons-react';
+import {
+    IconDeviceDesktopAnalytics,
+    IconLayoutDashboardFilled,
+    IconPuzzleFilled
+} from '@tabler/icons-react';
 import classes from './FeaturesCards.module.css';
 
 const mockdata = [
     {
-        title: 'Extreme performance',
+        title: 'Visual Workflow Editor',
         description:
-            'This dust is actually a powerful poison that will even make a pro wrestler sick, Regice cloaks itself with frigid air of -328 degrees Fahrenheit',
-        icon: IconGauge
+            'Easily design AI workflows with a drag-and-drop interface. No more writing code from scratch—just connect the nodes, and AIGraphr takes care of the rest, generating clean, maintainable TypeScript code for your project.',
+        icon: IconLayoutDashboardFilled
     },
     {
-        title: 'Privacy focused',
+        title: 'Real-Time Debugging',
         description:
-            'People say it can run at the same speed as lightning striking, Its icy body is so cold, it will not melt even if it is immersed in magma',
-        icon: IconUser
+            'Test and refine your AI workflows directly in the browser. Get immediate feedback, troubleshoot issues on the fly, and ensure your AI models perform as expected before deploying them into production.',
+        icon: IconDeviceDesktopAnalytics
     },
     {
-        title: 'No third parties',
+        title: 'Extensible Plugin System',
         description:
-            'They’re popular, but they’re rare. Trainers who show them off recklessly may be targeted by thieves',
-        icon: IconCookie
+            'Integrate with a wide range of AI models and providers, including OpenAI, with our flexible plugin system. AIGraphr adapts to your needs, whether you’re working with TypeScript, Python, or other languages, thanks to its versatile source code generators.',
+        icon: IconPuzzleFilled
     }
 ];
 
@@ -64,12 +68,12 @@ export function FeaturesCards() {
         <Container size="lg" py="xl">
             <Group justify="center">
                 <Badge variant="filled" size="lg">
-                    Best company ever
+                    Features Still In Development
                 </Badge>
             </Group>
 
             <Title order={2} className={classes.title} ta="center" mt="sm">
-                Integrate effortlessly with any technology stack
+                Why Choose AIGraphr?
             </Title>
 
             <Text
@@ -78,9 +82,10 @@ export function FeaturesCards() {
                 ta="center"
                 mt="md"
             >
-                Every once in a while, you’ll see a Golbat that’s missing some
-                fangs. This happens when hunger drives it to try biting a
-                Steel-type Pokémon.
+                Unlock the power of AI with a tool designed for developers who
+                value speed, efficiency, and seamless integration. AIGraphr
+                simplifies the process of building and managing AI workflows, so
+                you can focus on what really matters—innovation.
             </Text>
 
             <SimpleGrid cols={{base: 1, md: 3}} spacing="xl" mt={50}>

@@ -8,23 +8,26 @@ export function HeroImageRight() {
                 <div className={classes.inner}>
                     <div className={classes.content}>
                         <Title className={classes.title}>
-                            A{' '}
+                            Build{' '}
                             <Text
                                 component="span"
                                 inherit
                                 variant="gradient"
                                 gradient={{from: 'pink', to: 'yellow'}}
                             >
-                                fully featured
+                                AI Workflows
                             </Text>{' '}
-                            React components library
+                            in Minutes with AIGraphr
                         </Title>
 
                         <Text className={classes.description} mt={30}>
-                            Build fully functional accessible web applications
-                            with ease – Mantine includes more than 100
-                            customizable components and hooks to cover you in
-                            any situation
+                            Say goodbye to complex setup and manual coding.
+                            AIGraphr empowers TypeScript developers to visually
+                            design AI workflows, instantly generate source code,
+                            and debug in real-time—all within your web browser.
+                            Whether you're integrating with OpenAI or building
+                            custom models, AIGraphr streamlines your process
+                            from idea to implementation.
                         </Text>
 
                         <Button
@@ -34,7 +37,7 @@ export function HeroImageRight() {
                             className={classes.control}
                             mt={40}
                         >
-                            Get started
+                            Try the Live Demo
                         </Button>
                     </div>
                 </div>

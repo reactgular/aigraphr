@@ -3,8 +3,29 @@
 import {Accordion, Container, Title} from '@mantine/core';
 import classes from './FaqSimple.module.css';
 
-const placeholder =
-    'It can’t help but hear a pin drop from over half a mile away, so it lives deep in the mountains where there aren’t many people or Pokémon.It was born from sludge on the ocean floor. In a sterile environment, the germs within its body can’t multiply, and it dies.It has no eyeballs, so it can’t see. It checks its surroundings via the ultrasonic waves it emits from its mouth.';
+const FAQ = [
+    {
+        question: 'What programming languages does AIGraphr support?',
+        answer: 'AIGraphr primarily supports TypeScript, but it also offers the flexibility to generate code in Python. Future versions may include support for additional languages based on community feedback and contributions.'
+    },
+    {
+        question: 'Do I need to have AI experience to use AIGraphr?',
+        answer: 'Not at all! AIGraphr is designed to be intuitive and user-friendly, making it accessible to both AI beginners and seasoned developers. The visual editor simplifies the process of creating and managing AI workflows, allowing you to focus on building without needing deep AI expertise.'
+    },
+    {
+        question: 'Can I integrate AIGraphr with existing NodeJs projects?',
+        answer: 'Yes, AIGraphr is built to integrate seamlessly with your existing NodeJs projects. It generates TypeScript files that you can easily include in your project, allowing you to build and expand your AI workflows without disrupting your current setup.'
+    },
+    {
+        question:
+            'Is AIGraphr compatible with Git and version control systems?',
+        answer: 'Absolutely! AIGraphr saves projects in a format that is version control friendly, making it easy to track changes, collaborate with others, and manage your AI workflows through Git or any other version control system.'
+    },
+    {
+        question: 'What AI models and providers are supported by AIGraphr?',
+        answer: 'AIGraphr version 1.0 ships with support for OpenAI models, but its plugin system is designed to be extensible. This means you can add support for additional AI models and providers as needed, making AIGraphr adaptable to a wide range of AI development scenarios.'
+    }
+];
 
 export function FaqSimple() {
     return (
@@ -14,43 +35,16 @@ export function FaqSimple() {
             </Title>
 
             <Accordion variant="separated">
-                <Accordion.Item className={classes.item} value="reset-password">
-                    <Accordion.Control>
-                        How can I reset my password?
-                    </Accordion.Control>
-                    <Accordion.Panel>{placeholder}</Accordion.Panel>
-                </Accordion.Item>
-
-                <Accordion.Item
-                    className={classes.item}
-                    value="another-account"
-                >
-                    <Accordion.Control>
-                        Can I create more that one account?
-                    </Accordion.Control>
-                    <Accordion.Panel>{placeholder}</Accordion.Panel>
-                </Accordion.Item>
-
-                <Accordion.Item className={classes.item} value="newsletter">
-                    <Accordion.Control>
-                        How can I subscribe to monthly newsletter?
-                    </Accordion.Control>
-                    <Accordion.Panel>{placeholder}</Accordion.Panel>
-                </Accordion.Item>
-
-                <Accordion.Item className={classes.item} value="credit-card">
-                    <Accordion.Control>
-                        Do you store credit card information securely?
-                    </Accordion.Control>
-                    <Accordion.Panel>{placeholder}</Accordion.Panel>
-                </Accordion.Item>
-
-                <Accordion.Item className={classes.item} value="payment">
-                    <Accordion.Control>
-                        What payment systems to you work with?
-                    </Accordion.Control>
-                    <Accordion.Panel>{placeholder}</Accordion.Panel>
-                </Accordion.Item>
+                {FAQ.map((faq, index) => (
+                    <Accordion.Item
+                        key={index}
+                        className={classes.item}
+                        value={index.toString()}
+                    >
+                        <Accordion.Control>{faq.question}</Accordion.Control>
+                        <Accordion.Panel>{faq.answer}</Accordion.Panel>
+                    </Accordion.Item>
+                ))}
             </Accordion>
         </Container>
     );
