@@ -1,16 +1,13 @@
-import {createTheme, MantineProvider} from '@mantine/core';
 import {FC} from 'react';
-import {HomePage} from '../components/app/HomePage';
-
-const theme = createTheme({
-    /** Put your mantine theme override here */
-});
+import {ColorSchemeToggle} from '../components/ColorSchemeToggle/ColorSchemeToggle';
+import {Welcome} from '../components/Welcome/Welcome';
 
 const Index: FC = () => {
     return (
-        <MantineProvider theme={theme}>
-            <HomePage />
-        </MantineProvider>
+        <>
+            <Welcome />
+            <ColorSchemeToggle />
+        </>
     );
 };
 
