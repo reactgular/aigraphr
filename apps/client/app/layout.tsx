@@ -1,7 +1,7 @@
 import './global.css';
 import {ColorSchemeScript} from '@mantine/core';
 import {FC, PropsWithChildren} from 'react';
-import {AppProvider} from '../src/components/AppProvider';
+import {AppProvider} from '../src/components/app/AppProvider';
 
 export const metadata = {
     title: 'Welcome to website',
