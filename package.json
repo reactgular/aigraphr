@@ -1,17 +1,18 @@
 {
   "name": "@reactgular/aigraphr-root",
-  "license": "MIT",
-  "homepage": "https://aigraphr.com/",
   "private": false,
+  "homepage": "https://aigraphr.com/",
+  "license": "MIT",
   "scripts": {
-    "client": "nx run client:dev",
-    "server": "bash -c './dev.sh start'",
-    "dev:help": "bash -c './dev.sh --help'",
-    "dev:compile": "bash -c './dev.sh compile'",
-    "dev:init": "bash -c './dev.sh init'",
     "build": "nx run-many -t build",
+    "client": "nx run client:dev",
+    "dev:compile": "bash -c './dev.sh compile'",
+    "dev:help": "bash -c './dev.sh --help'",
+    "dev:init": "bash -c './dev.sh init'",
     "lint": "nx run-many -t lint",
+    "server": "bash -c './dev.sh start'",
     "sort": "npx --yes sort-package-json",
+    "storybook": "nx run client:storybook",
     "test": "nx run-many -t test --passWithNoTests"
   },
   "dependencies": {
