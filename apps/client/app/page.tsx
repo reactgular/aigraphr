@@ -1,9 +1,9 @@
 import {FC} from 'react';
-import {Faq} from '../src/components/Faq';
-import {Features} from '../src/components/Features';
-import {Footer} from '../src/components/Footer';
-import {Header} from '../src/components/Header';
-import {Hero} from '../src/components/Hero';
+import {Faq} from '../src/components/home/Faq';
+import {Features} from '../src/components/home/Features';
+import {Footer} from '../src/components/home/Footer';
+import {Header} from '../src/components/home/Header';
+import {Hero} from '../src/components/home/Hero';
 
 const Index: FC = () => {
     return (

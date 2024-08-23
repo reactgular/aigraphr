@@ -2,7 +2,7 @@ import {MantineProvider} from '@mantine/core';
 import {render as testingLibraryRender} from '@testing-library/react';
 import React from 'react';
 import Page from '../app/page';
-import {mantineTheme} from '../src/mantine-theme';
+import {mantineTheme} from '../src/configs/mantine-theme';
 
 function render(ui: React.ReactNode) {
     return testingLibraryRender(<>{ui}</>, {
