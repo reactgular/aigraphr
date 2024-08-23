@@ -1,20 +1,20 @@
 {
-    "name": "graph",
-    "$schema": "../../node_modules/nx/schemas/project-schema.json",
-    "sourceRoot": "libs/graph/src",
-    "projectType": "library",
-    "tags": [],
-    "targets": {
-        "build": {
-            "executor": "@nx/js:tsc",
-            "outputs": ["{options.outputPath}"],
-            "options": {
-                "outputPath": "dist/libs/graph",
-                "tsConfig": "libs/graph/tsconfig.lib.json",
-                "packageJson": "libs/graph/package.json",
-                "main": "libs/graph/src/index.ts",
-                "assets": ["libs/graph/*.md"]
-            }
-        }
+  "name": "graph",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/graph/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/graph",
+        "tsConfig": "libs/graph/tsconfig.lib.json",
+        "packageJson": "libs/graph/package.json",
+        "main": "libs/graph/src/index.ts",
+        "assets": ["libs/graph/*.md"]
+      }
     }
+  }
 }

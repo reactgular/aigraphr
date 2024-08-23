@@ -7,5 +7,17 @@
     "trailingComma": "none",
     "arrowParens": "always",
     "jsxSingleQuote": false,
-    "jsxBracketSameLine": false
+    "jsxBracketSameLine": false,
+    "overrides": [
+        {
+            "files": [
+                "*.json",
+                "*.yaml",
+                "*.yml"
+            ],
+            "options": {
+                "tabWidth": 2
+            }
+        }
+    ]
 }
