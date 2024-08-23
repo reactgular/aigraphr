@@ -1,20 +1,20 @@
 {
-    "name": "openai",
-    "$schema": "../../node_modules/nx/schemas/project-schema.json",
-    "sourceRoot": "plugins/openai/src",
-    "projectType": "library",
-    "tags": [],
-    "targets": {
-        "build": {
-            "executor": "@nx/js:tsc",
-            "outputs": ["{options.outputPath}"],
-            "options": {
-                "outputPath": "dist/plugins/openai",
-                "tsConfig": "plugins/openai/tsconfig.lib.json",
-                "packageJson": "plugins/openai/package.json",
-                "main": "plugins/openai/src/index.ts",
-                "assets": ["plugins/openai/*.md"]
-            }
-        }
+  "name": "openai",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "plugins/openai/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/plugins/openai",
+        "tsConfig": "plugins/openai/tsconfig.lib.json",
+        "packageJson": "plugins/openai/package.json",
+        "main": "plugins/openai/src/index.ts",
+        "assets": ["plugins/openai/*.md"]
+      }
     }
+  }
 }

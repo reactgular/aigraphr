@@ -1,27 +1,27 @@
 {
-    "name": "@reactgular/aigraphr-core",
-    "version": "0.12.0",
-    "license": "MIT",
-    "description": "A collection of Core nodes for the AIGraphr editor.",
-    "homepage": "https://aigraphr.com/",
-    "private": false,
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/reactgular/aigraphr"
-    },
-    "keywords": [
-        "openai",
-        "ai",
-        "typescript",
-        "editor",
-        "graph",
-        "nodes"
-    ],
-    "dependencies": {
-        "tslib": "^2.3.0",
-        "@nestjs/common": "^10.0.2"
-    },
-    "type": "commonjs",
-    "main": "./src/index.js",
-    "typings": "./src/index.d.ts"
+  "name": "@reactgular/aigraphr-core",
+  "version": "0.12.0",
+  "license": "MIT",
+  "description": "A collection of Core nodes for the AIGraphr editor.",
+  "homepage": "https://aigraphr.com/",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/reactgular/aigraphr"
+  },
+  "keywords": [
+    "openai",
+    "ai",
+    "typescript",
+    "editor",
+    "graph",
+    "nodes"
+  ],
+  "dependencies": {
+    "tslib": "^2.3.0",
+    "@nestjs/common": "^10.0.2"
+  },
+  "type": "commonjs",
+  "main": "./src/index.js",
+  "typings": "./src/index.d.ts"
 }

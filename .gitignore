@@ -52,3 +52,5 @@ apps/server/src/client
 
 # Ignored for testing
 .aigraphr
+
+storybook-static
