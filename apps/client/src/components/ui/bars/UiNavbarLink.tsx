@@ -1,6 +1,6 @@
 import {rem, Tooltip, UnstyledButton} from '@mantine/core';
 import {IconHome2} from '@tabler/icons-react';
-import classes from './UiNavbarMinimal.module.css';
+import classes from './UiNavbarLink.module.css';
 
 export interface UiNavbarLinkProps {
     active?: boolean;

@@ -13,7 +13,6 @@ import {
 } from '@tabler/icons-react';
 import {useState} from 'react';
 import {UiNavbarLink} from './UiNavbarLink';
-import classes from './UiNavbarMinimal.module.css';
 
 const DATA = [
     {icon: IconHome2, label: 'Home'},
@@ -30,12 +29,12 @@ export const UiNavbarMinimal = () => {
     const [active, setActive] = useState(0);
 
     return (
-        <nav className={classes.navbar}>
+        <nav className="flex flex-col p-3 border-r">
             <Center>
                 <MantineLogo type="mark" size={30} />
             </Center>
 
-            <div className={classes.navbarMain}>
+            <div className="flex mt-6">
                 <Stack justify="center" gap={0}>
                     {DATA.map((link, index) => (
                         <UiNavbarLink

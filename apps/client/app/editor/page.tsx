@@ -5,7 +5,7 @@ import {UiNavbarMinimal} from '../../src/components/ui/bars/UiNavbarMinimal';
 
 const EditorPage: FC = () => {
     return (
-        <div className="w-full h-full">
+        <div className="flex w-full h-full">
             <UiNavbarMinimal />
         </div>
     );

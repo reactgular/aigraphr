@@ -1,0 +1,18 @@
+.link {
+    @apply flex items-center justify-center;
+    @apply w-[3rem] h-[3rem] rounded-md;
+
+    color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
+
+    &:hover {
+        background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-5));
+    }
+
+    &[data-active] {
+        &,
+        &:hover {
+            background-color: var(--mantine-color-blue-light);
+            color: var(--mantine-color-blue-light-color);
+        }
+    }
+}
