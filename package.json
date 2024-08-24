@@ -19,6 +19,7 @@
     "@clack/prompts": "^0.7.0",
     "@mantine/core": "^7.12.1",
     "@mantine/hooks": "^7.12.1",
+    "@mantinex/mantine-logo": "^1.0.1",
     "@nestjs/common": "^10.0.2",
     "@nestjs/config": "^3.2.2",
     "@nestjs/core": "^10.0.2",

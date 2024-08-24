@@ -1,5 +1,3 @@
-'use client';
-
 import {MantineProvider} from '@mantine/core';
 import {FC, PropsWithChildren} from 'react';
 import {mantineTheme} from '../../configs/mantine-theme';

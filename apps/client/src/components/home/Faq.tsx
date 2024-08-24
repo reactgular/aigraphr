@@ -1,5 +1,3 @@
-'use client';
-
 import {Accordion, Container, Title} from '@mantine/core';
 import classes from './Faq.module.css';
 

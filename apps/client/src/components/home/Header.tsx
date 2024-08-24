@@ -1,5 +1,3 @@
-'use client';
-
 import {Burger, Container, Group} from '@mantine/core';
 import {useDisclosure} from '@mantine/hooks';
 import Link from 'next/link';

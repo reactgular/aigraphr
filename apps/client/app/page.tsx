@@ -1,3 +1,5 @@
+'use client';
+
 import {FC} from 'react';
 import {Faq} from '../src/components/home/Faq';
 import {Features} from '../src/components/home/Features';

@@ -6,7 +6,7 @@ export const metadata = {
 };
 
 const Layout: FC<PropsWithChildren> = ({children}) => {
-    return <div>{children}</div>;
+    return <div className="w-full h-full">{children}</div>;
 };
 
 export default Layout;
