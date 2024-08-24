@@ -1,14 +1,14 @@
 import {Meta, StoryObj} from '@storybook/react';
-import Index from './page';
+import AppPage from './page';
 
 const meta = {
     title: 'Pages/Home',
-    component: Index,
+    component: AppPage,
     args: {}
-} satisfies Meta<typeof Index>;
+} satisfies Meta<typeof AppPage>;
 
 export default meta;
 
 export const Home = {
-    render: (props) => <Index {...props} />
+    render: (props) => <AppPage {...props} />
 } satisfies StoryObj<typeof meta>;

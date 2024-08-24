@@ -7,7 +7,7 @@ import {Footer} from '../src/components/home/Footer';
 import {Header} from '../src/components/home/Header';
 import {Hero} from '../src/components/home/Hero';
 
-const Index: FC = () => {
+const AppPage: FC = () => {
     return (
         <>
             <Header />
@@ -19,4 +19,4 @@ const Index: FC = () => {
     );
 };
 
-export default Index;
+export default AppPage;
