@@ -1,4 +1,5 @@
 import {Button, Container, Text, Title} from '@mantine/core';
+import Link from 'next/link';
 import classes from './Hero.module.css';
 
 export function Hero() {
@@ -31,13 +32,15 @@ export function Hero() {
                         </Text>
 
                         <Button
+                            component={Link}
+                            href="/editor"
                             variant="gradient"
                             gradient={{from: 'pink', to: 'yellow'}}
                             size="xl"
                             className={classes.control}
                             mt={40}
                         >
-                            Try the Live Demo
+                            Try the Editor
                         </Button>
                     </div>
                 </div>
