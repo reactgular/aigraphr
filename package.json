@@ -5,12 +5,12 @@
   "license": "MIT",
   "scripts": {
     "build": "nx run-many -t build",
-    "client": "nx run client:dev",
-    "dev:compile": "bash -c './dev.sh compile'",
-    "dev:help": "bash -c './dev.sh --help'",
-    "dev:init": "bash -c './dev.sh init'",
+    "dev": "nx run client:dev",
     "lint": "nx run-many -t lint",
     "server": "bash -c './dev.sh start'",
+    "server:compile": "bash -c './dev.sh compile'",
+    "server:help": "bash -c './dev.sh --help'",
+    "server:init": "bash -c './dev.sh init'",
     "sort": "npx --yes sort-package-json",
     "storybook": "nx run client:storybook",
     "test": "nx run-many -t test --passWithNoTests"
