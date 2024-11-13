@@ -1,8 +1,8 @@
 {
-  "name": "@nest-react/server",
+  "name": "@aigraphr/aigraphr-server",
   "version": "1.0.0",
-  "description": "Backend of the Nest + React boilerplate",
-  "author": "Paul Landázuri",
+  "description": "Backend of the AIGraphr server",
+  "author": "Nick Foscarini",
   "license": "LGPL-3.0-or-later",
   "main": "src/main.ts",
   "scripts": {
