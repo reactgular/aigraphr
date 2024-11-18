@@ -1,8 +1,8 @@
 {
-  "name": "@nest-react/lib",
+  "name": "@reacrgular/aigraphr-lib",
   "version": "1.0.0",
-  "description": "Library of the nest-react boilerplate",
-  "author": "Paul Landázuri",
+  "description": "Library of the AIGraphr boilerplate",
+  "author": "Nick Foscarini",
   "license": "LGPL-3.0-or-later",
   "main": "dist/index.js",
   "scripts": {
