@@ -1,5 +1,4 @@
 import { NestFactory } from '@nestjs/core';
-
 import { APIModule } from './modules/api.module';
 import { ConfigService } from './modules/config/config.service';
 
@@ -10,4 +9,4 @@ async function bootstrap(): Promise<void> {
   await app.listen(configService.port);
 }
 
-bootstrap();
+bootstrap().then();

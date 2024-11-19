@@ -31,7 +31,7 @@
     "start:domain": "yarn workspace @reactgular/aigraphr-domain start:dev",
     "start:lib": "yarn workspace @reactgular/aigraphr-lib start:dev",
     "start:common": "(yarn start:domain & yarn start:lib)",
-    "build:domain": "yarn workspace @reactgular/aigraphrdomain build",
+    "build:domain": "yarn workspace @reactgular/aigraphr-domain build",
     "build:lib": "yarn workspace @reactgular/aigraphr-lib build",
     "build:common": "yarn build:domain && yarn build:lib",
     "build-push:server": "PACKAGE=server ./scripts/build_and_push.sh",
