@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { join } from 'path';
-import { readFileSync, readdirSync } from 'fs';
+import { InternalServerErrorException, Logger } from '@nestjs/common';
 
 import { DotenvParseOutput, parse } from 'dotenv';
+import { readdirSync, readFileSync } from 'fs';
 import joi from 'joi';
-import { InternalServerErrorException, Logger } from '@nestjs/common';
+import { join } from 'path';
 
 const { number, object, string } = joi.types();
 
@@ -34,6 +34,30 @@ export class ConfigService {
       config = this.getConfigFromEnvFile(process.env.NODE_ENV);
     }
     this.envConfig = this.validateInput(config);
+  }
+
+  /**
+   * Config getters
+   */
+
+  get corsWhiteList(): string[] {
+    return this.envConfig.CORS_WHITELIST.split(',');
+  }
+
+  get host(): string {
+    return String(this.envConfig.HOST);
+  }
+
+  get port(): number {
+    return parseInt(this.envConfig.PORT, 10);
+  }
+
+  /**
+   * Secret getters
+   */
+
+  get secretJwtKey(): string {
+    return String(this.envConfig.SECRET_JWT_KEY);
   }
 
   /**
@@ -127,29 +151,5 @@ export class ConfigService {
       `Server configuration:\n${JSON.stringify(config, null, 2)}`
     );
     this.logger.log(`Server secrets:\n${JSON.stringify(secrets, null, 2)}`);
-  }
-
-  /**
-   * Config getters
-   */
-
-  get corsWhiteList(): string[] {
-    return this.envConfig.CORS_WHITELIST.split(',');
-  }
-
-  get host(): string {
-    return String(this.envConfig.HOST);
-  }
-
-  get port(): number {
-    return parseInt(this.envConfig.PORT, 10);
-  }
-
-  /**
-   * Secret getters
-   */
-
-  get secretJwtKey(): string {
-    return String(this.envConfig.SECRET_JWT_KEY);
   }
 }

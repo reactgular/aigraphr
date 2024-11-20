@@ -1,17 +1,15 @@
-import { join } from 'path';
-import { readFileSync } from 'fs';
+import { ConfigService } from '@/modules/config/config.service';
 import { Injectable, Logger } from '@nestjs/common';
-
-import { Dictionary } from '@nest-react/domain';
-
-import { ConfigService } from '~/modules/config/config.service';
+import { Dictionary } from '@reactgular/aigraphr-domain';
+import { readFileSync } from 'fs';
+import { join } from 'path';
 
 @Injectable()
 export class StatusService {
   private logger = new Logger(StatusService.name);
   private version: Dictionary<string>;
 
-  constructor(private readonly configService: ConfigService) {
+  public constructor(private readonly configService: ConfigService) {
     this.version = readFileSync(
       join(configService.rootDir, '..', '..', 'VERSION')
     )
@@ -29,12 +27,12 @@ export class StatusService {
       }, {} as Dictionary<string>);
   }
 
-  getStatus(): string {
+  public getStatus(): string {
     this.logger.log('log from statusService.getStatus()');
     return `Hello world from Nest running on ${this.configService.host}:${this.configService.port}!`;
   }
 
-  getVersion(): Dictionary<string> {
+  public getVersion(): Dictionary<string> {
     return this.version;
   }
 }
