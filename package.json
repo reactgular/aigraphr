@@ -17,5 +17,7 @@
     "packages/server"
   ],
   "scripts": {
+    "build": "npm run build --workspaces",
+    "lint": "npm run lint --workspaces"
   }
 }
