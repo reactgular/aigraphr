@@ -1,9 +1,8 @@
+import { Dictionary } from '@nest-react/domain';
 import React, { FC, useEffect, useState } from 'react';
 
-import { Dictionary } from '@nest-react/domain';
-
 import { API_URL } from '~/config';
-import { Logger, checkServerVersion } from '~/utils';
+import { checkServerVersion, Logger } from '~/utils';
 
 export const App: FC<unknown> = () => {
   const [response, setResponse] = useState<string>('NO SERVER RESPONSE');

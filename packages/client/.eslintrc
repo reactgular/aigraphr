@@ -1,5 +1,8 @@
 {
-  "extends": ["../../.eslintrc", "plugin:react/recommended"],
+  "extends": [
+    "../../.eslintrc",
+    "plugin:react/recommended"
+  ],
   "env": {
     "browser": true,
     "node": false
@@ -18,7 +21,11 @@
       "version": "detect"
     }
   },
-  "plugins": ["@typescript-eslint", "react", "react-hooks"],
+  "plugins": [
+    "@typescript-eslint",
+    "react",
+    "react-hooks"
+  ],
   "rules": {
     "react-hooks/exhaustive-deps": "warn",
     "react-hooks/rules-of-hooks": "error",
@@ -27,40 +34,57 @@
   },
   "overrides": [
     {
-      "files": ["**/*.tsx"],
+      "files": [
+        "**/*.tsx"
+      ],
       "rules": {
         "@typescript-eslint/naming-convention": [
           "warn",
           {
             "selector": "default",
-            "format": ["camelCase"],
+            "format": [
+              "camelCase"
+            ],
             "leadingUnderscore": "allow",
             "trailingUnderscore": "allow"
           },
           {
             "selector": "variable",
-            "format": ["camelCase", "UPPER_CASE", "PascalCase"],
+            "format": [
+              "camelCase",
+              "UPPER_CASE",
+              "PascalCase"
+            ],
             "leadingUnderscore": "allow",
             "trailingUnderscore": "allow"
           },
           {
             "selector": "function",
-            "format": ["camelCase", "PascalCase"]
+            "format": [
+              "camelCase",
+              "PascalCase"
+            ]
           },
           {
             "selector": "typeLike",
-            "format": ["PascalCase"]
+            "format": [
+              "PascalCase"
+            ]
           },
           {
             "selector": "enumMember",
-            "format": ["PascalCase"]
+            "format": [
+              "PascalCase"
+            ]
           }
         ],
         "react/prop-types": "off"
       }
     },
     {
-      "files": ["vite.config.ts"],
+      "files": [
+        "vite.config.ts"
+      ],
       "env": {
         "browser": false,
         "node": true

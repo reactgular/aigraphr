@@ -1,5 +1,5 @@
-import { Dictionary } from '@reactgular/aigraphr-domain';
 import { Controller, Get } from '@nestjs/common';
+import { Dictionary } from '@reactgular/aigraphr-domain';
 
 import { StatusService } from './status.service';
 

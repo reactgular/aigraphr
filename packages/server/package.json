@@ -28,8 +28,6 @@
     "@nestjs/common": "^9.0.11",
     "@nestjs/core": "^9.0.11",
     "@nestjs/platform-express": "^9.0.11",
-    "@reactgular/aigraphr-domain": "^1.0.0",
-    "@reactgular/aigraphr-lib": "^1.0.0",
     "dotenv": "^16.0.1",
     "joi": "^17.6.0",
     "reflect-metadata": "^0.1.13",

@@ -7,15 +7,23 @@
     "esModuleInterop": false,
     "isolatedModules": true,
     "jsx": "react",
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
     "module": "ESNext",
     "noEmit": true,
     "paths": {
-      "~/*": ["src/*"]
+      "~/*": [
+        "src/*"
+      ]
     },
     "resolveJsonModule": true,
     "skipLibCheck": false,
     "target": "ESNext",
-    "types": ["vite/client"]
+    "types": [
+      "vite/client"
+    ]
   }
 }

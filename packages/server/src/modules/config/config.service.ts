@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { InternalServerErrorException, Logger } from '@nestjs/common';
+import { InternalServerErrorException, Logger } from "@nestjs/common";
 
-import { DotenvParseOutput, parse } from 'dotenv';
-import { readdirSync, readFileSync } from 'fs';
-import joi from 'joi';
-import { join } from 'path';
+import { DotenvParseOutput, parse } from "dotenv";
+import { readdirSync, readFileSync } from "fs";
+import joi from "joi";
+import { join } from "path";
 
 const { number, object, string } = joi.types();
 

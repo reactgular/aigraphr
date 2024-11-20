@@ -1,7 +1,7 @@
-import { join } from 'path';
-import { readFileSync } from 'fs';
-import { ResolvedConfig, UserConfigExport, defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { readFileSync } from 'fs';
+import { join } from 'path';
+import { defineConfig, ResolvedConfig, UserConfigExport } from 'vite';
 
 import { peerDependencies } from './package.json';
 
