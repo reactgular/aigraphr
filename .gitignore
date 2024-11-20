@@ -26,9 +26,9 @@ coverage
 docker-compose.*.yml
 
 # build
-build/
-dist/
-dist-ssr/
+**/build/
+**/dist/
+**/dist-ssr/
 VERSION
 
 # misc
@@ -36,7 +36,7 @@ VERSION
 
 # Logs
 logs
-*.log
+**/*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
