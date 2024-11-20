@@ -11,31 +11,11 @@
   "bugs": {
     "url": "https://github.com/reactgular/aigraphr/issues"
   },
-  "directories": {
-    "doc": "docs"
-  },
   "private": true,
   "workspaces": [
-    "packages/*"
-  ],
-  "references": [
-    {
-      "path": "packages/domain"
-    },
-    {
-      "path": "packages/lib"
-    }
+    "packages/client",
+    "packages/server"
   ],
   "scripts": {
-    "generate:version": "./scripts/generate_version.sh",
-    "start:domain": "yarn workspace @reactgular/aigraphr-domain start:dev",
-    "start:lib": "yarn workspace @reactgular/aigraphr-lib start:dev",
-    "start:common": "(yarn start:domain & yarn start:lib)",
-    "build:domain": "yarn workspace @reactgular/aigraphr-domain build",
-    "build:lib": "yarn workspace @reactgular/aigraphr-lib build",
-    "build:common": "yarn build:domain && yarn build:lib",
-    "build-push:server": "PACKAGE=server ./scripts/build_and_push.sh",
-    "build-push:client": "PACKAGE=client ./scripts/build_and_push.sh",
-    "lint": "yarn workspaces run lint"
   }
 }
