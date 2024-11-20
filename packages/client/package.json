@@ -1,40 +1,29 @@
 {
-  "name": "@reactgular/aigraphr-client",
-  "version": "1.0.0",
-  "description": "Client for AIGraphr project",
-  "main": "src/index.tsx",
-  "author": "Nick Foscarini",
-  "license": "LGPL-3.0-or-later",
+  "name": "client",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "start:dev": "vite",
-    "generate:version": "cd ../.. && yarn generate:version",
-    "build": "vite build",
-    "serve": "vite preview",
-    "lint": "eslint --fix --ext .ts,.tsx,.js,.jsx src",
-    "check-types": "tsc"
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "debug": "^4.3.4",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "semver": "^7.5.2"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@types/debug": "^4.1.7",
-    "@types/react": "^18.0.17",
-    "@types/react-dom": "^18.0.6",
-    "@types/semver": "^7.3.12",
-    "@typescript-eslint/eslint-plugin": "^5.33.1",
-    "@typescript-eslint/parser": "^5.33.1",
-    "@vitejs/plugin-react": "^2.0.1",
-    "eslint": "^8.22.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-react": "^7.30.1",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "prettier": "^2.7.1",
-    "typescript": "^4.7.4",
-    "vite": "^3.2.11"
+    "@eslint/js": "^9.13.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react-swc": "^3.5.0",
+    "eslint": "^9.13.0",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-react-refresh": "^0.4.14",
+    "globals": "^15.11.0",
+    "typescript": "~5.6.2",
+    "typescript-eslint": "^8.11.0",
+    "vite": "^5.4.10"
   }
 }
