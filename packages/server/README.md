@@ -1,121 +1,99 @@
-# Nest React Server
+<p align="center">
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
+</p>
 
-## Configuration module
+[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
+[circleci-url]: https://circleci.com/gh/nestjs/nest
 
-Following the [NestJS recommendation](https://docs.nestjs.com/techniques/configuration) for the server configuration,
-the server package comes with a convenient `ConfigModule` declared as a `@Global()` module so any other module can
-access it without needing to include it in its dependencies.
+  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
+    <p align="center">
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
+<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
+<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
+<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
+<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
+<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
+  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
+    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
+  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
+</p>
+  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
+  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-### Initialisation
+## Description
 
-This module adapts to both local `dotenv` files and container orchestration config volumes — e.g. [Kubernetes
-`config-volume`](https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/). It follows the
-below logic to define the configuration variables, in order of priority:
+[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-1. If both `CONFIG_PATH` and `SECRETS_PATH` environment variables are defined, it will look for their corresponding
-   values as folders and hydrate the configuration with their file content.
+## Project setup
 
-2. If the `NODE_ENV` environment variable is set, it will read both the usual configurations variables and the secrets
-   from the corresponding `env/${NODE_ENV}.env` file. All the secrets need to be prefixed with the `SECRET_` string as
-   per the `configSchema`.
-
-3. If none of the above is provided, it will try to read the configuration and secret variables from the `env/local.env`
-   file.
-
-4. If none of the above is satisfied, the application will throw an uncaught error and crash.
-
-### Validation
-
-In order to be make sure that the application won't crash because of a misconfiguration once started, the configuration
-is entirely validated against the schema provided in the `ConfigService`'s `configSchema` private property thanks to
-the [@hapi/joi](https://hapi.dev/module/joi/) package.
-
-### Usage in the app
-
-As the `ConfigModule` is declared as `@Global()`, you don't need to include in the module's `imports` array to use it.
-Nevertheless, you'll need to include the `ConfigService` in the constructor arguments of any class using it. You can see
-an example in the [HelloService](./src/modules/hello/hello.service.ts).
-
-In order to enforce type safety when using the configuration variables across the application source, you should always
-access them via getters. You can find examples of such typed getters at the end of the [
-`ConfigService`](./src/config/config.service.ts).
-
-The only exception for this is in the [main's `bootstrap`](./src/main.ts) function which needs to get the configuration
-variables without having access to the `ConfigService` instance and which gets over the TS `private` restriction by
-calling the `envConfig` as a plain object.
-
-## Running the app
-
-By default, the server is listening to the [http://localhost:4000](http://localhost:4000) port. This behaviour can be
-configured via the [local.env](./env/local.env) file.
-
-### In development
-
-To run the development server locally, you can use the bellow commands:
-
-```sh
-# Runs the current version of the server
-yarn start
-
-# Runs the current version of the server
-# + watches for file changes
-yarn start:dev
-
-# Runs the current version of the server
-# + watches for file changes
-# + opens a debugger connection (default port 9229)
-yarn start:debug
+```bash
+$ npm install
 ```
 
-#### Debug
+## Compile and run the project
 
-The powerful debug feature allows any Node.js debugger tool to connect to the running process in order to define
-breakpoints, log points, and more. Any Chromium based browser comes with the Node inspector feature built-in. To learn
-more about the Node.js debugging tools,
-the [Node.js documentation](https://nodejs.org/de/docs/guides/debugging-getting-started/) is a nice starting point.
+```bash
+# development
+$ npm run start
 
-If you use the VS Code IDE, this repository already ships a configuration to `attach` a debugger to the running
-application. See the [.vscode/launch.json](../../.vscode/launch.json) file for more information.
+# watch mode
+$ npm run start:dev
 
-### In production
-
-Once you are happy with your code, you can run a production version following these steps:
-
-1. Build a production bundle into a brand new `dist` folder:
-
-   ```sh
-   yarn build
-   ```
-
-2. Run the production bundle:
-
-   ```sh
-   yarn start:prod
-   ```
-
-## Test
-
-Nest comes with `Jest` and `Supertest` testing frameworks to ease the testing process. Here are the different test
-scripts which you can run:
-
-```sh
-# Runs the unit tests
-yarn test
-
-# Runs the unit test
-# + watches for file changes
-yarn test:watch
-
-# Runs the end-to-end tests
-yarn test:e2e
-
-# Describes the test coverage
-yarn test:cov
+# production mode
+$ npm run start:prod
 ```
 
-## Docker image
+## Run tests
 
-The server package has a [Dockerfile](./Dockerfile) which builds a lightweight (based on
-the [alpine](https://alpinelinux.org/) project) production ready Docker image.
+```bash
+# unit tests
+$ npm run test
 
-For more information about the Docker images, see the [main README.md](../../README.md#docker-images).
+# e2e tests
+$ npm run test:e2e
+
+# test coverage
+$ npm run test:cov
+```
+
+## Deployment
+
+When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+
+If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+
+```bash
+$ npm install -g mau
+$ mau deploy
+```
+
+With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+
+## Resources
+
+Check out a few resources that may come in handy when working with NestJS:
+
+- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
+- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
+- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
+- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
+- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
+- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
+- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
+- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+
+## Support
+
+Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+
+## Stay in touch
+
+- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
+- Website - [https://nestjs.com](https://nestjs.com/)
+- Twitter - [@nestframework](https://twitter.com/nestframework)
+
+## License
+
+Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
