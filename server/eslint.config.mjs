@@ -1,7 +1,7 @@
-import tseslint from 'typescript-eslint';
-import config from '../../eslint.config.mjs';
+import ts_eslint from 'typescript-eslint';
+import config from '../eslint.config.mjs';
 
-export default tseslint.config(
+export default ts_eslint.config(
   { ignores: ['dist'] },
   config,
   {
