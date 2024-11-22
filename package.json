@@ -1,32 +1,33 @@
 {
   "name": "@reactgular/aigraphr",
   "version": "1.0.0",
-  "author": "Nick Foscarini",
+  "private": true,
   "description": "AIGraphr is a graphing library for AI applications",
   "homepage": "https://github.com/reactgular/aigraphr#readme",
+  "bugs": {
+    "url": "https://github.com/reactgular/aigraphr/issues"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/reactgular/aigraphr.git"
   },
-  "bugs": {
-    "url": "https://github.com/reactgular/aigraphr/issues"
-  },
-  "private": true,
+  "author": "Nick Foscarini",
   "workspaces": [
     "client",
     "server"
   ],
   "scripts": {
     "build": "npm run build --workspaces",
-    "lint": "npm run lint --workspaces"
+    "lint": "npm run lint --workspaces",
+    "sort": "npx --yes sort-package-json && npm run sort --workspaces"
   },
   "devDependencies": {
+    "@eslint/js": "^9.13.0",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",
     "eslint": "^9.13.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
-    "@eslint/js": "^9.13.0",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.14"
   }
