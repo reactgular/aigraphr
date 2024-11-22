@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "description": "",
-  "license": "UNLICENSED",
+  "license": "GPL-3.0-or-later",
   "author": "",
   "scripts": {
     "build": "nest build",

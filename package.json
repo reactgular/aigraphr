@@ -2,6 +2,7 @@
   "name": "@reactgular/aigraphr",
   "version": "1.0.0",
   "private": true,
+  "license": "GPL-3.0-or-later",
   "description": "AIGraphr is a graphing library for AI applications",
   "homepage": "https://github.com/reactgular/aigraphr#readme",
   "bugs": {
