@@ -13,8 +13,8 @@
   },
   "private": true,
   "workspaces": [
-    "packages/client",
-    "packages/server"
+    "client",
+    "server"
   ],
   "scripts": {
     "build": "npm run build --workspaces",
