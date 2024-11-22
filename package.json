@@ -18,18 +18,21 @@
     "server"
   ],
   "scripts": {
+    "dev": "concurrently --kill-others -n \"client,server\" -c \"bgBlue.bold,bgGreen.bold\" \"npm run dev --workspace=client\" \"npm run dev --workspace=server\"",
+    "c": "concurrently --help",
     "build": "npm run build --workspaces",
     "lint": "npm run lint --workspaces",
     "sort": "npx --yes sort-package-json && npm run sort --workspaces"
   },
   "devDependencies": {
-    "typescript-eslint": "^8.11.0",
-    "typescript": "^5.6.3",
     "@eslint/js": "^9.13.0",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",
+    "concurrently": "^9.1.0",
     "eslint": "^9.13.0",
     "eslint-plugin-react-hooks": "^5.0.0",
-    "eslint-plugin-react-refresh": "^0.4.14"
+    "eslint-plugin-react-refresh": "^0.4.14",
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.11.0"
   }
 }
