@@ -117,8 +117,8 @@ First, you'll need to download and adapt it to your project:
 
 4. Update the `dependencies` of each package requiring one of the internal packages:
 
-  - Server: [`package.json`](./packages/server/package.json)
-  - Client: [`package.json`](./packages/client/package.json)
+- Server: [`package.json`](./packages/server/package.json)
+- Client: [`package.json`](./packages/client/package.json)
 
 5. Change the client debug `LOGGER_PREFIX` which is set in the [`config.ts`](./packages/client/src/config.ts) file. For
    more information, see the client README section about the [Debug library](./packages/client#debug-library).
@@ -133,18 +133,18 @@ together:
 
 1. Basic requirements to run the repository:
 
-  - [Node.js](https://nodejs.org/en/): The recommended way is via [`nvm`](https://github.com/nvm-sh/nvm). You can then
-    install the version used for this project:
-    ```sh
-    nvm install 16.16.0
-    ```
-  - [Yarn](https://classic.yarnpkg.com/): If you have `nvm` installed, you'd prefer to install `yarn` without the node
-    dependency. To do so, the `bash` install is the easiest:
-    ```sh
-    curl -o- -L https://yarnpkg.com/install.sh | bash
-    ```
+- [Node.js](https://nodejs.org/en/): The recommended way is via [`nvm`](https://github.com/nvm-sh/nvm). You can then
+  install the version used for this project:
+  ```sh
+  nvm install 16.16.0
+  ```
+- [Yarn](https://classic.yarnpkg.com/): If you have `nvm` installed, you'd prefer to install `yarn` without the node
+  dependency. To do so, the `bash` install is the easiest:
+  ```sh
+  curl -o- -L https://yarnpkg.com/install.sh | bash
+  ```
 
-   > As the boilerplate makes use of the yarn workspaces, you shouldn't use `npm`.
+> As the boilerplate makes use of the yarn workspaces, you shouldn't use `npm`.
 
 2. Install dependencies with the classic:
 

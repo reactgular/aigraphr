@@ -5,7 +5,7 @@ export class AigParamString extends AigParamType<string, AigParamDef> {
   public constructor() {
     super({
       kind: AigParamKind.String,
-      description: '',
+      description: ''
     });
   }
 }

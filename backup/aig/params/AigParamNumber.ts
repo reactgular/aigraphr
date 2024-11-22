@@ -5,7 +5,7 @@ export class AigParamNumber extends AigParamType<number, AigParamDef> {
   public constructor() {
     super({
       kind: AigParamKind.Number,
-      description: '',
+      description: ''
     });
   }
 }

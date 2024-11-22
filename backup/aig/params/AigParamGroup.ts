@@ -19,7 +19,7 @@ export class AigParamGroup<TShape extends AigParamShape> extends AigParamType<
       kind: AigParamKind.Group,
       description: '',
       title: '',
-      expanded: true,
+      expanded: true
     });
   }
 

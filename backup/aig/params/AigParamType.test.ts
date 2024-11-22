@@ -5,7 +5,7 @@ class AigParamTypeTest extends AigParamType<string> {
   public constructor() {
     super({
       kind: AigParamKind.String,
-      description: '',
+      description: ''
     });
   }
 }

@@ -5,9 +5,9 @@ function createNode() {
     input: <TType extends z.ZodRawShape>(shape: TType) => {
       const schema = z.object(shape);
       return {
-        query: (cb: (input: z.infer<typeof schema>) => void) => null,
+        query: (cb: (input: z.infer<typeof schema>) => void) => null
       };
-    },
+    }
   };
 }
 
@@ -17,8 +17,8 @@ const node = createNode()
     description: z.string().optional(),
     active: z.boolean().default(true),
     child: z.object({
-      age: z.number().int().positive(),
-    }),
+      age: z.number().int().positive()
+    })
   })
   .query(data => {
     // Now, data.name is of type string

@@ -5,7 +5,7 @@ export class AigParamUnknown extends AigParamType<unknown, AigParamDef> {
   public constructor() {
     super({
       kind: AigParamKind.Unknown,
-      description: '',
+      description: ''
     });
   }
 }

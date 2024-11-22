@@ -5,7 +5,7 @@ export class AigParamBoolean extends AigParamType<boolean, AigParamDef> {
   public constructor() {
     super({
       kind: AigParamKind.Boolean,
-      description: '',
+      description: ''
     });
   }
 }

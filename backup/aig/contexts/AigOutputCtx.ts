@@ -5,7 +5,8 @@ import { AigParamShape } from '../params/AigParamType';
 import { AigParamUnknown } from '../params/AigParamUnknown';
 
 export class AigOutputCtx<TInputShape extends AigParamShape> {
-  public constructor(private inputObject: TInputShape) {}
+  public constructor(private inputObject: TInputShape) {
+  }
 
   public unknown() {
     return new AigParamUnknown();

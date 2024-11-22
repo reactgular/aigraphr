@@ -17,11 +17,11 @@ export namespace aig {
             const outputObject = outputShape(new AigOutputCtx(inputObject));
             return {
               input: new AigParamGroup(inputObject).title('Input'),
-              output: new AigParamGroup(outputObject).title('Output'),
+              output: new AigParamGroup(outputObject).title('Output')
             };
-          },
+          }
         };
-      },
+      }
     };
   }
 }

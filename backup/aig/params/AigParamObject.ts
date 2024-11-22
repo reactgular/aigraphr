@@ -9,7 +9,7 @@ export class AigParamObject<TZodShape extends ZodRawShape> extends AigParamType<
   public constructor(zod: TZodShape) {
     super({
       kind: AigParamKind.Object,
-      description: '',
+      description: ''
     });
   }
 }
