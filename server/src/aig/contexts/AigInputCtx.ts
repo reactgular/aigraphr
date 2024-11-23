@@ -8,27 +8,27 @@ import { AigParamShape } from '../params/AigParamType';
 import { AigParamUnknown } from '../params/AigParamUnknown';
 
 export class AigInputCtx {
-  public unknown() {
-    return new AigParamUnknown();
-  }
+    public unknown() {
+        return new AigParamUnknown();
+    }
 
-  public group<TShape extends AigParamShape>(shape: TShape) {
-    return new AigParamGroup(shape);
-  }
+    public group<TShape extends AigParamShape>(shape: TShape) {
+        return new AigParamGroup(shape);
+    }
 
-  public object<TZodShape extends ZodRawShape>(zod: TZodShape) {
-    return new AigParamObject<TZodShape>(zod);
-  }
+    public object<TZodShape extends ZodRawShape>(zod: TZodShape) {
+        return new AigParamObject<TZodShape>(zod);
+    }
 
-  public string() {
-    return new AigParamString();
-  }
+    public string() {
+        return new AigParamString();
+    }
 
-  public number() {
-    return new AigParamNumber();
-  }
+    public number() {
+        return new AigParamNumber();
+    }
 
-  public boolean() {
-    return new AigParamBoolean();
-  }
+    public boolean() {
+        return new AigParamBoolean();
+    }
 }

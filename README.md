@@ -191,11 +191,11 @@ See each package's README to learn more about its development and build scripts:
 - [EditorConfig](https://editorconfig.org/): _« helps maintain consistent coding styles for multiple developers working
   on the same project across various editors and IDEs. »_
 
-  - Rules are set in the root [`.editorconfig`](./.editorconfig) file.
+    - Rules are set in the root [`.editorconfig`](./.editorconfig) file.
 
 - [Prettier](https://prettier.io/) (^1.19.1): _« An opinionated code formatter »_ which _« saves you time and energy »_.
 
-  - Rules are set in the root [`.prettierrc`](./.prettierrc) file.
+    - Rules are set in the root [`.prettierrc`](./.prettierrc) file.
 
 ## Linting
 

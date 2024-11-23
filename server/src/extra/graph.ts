@@ -1,9 +1,9 @@
 export interface Graph {
-  forEachNode(cb: (n: Node) => void): void;
+    forEachNode(cb: (n: Node) => void): void;
 
-  findNode(cb: (n: Node) => boolean): Node | undefined;
+    findNode(cb: (n: Node) => boolean): Node | undefined;
 
-  getNode(id: string): Node | undefined;
+    getNode(id: string): Node | undefined;
 
-  hasNode(id: string): boolean;
+    hasNode(id: string): boolean;
 }

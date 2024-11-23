@@ -5,26 +5,26 @@ import { AigParamShape } from '../params/AigParamType';
 import { AigParamUnknown } from '../params/AigParamUnknown';
 
 export class AigOutputCtx<TInputShape extends AigParamShape> {
-  public constructor(private inputObject: TInputShape) {
-  }
+    public constructor(private inputObject: TInputShape) {
+    }
 
-  public unknown() {
-    return new AigParamUnknown();
-  }
+    public unknown() {
+        return new AigParamUnknown();
+    }
 
-  public refer(inputKey: keyof TInputShape) {
-    return new AigParamUnknown();
-  }
+    public refer(inputKey: keyof TInputShape) {
+        return new AigParamUnknown();
+    }
 
-  public string() {
-    return new AigParamString();
-  }
+    public string() {
+        return new AigParamString();
+    }
 
-  public number() {
-    return new AigParamNumber();
-  }
+    public number() {
+        return new AigParamNumber();
+    }
 
-  public boolean() {
-    return new AigParamBoolean();
-  }
+    public boolean() {
+        return new AigParamBoolean();
+    }
 }

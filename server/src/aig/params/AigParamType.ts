@@ -5,23 +5,23 @@ export type AigParamTypeAny = AigParamType<any, any>;
 export type infer<T extends AigParamType<any, any>> = T['_type'];
 
 export interface AigParamDef {
-  kind: AigParamKind;
-  description: string;
+    kind: AigParamKind;
+    description: string;
 }
 
 export abstract class AigParamType<
-  TType,
-  TDef extends AigParamDef = AigParamDef
+    TType,
+    TDef extends AigParamDef = AigParamDef
 > {
-  readonly _type!: TType;
-  readonly _def: TDef;
+    readonly _type!: TType;
+    readonly _def: TDef;
 
-  protected constructor(def: TDef) {
-    this._def = def;
-  }
+    protected constructor(def: TDef) {
+        this._def = def;
+    }
 
-  public describe(description: string): this {
-    this._def.description = description;
-    return this;
-  }
+    public describe(description: string): this {
+        this._def.description = description;
+        return this;
+    }
 }

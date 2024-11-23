@@ -1,5 +1,5 @@
 export class AigEdge {
-  public constructor() {
-    // ...
-  }
+    public constructor() {
+        // ...
+    }
 }
