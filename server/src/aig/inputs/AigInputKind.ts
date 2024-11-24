@@ -1,8 +1,4 @@
-export enum AigParamKind {
-    /**
-     * @deprecated
-     */
-    Unknown = 'unknown',
+export enum AigInputKind {
     /**
      * I'm not sure if infer is a kind
      */

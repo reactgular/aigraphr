@@ -1,5 +1,5 @@
-import { AigParamKind } from './AigParamKind';
-import { AigParamDef, AigParamShape, AigParamType } from './AigParamType';
+import { AigInputKind } from './AigInputKind';
+import { AigInputType, AigParamDef, AigParamShape } from './AigInputType';
 
 export declare type AigGroupType<Shape extends AigParamShape> = {
     [k in keyof Shape]: Shape[k]['_type'];
@@ -13,13 +13,13 @@ export interface AigParamGroupDef extends AigParamDef {
 /**
  * @deprecated not sure I want to do parameter grouping in the inputs definition
  */
-export class AigParamGroup<TShape extends AigParamShape> extends AigParamType<
+export class AigInputGroup<TShape extends AigParamShape> extends AigInputType<
     AigGroupType<TShape>,
     AigParamGroupDef
 > {
     public constructor(shape: TShape) {
         super({
-            kind: AigParamKind.Group,
+            kind: AigInputKind.Group,
             description: '',
             title: '',
             expanded: true

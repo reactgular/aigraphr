@@ -1,15 +1,15 @@
-import { AigParamKind } from './AigParamKind';
+import { AigInputKind } from './AigInputKind';
 
 export type AigParamShape = { [k: string]: AigParamTypeAny };
-export type AigParamTypeAny = AigParamType<any, any>;
-export type infer<T extends AigParamType<any, any>> = T['_type'];
+export type AigParamTypeAny = AigInputType<any, any>;
+export type infer<T extends AigInputType<any, any>> = T['_type'];
 
 export interface AigParamDef {
-    kind: AigParamKind;
+    kind: AigInputKind;
     description: string;
 }
 
-export abstract class AigParamType<
+export abstract class AigInputType<
     TType,
     TDef extends AigParamDef = AigParamDef
 > {
