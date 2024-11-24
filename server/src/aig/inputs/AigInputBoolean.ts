@@ -1,10 +1,10 @@
-import { AigInputType } from './AigInputType';
-import { AigInputBase, AigInputDef } from './AigInputBase';
+import { AigType } from '../types/AigType';
+import { AigTypeBase, AigTypeDef } from '../types/AigTypeBase';
 
-export class AigInputBoolean extends AigInputBase<boolean, AigInputDef> {
+export class AigInputBoolean extends AigTypeBase<boolean, AigTypeDef> {
     public constructor() {
         super({
-            type: AigInputType.Boolean,
+            type: AigType.Boolean,
             description: ''
         });
     }

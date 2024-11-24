@@ -1,10 +1,10 @@
-import { AigInputType } from './AigInputType';
-import { AigInputBase, AigInputDef } from './AigInputBase';
+import { AigType } from '../types/AigType';
+import { AigTypeBase, AigTypeDef } from '../types/AigTypeBase';
 
-export class AigInputNumber extends AigInputBase<number, AigInputDef> {
+export class AigInputNumber extends AigTypeBase<number, AigTypeDef> {
     public constructor() {
         super({
-            type: AigInputType.Number,
+            type: AigType.Number,
             description: ''
         });
     }

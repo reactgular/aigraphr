@@ -1,27 +1,27 @@
-import { AigInputCtx } from '../contexts/AigInputCtx';
-import { AigOutputCtx } from '../contexts/AigOutputCtx';
-import { AigParamShape } from '../inputs/AigInputBase';
+import { AigInputCtx } from '../inputs/AigInputCtx';
+import { AigOutputCtx } from '../outputs/AigOutputCtx';
+import { AigTypeShape } from '../types/AigTypeBase';
 
 /**
  * @todo add an inputConstraints method, example: if/then/else - then type must match else type
  */
-export class AigNodeBuilder<TInputShape extends AigParamShape, TOutputShape extends AigParamShape> {
+export class AigNodeBuilder<TInputShape extends AigTypeShape, TOutputShape extends AigTypeShape> {
     protected constructor(
         private readonly inputShape: TInputShape,
         private readonly outputShape: TOutputShape
     ) {
     }
 
-    public static create(): AigNodeBuilder<AigParamShape, AigParamShape> {
+    public static create(): AigNodeBuilder<AigTypeShape, AigTypeShape> {
         return new AigNodeBuilder({}, {});
     }
 
-    public inputs<TInputs extends AigParamShape>(inputs: (ctx: AigInputCtx) => TInputs): AigNodeBuilder<TInputs, TOutputShape> {
+    public inputs<TInputs extends AigTypeShape>(inputs: (ctx: AigInputCtx) => TInputs): AigNodeBuilder<TInputs, TOutputShape> {
         const inputCtx = new AigInputCtx();
         return new AigNodeBuilder(inputs(inputCtx), this.outputShape);
     }
 
-    public outputs<TOutputs extends AigParamShape>(outputs: (ctx: AigOutputCtx<TInputShape>) => TOutputs): AigNodeBuilder<TInputShape, TOutputs> {
+    public outputs<TOutputs extends AigTypeShape>(outputs: (ctx: AigOutputCtx<TInputShape>) => TOutputs): AigNodeBuilder<TInputShape, TOutputs> {
         const outputCtx = new AigOutputCtx(this.inputShape);
         return new AigNodeBuilder(this.inputShape, outputs(outputCtx));
     }

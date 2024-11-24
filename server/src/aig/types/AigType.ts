@@ -1,4 +1,4 @@
-export enum AigInputType {
+export enum AigType {
     UserType = 'userType',
     String = 'string',
     Number = 'number',

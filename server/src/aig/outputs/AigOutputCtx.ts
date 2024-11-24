@@ -2,9 +2,9 @@ import { AigInputBoolean } from '../inputs/AigInputBoolean';
 import { AigInputUserType } from '../inputs/AigInputUserType';
 import { AigInputNumber } from '../inputs/AigInputNumber';
 import { AigInputString } from '../inputs/AigInputString';
-import { AigParamShape } from '../inputs/AigInputBase';
+import { AigTypeShape } from '../types/AigTypeBase';
 
-export class AigOutputCtx<TInputShape extends AigParamShape> {
+export class AigOutputCtx<TInputShape extends AigTypeShape> {
     public constructor(private inputObject: TInputShape) {
     }
 

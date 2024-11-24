@@ -1,14 +1,14 @@
 import { ZodRawShape } from 'zod/lib/types';
-import { AigInputType } from './AigInputType';
-import { AigInputBase, AigInputDef } from './AigInputBase';
+import { AigType } from '../types/AigType';
+import { AigTypeBase, AigTypeDef } from '../types/AigTypeBase';
 
-export class AigInputObject<TZodShape extends ZodRawShape> extends AigInputBase<
+export class AigInputObject<TZodShape extends ZodRawShape> extends AigTypeBase<
     TZodShape,
-    AigInputDef
+    AigTypeDef
 > {
     public constructor(zod: TZodShape) {
         super({
-            type: AigInputType.Object,
+            type: AigType.Object,
             description: ''
         });
     }
