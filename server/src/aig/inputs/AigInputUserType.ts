@@ -1,8 +1,9 @@
 import { AigType } from '../types/AigType';
 import { AigTypeBase, AigTypeDef } from '../types/AigTypeBase';
-import { AigUserType } from '../types/AigUserType';
+import { AigValueUserType } from '../values/AigValueUserType';
 
-export class AigInputUserType extends AigTypeBase<AigUserType, AigTypeDef> {
+export class AigInputUserType
+    extends AigTypeBase<AigValueUserType, AigTypeDef> {
     public constructor() {
         super({
             type: AigType.UserType,

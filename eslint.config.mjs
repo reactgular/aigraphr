@@ -105,7 +105,7 @@ export default {
         ],
         'spaced-comment': 'error',
         '@typescript-eslint/adjacent-overload-signatures': 'error',
-        '@typescript-eslint/array-type': 'error',
+        '@typescript-eslint/array-type': ['error', { 'default': 'generic' }],
         '@typescript-eslint/explicit-function-return-type': 'off',
         '@typescript-eslint/indent': 'off',
         '@typescript-eslint/interface-name-prefix': 'off',
