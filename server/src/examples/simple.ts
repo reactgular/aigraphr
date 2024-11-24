@@ -1,6 +1,5 @@
 import { z } from 'zod';
 import { aig } from '../aig/aig';
-import { AigUserType } from '../aig/types/AigUserType';
 
 const nodeIfThenElse = aig
     .node()
@@ -8,11 +7,6 @@ const nodeIfThenElse = aig
         condition: ctx.boolean().describe('The condition to check'),
         then: ctx.userType().describe('The then value'),
         else: ctx.userType().describe('The else value')
-    }))
-    .validate(() => ({
-        condition: z.boolean(),
-        then: z.instanceof(AigUserType),
-        else: z.instanceof(AigUserType)
     }))
     .outputs(ctx => ({
         value: ctx.inputType('then').describe('The output value')
@@ -22,9 +16,6 @@ const nodeConstant = aig
     .node()
     .inputs(ctx => ({
         value: ctx.string().describe('The value to use')
-    }))
-    .validate(() => ({
-        value: z.boolean().nullable()
     }))
     .outputs(ctx => ({
         value: ctx.inputType('value')
