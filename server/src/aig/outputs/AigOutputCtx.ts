@@ -8,7 +8,11 @@ export class AigOutputCtx<TInputShape extends AigTypeShape> {
     public constructor(private inputObject: TInputShape) {
     }
 
-    public refer(inputKey: keyof TInputShape) {
+    public inputType(inputKey: keyof TInputShape) {
+        return new AigInputUserType();
+    }
+
+    public userType() {
         return new AigInputUserType();
     }
 

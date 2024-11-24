@@ -9,7 +9,7 @@ const nodeIfThenElse = aig
         else: ctx.userType().describe('The else value')
     }))
     .outputs(ctx => ({
-        value: ctx.string().describe('The output value')
+        value: ctx.inputType('then').describe('The output value')
     }));
 
 const nodeConstant = aig
@@ -18,7 +18,7 @@ const nodeConstant = aig
         value: ctx.string().describe('The value to use')
     }))
     .outputs(ctx => ({
-        value: ctx.refer('value')
+        value: ctx.inputType('value')
     }));
 
 const nodeChild = aig
