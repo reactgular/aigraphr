@@ -9,8 +9,8 @@ import { AigInputUserType } from './AigInputUserType';
 
 export class AigInputCtx {
     /**
-   * @deprecated not sure I want to do parameter grouping in the inputs definition
-   */
+     * @deprecated not sure I want to do parameter grouping in the inputs definition
+     */
     public group<TShape extends AigTypeShape>(shape: TShape) {
         return new AigInputGroup(shape);
     }
@@ -28,7 +28,7 @@ export class AigInputCtx {
     }
 
     public number() {
-        return new AigInputNumber();
+        return new AigInputNumber().notNaN().notInfinity();
     }
 
     public boolean() {

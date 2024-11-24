@@ -14,7 +14,7 @@ function createNode() {
 const node = createNode()
     .input({
         name: z.string().describe('Name of the user'),
-        description: z.string().optional(),
+        description: z.string().min(10).optional(),
         active: z.boolean().default(true),
         child: z.object({
             age: z.number().int().positive()
