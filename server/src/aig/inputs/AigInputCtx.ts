@@ -1,16 +1,16 @@
 import { ZodRawShape } from 'zod/lib/types';
+import { AigTypeShape } from '../types/AigTypeBase';
 import { AigInputBoolean } from './AigInputBoolean';
 import { AigInputGroup } from './AigInputGroup';
-import { AigInputUserType } from './AigInputUserType';
 import { AigInputNumber } from './AigInputNumber';
 import { AigInputObject } from './AigInputObject';
 import { AigInputString } from './AigInputString';
-import { AigTypeShape } from '../types/AigTypeBase';
+import { AigInputUserType } from './AigInputUserType';
 
 export class AigInputCtx {
     /**
-     * @deprecated not sure I want to do parameter grouping in the inputs definition
-     */
+   * @deprecated not sure I want to do parameter grouping in the inputs definition
+   */
     public group<TShape extends AigTypeShape>(shape: TShape) {
         return new AigInputGroup(shape);
     }

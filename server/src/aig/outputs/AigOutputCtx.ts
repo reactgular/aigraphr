@@ -1,7 +1,7 @@
 import { AigInputBoolean } from '../inputs/AigInputBoolean';
-import { AigInputUserType } from '../inputs/AigInputUserType';
 import { AigInputNumber } from '../inputs/AigInputNumber';
 import { AigInputString } from '../inputs/AigInputString';
+import { AigInputUserType } from '../inputs/AigInputUserType';
 import { AigTypeShape } from '../types/AigTypeBase';
 
 export class AigOutputCtx<TInputShape extends AigTypeShape> {

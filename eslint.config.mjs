@@ -154,6 +154,7 @@ export default {
                 ]
             }
         ],
+        'function-call-argument-newline': ['error', 'consistent'],
         '@typescript-eslint/no-empty-function': 'warn',
         '@typescript-eslint/no-empty-interface': 'error',
         '@typescript-eslint/no-explicit-any': 'off',
