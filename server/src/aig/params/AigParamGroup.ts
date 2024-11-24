@@ -10,6 +10,9 @@ export interface AigParamGroupDef extends AigParamDef {
     expanded: boolean;
 }
 
+/**
+ * @deprecated not sure I want to do parameter grouping in the inputs definition
+ */
 export class AigParamGroup<TShape extends AigParamShape> extends AigParamType<
     AigGroupType<TShape>,
     AigParamGroupDef

@@ -2,6 +2,9 @@ import { AigInputCtx } from '../contexts/AigInputCtx';
 import { AigOutputCtx } from '../contexts/AigOutputCtx';
 import { AigParamShape } from '../params/AigParamType';
 
+/**
+ * @todo add an inputConstraints method, example: if/then/else - then type must match else type
+ */
 export class AigNodeDesc<TInputShape extends AigParamShape, TOutputShape extends AigParamShape> {
     protected constructor(
         private readonly inputShape: TInputShape,

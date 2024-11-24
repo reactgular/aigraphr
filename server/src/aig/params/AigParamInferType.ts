@@ -1,13 +1,10 @@
 import { AigParamKind } from './AigParamKind';
 import { AigParamDef, AigParamType } from './AigParamType';
 
-/**
- * @deprecated lets not have ambiguous types
- */
-export class AigParamUnknown extends AigParamType<unknown, AigParamDef> {
+export class AigParamInferType extends AigParamType<string, AigParamDef> {
     public constructor() {
         super({
-            kind: AigParamKind.Unknown,
+            kind: AigParamKind.InferType,
             description: ''
         });
     }
