@@ -1,16 +1,16 @@
-import { AigInputKind } from './AigInputKind';
 import { AigInputType } from './AigInputType';
+import { AigInputBase } from './AigInputBase';
 
-class AigInputTypeTest extends AigInputType<string> {
+class AigInputBaseTest extends AigInputBase<string> {
     public constructor() {
         super({
-            kind: AigInputKind.String,
+            type: AigInputType.String,
             description: ''
         });
     }
 }
 
 test('Should set description', () => {
-    const p = new AigInputTypeTest().describe('Test');
+    const p = new AigInputBaseTest().describe('Test');
     expect(p._def.description).toBe('Test');
 });

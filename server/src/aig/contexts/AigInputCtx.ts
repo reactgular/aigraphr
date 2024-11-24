@@ -5,7 +5,7 @@ import { AigInputInferType } from '../inputs/AigInputInferType';
 import { AigInputNumber } from '../inputs/AigInputNumber';
 import { AigInputObject } from '../inputs/AigInputObject';
 import { AigInputString } from '../inputs/AigInputString';
-import { AigParamShape } from '../inputs/AigInputType';
+import { AigParamShape } from '../inputs/AigInputBase';
 
 export class AigInputCtx {
     /**

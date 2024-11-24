@@ -1,6 +1,6 @@
 import { AigInputCtx } from '../contexts/AigInputCtx';
 import { AigOutputCtx } from '../contexts/AigOutputCtx';
-import { AigParamShape } from '../inputs/AigInputType';
+import { AigParamShape } from '../inputs/AigInputBase';
 
 /**
  * @todo add an inputConstraints method, example: if/then/else - then type must match else type

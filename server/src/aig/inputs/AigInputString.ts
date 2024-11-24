@@ -1,10 +1,10 @@
-import { AigInputKind } from './AigInputKind';
-import { AigInputType, AigParamDef } from './AigInputType';
+import { AigInputType } from './AigInputType';
+import { AigInputBase, AigInputDef } from './AigInputBase';
 
-export class AigInputString extends AigInputType<string, AigParamDef> {
+export class AigInputString extends AigInputBase<string, AigInputDef> {
     public constructor() {
         super({
-            kind: AigInputKind.String,
+            type: AigInputType.String,
             description: ''
         });
     }

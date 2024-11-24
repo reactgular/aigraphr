@@ -1,10 +1,10 @@
-import { AigInputKind } from './AigInputKind';
-import { AigInputType, AigParamDef } from './AigInputType';
+import { AigInputType } from './AigInputType';
+import { AigInputBase, AigInputDef } from './AigInputBase';
 
-export class AigInputInferType extends AigInputType<string, AigParamDef> {
+export class AigInputInferType extends AigInputBase<string, AigInputDef> {
     public constructor() {
         super({
-            kind: AigInputKind.InferType,
+            type: AigInputType.InferType,
             description: ''
         });
     }
