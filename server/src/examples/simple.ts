@@ -28,22 +28,6 @@ const nodeConstant = aig
         value: ctx.inputType('value')
     }));
 
-const nodeChild = aig
-    .node()
-    .inputs(ctx => ({
-        child: ctx
-            .group({
-                name: ctx.string().describe('The name of the child'),
-                subChild: ctx.group({
-                    deepName: ctx.string().describe(
-                        'The name of the sub-child')
-                })
-            })
-            .title('Child')
-            .describe('The child to use')
-            .expanded(false)
-    }));
-
 const jsonObject = aig
     .node()
     .inputs(ctx => ({
