@@ -1,7 +1,7 @@
 import { ZodRawShape } from 'zod/lib/types';
 import { AigInputBoolean } from '../inputs/AigInputBoolean';
 import { AigInputGroup } from '../inputs/AigInputGroup';
-import { AigInputInferType } from '../inputs/AigInputInferType';
+import { AigInputUserType } from '../inputs/AigInputUserType';
 import { AigInputNumber } from '../inputs/AigInputNumber';
 import { AigInputObject } from '../inputs/AigInputObject';
 import { AigInputString } from '../inputs/AigInputString';
@@ -19,8 +19,8 @@ export class AigInputCtx {
         return new AigInputObject<TZodShape>(zod);
     }
 
-    public inferType() {
-        return new AigInputInferType();
+    public userType() {
+        return new AigInputUserType();
     }
 
     public string() {

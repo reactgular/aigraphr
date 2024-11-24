@@ -5,8 +5,8 @@ const nodeIfThenElse = aig
     .node()
     .inputs(ctx => ({
         condition: ctx.boolean().describe('The condition to check'),
-        then: ctx.inferType().describe('The then value'),
-        else: ctx.inferType().describe('The else value')
+        then: ctx.userType().describe('The then value'),
+        else: ctx.userType().describe('The else value')
     }))
     .outputs(ctx => ({
         value: ctx.string().describe('The output value')

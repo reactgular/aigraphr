@@ -1,5 +1,5 @@
 import { AigInputBoolean } from '../inputs/AigInputBoolean';
-import { AigInputInferType } from '../inputs/AigInputInferType';
+import { AigInputUserType } from '../inputs/AigInputUserType';
 import { AigInputNumber } from '../inputs/AigInputNumber';
 import { AigInputString } from '../inputs/AigInputString';
 import { AigParamShape } from '../inputs/AigInputBase';
@@ -9,7 +9,7 @@ export class AigOutputCtx<TInputShape extends AigParamShape> {
     }
 
     public refer(inputKey: keyof TInputShape) {
-        return new AigInputInferType();
+        return new AigInputUserType();
     }
 
     public string() {

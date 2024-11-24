@@ -1,8 +1,5 @@
 export enum AigInputType {
-    /**
-     * I'm not sure if infer is a kind
-     */
-    InferType = 'inferType',
+    UserType = 'userType',
     String = 'string',
     Number = 'number',
     Boolean = 'boolean',

@@ -1,5 +1,5 @@
-import { AigNodeDesc } from './graph/AigNodeDesc';
+import { AigNodeBuilder } from './nodes/AigNodeBuilder';
 
 export const aig = {
-    node: () => AigNodeDesc.create()
+    node: () => AigNodeBuilder.create()
 };
