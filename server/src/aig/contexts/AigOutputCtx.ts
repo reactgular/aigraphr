@@ -1,30 +1,26 @@
-import { AigParamBoolean } from '../params/AigParamBoolean';
-import { AigParamNumber } from '../params/AigParamNumber';
-import { AigParamString } from '../params/AigParamString';
-import { AigParamShape } from '../params/AigParamType';
-import { AigParamUnknown } from '../params/AigParamUnknown';
+import { AigInputBoolean } from '../inputs/AigInputBoolean';
+import { AigInputInferType } from '../inputs/AigInputInferType';
+import { AigInputNumber } from '../inputs/AigInputNumber';
+import { AigInputString } from '../inputs/AigInputString';
+import { AigParamShape } from '../inputs/AigInputType';
 
 export class AigOutputCtx<TInputShape extends AigParamShape> {
     public constructor(private inputObject: TInputShape) {
     }
 
-    public unknown() {
-        return new AigParamUnknown();
-    }
-
     public refer(inputKey: keyof TInputShape) {
-        return new AigParamUnknown();
+        return new AigInputInferType();
     }
 
     public string() {
-        return new AigParamString();
+        return new AigInputString();
     }
 
     public number() {
-        return new AigParamNumber();
+        return new AigInputNumber();
     }
 
     public boolean() {
-        return new AigParamBoolean();
+        return new AigInputBoolean();
     }
 }

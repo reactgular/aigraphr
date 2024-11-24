@@ -15,7 +15,7 @@ const nodeIfThenElse = aig
 const nodeConstant = aig
     .node()
     .inputs(ctx => ({
-        value: ctx.unknown()
+        value: ctx.string().describe('The value to use')
     }))
     .outputs(ctx => ({
         value: ctx.refer('value')
