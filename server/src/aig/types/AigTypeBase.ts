@@ -1,4 +1,3 @@
-import { ZodTypeAny } from 'zod/lib/types';
 import { AigType } from './AigType';
 
 // export type AigTypeShape = { [k: string]: AigTypeAny };
