@@ -17,7 +17,7 @@ export default ts_eslint.config({ignores: ['dist', '**/*.d.ts']}, rootConfig, {
     rules: {
         ...reactHooks.configs.recommended.rules,
         'react-refresh/only-export-components': [
-            'warn',
+            'error',
             {allowConstantExport: true}
         ]
     }
