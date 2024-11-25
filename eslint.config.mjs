@@ -5,6 +5,14 @@ import prettierRecommended from 'eslint-plugin-prettier/recommended';
 import ts_eslint from 'typescript-eslint';
 
 export default ts_eslint.config(
+    {
+        ignores: [
+            '**/node_modules/**',
+            '**/dist/**',
+            '**/build/**',
+            '**/coverage/**'
+        ]
+    },
     prettierRecommended,
     js.configs.recommended,
     ts_eslint.configs.recommended,

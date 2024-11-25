@@ -19,10 +19,9 @@
     ],
     "scripts": {
         "dev": "concurrently --kill-others -n \"client,server\" -c \"bgBlue.bold,bgGreen.bold\" \"npm run dev --workspace=client\" \"npm run dev --workspace=server\"",
-        "c": "concurrently --help",
         "build": "npm run build --workspaces",
-        "lint": "npm run lint --workspaces",
-        "format": "npm run format --workspaces",
+        "lint": "eslint *.json && npm run lint --workspaces",
+        "format": "eslint *.json --fix && npm run format --workspaces",
         "sort": "npx --yes sort-package-json && npm run sort --workspaces"
     },
     "devDependencies": {
