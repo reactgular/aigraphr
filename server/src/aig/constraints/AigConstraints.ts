@@ -1,5 +1,5 @@
-import { AigConstraint } from './AigConstraint';
-import { AigConstraintCtx } from './AigConstraintCtx';
+import {AigConstraint} from './AigConstraint';
+import {AigConstraintCtx} from './AigConstraintCtx';
 
 export class AigConstraints<TValue, TContext> {
     private readonly constraints: Array<AigConstraint<TValue, TContext>>;

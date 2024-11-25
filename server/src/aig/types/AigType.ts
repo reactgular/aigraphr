@@ -10,5 +10,5 @@ export enum AigType {
     /**
      * @deprecated
      */
-    Group = 'group',
+    Group = 'group'
 }

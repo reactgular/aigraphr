@@ -2,7 +2,6 @@
     "name": "@reactgular/aigraphr",
     "version": "1.0.0",
     "private": true,
-    "license": "GPL-3.0-or-later",
     "description": "AIGraphr is a graphing library for AI applications",
     "homepage": "https://github.com/reactgular/aigraphr#readme",
     "bugs": {
@@ -12,16 +11,17 @@
         "type": "git",
         "url": "git+https://github.com/reactgular/aigraphr.git"
     },
+    "license": "GPL-3.0-or-later",
     "author": "Nick Foscarini",
     "workspaces": [
         "client",
         "server"
     ],
     "scripts": {
-        "dev": "concurrently --kill-others -n \"client,server\" -c \"bgBlue.bold,bgGreen.bold\" \"npm run dev --workspace=client\" \"npm run dev --workspace=server\"",
-        "c": "concurrently --help",
         "build": "npm run build --workspaces",
-        "lint": "npm run lint --workspaces",
+        "dev": "concurrently --kill-others -n \"client,server\" -c \"bgBlue.bold,bgGreen.bold\" \"npm run dev --workspace=client\" \"npm run dev --workspace=server\"",
+        "format": "npm run sort && eslint *.json --fix && npm run format --workspaces",
+        "lint": "eslint *.json && npm run lint --workspaces",
         "sort": "npx --yes sort-package-json && npm run sort --workspaces"
     },
     "devDependencies": {
@@ -30,8 +30,12 @@
         "@typescript-eslint/parser": "^8.0.0",
         "concurrently": "^9.1.0",
         "eslint": "^9.13.0",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-json": "^4.0.1",
+        "eslint-plugin-prettier": "^5.2.1",
         "eslint-plugin-react-hooks": "^5.0.0",
         "eslint-plugin-react-refresh": "^0.4.14",
+        "prettier": "^3.3.3",
         "typescript": "^5.6.3",
         "typescript-eslint": "^8.11.0"
     }
