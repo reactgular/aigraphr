@@ -9,7 +9,7 @@ export default ts_eslint.config({ignores: ['dist', '**/*.d.ts']}, rootConfig, {
         'react-hooks': reactHooks,
         'react-refresh': reactRefresh
     },
-    files: ['**/*.{ts,tsx}'],
+    files: ['**/*.{ts,tsx,js,jsx}'],
     languageOptions: {
         ecmaVersion: 2020,
         globals: globals.browser
