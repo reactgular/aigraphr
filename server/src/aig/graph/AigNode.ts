@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 export type InputToken = string | number | symbol | Function;
 
 export interface InputType<TType> {

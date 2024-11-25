@@ -1,6 +1,6 @@
 import {cn} from '@/lib/utils';
 import {Slot} from '@radix-ui/react-slot';
-import {type VariantProps, cva} from 'class-variance-authority';
+import {cva, type VariantProps} from 'class-variance-authority';
 import * as React from 'react';
 
 const buttonVariants = cva(
@@ -53,4 +53,5 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 );
 Button.displayName = 'Button';
 
+// eslint-disable-next-line react-refresh/only-export-components
 export {Button, buttonVariants};

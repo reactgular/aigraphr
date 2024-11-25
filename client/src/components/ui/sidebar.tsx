@@ -13,7 +13,7 @@ import {
 import {useIsMobile} from '@/hooks/use-mobile';
 import {cn} from '@/lib/utils';
 import {Slot} from '@radix-ui/react-slot';
-import {VariantProps, cva} from 'class-variance-authority';
+import {cva, VariantProps} from 'class-variance-authority';
 import {PanelLeft} from 'lucide-react';
 import * as React from 'react';
 
@@ -782,5 +782,6 @@ export {
     SidebarRail,
     SidebarSeparator,
     SidebarTrigger,
+    // eslint-disable-next-line react-refresh/only-export-components
     useSidebar
 };
