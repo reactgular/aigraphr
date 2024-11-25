@@ -1,6 +1,6 @@
-import { AigConstraint } from '../constraints/AigConstraint';
-import { AigConstraints } from '../constraints/AigConstraints';
-import { AigType } from './AigType';
+import {AigConstraint} from '../constraints/AigConstraint';
+import {AigConstraints} from '../constraints/AigConstraints';
+import {AigType} from './AigType';
 
 export type AigTypeShape = Record<string, AigTypeAny>;
 export type AigTypeAny = AigTypeBase<any, any>;
@@ -15,10 +15,7 @@ export interface AigTypeDef {
     description: string;
 }
 
-export abstract class AigTypeBase<
-    TType,
-    TDef extends AigTypeDef = AigTypeDef
-> {
+export abstract class AigTypeBase<TType, TDef extends AigTypeDef = AigTypeDef> {
     readonly _type!: TType;
     readonly _def: TDef;
     readonly constraints: AigConstraints<TType, TDef>;

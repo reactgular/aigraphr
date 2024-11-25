@@ -16,7 +16,7 @@ import {
     SidebarMenuSub,
     SidebarRail
 } from '@/components/ui/sidebar';
-import { ChevronRight, File, Folder } from 'lucide-react';
+import {ChevronRight, File, Folder} from 'lucide-react';
 import * as React from 'react';
 
 // This is sample data.
@@ -63,7 +63,7 @@ const data = {
     ]
 };
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({...props}: React.ComponentProps<typeof Sidebar>) {
     return (
         <Sidebar {...props}>
             <SidebarContent>
@@ -77,7 +77,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                                         <File />
                                         {item.file}
                                     </SidebarMenuButton>
-                                    <SidebarMenuBadge>{item.state}</SidebarMenuBadge>
+                                    <SidebarMenuBadge>
+                                        {item.state}
+                                    </SidebarMenuBadge>
                                 </SidebarMenuItem>
                             ))}
                         </SidebarMenu>
@@ -99,7 +101,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     );
 }
 
-function Tree({ item }: { item: string | Array<any> }) {
+function Tree({item}: {item: string | Array<any>}) {
     const [name, ...items] = Array.isArray(item) ? item : [item];
 
     if (!items.length) {

@@ -4,7 +4,7 @@ export interface InputType<TType> {
     provide: InputToken;
 }
 
-export type GrNodeData = { id: string };
+export type GrNodeData = {id: string};
 
 export class AigNode<TData extends GrNodeData> {
     private _data: TData;

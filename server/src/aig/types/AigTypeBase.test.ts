@@ -1,5 +1,5 @@
-import { AigType } from './AigType';
-import { AigTypeBase } from './AigTypeBase';
+import {AigType} from './AigType';
+import {AigTypeBase} from './AigTypeBase';
 
 class AigTypeBaseTest extends AigTypeBase<string> {
     public constructor() {

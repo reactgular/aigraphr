@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import {z} from 'zod';
 
 function createNode() {
     return {
@@ -20,7 +20,7 @@ const node = createNode()
             age: z.number().int().positive()
         })
     })
-    .query(data => {
+    .query((data) => {
         // Now, data.name is of type string
         console.log(data.name.toUpperCase()); // Example usage
         console.log(data.child.age.toFixed(2)); // Example usage
