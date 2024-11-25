@@ -2,7 +2,6 @@
     "name": "@reactgular/aigraphr",
     "version": "1.0.0",
     "private": true,
-    "license": "GPL-3.0-or-later",
     "description": "AIGraphr is a graphing library for AI applications",
     "homepage": "https://github.com/reactgular/aigraphr#readme",
     "bugs": {
@@ -12,16 +11,17 @@
         "type": "git",
         "url": "git+https://github.com/reactgular/aigraphr.git"
     },
+    "license": "GPL-3.0-or-later",
     "author": "Nick Foscarini",
     "workspaces": [
         "client",
         "server"
     ],
     "scripts": {
-        "dev": "concurrently --kill-others -n \"client,server\" -c \"bgBlue.bold,bgGreen.bold\" \"npm run dev --workspace=client\" \"npm run dev --workspace=server\"",
         "build": "npm run build --workspaces",
+        "dev": "concurrently --kill-others -n \"client,server\" -c \"bgBlue.bold,bgGreen.bold\" \"npm run dev --workspace=client\" \"npm run dev --workspace=server\"",
+        "format": "npm run sort && eslint *.json --fix && npm run format --workspaces",
         "lint": "eslint *.json && npm run lint --workspaces",
-        "format": "eslint *.json --fix && npm run format --workspaces",
         "sort": "npx --yes sort-package-json && npm run sort --workspaces"
     },
     "devDependencies": {

@@ -8,8 +8,8 @@
     "scripts": {
         "build": "nest build",
         "dev": "nest start --watch",
-        "lint": "eslint .",
         "format": "eslint . --fix",
+        "lint": "eslint .",
         "sort": "npx --yes sort-package-json",
         "start": "nest start",
         "start:debug": "nest start --debug --watch",
