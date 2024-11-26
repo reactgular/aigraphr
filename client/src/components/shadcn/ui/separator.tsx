@@ -1,4 +1,4 @@
-import {cn} from '@/lib/utils';
+import {cn} from '@/components/shadcn/lib/utils.ts';
 import * as SeparatorPrimitive from '@radix-ui/react-separator';
 import * as React from 'react';
 
