@@ -2,7 +2,7 @@ import {
     Collapsible,
     CollapsibleContent,
     CollapsibleTrigger
-} from '@/components/ui/collapsible';
+} from '@/components/shadcn/ui/collapsible.tsx';
 import {
     Sidebar,
     SidebarContent,
@@ -15,7 +15,7 @@ import {
     SidebarMenuItem,
     SidebarMenuSub,
     SidebarRail
-} from '@/components/ui/sidebar';
+} from '@/components/shadcn/ui/sidebar.tsx';
 import {ChevronRight, File, Folder} from 'lucide-react';
 import * as React from 'react';
 
