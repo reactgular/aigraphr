@@ -6,15 +6,19 @@ import {
     BreadcrumbList,
     BreadcrumbPage,
     BreadcrumbSeparator
-} from '@/components/shadcn/ui/breadcrumb';
-import {Separator} from '@/components/shadcn/ui/separator';
+} from '@/components/shadcn/ui/breadcrumb.tsx';
+import {Separator} from '@/components/shadcn/ui/separator.tsx';
 import {
     SidebarInset,
     SidebarProvider,
     SidebarTrigger
-} from '@/components/shadcn/ui/sidebar';
+} from '@/components/shadcn/ui/sidebar.tsx';
+import {FC} from 'react';
 
-export function Page() {
+/**
+ * @deprecated
+ */
+export const Page: FC = () => {
     return (
         <SidebarProvider>
             <AppSidebar />
@@ -51,4 +55,4 @@ export function Page() {
             </SidebarInset>
         </SidebarProvider>
     );
-}
+};
