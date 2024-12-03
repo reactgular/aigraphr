@@ -10,7 +10,7 @@ import {FC} from 'react';
 /**
  * @deprecated
  */
-export const Page: FC = () => {
+export const Demo: FC = () => {
     return (
         <SidebarProvider>
             <AppSidebar />
