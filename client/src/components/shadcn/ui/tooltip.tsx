@@ -1,4 +1,4 @@
-import {cn} from '@/components/shadcn/lib/utils.ts';
+import {cn} from '@/components/shadcn/lib/utils';
 import * as TooltipPrimitive from '@radix-ui/react-tooltip';
 import * as React from 'react';
 

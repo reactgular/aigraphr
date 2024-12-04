@@ -2,7 +2,7 @@ import {
     Collapsible,
     CollapsibleContent,
     CollapsibleTrigger
-} from '@/components/shadcn/ui/collapsible.tsx';
+} from '@/components/shadcn/ui/collapsible';
 import {
     Sidebar,
     SidebarContent,
@@ -15,9 +15,10 @@ import {
     SidebarMenuItem,
     SidebarMenuSub,
     SidebarRail
-} from '@/components/shadcn/ui/sidebar.tsx';
+} from '@/components/shadcn/ui/sidebar';
 import {ChevronRight, File, Folder} from 'lucide-react';
 import * as React from 'react';
+import {FC} from 'react';
 
 // This is sample data.
 const data = {
@@ -63,7 +64,9 @@ const data = {
     ]
 };
 
-export function AppSidebar({...props}: React.ComponentProps<typeof Sidebar>) {
+export const AppSidebar: FC<React.ComponentProps<typeof Sidebar>> = ({
+    ...props
+}) => {
     return (
         <Sidebar {...props}>
             <SidebarContent>
@@ -99,7 +102,7 @@ export function AppSidebar({...props}: React.ComponentProps<typeof Sidebar>) {
             <SidebarRail />
         </Sidebar>
     );
-}
+};
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function Tree({item}: {item: string | Array<any>}) {

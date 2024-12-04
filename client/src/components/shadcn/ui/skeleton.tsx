@@ -1,4 +1,4 @@
-import {cn} from '@/components/shadcn/lib/utils.ts';
+import {cn} from '@/components/shadcn/lib/utils';
 
 function Skeleton({className, ...props}: React.HTMLAttributes<HTMLDivElement>) {
     return (

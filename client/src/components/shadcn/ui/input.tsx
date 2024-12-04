@@ -1,4 +1,4 @@
-import {cn} from '@/components/shadcn/lib/utils.ts';
+import {cn} from '@/components/shadcn/lib/utils';
 import * as React from 'react';
 
 const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<'input'>>(

@@ -1,16 +1,16 @@
-import {useIsMobile} from '@/components/shadcn/hooks/use-mobile.tsx';
-import {cn} from '@/components/shadcn/lib/utils.ts';
-import {Button} from '@/components/shadcn/ui/button.tsx';
-import {Input} from '@/components/shadcn/ui/input.tsx';
-import {Separator} from '@/components/shadcn/ui/separator.tsx';
-import {Sheet, SheetContent} from '@/components/shadcn/ui/sheet.tsx';
-import {Skeleton} from '@/components/shadcn/ui/skeleton.tsx';
+import {useIsMobile} from '@/components/shadcn/hooks/use-mobile';
+import {cn} from '@/components/shadcn/lib/utils';
+import {Button} from '@/components/shadcn/ui/button';
+import {Input} from '@/components/shadcn/ui/input';
+import {Separator} from '@/components/shadcn/ui/separator';
+import {Sheet, SheetContent} from '@/components/shadcn/ui/sheet';
+import {Skeleton} from '@/components/shadcn/ui/skeleton';
 import {
     Tooltip,
     TooltipContent,
     TooltipProvider,
     TooltipTrigger
-} from '@/components/shadcn/ui/tooltip.tsx';
+} from '@/components/shadcn/ui/tooltip';
 import {Slot} from '@radix-ui/react-slot';
 import {cva, VariantProps} from 'class-variance-authority';
 import {PanelLeft} from 'lucide-react';

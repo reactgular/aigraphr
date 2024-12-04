@@ -1,4 +1,4 @@
-import {cn} from '@/components/shadcn/lib/utils.ts';
+import {cn} from '@/components/shadcn/lib/utils';
 import {Slot} from '@radix-ui/react-slot';
 import {ChevronRight, MoreHorizontal} from 'lucide-react';
 import * as React from 'react';
