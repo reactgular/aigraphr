@@ -8,7 +8,7 @@ import {TrpcPanelController} from './trpc-panel.controller';
 @Module({
     imports: [
         TRPCModule.forRoot({
-            autoSchemaFile: './src/@generated'
+            autoSchemaFile: '../shared/src/trpc'
         })
     ],
     controllers: [AppController, TrpcPanelController],
