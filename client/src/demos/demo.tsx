@@ -1,11 +1,8 @@
-import {AppHeader} from '@/components/app/AppHeader.tsx';
-import {AppPlaceholder} from '@/components/app/AppPlaceholder.tsx';
-import {AppProviders} from '@/components/app/AppProviders.tsx';
-import {AppSidebar} from '@/components/app/AppSidebar.tsx';
-import {
-    SidebarInset,
-    SidebarProvider
-} from '@/components/shadcn/ui/sidebar.tsx';
+import {AppHeader} from '@/components/app/AppHeader';
+import {AppPlaceholder} from '@/components/app/AppPlaceholder';
+import {AppProviders} from '@/components/app/AppProviders';
+import {AppSidebar} from '@/components/app/AppSidebar';
+import {SidebarInset, SidebarProvider} from '@/components/shadcn/ui/sidebar';
 import {FC} from 'react';
 
 /**
