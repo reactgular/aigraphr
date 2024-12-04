@@ -1,6 +1,7 @@
 import {Module} from '@nestjs/common';
 import {TRPCModule} from 'nestjs-trpc';
 import {AppController} from './app.controller';
+import {AppRouter} from './app.router';
 import {AppService} from './app.service';
 
 @Module({
@@ -10,6 +11,6 @@ import {AppService} from './app.service';
         })
     ],
     controllers: [AppController],
-    providers: [AppService]
+    providers: [AppService, AppRouter]
 })
 export class AppModule {}
