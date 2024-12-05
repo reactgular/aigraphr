@@ -10,7 +10,8 @@ export default ts_eslint.config(
             '**/node_modules/**',
             '**/dist/**',
             '**/build/**',
-            '**/coverage/**'
+            '**/coverage/**',
+            'shared/src/trpc/**'
         ]
     },
     prettierRecommended,
