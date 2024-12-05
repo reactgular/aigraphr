@@ -1,4 +1,5 @@
 import {MainModule} from '@/main.module';
+import {TrpcRouter} from '@/trpc/trpc.router';
 import {Logger} from '@nestjs/common';
 import {NestFactory} from '@nestjs/core';
 
@@ -10,6 +11,9 @@ async function bootstrap() {
 
     const main = await NestFactory.create(MainModule);
     main.enableCors();
+
+    const trpcRouter = main.get(TrpcRouter);
+    await trpcRouter.applyMiddleware(main);
     await main.listen(port, '0.0.0.0');
 
     logger.log(

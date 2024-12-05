@@ -3,7 +3,7 @@ import {AnyRouter} from '@trpc/server';
 import {renderTrpcPanel} from 'trpc-ui';
 
 @Controller()
-export class TrpcPanelController implements OnModuleInit {
+export class TrpcUiController implements OnModuleInit {
     private appRouter!: AnyRouter;
 
     public constructor() {}
