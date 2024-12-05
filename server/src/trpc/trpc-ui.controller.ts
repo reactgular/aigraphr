@@ -1,20 +1,16 @@
+import {TrpcRouter} from '@/trpc/trpc.router';
 import {All, Controller, OnModuleInit} from '@nestjs/common';
-import {AnyRouter} from '@trpc/server';
 import {renderTrpcPanel} from 'trpc-ui';
 
 @Controller()
 export class TrpcUiController implements OnModuleInit {
-    private appRouter!: AnyRouter;
+    public constructor(private readonly appRouter: TrpcRouter) {}
 
-    public constructor() {}
-
-    public onModuleInit() {
-        this.appRouter = null; // Replace with your app router
-    }
+    public onModuleInit() {}
 
     @All('/panel')
     public panel(): string {
-        return renderTrpcPanel(this.appRouter, {
+        return renderTrpcPanel(this.appRouter.appRouter, {
             url: 'http://localhost:3000/trpc'
         });
     }

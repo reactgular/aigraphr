@@ -23,7 +23,7 @@ async function bootstrap() {
     );
 
     logger.log(
-        `🔥 tRPC Panel is running on: http://${
+        `🔥 tRPC UI is running on: http://${
             production ? '0.0.0.0' : 'localhost'
         }:${port}/panel`
     );

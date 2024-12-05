@@ -5,7 +5,7 @@ import {z} from 'zod';
 
 @Injectable()
 export class TrpcRouter {
-    private readonly appRouter = this.trpc.router({
+    public readonly appRouter = this.trpc.router({
         hello: this.trpc.procedure
             .input(
                 z.object({
