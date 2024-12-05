@@ -1,5 +1,5 @@
-import {AigType} from '../types/AigType';
-import {AigTypeBase, AigTypeDef} from '../types/AigTypeBase';
+import {AigType} from '@/nodes/aig/types/AigType';
+import {AigTypeBase, AigTypeDef} from '@/nodes/aig/types/AigTypeBase';
 
 export class AigInputString extends AigTypeBase<string, AigTypeDef> {
     public constructor() {

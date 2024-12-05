@@ -1,5 +1,5 @@
-import {AigConstraint} from '../constraints/AigConstraint';
-import {AigConstraints} from '../constraints/AigConstraints';
+import {AigConstraint} from '@/nodes/aig/constraints/AigConstraint';
+import {AigConstraints} from '@/nodes/aig/constraints/AigConstraints';
 import {AigType} from './AigType';
 
 export type AigTypeShape = Record<string, AigTypeAny>;

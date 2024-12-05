@@ -3,15 +3,10 @@ import {TRPCModule} from 'nestjs-trpc';
 import {AppController} from './app.controller';
 import {AppRouter} from './app.router';
 import {AppService} from './app.service';
-import {TrpcPanelController} from './trpc-panel.controller';
 
 @Module({
-    imports: [
-        TRPCModule.forRoot({
-            autoSchemaFile: '../shared/src/trpc'
-        })
-    ],
-    controllers: [AppController, TrpcPanelController],
+    imports: [TRPCModule],
+    controllers: [AppController],
     providers: [AppService, AppRouter]
 })
 export class AppModule {}

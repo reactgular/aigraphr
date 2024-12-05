@@ -1,8 +1,8 @@
-import {AigConstraint} from '../constraints/AigConstraint';
-import {AigConstraints} from '../constraints/AigConstraints';
-import {AigInputCtx} from '../inputs/AigInputCtx';
-import {AigOutputCtx} from '../outputs/AigOutputCtx';
-import {AigTypeSchema, AigTypeShape} from '../types/AigTypeBase';
+import {AigConstraint} from '@/nodes/aig/constraints/AigConstraint';
+import {AigConstraints} from '@/nodes/aig/constraints/AigConstraints';
+import {AigInputCtx} from '@/nodes/aig/inputs/AigInputCtx';
+import {AigOutputCtx} from '@/nodes/aig/outputs/AigOutputCtx';
+import {AigTypeSchema, AigTypeShape} from '@/nodes/aig/types/AigTypeBase';
 
 export class AigNodeBuilder<
     TInputShape extends AigTypeShape,

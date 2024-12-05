@@ -1,8 +1,8 @@
-import {AigInputBoolean} from '../inputs/AigInputBoolean';
-import {AigInputNumber} from '../inputs/AigInputNumber';
-import {AigInputString} from '../inputs/AigInputString';
-import {AigInputUserType} from '../inputs/AigInputUserType';
-import {AigTypeShape} from '../types/AigTypeBase';
+import {AigInputBoolean} from '@/nodes/aig/inputs/AigInputBoolean';
+import {AigInputNumber} from '@/nodes/aig/inputs/AigInputNumber';
+import {AigInputString} from '@/nodes/aig/inputs/AigInputString';
+import {AigInputUserType} from '@/nodes/aig/inputs/AigInputUserType';
+import {AigTypeShape} from '@/nodes/aig/types/AigTypeBase';
 
 export class AigOutputCtx<TInputShape extends AigTypeShape> {
     public constructor(private inputObject: TInputShape) {}

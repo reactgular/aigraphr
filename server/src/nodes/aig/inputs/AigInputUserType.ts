@@ -1,6 +1,6 @@
-import {AigType} from '../types/AigType';
-import {AigTypeBase, AigTypeDef} from '../types/AigTypeBase';
-import {AigValueUserType} from '../values/AigValueUserType';
+import {AigType} from '@/nodes/aig/types/AigType';
+import {AigTypeBase, AigTypeDef} from '@/nodes/aig/types/AigTypeBase';
+import {AigValueUserType} from '@/nodes/aig/values/AigValueUserType';
 
 export class AigInputUserType extends AigTypeBase<
     AigValueUserType,
