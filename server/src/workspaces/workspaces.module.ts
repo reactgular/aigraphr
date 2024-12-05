@@ -1,10 +1,8 @@
-import {WorkspacesRouter} from '@/workspaces/workspaces.router';
 import {Module} from '@nestjs/common';
-import {TRPCModule} from 'nestjs-trpc';
 
 @Module({
-    imports: [TRPCModule],
+    imports: [],
     controllers: [],
-    providers: [WorkspacesRouter]
+    providers: []
 })
 export class WorkspacesModule {}

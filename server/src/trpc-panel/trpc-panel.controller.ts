@@ -1,18 +1,15 @@
-import {All, Controller, Inject, OnModuleInit} from '@nestjs/common';
+import {All, Controller, OnModuleInit} from '@nestjs/common';
 import {AnyRouter} from '@trpc/server';
-import {AppRouterHost} from 'nestjs-trpc';
-import {renderTrpcPanel} from 'trpc-panel';
+import {renderTrpcPanel} from 'trpc-ui';
 
 @Controller()
 export class TrpcPanelController implements OnModuleInit {
     private appRouter!: AnyRouter;
 
-    public constructor(
-        @Inject(AppRouterHost) private readonly appRouterHost: AppRouterHost
-    ) {}
+    public constructor() {}
 
     public onModuleInit() {
-        this.appRouter = this.appRouterHost.appRouter;
+        this.appRouter = null; // Replace with your app router
     }
 
     @All('/panel')

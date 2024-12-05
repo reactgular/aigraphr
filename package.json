@@ -24,7 +24,9 @@
         "lint": "eslint *.json && npm run lint --workspaces",
         "sort": "npx --yes sort-package-json && npm run sort --workspaces"
     },
-    "dependencies": {},
+    "dependencies": {
+        "@trpc/server": "^11.0.0-rc.648"
+    },
     "devDependencies": {
         "@eslint/js": "^9.13.0",
         "@types/node": "^22.10.1",
