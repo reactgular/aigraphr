@@ -1,4 +1,5 @@
 import {AppHeader} from '@/components/app/AppHeader';
+import {AppHelloWorld} from '@/components/app/AppHelloWorld';
 import {AppPlaceholder} from '@/components/app/AppPlaceholder';
 import {AppProviders} from '@/components/app/AppProviders';
 import {AppSidebar} from '@/components/app/AppSidebar';
@@ -16,6 +17,7 @@ export const Demo: FC = () => {
                 <SidebarInset>
                     <AppHeader />
                     <main className="flex flex-1 flex-col gap-4 p-4">
+                        <AppHelloWorld />
                         <AppPlaceholder />
                     </main>
                 </SidebarInset>
