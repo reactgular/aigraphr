@@ -8,9 +8,10 @@ export class TrpcUiController implements OnModuleInit {
 
     public onModuleInit() {}
 
-    @All('/panel')
+    @All('/trpc-ui')
     public panel(): string {
         return renderTrpcPanel(this.appRouter.appRouter, {
+            // @todo this should be injected
             url: 'http://localhost:3000/trpc'
         });
     }

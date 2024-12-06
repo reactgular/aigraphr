@@ -5,6 +5,7 @@ import {Module} from '@nestjs/common';
 
 @Module({
     imports: [],
+    // @todo this should only be provided in dev mode
     controllers: [TrpcUiController],
     providers: [TrpcService, TrpcRouter],
     exports: [TrpcService, TrpcRouter]

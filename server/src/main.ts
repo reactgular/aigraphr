@@ -16,17 +16,9 @@ async function bootstrap() {
     await trpcRouter.applyMiddleware(main);
     await main.listen(port, '0.0.0.0');
 
-    logger.log(
-        `🔥 AIGraphr is running on: http://${
-            production ? '0.0.0.0' : 'localhost'
-        }:${port}/`
-    );
-
-    logger.log(
-        `🔥 tRPC UI is running on: http://${
-            production ? '0.0.0.0' : 'localhost'
-        }:${port}/panel`
-    );
+    const url = `http://${production ? '0.0.0.0' : 'localhost'}:${port}`;
+    logger.log(`🔥 AIGraphr is running on: ${url}/`);
+    logger.log(`🔥 tRPC UI is running on: ${url}/trpc-ui`);
 }
 
 bootstrap().then();
