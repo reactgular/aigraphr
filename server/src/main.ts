@@ -1,7 +1,8 @@
 import {MainModule} from '@/main.module';
-import {TrpcRouter} from '@/trpc/trpc.router';
+import {mainRouter} from '@/main.router';
 import {Logger} from '@nestjs/common';
 import {NestFactory} from '@nestjs/core';
+import * as trpcExpress from '@trpc/server/adapters/express';
 
 async function bootstrap() {
     const production = false;
@@ -11,9 +12,12 @@ async function bootstrap() {
 
     const main = await NestFactory.create(MainModule);
     main.enableCors();
+    // @todo we can get mainRouter from main.get(MAIN_ROUTER_PROVIDER)
+    main.use(
+        `/trpc`,
+        trpcExpress.createExpressMiddleware({router: mainRouter})
+    );
 
-    const trpcRouter = main.get(TrpcRouter);
-    await trpcRouter.applyMiddleware(main);
     await main.listen(port, '0.0.0.0');
 
     const url = `http://${production ? '0.0.0.0' : 'localhost'}:${port}`;

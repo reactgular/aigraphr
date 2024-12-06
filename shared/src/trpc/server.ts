@@ -1,9 +1,19 @@
-import { initTRPC } from "@trpc/server";
-import { z } from "zod";
+import {initTRPC} from '@trpc/server';
+import {z} from 'zod';
 
 const t = initTRPC.create();
 const publicProcedure = t.procedure;
 
-const appRouter = t.router({ appRouter: t.router({ helloWorld: publicProcedure.output(z.string()).query(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any) }) });
+const appRouter = t.router({
+                               appRouter: t.router({
+                                                       helloWorld: publicProcedure.output(
+                                                           z.string()).query(
+                                                           async () => 'PLACEHOLDER_DO_NOT_REMOVE' as any)
+                                                   })
+                           });
+
+/**
+ * @deprecated
+ */
 export type AppRouter = typeof appRouter;
 

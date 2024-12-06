@@ -7,8 +7,7 @@ export const useQueryClient = (): QueryClient => {
             new QueryClient({
                 defaultOptions: {
                     queries: {
-                        useErrorBoundary: true,
-                        suspense: true,
+                        throwOnError: true,
                         retry: false
                     }
                 }

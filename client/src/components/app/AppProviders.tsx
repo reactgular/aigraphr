@@ -1,6 +1,6 @@
+import {trpc} from '@/components/hooks/trpc';
 import {useQueryClient} from '@/components/hooks/useQueryClient';
 import {useTrpcClient} from '@/components/hooks/useTrpcClient';
-import {trpc} from '@/trpc';
 import {QueryClientProvider} from '@tanstack/react-query';
 import {FC, PropsWithChildren} from 'react';
 

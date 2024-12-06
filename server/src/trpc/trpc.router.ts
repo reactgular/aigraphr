@@ -1,6 +1,5 @@
 import {TrpcService} from '@/trpc/trpc.service';
-import {INestApplication, Injectable} from '@nestjs/common';
-import * as trpcExpress from '@trpc/server/adapters/express';
+import {Injectable} from '@nestjs/common';
 import {z} from 'zod';
 
 @Injectable()
@@ -21,15 +20,6 @@ export class TrpcRouter {
     });
 
     public constructor(private readonly trpc: TrpcService) {}
-
-    public async applyMiddleware(app: INestApplication) {
-        app.use(
-            `/trpc`,
-            trpcExpress.createExpressMiddleware({
-                router: this.appRouter
-            })
-        );
-    }
 }
 
 export type AppRouter = TrpcRouter[`appRouter`];
