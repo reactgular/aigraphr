@@ -1,4 +1,5 @@
 import {MainModule} from '@/main.module';
+import {TrpcContext} from '@/trpc/trpc.context';
 import {TRPC_ROUTER_SYMBOL, TrpcRouter} from '@/trpc/trpc.router';
 import {Logger} from '@nestjs/common';
 import {NestFactory} from '@nestjs/core';
@@ -15,7 +16,13 @@ async function bootstrap() {
     main.use(
         `/trpc`,
         trpcExpress.createExpressMiddleware({
-            router: main.get<TrpcRouter>(TRPC_ROUTER_SYMBOL)
+            onError({error}) {
+                logger.error(error);
+            },
+            router: main.get<TrpcRouter>(TRPC_ROUTER_SYMBOL),
+            createContext: async (): Promise<TrpcContext> => {
+                return {main};
+            }
         })
     );
 
