@@ -1,5 +1,5 @@
+import {MAIN_ROUTER_SYMBOL, mainRouter} from '@/main.router';
 import {TrpcUiController} from '@/trpc/trpc-ui.controller';
-import {TRPC_ROUTER_SYMBOL, trpcRouter} from '@/trpc/trpc.router';
 import {Module} from '@nestjs/common';
 
 @Module({
@@ -8,10 +8,10 @@ import {Module} from '@nestjs/common';
     controllers: [TrpcUiController],
     providers: [
         {
-            provide: TRPC_ROUTER_SYMBOL,
-            useValue: trpcRouter
+            provide: MAIN_ROUTER_SYMBOL,
+            useValue: mainRouter
         }
     ],
-    exports: [TRPC_ROUTER_SYMBOL]
+    exports: [MAIN_ROUTER_SYMBOL]
 })
 export class TrpcModule {}

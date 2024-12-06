@@ -1,16 +1,16 @@
-import {TRPC_ROUTER_SYMBOL, TrpcRouter} from '@/trpc/trpc.router';
+import {MAIN_ROUTER_SYMBOL, MainRouter} from '@/main.router';
 import {All, Controller, Inject} from '@nestjs/common';
 import {renderTrpcPanel} from 'trpc-ui';
 
 @Controller()
 export class TrpcUiController {
     public constructor(
-        @Inject(TRPC_ROUTER_SYMBOL) private readonly trpcRouter: TrpcRouter
+        @Inject(MAIN_ROUTER_SYMBOL) private readonly mainRouter: MainRouter
     ) {}
 
     @All('/trpc-ui')
     public panel(): string {
-        return renderTrpcPanel(this.trpcRouter, {
+        return renderTrpcPanel(this.mainRouter, {
             // @todo this should be injected
             url: 'http://localhost:3000/trpc'
         });

@@ -1,12 +1,12 @@
 import {initTRPC} from '@trpc/server';
 import {z} from 'zod';
-import {TrpcContext} from './trpc.context';
+import {TrpcContext} from './trpc/trpc.context';
 
 const trpc = initTRPC.context<TrpcContext>().create();
 
-export const TRPC_ROUTER_SYMBOL = Symbol('TRPC_ROUTER');
+export const MAIN_ROUTER_SYMBOL = Symbol('MAIN_ROUTER');
 
-export const trpcRouter = trpc.router({
+export const mainRouter = trpc.router({
     hello: trpc.procedure
         .input(
             z.object({
@@ -21,4 +21,4 @@ export const trpcRouter = trpc.router({
         })
 });
 
-export type TrpcRouter = typeof trpcRouter;
+export type MainRouter = typeof mainRouter;

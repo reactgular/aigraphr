@@ -1,1 +1,1 @@
-export type {TrpcRouter} from '../../server/src/trpc/trpc.router';
+export type {MainRouter} from '../../server/src/main.router';

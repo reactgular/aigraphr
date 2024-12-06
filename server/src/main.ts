@@ -1,6 +1,6 @@
 import {MainModule} from '@/main.module';
+import {MAIN_ROUTER_SYMBOL, MainRouter} from '@/main.router';
 import {TrpcContext} from '@/trpc/trpc.context';
-import {TRPC_ROUTER_SYMBOL, TrpcRouter} from '@/trpc/trpc.router';
 import {Logger} from '@nestjs/common';
 import {NestFactory} from '@nestjs/core';
 import * as trpcExpress from '@trpc/server/adapters/express';
@@ -19,7 +19,7 @@ async function bootstrap() {
             onError({error}) {
                 logger.error(error);
             },
-            router: main.get<TrpcRouter>(TRPC_ROUTER_SYMBOL),
+            router: main.get<MainRouter>(MAIN_ROUTER_SYMBOL),
             createContext: async (): Promise<TrpcContext> => {
                 return {main};
             }
