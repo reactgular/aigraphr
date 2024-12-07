@@ -3,16 +3,18 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "build:errors": "tsc --noEmit",
         "build": "npm run build:errors && react-router build",
+        "build:errors": "tsc --noEmit",
         "dev": "react-router dev",
         "format": "eslint . --fix",
         "lint": "eslint .",
+        "openapi": "openapi-ts",
         "sort": "npx --yes sort-package-json",
         "start": "react-router-serve ./build/server/index.js",
         "typecheck": "react-router typegen && tsc --build --noEmit"
     },
     "dependencies": {
+        "@hey-api/client-fetch": "^0.5.2",
         "@radix-ui/react-collapsible": "^1.1.1",
         "@radix-ui/react-dialog": "^1.1.2",
         "@radix-ui/react-separator": "^1.1.0",
@@ -32,6 +34,7 @@
         "tailwindcss-animate": "^1.0.7"
     },
     "devDependencies": {
+        "@hey-api/openapi-ts": "^0.59.1",
         "@react-router/dev": "^7.0.2",
         "@tanstack/eslint-plugin-query": "^5.62.1",
         "@types/react": "^18.3.12",
