@@ -86,13 +86,17 @@ async function bootstrap() {
         }
     }
 
-    await app.listen(port, '0.0.0.0');
+    if (production || !specPath) {
+        await app.listen(port, '0.0.0.0');
 
-    logger.log(
-        `🔥 AIGraphr is running on: http://${
-            production ? '0.0.0.0' : 'localhost'
-        }:${port}/`
-    );
+        logger.log(
+            `🔥 AIGraphr is running on: http://${
+                production ? '0.0.0.0' : 'localhost'
+            }:${port}/`
+        );
+    } else {
+        logger.warn('⚠️ API is exiting without starting.');
+    }
 }
 
 bootstrap().then();

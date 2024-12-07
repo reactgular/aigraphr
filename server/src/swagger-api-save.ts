@@ -1,6 +1,6 @@
 import {Logger} from '@nestjs/common';
 import {OpenAPIObject} from '@nestjs/swagger';
-import fs from 'fs';
+import * as fs from 'fs';
 
 export const swaggerApiSave = (document: OpenAPIObject, specPath: string) => {
     const logger = new Logger('swaggerApiSave');

@@ -11,6 +11,7 @@
         "format": "eslint . --fix",
         "lint": "eslint .",
         "sort": "npx --yes sort-package-json",
+        "codegen": "nest start -- --openapi=openapi.json",
         "start": "nest start",
         "start:debug": "nest start --debug --watch",
         "start:prod": "node dist/main",
