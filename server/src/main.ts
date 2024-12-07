@@ -1,4 +1,7 @@
 import {MainModule} from '@/main.module';
+import {swaggerApiDocument} from '@/swagger-api-document';
+import {swaggerApiSave} from '@/swagger-api-save';
+import {swaggerApiSetup} from '@/swagger-api-setup';
 import {Logger, ValidationPipe} from '@nestjs/common';
 import {NestFactory} from '@nestjs/core';
 import {NextFunction, Request, Response} from 'express';
@@ -22,13 +25,13 @@ if (production && specPath) {
 }
 
 async function bootstrap() {
-    const port = process.env.PORT ?? 3000;
+    const port = process.env.PORT ? parseInt(process.env.PORT) : 3030;
 
     const logger = new Logger('bootstrap');
 
-    const main = await NestFactory.create(MainModule);
-    main.enableCors();
-    main.useGlobalPipes(
+    const app = await NestFactory.create(MainModule);
+    app.enableCors();
+    app.useGlobalPipes(
         new ValidationPipe({
             // Allow only parameters specified in the endpoint
             whitelist: true,
@@ -44,7 +47,7 @@ async function bootstrap() {
     // app.useLogger(new Logger('Debug'));
     let reqId = 0;
     const logger2 = new Logger('app');
-    main.use(
+    app.use(
         (
             {ip, method, originalUrl}: Request,
             res: Response,
@@ -63,7 +66,27 @@ async function bootstrap() {
         }
     );
 
-    await main.listen(port, '0.0.0.0');
+    if (!production) {
+        const document = swaggerApiDocument({
+            app,
+            title: 'AIGraphr',
+            description: 'AIGraphr API',
+            version: '1.0.0'
+        });
+
+        if (specPath) {
+            swaggerApiSave(document, specPath);
+        } else {
+            swaggerApiSetup({
+                app,
+                document,
+                path: 'api',
+                port
+            });
+        }
+    }
+
+    await app.listen(port, '0.0.0.0');
 
     logger.log(
         `🔥 AIGraphr is running on: http://${
