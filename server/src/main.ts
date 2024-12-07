@@ -1,6 +1,6 @@
+import {MainModule} from '@/main.module';
 import {Logger} from '@nestjs/common';
 import {NestFactory} from '@nestjs/core';
-import {AppModule} from './app.module';
 
 async function bootstrap() {
     const production = false;
@@ -8,9 +8,10 @@ async function bootstrap() {
 
     const logger = new Logger('bootstrap');
 
-    const app = await NestFactory.create(AppModule);
-    app.enableCors();
-    await app.listen(port, '0.0.0.0');
+    const main = await NestFactory.create(MainModule);
+    main.enableCors();
+
+    await main.listen(port, '0.0.0.0');
 
     logger.log(
         `🔥 AIGraphr is running on: http://${
