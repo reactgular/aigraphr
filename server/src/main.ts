@@ -17,12 +17,6 @@ async function bootstrap() {
             production ? '0.0.0.0' : 'localhost'
         }:${port}/`
     );
-
-    logger.log(
-        `🔥 tRPC Panel is running on: http://${
-            production ? '0.0.0.0' : 'localhost'
-        }:${port}/panel`
-    );
 }
 
 bootstrap().then();
