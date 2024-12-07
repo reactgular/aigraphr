@@ -13,6 +13,54 @@
                 "tags": [
                     "App"
                 ]
+            },
+            "post": {
+                "operationId": "AppController_create",
+                "parameters": [],
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "App"
+                ]
+            },
+            "delete": {
+                "operationId": "AppController_remove",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "App"
+                ]
+            },
+            "patch": {
+                "operationId": "AppController_patch",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "App"
+                ]
+            },
+            "put": {
+                "operationId": "AppController_put",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "App"
+                ]
             }
         }
     },
