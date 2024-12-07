@@ -1,8 +1,5 @@
-import {initTRPC} from '@trpc/server';
+import {trpc} from '@/trpc';
 import {z} from 'zod';
-import {TrpcContext} from './trpc/trpc.context';
-
-const trpc = initTRPC.context<TrpcContext>().create();
 
 export const MAIN_ROUTER_SYMBOL = Symbol('MAIN_ROUTER');
 

@@ -7,5 +7,7 @@ export const AppHelloWorld: FC = () => {
         {select: (data) => data.greeting}
     );
 
+    const xxx = trpc.workspace.get.useQuery({});
+
     return <div>[{isLoading ? 'Loading' : data}]</div>;
 };
