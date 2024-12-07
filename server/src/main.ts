@@ -1,7 +1,7 @@
 import {MainModule} from '@/main.module';
-import {swaggerApiDocument} from '@/swagger-api-document';
-import {swaggerApiSave} from '@/swagger-api-save';
-import {swaggerApiSetup} from '@/swagger-api-setup';
+import {swaggerApiDocument} from '@/swagger/swagger-api-document';
+import {swaggerApiSave} from '@/swagger/swagger-api-save';
+import {swaggerApiSetup} from '@/swagger/swagger-api-setup';
 import {Logger, ValidationPipe} from '@nestjs/common';
 import {NestFactory} from '@nestjs/core';
 import {NextFunction, Request, Response} from 'express';
