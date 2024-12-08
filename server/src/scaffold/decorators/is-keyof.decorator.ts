@@ -1,17 +1,17 @@
 import {applyDecorators} from '@nestjs/common';
 import {ApiProperty} from '@nestjs/swagger';
-import {IsEnum, IsOptional} from 'class-validator';
+import {IsIn, IsOptional, IsString} from 'class-validator';
 
-export enum ScaffoldSort {
-    ASC = 'asc',
-    DESC = 'desc'
-}
-
-export function IsScaffoldSort(required: boolean = false) {
+export function IsKeyOf<TType>(
+    keys: Array<keyof TType>,
+    required: boolean = true
+) {
     const decorators = [
-        IsEnum(ScaffoldSort),
+        IsString(),
+        IsIn(keys),
         ApiProperty({
-            enum: ScaffoldSort,
+            type: String,
+            enum: keys,
             required
         })
     ];

@@ -1,6 +1,10 @@
 import {ProjectStorageDto} from '@/projects/dtos/project-storage.dto';
 import {ProjectStoragesService} from '@/projects/services/project-storages.service';
-import {ScaffoldSortDto} from '@/scaffold/dtos/scaffold-sort.dto';
+import {IsKeyOf} from '@/scaffold/decorators/is-keyof.decorator';
+import {
+    IsScaffoldSort,
+    ScaffoldSort
+} from '@/scaffold/decorators/scaffold-sort.decorator';
 import {scaffoldSort} from '@/scaffold/utils/scaffold-sort';
 import {
     Controller,
@@ -11,6 +15,14 @@ import {
     Query
 } from '@nestjs/common';
 import {ApiNotFoundResponse, ApiOkResponse, ApiTags} from '@nestjs/swagger';
+
+export class ProjectsStoragesIndexDto {
+    @IsScaffoldSort()
+    sort: ScaffoldSort = ScaffoldSort.ASC;
+
+    @IsKeyOf<ProjectStorageDto>(['createdAt', 'fileName'], false)
+    sortBy: keyof ProjectStorageDto = 'createdAt';
+}
 
 @ApiTags('Projects')
 @Controller('projects/storages')
@@ -27,10 +39,10 @@ export class ProjectsStoragesController {
         isArray: true
     })
     public async index(
-        @Query() {sort}: ScaffoldSortDto
+        @Query() {sort, sortBy}: ProjectsStoragesIndexDto
     ): Promise<Array<ProjectStorageDto>> {
         const storages = await this.projectStorages.getAll();
-        return scaffoldSort(storages, 'createdAt', sort);
+        return scaffoldSort(storages, sortBy, sort);
     }
 
     @Get(':id')
