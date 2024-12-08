@@ -80,7 +80,7 @@ async function bootstrap() {
             swaggerApiSetup({
                 app,
                 document,
-                path: 'api',
+                path: 'swagger',
                 port
             });
         }

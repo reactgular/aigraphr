@@ -6,7 +6,8 @@ export class ProjectInstanceDto {
     @IsString()
     @IsUUID()
     @ApiProperty({
-        description: 'ID of the project in memory'
+        description: 'ID of the project in memory',
+        example: '344feee-1cda-9f0d-3b68-d14cb0586e94'
     })
     id: string;
 
