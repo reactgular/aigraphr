@@ -1,3 +1,4 @@
+import {ProjectStorageCreateDto} from '@/projects/dtos/project-storage-create.dto';
 import {ProjectStorageDto} from '@/projects/dtos/project-storage.dto';
 import {ProjectStoragesService} from '@/projects/services/project-storages.service';
 import {IsKeyOf} from '@/scaffold/decorators/is-keyof.decorator';
@@ -6,7 +7,15 @@ import {
     ScaffoldSort
 } from '@/scaffold/decorators/scaffold-sort.decorator';
 import {scaffoldSort} from '@/scaffold/utils/scaffold-sort';
-import {Controller, Get, Logger, Param, Query} from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Get,
+    Logger,
+    Param,
+    Post,
+    Query
+} from '@nestjs/common';
 import {ApiNotFoundResponse, ApiOkResponse, ApiTags} from '@nestjs/swagger';
 
 export class ProjectsStoragesIndexDto {
@@ -43,7 +52,13 @@ export class ProjectsStoragesController {
         return await this.projectStorages.getOrThrow(id);
     }
 
-    //
+    @Post()
+    @ApiOkResponse({type: ProjectStorageDto})
+    public async create(
+        @Body() data: ProjectStorageCreateDto
+    ): Promise<ProjectStorageDto> {
+        return await this.projectStorages.create(data.name);
+    }
 }
 
 const log = new Logger(ProjectsStoragesController.name);

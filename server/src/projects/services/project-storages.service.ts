@@ -31,6 +31,14 @@ export class ProjectStoragesService {
         );
     }
 
+    public async create(name: string): Promise<ProjectStorageDto> {
+        return {
+            id: 'xxxx',
+            fileName: `${name}.aigraphr`,
+            createdAt: new Date()
+        };
+    }
+
     public async getOrThrow(
         id: string
     ): Promise<ProjectStorageDto | undefined> {
