@@ -1,9 +1,9 @@
 import {
-    IsScaffoldSort,
+    IsSortEnum,
     ScaffoldSort
-} from '@/scaffold/decorators/scaffold-sort.decorator';
+} from '@/scaffold/decorators/is-sort-enum.decorator';
 
 export class ScaffoldSortDto {
-    @IsScaffoldSort()
+    @IsSortEnum()
     sort: ScaffoldSort = ScaffoldSort.ASC;
 }

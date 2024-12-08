@@ -1,11 +1,15 @@
+import {ProjectInstanceDto} from '@/projects/dtos/project-instance.dto';
 import {ProjectStorageCreateDto} from '@/projects/dtos/project-storage-create.dto';
 import {ProjectStorageDto} from '@/projects/dtos/project-storage.dto';
+import {ProjectInstancesService} from '@/projects/services/project-instances.service';
 import {ProjectStoragesService} from '@/projects/services/project-storages.service';
+import {DtoArrayResponse} from '@/scaffold/decorators/dto-array-response';
+import {DtoResponse} from '@/scaffold/decorators/dto-response';
 import {IsKeyOf} from '@/scaffold/decorators/is-keyof.decorator';
 import {
-    IsScaffoldSort,
+    IsSortEnum,
     ScaffoldSort
-} from '@/scaffold/decorators/scaffold-sort.decorator';
+} from '@/scaffold/decorators/is-sort-enum.decorator';
 import {scaffoldSort} from '@/scaffold/utils/scaffold-sort';
 import {
     Body,
@@ -16,10 +20,10 @@ import {
     Post,
     Query
 } from '@nestjs/common';
-import {ApiNotFoundResponse, ApiOkResponse, ApiTags} from '@nestjs/swagger';
+import {ApiNotFoundResponse, ApiOperation, ApiTags} from '@nestjs/swagger';
 
 export class ProjectsStoragesIndexDto {
-    @IsScaffoldSort()
+    @IsSortEnum()
     sort: ScaffoldSort = ScaffoldSort.ASC;
 
     @IsKeyOf<ProjectStorageDto>(['createdAt', 'fileName'], false)
@@ -30,14 +34,13 @@ export class ProjectsStoragesIndexDto {
 @Controller('projects/storages')
 export class ProjectsStoragesController {
     public constructor(
+        private readonly projectInstances: ProjectInstancesService,
         private readonly projectStorages: ProjectStoragesService
     ) {}
 
     @Get()
-    @ApiOkResponse({
-        type: ProjectStorageDto,
-        isArray: true
-    })
+    @ApiOperation({summary: 'List all project storages'})
+    @DtoArrayResponse(ProjectInstanceDto)
     public async index(
         @Query() {sort, sortBy}: ProjectsStoragesIndexDto
     ): Promise<Array<ProjectStorageDto>> {
@@ -46,18 +49,24 @@ export class ProjectsStoragesController {
     }
 
     @Get(':id')
-    @ApiOkResponse({type: ProjectStorageDto})
+    @ApiOperation({summary: 'Get project storage by id'})
     @ApiNotFoundResponse({description: 'Project storage not found'})
+    @DtoResponse(ProjectInstanceDto)
     public async get(@Param('id') id: string): Promise<ProjectStorageDto> {
         return await this.projectStorages.getOrThrow(id);
     }
 
     @Post()
-    @ApiOkResponse({type: ProjectStorageDto})
+    @ApiOperation({
+        description:
+            'Creates a new Sqlite database for the project and opens it as a project instance.'
+    })
+    @DtoResponse(ProjectInstanceDto)
     public async create(
         @Body() data: ProjectStorageCreateDto
-    ): Promise<ProjectStorageDto> {
-        return await this.projectStorages.create(data.name);
+    ): Promise<ProjectInstanceDto> {
+        const storage = await this.projectStorages.create(data.name);
+        return await this.projectInstances.open(storage);
     }
 }
 

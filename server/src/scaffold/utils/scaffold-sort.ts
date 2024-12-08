@@ -1,4 +1,4 @@
-import {ScaffoldSort} from '@/scaffold/decorators/scaffold-sort.decorator';
+import {ScaffoldSort} from '@/scaffold/decorators/is-sort-enum.decorator';
 import * as R from 'remeda';
 
 export function scaffoldSort<TType>(

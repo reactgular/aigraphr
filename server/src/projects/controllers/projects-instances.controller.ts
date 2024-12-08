@@ -1,9 +1,10 @@
 import {ProjectInstanceDto} from '@/projects/dtos/project-instance.dto';
 import {ProjectInstancesService} from '@/projects/services/project-instances.service';
+import {DtoResponse} from '@/scaffold/decorators/dto-response';
 import {ScaffoldSortDto} from '@/scaffold/dtos/scaffold-sort.dto';
 import {scaffoldSort} from '@/scaffold/utils/scaffold-sort';
 import {Controller, Get, Logger, Query} from '@nestjs/common';
-import {ApiOkResponse, ApiTags} from '@nestjs/swagger';
+import {ApiOperation, ApiTags} from '@nestjs/swagger';
 
 @ApiTags('Projects')
 @Controller('projects/instances')
@@ -13,10 +14,8 @@ export class ProjectsInstancesController {
     ) {}
 
     @Get()
-    @ApiOkResponse({
-        type: [ProjectInstanceDto],
-        description: 'List of projects loaded in memory'
-    })
+    @ApiOperation({summary: 'List all project instances'})
+    @DtoResponse(ProjectInstanceDto)
     public async index(
         @Query() {sort}: ScaffoldSortDto
     ): Promise<Array<ProjectInstanceDto>> {

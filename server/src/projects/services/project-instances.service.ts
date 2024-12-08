@@ -1,19 +1,18 @@
 import {ProjectInstanceDto} from '@/projects/dtos/project-instance.dto';
-import {Injectable} from '@nestjs/common';
+import {ProjectStorageDto} from '@/projects/dtos/project-storage.dto';
+import {Injectable, Scope} from '@nestjs/common';
 
-@Injectable()
+@Injectable({
+    scope: Scope.DEFAULT
+})
 export class ProjectInstancesService {
     private readonly loaded: Map<string, ProjectInstanceDto> = new Map();
 
-    public create(): string {
+    public async open(storage: ProjectStorageDto): Promise<ProjectInstanceDto> {
         return null;
     }
 
-    public open(projectId: string) {
-        return null;
-    }
-
-    public close(projectId: string) {
+    public async close(projectId: string) {
         return null;
     }
 

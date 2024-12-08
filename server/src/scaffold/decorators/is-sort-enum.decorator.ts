@@ -7,7 +7,7 @@ export enum ScaffoldSort {
     DESC = 'desc'
 }
 
-export function IsScaffoldSort(required: boolean = false) {
+export function IsSortEnum(required: boolean = false) {
     const decorators = [
         IsEnum(ScaffoldSort),
         ApiProperty({
