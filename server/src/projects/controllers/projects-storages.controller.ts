@@ -3,7 +3,6 @@ import {ProjectStorageCreateDto} from '@/projects/dtos/project-storage-create.dt
 import {ProjectStorageDto} from '@/projects/dtos/project-storage.dto';
 import {ProjectInstancesService} from '@/projects/services/project-instances.service';
 import {ProjectStoragesService} from '@/projects/services/project-storages.service';
-import {DtoArrayResponse} from '@/scaffold/decorators/dto-array-response';
 import {DtoResponse} from '@/scaffold/decorators/dto-response';
 import {IsKeyOf} from '@/scaffold/decorators/is-keyof.decorator';
 import {
@@ -40,7 +39,7 @@ export class ProjectsStoragesController {
 
     @Get()
     @ApiOperation({summary: 'List all project storages'})
-    @DtoArrayResponse(ProjectInstanceDto)
+    @DtoResponse([ProjectInstanceDto])
     public async index(
         @Query() {sort, sortBy}: ProjectsStoragesIndexDto
     ): Promise<Array<ProjectStorageDto>> {

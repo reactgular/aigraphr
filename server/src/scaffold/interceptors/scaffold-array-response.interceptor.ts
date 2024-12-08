@@ -4,7 +4,8 @@ import {
     ExecutionContext,
     Injectable,
     InternalServerErrorException,
-    NestInterceptor
+    NestInterceptor,
+    Type
 } from '@nestjs/common';
 import {Observable} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
@@ -14,7 +15,7 @@ export class ScaffoldArrayResponseInterceptor<T extends object>
     extends ScaffoldResponseInterceptor<T>
     implements NestInterceptor<T[], T[]>
 {
-    public constructor(dto: new () => T) {
+    public constructor(dto: Type<T>) {
         super(dto);
     }
 
