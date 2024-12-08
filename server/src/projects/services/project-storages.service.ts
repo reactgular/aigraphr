@@ -1,3 +1,4 @@
+import {EnvConfig} from '@/configs/env.config';
 import {ProjectStorageDto} from '@/projects/dtos/project-storage.dto';
 import {
     Inject,
@@ -6,6 +7,7 @@ import {
     NotFoundException,
     Scope
 } from '@nestjs/common';
+import {ConfigService} from '@nestjs/config';
 import * as crypto from 'crypto';
 import {promises as fs} from 'fs';
 import * as path from 'path';
@@ -19,10 +21,9 @@ export class ProjectStoragesService {
     private storage: Map<string, ProjectStorageDto> | null = null;
 
     public constructor(
-        @Inject(PROJECT_STORAGE_NONCE) private readonly nonce: string
-    ) {
-        log.debug('ProjectStoragesService instantiated', nonce);
-    }
+        @Inject(PROJECT_STORAGE_NONCE) private readonly nonce: string,
+        private config: ConfigService<EnvConfig>
+    ) {}
 
     public async getAll(): Promise<ProjectStorageDto[]> {
         return (await this.getFiles()).sort(
@@ -51,10 +52,25 @@ export class ProjectStoragesService {
         return Array.from(storage.values());
     }
 
+    private async getStoragePath(): Promise<string> {
+        const storagePath = this.config.get('PROJECTS_FOLDER');
+        try {
+            await fs.access(storagePath);
+        } catch (error) {
+            log.warn(`Storage path does not exist: ${storagePath}`, error);
+            try {
+                await fs.mkdir(storagePath, {recursive: true});
+            } catch (error) {
+                log.error('Error while creating storage path', error);
+                throw error;
+            }
+        }
+        return storagePath;
+    }
+
     private async getStorage(): Promise<Map<string, ProjectStorageDto>> {
         if (this.storage === null) {
-            // @TODO make the storage folder configurable
-            await this.update(__dirname);
+            await this.update(await this.getStoragePath());
         }
         return this.storage;
     }
@@ -70,7 +86,7 @@ export class ProjectStoragesService {
         this.storage = new Map<string, ProjectStorageDto>();
         try {
             for await (const dirent of dir) {
-                if (dirent.isFile() && dirent.name.endsWith('.js')) {
+                if (dirent.isFile() && dirent.name.endsWith('.aigraphr')) {
                     const filePath = path.join(folder, dirent.name);
                     const stats = await fs.stat(filePath);
                     const id = this.getId(dirent.name);

@@ -25,6 +25,9 @@
         "strictBindCallApply": false,
         "forceConsistentCasingInFileNames": false,
         "noFallthroughCasesInSwitch": false,
-        "preserveWatchOutput": true
+        "preserveWatchOutput": true,
+        "esModuleInterop": true,
+        "strictPropertyInitialization": false,
+        "resolveJsonModule": true
     }
 }
