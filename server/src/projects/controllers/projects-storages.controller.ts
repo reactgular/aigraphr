@@ -36,12 +36,8 @@ export class ProjectsStoragesController {
     }
 
     @Get(':id')
-    @ApiOkResponse({
-        type: ProjectStorageDto
-    })
-    @ApiNotFoundResponse({
-        description: 'Project storage not found'
-    })
+    @ApiOkResponse({type: ProjectStorageDto})
+    @ApiNotFoundResponse({description: 'Project storage not found'})
     public async findOne(@Param('id') id: string): Promise<ProjectStorageDto> {
         const item = await this.projectStorages.get(id);
         if (!item) {
