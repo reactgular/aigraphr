@@ -1,5 +1,11 @@
 import {ProjectStorageDto} from '@/projects/dtos/project-storage.dto';
-import {Inject, Injectable, Logger, Scope} from '@nestjs/common';
+import {
+    Inject,
+    Injectable,
+    Logger,
+    NotFoundException,
+    Scope
+} from '@nestjs/common';
 import * as crypto from 'crypto';
 import {promises as fs} from 'fs';
 import * as path from 'path';
@@ -22,6 +28,18 @@ export class ProjectStoragesService {
         return (await this.getFiles()).sort(
             (a, b) => a.createdAt.getTime() - b.createdAt.getTime()
         );
+    }
+
+    public async getOrThrow(
+        id: string
+    ): Promise<ProjectStorageDto | undefined> {
+        const storage = (await this.getStorage()).get(id);
+        if (!storage) {
+            throw new NotFoundException(
+                `Project storage with ID "${id}" not found`
+            );
+        }
+        return storage;
     }
 
     public async get(id: string): Promise<ProjectStorageDto | undefined> {

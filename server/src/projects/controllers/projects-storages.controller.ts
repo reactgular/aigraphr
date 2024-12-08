@@ -6,14 +6,7 @@ import {
     ScaffoldSort
 } from '@/scaffold/decorators/scaffold-sort.decorator';
 import {scaffoldSort} from '@/scaffold/utils/scaffold-sort';
-import {
-    Controller,
-    Get,
-    Logger,
-    NotFoundException,
-    Param,
-    Query
-} from '@nestjs/common';
+import {Controller, Get, Logger, Param, Query} from '@nestjs/common';
 import {ApiNotFoundResponse, ApiOkResponse, ApiTags} from '@nestjs/swagger';
 
 export class ProjectsStoragesIndexDto {
@@ -29,9 +22,7 @@ export class ProjectsStoragesIndexDto {
 export class ProjectsStoragesController {
     public constructor(
         private readonly projectStorages: ProjectStoragesService
-    ) {
-        log.debug('ProjectsStoragesController instantiated');
-    }
+    ) {}
 
     @Get()
     @ApiOkResponse({
@@ -49,13 +40,7 @@ export class ProjectsStoragesController {
     @ApiOkResponse({type: ProjectStorageDto})
     @ApiNotFoundResponse({description: 'Project storage not found'})
     public async get(@Param('id') id: string): Promise<ProjectStorageDto> {
-        const item = await this.projectStorages.get(id);
-        if (!item) {
-            throw new NotFoundException(
-                `Project storage with ID "${id}" not found`
-            );
-        }
-        return item;
+        return await this.projectStorages.getOrThrow(id);
     }
 
     //
