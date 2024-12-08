@@ -6,7 +6,8 @@ import type {
     AppControllerGetHelloData,
     AppControllerPatchData,
     AppControllerCreateData,
-    AppControllerPutData
+    AppControllerPutData,
+    ProjectsControllerFindManyData
 } from './types.gen';
 
 export const client = createClient(createConfig());
@@ -53,5 +54,16 @@ export const appControllerPut = <ThrowOnError extends boolean = false>(
     return (options?.client ?? client).put<unknown, unknown, ThrowOnError>({
         ...options,
         url: '/'
+    });
+};
+
+export const projectsControllerFindMany = <
+    ThrowOnError extends boolean = false
+>(
+    options?: Options<ProjectsControllerFindManyData, ThrowOnError>
+) => {
+    return (options?.client ?? client).get<unknown, unknown, ThrowOnError>({
+        ...options,
+        url: '/projects'
     });
 };

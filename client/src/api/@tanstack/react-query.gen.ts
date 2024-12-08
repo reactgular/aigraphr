@@ -11,7 +11,8 @@ import type {
     AppControllerGetHelloData,
     AppControllerPatchData,
     AppControllerCreateData,
-    AppControllerPutData
+    AppControllerPutData,
+    ProjectsControllerFindManyData
 } from '../types.gen';
 import {
     appControllerRemove,
@@ -19,7 +20,8 @@ import {
     appControllerGetHello,
     appControllerPatch,
     appControllerCreate,
-    appControllerPut
+    appControllerPut,
+    projectsControllerFindMany
 } from '../sdk.gen';
 
 export const appControllerRemoveMutation = (
@@ -176,4 +178,25 @@ export const appControllerPutMutation = (
         }
     };
     return mutationOptions;
+};
+
+export const projectsControllerFindManyQueryKey = (
+    options?: Options<ProjectsControllerFindManyData>
+) => [createQueryKey('projectsControllerFindMany', options)];
+
+export const projectsControllerFindManyOptions = (
+    options?: Options<ProjectsControllerFindManyData>
+) => {
+    return queryOptions({
+        queryFn: async ({queryKey, signal}) => {
+            const {data} = await projectsControllerFindMany({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: projectsControllerFindManyQueryKey(options)
+    });
 };

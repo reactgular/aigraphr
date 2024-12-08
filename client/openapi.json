@@ -62,6 +62,37 @@
                     "App"
                 ]
             }
+        },
+        "/projects": {
+            "get": {
+                "operationId": "ProjectsController_findMany",
+                "parameters": [
+                    {
+                        "name": "loaded",
+                        "required": false,
+                        "in": "query",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "count",
+                        "required": false,
+                        "in": "query",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Projects"
+                ]
+            }
         }
     },
     "info": {

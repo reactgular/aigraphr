@@ -54,3 +54,17 @@ export type AppControllerPutData = {
 export type AppControllerPutResponses = {
     200: unknown;
 };
+
+export type ProjectsControllerFindManyData = {
+    body?: never;
+    path?: never;
+    query?: {
+        loaded?: boolean;
+        count?: number;
+    };
+    url: '/projects';
+};
+
+export type ProjectsControllerFindManyResponses = {
+    200: unknown;
+};
