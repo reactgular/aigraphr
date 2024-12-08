@@ -1,8 +1,10 @@
+import {EnvConfig} from '@/configs/env.config';
 import {MainModule} from '@/main.module';
 import {swaggerApiDocument} from '@/swagger/swagger-api-document';
 import {swaggerApiSave} from '@/swagger/swagger-api-save';
 import {swaggerApiSetup} from '@/swagger/swagger-api-setup';
 import {Logger, ValidationPipe} from '@nestjs/common';
+import {ConfigService} from '@nestjs/config';
 import {NestFactory} from '@nestjs/core';
 import {NextFunction, Request, Response} from 'express';
 import * as process from 'process';
@@ -27,7 +29,7 @@ if (production && specPath) {
 async function bootstrap() {
     const port = process.env.PORT ? parseInt(process.env.PORT) : 3030;
 
-    const logger = new Logger('bootstrap');
+    const log = new Logger('bootstrap');
 
     const app = await NestFactory.create(MainModule);
     app.enableCors();
@@ -42,6 +44,9 @@ async function bootstrap() {
             transformOptions: {enableImplicitConversion: true}
         })
     );
+
+    const config = app.get(ConfigService<EnvConfig>);
+    log.log(`🔧 PROJECTS_FOLDER: ${config.get('PROJECTS_FOLDER')}`);
 
     // DEBUG: This is for debugging on prod server
     // app.useLogger(new Logger('Debug'));
@@ -89,13 +94,13 @@ async function bootstrap() {
     if (production || !specPath) {
         await app.listen(port, '0.0.0.0');
 
-        logger.log(
+        log.log(
             `🔥 AIGraphr is running on: http://${
                 production ? '0.0.0.0' : 'localhost'
             }:${port}/`
         );
     } else {
-        logger.warn('⚠️ API is exiting without starting.');
+        log.warn('⚠️ API is exiting without starting.');
     }
 }
 

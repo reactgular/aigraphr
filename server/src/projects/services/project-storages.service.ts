@@ -1,5 +1,6 @@
 import {EnvConfig} from '@/configs/env.config';
 import {ProjectStorageDto} from '@/projects/dtos/project-storage.dto';
+import {ProjectService} from '@/projects/services/project.service';
 import {
     Inject,
     Injectable,
@@ -32,9 +33,15 @@ export class ProjectStoragesService {
     }
 
     public async create(name: string): Promise<ProjectStorageDto> {
+        const storagePath = await this.getStoragePath();
+        const fileName = `${name}.aigraphr`;
+        const connection = ProjectService.connect(
+            path.join(storagePath, fileName)
+        );
+        await connection.close();
         return {
-            id: 'xxxx',
-            fileName: `${name}.aigraphr`,
+            id: this.getId(fileName),
+            fileName,
             createdAt: new Date()
         };
     }
