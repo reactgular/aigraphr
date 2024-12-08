@@ -25,7 +25,7 @@ export class ProjectsStoragesController {
         type: ProjectStorageDto,
         isArray: true
     })
-    public async findMany(
+    public async index(
         @Query() query: ProjectsInstancesListDto
     ): Promise<Array<ProjectStorageDto>> {
         log.debug(`Query: ${JSON.stringify(query)}`);
@@ -38,7 +38,7 @@ export class ProjectsStoragesController {
     @Get(':id')
     @ApiOkResponse({type: ProjectStorageDto})
     @ApiNotFoundResponse({description: 'Project storage not found'})
-    public async findOne(@Param('id') id: string): Promise<ProjectStorageDto> {
+    public async get(@Param('id') id: string): Promise<ProjectStorageDto> {
         const item = await this.projectStorages.get(id);
         if (!item) {
             throw new NotFoundException(

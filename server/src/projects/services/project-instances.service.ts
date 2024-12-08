@@ -1,5 +1,4 @@
 import {ProjectInstanceDto} from '@/projects/dtos/project-instance.dto';
-import {ProjectsInstancesListDto} from '@/projects/dtos/projects-instances-list.dto';
 import {Injectable} from '@nestjs/common';
 
 @Injectable()
@@ -18,13 +17,7 @@ export class ProjectInstancesService {
         return null;
     }
 
-    /**
-     * @deprecated do sort/filter in the controller
-     */
-    public async list({
-        sort,
-        filter
-    }: ProjectsInstancesListDto): Promise<Array<ProjectInstanceDto>> {
+    public async projects(): Promise<Array<ProjectInstanceDto>> {
         return [];
     }
 }

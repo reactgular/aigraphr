@@ -1,16 +1,24 @@
 import {ApiProperty} from '@nestjs/swagger';
 import {IsEnum, IsOptional} from 'class-validator';
 
-export class ProjectsInstancesListDto {
-    // @todo fix swagger enum
-    @IsEnum(['asc', 'desc'])
-    @IsOptional()
-    @ApiProperty({required: false})
-    sort?: string;
+export enum ProjectsInstancesSort {
+    ASC = 'asc',
+    DESC = 'desc'
+}
 
-    // @todo fix swagger enum
-    @IsEnum(['open', 'closed', 'all'])
+export enum ProjectsInstancesOrderBy {
+    NAME = 'name',
+    CREATED_AT = 'createdAt'
+}
+
+export class ProjectsInstancesListDto {
+    @IsEnum(ProjectsInstancesSort)
     @IsOptional()
-    @ApiProperty({required: false})
-    filter?: string;
+    @ApiProperty({enum: ProjectsInstancesSort, required: false})
+    sort: string = ProjectsInstancesSort.ASC;
+
+    @IsEnum(ProjectsInstancesOrderBy)
+    @IsOptional()
+    @ApiProperty({enum: ProjectsInstancesOrderBy, required: false})
+    sortBy: string = ProjectsInstancesOrderBy.NAME;
 }

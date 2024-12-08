@@ -1,8 +1,12 @@
 import {ProjectInstanceDto} from '@/projects/dtos/project-instance.dto';
-import {ProjectsInstancesListDto} from '@/projects/dtos/projects-instances-list.dto';
+import {
+    ProjectsInstancesListDto,
+    ProjectsInstancesSort
+} from '@/projects/dtos/projects-instances-list.dto';
 import {ProjectInstancesService} from '@/projects/services/project-instances.service';
 import {Controller, Get, Logger, Query} from '@nestjs/common';
 import {ApiOkResponse, ApiTags} from '@nestjs/swagger';
+import {orderBy} from 'lodash';
 
 @ApiTags('Projects')
 @Controller('projects/instances')
@@ -11,18 +15,18 @@ export class ProjectsInstancesController {
 
     @Get()
     @ApiOkResponse({
-        type: ProjectInstanceDto,
-        isArray: true,
+        type: [ProjectInstanceDto],
         description: 'List of projects loaded in memory'
     })
-    public async get(
-        @Query() query: ProjectsInstancesListDto
+    public async index(
+        @Query() {sort, sortBy}: ProjectsInstancesListDto
     ): Promise<Array<ProjectInstanceDto>> {
-        log.debug(`Query: ${JSON.stringify(query)}`);
-
-        // @todo we could do the sorting and filtering here
-
-        return this.projects.list(query);
+        const projects = await this.projects.projects();
+        return orderBy(
+            projects,
+            [sort],
+            sortBy === ProjectsInstancesSort.ASC ? 'asc' : 'desc'
+        );
     }
 
     // @Post will create a project

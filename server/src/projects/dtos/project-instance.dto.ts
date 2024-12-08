@@ -13,6 +13,13 @@ export class ProjectInstanceDto {
 
     @IsString()
     @ApiProperty({
+        description: 'Name of the project',
+        example: 'My project'
+    })
+    name: string;
+
+    @IsString()
+    @ApiProperty({
         description: 'ID of the project storage',
         example:
             '344feee1cda9f0d3b68d14cb0586e948c72bad81f96a8fba4311376b62545dde'
