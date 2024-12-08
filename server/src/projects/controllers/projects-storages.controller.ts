@@ -1,6 +1,7 @@
 import {ProjectStorageDto} from '@/projects/dtos/project-storage.dto';
-import {ProjectsInstancesListDto} from '@/projects/dtos/projects-instances-list.dto';
 import {ProjectStoragesService} from '@/projects/services/project-storages.service';
+import {ScaffoldSortDto} from '@/scaffold/dtos/scaffold-sort.dto';
+import {scaffoldSort} from '@/scaffold/utils/scaffold-sort';
 import {
     Controller,
     Get,
@@ -26,13 +27,10 @@ export class ProjectsStoragesController {
         isArray: true
     })
     public async index(
-        @Query() query: ProjectsInstancesListDto
+        @Query() {sort}: ScaffoldSortDto
     ): Promise<Array<ProjectStorageDto>> {
-        log.debug(`Query: ${JSON.stringify(query)}`);
-
-        // @todo we could do the sorting and filtering here
-
-        return await this.projectStorages.getAll();
+        const storages = await this.projectStorages.getAll();
+        return scaffoldSort(storages, 'createdAt', sort);
     }
 
     @Get(':id')
