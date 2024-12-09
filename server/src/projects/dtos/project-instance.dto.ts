@@ -2,6 +2,9 @@ import {ProjectStorageDto} from '@/projects/dtos/project-storage.dto';
 import {ApiProperty} from '@nestjs/swagger';
 import {IsObject, IsString, IsUUID} from 'class-validator';
 
+/**
+ * @deprecated replaced by ProjectDto
+ */
 export class ProjectInstanceDto {
     @IsString()
     @IsUUID()

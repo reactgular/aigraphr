@@ -15,6 +15,9 @@ import * as path from 'path';
 
 export const PROJECT_STORAGE_NONCE = Symbol();
 
+/**
+ * @deprecated ProjectsService instead
+ */
 @Injectable({
     scope: Scope.REQUEST
 })

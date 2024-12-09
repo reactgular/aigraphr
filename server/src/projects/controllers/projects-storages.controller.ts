@@ -29,6 +29,9 @@ export class ProjectsStoragesIndexDto {
     sortBy: keyof ProjectStorageDto = 'createdAt';
 }
 
+/**
+ * @deprecated ProjectsController instead
+ */
 @ApiTags('Projects')
 @Controller('projects/storages')
 export class ProjectsStoragesController {

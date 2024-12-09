@@ -1,6 +1,9 @@
 import {ApiProperty} from '@nestjs/swagger';
 import {IsDate, IsString} from 'class-validator';
 
+/**
+ * @deprecated replaced by ProjectDto
+ */
 export class ProjectStorageDto {
     @IsString()
     @ApiProperty({

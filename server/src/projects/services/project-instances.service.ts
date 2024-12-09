@@ -10,6 +10,9 @@ interface ProjectRef {
     instance: ProjectInstanceDto;
 }
 
+/**
+ * @deprecated ProjectsService instead
+ */
 @Injectable({
     scope: Scope.DEFAULT
 })
