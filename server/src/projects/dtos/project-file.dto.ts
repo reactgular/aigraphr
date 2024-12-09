@@ -18,15 +18,6 @@ export class ProjectFileDto {
     })
     id: string;
 
-    @IsString()
-    @IsOptional()
-    @ApiProperty({
-        description: 'The unique identifier of the project instance',
-        example: '344feee1cda9f0d3b68d14cb0586e94',
-        required: false
-    })
-    instanceId?: string;
-
     @IsProfileName()
     name: string;
 
@@ -61,12 +52,22 @@ export class ProjectFileDto {
     @IsDate()
     @ApiProperty()
     createdAt: Date;
+}
+
+export class ProjectFileWithInstanceDto extends ProjectFileDto {
+    @IsString()
+    @IsOptional()
+    @ApiProperty({
+        description: 'The unique identifier of the project instance',
+        example: '344feee1cda9f0d3b68d14cb0586e94',
+        required: false
+    })
+    instanceId?: string;
 
     @IsObject()
     @IsOptional()
     @ApiProperty({
-        description: 'Project instance',
-        required: false
+        description: 'Project instance'
     })
     instance?: ProjectInstanceDto;
 }

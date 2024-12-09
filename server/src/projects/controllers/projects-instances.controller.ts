@@ -1,4 +1,4 @@
-import {ProjectInstanceDto} from '@/projects/dtos/project-instance.dto';
+import {ProjectInstanceWithFileDto} from '@/projects/dtos/project-instance.dto';
 import {ProjectInstancesService} from '@/projects/services/project-instances.service';
 import {DtoResponse} from '@/scaffold/decorators/dto-response';
 import {ScaffoldSortDto} from '@/scaffold/dtos/scaffold-sort.dto';
@@ -15,18 +15,18 @@ export class ProjectsInstancesController {
 
     @Get()
     @ApiOperation({summary: 'List all project instances'})
-    @DtoResponse(ProjectInstanceDto)
+    @DtoResponse(ProjectInstanceWithFileDto)
     public async index(
         @Query() {sort}: ScaffoldSortDto
-    ): Promise<Array<ProjectInstanceDto>> {
+    ): Promise<Array<ProjectInstanceWithFileDto>> {
         const projects = await this.projectInstances.projects();
         return scaffoldSort(projects, 'name', sort);
     }
 
     @Get(':instanceId')
     @ApiOperation({summary: 'Get project instance by ID'})
-    @DtoResponse(ProjectInstanceDto)
-    public async get(): Promise<ProjectInstanceDto> {
+    @DtoResponse(ProjectInstanceWithFileDto)
+    public async get(): Promise<ProjectInstanceWithFileDto> {
         return null;
     }
 
@@ -36,8 +36,8 @@ export class ProjectsInstancesController {
         description:
             'Opens a project file and loads it into memory as an instance.'
     })
-    @DtoResponse(ProjectInstanceDto)
-    public async create(): Promise<Array<ProjectInstanceDto>> {
+    @DtoResponse(ProjectInstanceWithFileDto)
+    public async create(): Promise<Array<ProjectInstanceWithFileDto>> {
         const projects = await this.projectInstances.projects();
         return [];
     }

@@ -1,4 +1,4 @@
-import {ProjectFileDto} from '@/projects/dtos/project-file.dto';
+import {ProjectFileWithInstanceDto} from '@/projects/dtos/project-file.dto';
 import {ProjectsFilesIndexDto} from '@/projects/dtos/projects-files-index.dto';
 import {ProjectFilesService} from '@/projects/services/project-files.service';
 import {DtoResponse} from '@/scaffold/decorators/dto-response';
@@ -13,10 +13,10 @@ export class ProjectsFilesController {
 
     @Get()
     @ApiOperation({summary: 'List all project files'})
-    @DtoResponse([ProjectFileDto])
+    @DtoResponse([ProjectFileWithInstanceDto])
     public async index(
         @Query() {sort, sortBy}: ProjectsFilesIndexDto
-    ): Promise<Array<ProjectFileDto>> {
+    ): Promise<Array<ProjectFileWithInstanceDto>> {
         const storages = await this.files.getFiles();
         return scaffoldSort(storages, sortBy, sort);
     }
@@ -24,8 +24,10 @@ export class ProjectsFilesController {
     @Get(':fileId')
     @ApiOperation({summary: 'Get project file by ID'})
     @ApiNotFoundResponse({description: 'Project file not found'})
-    @DtoResponse(ProjectFileDto)
-    public async get(@Param('fileId') id: string): Promise<ProjectFileDto> {
+    @DtoResponse(ProjectFileWithInstanceDto)
+    public async get(
+        @Param('fileId') id: string
+    ): Promise<ProjectFileWithInstanceDto> {
         return await this.files.getFileOrThrow(id);
     }
 
@@ -35,8 +37,8 @@ export class ProjectsFilesController {
         description:
             'To create a new profile file the server must create an empty instance of the project and load it, but if the profile file already exists. then the server must load the existing instance.'
     })
-    @DtoResponse(ProjectFileDto)
-    public async create(): Promise<ProjectFileDto> {
+    @DtoResponse(ProjectFileWithInstanceDto)
+    public async create(): Promise<ProjectFileWithInstanceDto> {
         return null;
     }
 }

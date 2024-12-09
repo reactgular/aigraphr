@@ -1,5 +1,8 @@
 import {ProjectFileDto} from '@/projects/dtos/project-file.dto';
-import {ProjectInstanceDto} from '@/projects/dtos/project-instance.dto';
+import {
+    ProjectInstanceDto,
+    ProjectInstanceWithFileDto
+} from '@/projects/dtos/project-instance.dto';
 import {ProjectService} from '@/projects/services/project.service';
 import {Injectable} from '@nestjs/common';
 import {ContextId, ContextIdFactory, ModuleRef} from '@nestjs/core';
@@ -16,7 +19,9 @@ export class ProjectInstancesService {
 
     public constructor(private readonly moduleRef: ModuleRef) {}
 
-    public async open(storage: ProjectFileDto): Promise<ProjectInstanceDto> {
+    public async open(
+        storage: ProjectFileDto
+    ): Promise<ProjectInstanceWithFileDto> {
         const contextId = ContextIdFactory.create();
         const project = await this.moduleRef.create(ProjectService, contextId);
         return null;
@@ -26,7 +31,7 @@ export class ProjectInstancesService {
         return null;
     }
 
-    public async projects(): Promise<Array<ProjectInstanceDto>> {
+    public async projects(): Promise<Array<ProjectInstanceWithFileDto>> {
         return [];
     }
 }

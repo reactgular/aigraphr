@@ -1,6 +1,9 @@
 import {EnvConfig} from '@/configs/env.config';
 import {PROFILE_FILE_REGEX} from '@/projects/decorators/is-profile-name.decorator';
-import {ProjectFileDto} from '@/projects/dtos/project-file.dto';
+import {
+    ProjectFileDto,
+    ProjectFileWithInstanceDto
+} from '@/projects/dtos/project-file.dto';
 import {ProjectService} from '@/projects/services/project.service';
 import {Inject, Injectable, Logger, NotFoundException} from '@nestjs/common';
 import {ConfigService} from '@nestjs/config';
@@ -52,10 +55,10 @@ export class ProjectFilesService {
     /**
      * @todo filter out files that don't match the regex constraints for the fileName
      */
-    public async getFiles(): Promise<ProjectFileDto[]> {
+    public async getFiles(): Promise<ProjectFileWithInstanceDto[]> {
         const folder = await this.storagePath();
         const dir = await fs.opendir(folder);
-        const files: ProjectFileDto[] = [];
+        const files: ProjectFileWithInstanceDto[] = [];
         try {
             for await (const dirent of dir) {
                 if (dirent.isFile() && dirent.name.endsWith(this.extension)) {
@@ -75,7 +78,7 @@ export class ProjectFilesService {
                             path: filePath,
                             size: stats.size,
                             createdAt: stats.birthtime
-                        } satisfies ProjectFileDto);
+                        } satisfies ProjectFileWithInstanceDto);
                     }
                 }
             }
