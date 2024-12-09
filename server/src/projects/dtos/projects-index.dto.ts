@@ -5,7 +5,7 @@ import {
     ScaffoldSort
 } from '@/scaffold/decorators/is-sort-enum.decorator';
 
-export class ProjectsFilesIndexDto {
+export class ProjectsIndexDto {
     @IsSortEnum()
     sort: ScaffoldSort = ScaffoldSort.ASC;
 

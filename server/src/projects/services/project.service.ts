@@ -19,6 +19,7 @@ export class ProjectService {
     }
 
     public static connect(storage: string): Sequelize {
+        log.log(`Connecting to ${storage}`);
         return new Sequelize({
             dialect: 'sqlite',
             storage,

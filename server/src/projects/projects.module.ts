@@ -1,17 +1,17 @@
-import {ProjectsFilesController} from '@/projects/controllers/projects-files.controller';
-import {ProjectsInstancesController} from '@/projects/controllers/projects-instances.controller';
+import {ProjectsController} from '@/projects/controllers/projects.controller';
 import {
     PROJECT_EXTENSION,
-    PROJECT_STORAGE_NONCE,
-    ProjectFilesService
+    PROJECT_STORAGE_NONCE
 } from '@/projects/services/project-files.service';
-import {ProjectInstancesService} from '@/projects/services/project-instances.service';
+import {ProjectsHashService} from '@/projects/services/projects-hash.service';
+import {ProjectsStorageService} from '@/projects/services/projects-storage.service';
+import {ProjectsService} from '@/projects/services/projects.service';
 import {Module} from '@nestjs/common';
 import * as crypto from 'crypto';
 
 @Module({
     imports: [],
-    controllers: [ProjectsInstancesController, ProjectsFilesController],
+    controllers: [ProjectsController],
     providers: [
         {
             provide: PROJECT_STORAGE_NONCE,
@@ -21,8 +21,9 @@ import * as crypto from 'crypto';
             provide: PROJECT_EXTENSION,
             useValue: '.aigraphr'
         },
-        ProjectInstancesService,
-        ProjectFilesService
+        ProjectsService,
+        ProjectsStorageService,
+        ProjectsHashService
     ]
 })
 export class ProjectsModule {}

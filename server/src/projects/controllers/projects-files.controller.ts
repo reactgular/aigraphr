@@ -1,5 +1,5 @@
 import {ProjectFileWithInstanceDto} from '@/projects/dtos/project-file.dto';
-import {ProjectsFilesIndexDto} from '@/projects/dtos/projects-files-index.dto';
+import {ProjectsIndexDto} from '@/projects/dtos/projects-index.dto';
 import {ProjectFilesService} from '@/projects/services/project-files.service';
 import {DtoResponse} from '@/scaffold/decorators/dto-response';
 import {scaffoldSort} from '@/scaffold/utils/scaffold-sort';
@@ -15,7 +15,7 @@ export class ProjectsFilesController {
     @ApiOperation({summary: 'List all project files'})
     @DtoResponse([ProjectFileWithInstanceDto])
     public async index(
-        @Query() {sort, sortBy}: ProjectsFilesIndexDto
+        @Query() {sort, sortBy}: ProjectsIndexDto
     ): Promise<Array<ProjectFileWithInstanceDto>> {
         const storages = await this.files.getFiles();
         return scaffoldSort(storages, sortBy, sort);
