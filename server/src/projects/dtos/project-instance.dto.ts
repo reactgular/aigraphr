@@ -1,6 +1,5 @@
-import {ProjectFileDto} from '@/projects/dtos/project-file.dto';
 import {ApiProperty} from '@nestjs/swagger';
-import {IsObject, IsString, IsUUID} from 'class-validator';
+import {IsString, IsUUID} from 'class-validator';
 
 export class ProjectInstanceDto {
     @IsString()
@@ -17,18 +16,4 @@ export class ProjectInstanceDto {
         example: 'My project'
     })
     name: string;
-
-    @IsString()
-    @ApiProperty({
-        description: 'ID of the project storage',
-        example:
-            '344feee1cda9f0d3b68d14cb0586e948c72bad81f96a8fba4311376b62545dde'
-    })
-    storageId: string;
-
-    @IsObject()
-    @ApiProperty({
-        description: 'Project storage'
-    })
-    storage: ProjectFileDto;
 }

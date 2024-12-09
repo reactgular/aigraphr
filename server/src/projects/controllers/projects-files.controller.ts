@@ -3,7 +3,7 @@ import {ProjectsFilesIndexDto} from '@/projects/dtos/projects-files-index.dto';
 import {ProjectFilesService} from '@/projects/services/project-files.service';
 import {DtoResponse} from '@/scaffold/decorators/dto-response';
 import {scaffoldSort} from '@/scaffold/utils/scaffold-sort';
-import {Controller, Get, Logger, Param, Query} from '@nestjs/common';
+import {Controller, Get, Logger, Param, Post, Query} from '@nestjs/common';
 import {ApiNotFoundResponse, ApiOperation, ApiTags} from '@nestjs/swagger';
 
 @ApiTags('Projects')
@@ -27,6 +27,17 @@ export class ProjectsFilesController {
     @DtoResponse(ProjectFileDto)
     public async get(@Param('fileId') id: string): Promise<ProjectFileDto> {
         return await this.files.getFileOrThrow(id);
+    }
+
+    @Post()
+    @ApiOperation({
+        summary: 'Create a new project file.',
+        description:
+            'To create a new profile file the server must create an empty instance of the project and load it, but if the profile file already exists. then the server must load the existing instance.'
+    })
+    @DtoResponse(ProjectFileDto)
+    public async create(): Promise<ProjectFileDto> {
+        return null;
     }
 }
 

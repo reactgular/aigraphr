@@ -1,7 +1,7 @@
 import {ProjectFileDto} from '@/projects/dtos/project-file.dto';
 import {ProjectInstanceDto} from '@/projects/dtos/project-instance.dto';
 import {ProjectService} from '@/projects/services/project.service';
-import {Injectable, Scope} from '@nestjs/common';
+import {Injectable} from '@nestjs/common';
 import {ContextId, ContextIdFactory, ModuleRef} from '@nestjs/core';
 
 interface ProjectRef {
@@ -10,9 +10,7 @@ interface ProjectRef {
     instance: ProjectInstanceDto;
 }
 
-@Injectable({
-    scope: Scope.DEFAULT
-})
+@Injectable()
 export class ProjectInstancesService {
     private readonly loaded: Map<string, ProjectRef> = new Map();
 
