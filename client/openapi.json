@@ -7,7 +7,14 @@
                 "parameters": [],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
                     }
                 },
                 "tags": [
@@ -19,7 +26,14 @@
                 "parameters": [],
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
                     }
                 },
                 "tags": [
@@ -31,7 +45,14 @@
                 "parameters": [],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
                     }
                 },
                 "tags": [
@@ -43,7 +64,14 @@
                 "parameters": [],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
                     }
                 },
                 "tags": [
@@ -55,7 +83,14 @@
                 "parameters": [],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
                     }
                 },
                 "tags": [
@@ -63,32 +98,221 @@
                 ]
             }
         },
-        "/projects": {
+        "/projects/instances": {
             "get": {
-                "operationId": "ProjectsController_findMany",
+                "operationId": "ProjectsInstancesController_index",
                 "parameters": [
                     {
-                        "name": "loaded",
+                        "name": "sort",
                         "required": false,
                         "in": "query",
                         "schema": {
-                            "type": "boolean"
-                        }
-                    },
-                    {
-                        "name": "count",
-                        "required": false,
-                        "in": "query",
-                        "schema": {
-                            "type": "number"
+                            "default": "asc",
+                            "enum": [
+                                "asc",
+                                "desc"
+                            ],
+                            "type": "string"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ProjectInstanceWithFileDto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "List all project instances",
+                "tags": [
+                    "Projects"
+                ]
+            },
+            "post": {
+                "description": "Opens a project file and loads it into memory as an instance.",
+                "operationId": "ProjectsInstancesController_create",
+                "parameters": [],
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ProjectInstanceWithFileDto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Create a new project instance",
+                "tags": [
+                    "Projects"
+                ]
+            },
+            "delete": {
+                "description": "Close all project files and removes them from memory.",
+                "operationId": "ProjectsInstancesController_removeAll",
+                "parameters": [],
+                "responses": {
+                    "200": {
                         "description": ""
                     }
                 },
+                "summary": "Removes all project instances",
+                "tags": [
+                    "Projects"
+                ]
+            }
+        },
+        "/projects/instances/{instanceId}": {
+            "get": {
+                "operationId": "ProjectsInstancesController_get",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProjectInstanceWithFileDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Get project instance by ID",
+                "tags": [
+                    "Projects"
+                ]
+            },
+            "delete": {
+                "description": "Close a project file and removes it from memory.",
+                "operationId": "ProjectsInstancesController_remove",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "summary": "Removes a project instance",
+                "tags": [
+                    "Projects"
+                ]
+            }
+        },
+        "/projects/files": {
+            "get": {
+                "operationId": "ProjectsFilesController_index",
+                "parameters": [
+                    {
+                        "name": "sort",
+                        "required": false,
+                        "in": "query",
+                        "schema": {
+                            "default": "asc",
+                            "enum": [
+                                "asc",
+                                "desc"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sortBy",
+                        "required": false,
+                        "in": "query",
+                        "schema": {
+                            "default": "createdAt",
+                            "enum": [
+                                "createdAt",
+                                "name"
+                            ],
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ProjectFileWithInstanceDto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "List all project files",
+                "tags": [
+                    "Projects"
+                ]
+            },
+            "post": {
+                "description": "To create a new profile file the server must create an empty instance of the project and load it, but if the profile file already exists. then the server must load the existing instance.",
+                "operationId": "ProjectsFilesController_create",
+                "parameters": [],
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProjectFileWithInstanceDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Create a new project file.",
+                "tags": [
+                    "Projects"
+                ]
+            }
+        },
+        "/projects/files/{fileId}": {
+            "get": {
+                "operationId": "ProjectsFilesController_get",
+                "parameters": [
+                    {
+                        "name": "fileId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProjectFileWithInstanceDto"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Project file not found"
+                    }
+                },
+                "summary": "Get project file by ID",
                 "tags": [
                     "Projects"
                 ]
@@ -111,6 +335,174 @@
                 "type": "http"
             }
         },
-        "schemas": {}
+        "schemas": {
+            "ProjectFileDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The unique identifier of the project file",
+                        "example": "344feee1cda9f0d3b68d14cb0586e948c72bad81f96a8fba4311376b62545dde"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the project (alphanumeric)",
+                        "example": "example-project"
+                    },
+                    "fileName": {
+                        "type": "string",
+                        "description": "The name of the project file",
+                        "example": "example-project.aigraphr"
+                    },
+                    "size": {
+                        "type": "number",
+                        "description": "The size of the project file in bytes",
+                        "example": 1024
+                    },
+                    "folder": {
+                        "type": "string",
+                        "description": "The folder where the project file is stored",
+                        "example": "/path/to"
+                    },
+                    "path": {
+                        "type": "string",
+                        "description": "The path to the project file",
+                        "example": "/path/to/example-project.aigraphr"
+                    },
+                    "createdAt": {
+                        "format": "date-time",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "fileName",
+                    "size",
+                    "folder",
+                    "path",
+                    "createdAt"
+                ]
+            },
+            "ProjectInstanceWithFileDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "ID of the project in memory",
+                        "example": "344feee-1cda-9f0d-3b68-d14cb0586e94"
+                    },
+                    "fileId": {
+                        "type": "string",
+                        "description": "The unique identifier of the project file",
+                        "example": "344feee1cda9f0d3b68d14cb0586e948c72bad81f96a8fba4311376b62545dde"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the project",
+                        "example": "My project"
+                    },
+                    "file": {
+                        "description": "Project file",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/ProjectFileDto"
+                            }
+                        ]
+                    }
+                },
+                "required": [
+                    "id",
+                    "fileId",
+                    "name"
+                ]
+            },
+            "ProjectInstanceDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "ID of the project in memory",
+                        "example": "344feee-1cda-9f0d-3b68-d14cb0586e94"
+                    },
+                    "fileId": {
+                        "type": "string",
+                        "description": "The unique identifier of the project file",
+                        "example": "344feee1cda9f0d3b68d14cb0586e948c72bad81f96a8fba4311376b62545dde"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the project",
+                        "example": "My project"
+                    }
+                },
+                "required": [
+                    "id",
+                    "fileId",
+                    "name"
+                ]
+            },
+            "ProjectFileWithInstanceDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The unique identifier of the project file",
+                        "example": "344feee1cda9f0d3b68d14cb0586e948c72bad81f96a8fba4311376b62545dde"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the project (alphanumeric)",
+                        "example": "example-project"
+                    },
+                    "fileName": {
+                        "type": "string",
+                        "description": "The name of the project file",
+                        "example": "example-project.aigraphr"
+                    },
+                    "size": {
+                        "type": "number",
+                        "description": "The size of the project file in bytes",
+                        "example": 1024
+                    },
+                    "folder": {
+                        "type": "string",
+                        "description": "The folder where the project file is stored",
+                        "example": "/path/to"
+                    },
+                    "path": {
+                        "type": "string",
+                        "description": "The path to the project file",
+                        "example": "/path/to/example-project.aigraphr"
+                    },
+                    "createdAt": {
+                        "format": "date-time",
+                        "type": "string"
+                    },
+                    "instanceId": {
+                        "type": "string",
+                        "description": "The unique identifier of the project instance",
+                        "example": "344feee1cda9f0d3b68d14cb0586e94"
+                    },
+                    "instance": {
+                        "description": "Project instance",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/ProjectInstanceDto"
+                            }
+                        ]
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "fileName",
+                    "size",
+                    "folder",
+                    "path",
+                    "createdAt"
+                ]
+            }
+        }
     }
 }

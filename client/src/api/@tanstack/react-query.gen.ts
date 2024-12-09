@@ -8,11 +8,24 @@ import {
 } from '@tanstack/react-query';
 import type {
     AppControllerRemoveData,
+    AppControllerRemoveResponse,
     AppControllerGetHelloData,
     AppControllerPatchData,
+    AppControllerPatchResponse,
     AppControllerCreateData,
+    AppControllerCreateResponse,
     AppControllerPutData,
-    ProjectsControllerFindManyData
+    AppControllerPutResponse,
+    ProjectsInstancesControllerRemoveAllData,
+    ProjectsInstancesControllerIndexData,
+    ProjectsInstancesControllerCreateData,
+    ProjectsInstancesControllerCreateResponse,
+    ProjectsInstancesControllerRemoveData,
+    ProjectsInstancesControllerGetData,
+    ProjectsFilesControllerIndexData,
+    ProjectsFilesControllerCreateData,
+    ProjectsFilesControllerCreateResponse,
+    ProjectsFilesControllerGetData
 } from '../types.gen';
 import {
     appControllerRemove,
@@ -21,14 +34,21 @@ import {
     appControllerPatch,
     appControllerCreate,
     appControllerPut,
-    projectsControllerFindMany
+    projectsInstancesControllerRemoveAll,
+    projectsInstancesControllerIndex,
+    projectsInstancesControllerCreate,
+    projectsInstancesControllerRemove,
+    projectsInstancesControllerGet,
+    projectsFilesControllerIndex,
+    projectsFilesControllerCreate,
+    projectsFilesControllerGet
 } from '../sdk.gen';
 
 export const appControllerRemoveMutation = (
     options?: Partial<Options<AppControllerRemoveData>>
 ) => {
     const mutationOptions: UseMutationOptions<
-        unknown,
+        AppControllerRemoveResponse,
         DefaultError,
         Options<AppControllerRemoveData>
     > = {
@@ -103,7 +123,7 @@ export const appControllerPatchMutation = (
     options?: Partial<Options<AppControllerPatchData>>
 ) => {
     const mutationOptions: UseMutationOptions<
-        unknown,
+        AppControllerPatchResponse,
         DefaultError,
         Options<AppControllerPatchData>
     > = {
@@ -144,7 +164,7 @@ export const appControllerCreateMutation = (
     options?: Partial<Options<AppControllerCreateData>>
 ) => {
     const mutationOptions: UseMutationOptions<
-        unknown,
+        AppControllerCreateResponse,
         DefaultError,
         Options<AppControllerCreateData>
     > = {
@@ -164,7 +184,7 @@ export const appControllerPutMutation = (
     options?: Partial<Options<AppControllerPutData>>
 ) => {
     const mutationOptions: UseMutationOptions<
-        unknown,
+        AppControllerPutResponse,
         DefaultError,
         Options<AppControllerPutData>
     > = {
@@ -180,16 +200,36 @@ export const appControllerPutMutation = (
     return mutationOptions;
 };
 
-export const projectsControllerFindManyQueryKey = (
-    options?: Options<ProjectsControllerFindManyData>
-) => [createQueryKey('projectsControllerFindMany', options)];
+export const projectsInstancesControllerRemoveAllMutation = (
+    options?: Partial<Options<ProjectsInstancesControllerRemoveAllData>>
+) => {
+    const mutationOptions: UseMutationOptions<
+        unknown,
+        DefaultError,
+        Options<ProjectsInstancesControllerRemoveAllData>
+    > = {
+        mutationFn: async (localOptions) => {
+            const {data} = await projectsInstancesControllerRemoveAll({
+                ...options,
+                ...localOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
 
-export const projectsControllerFindManyOptions = (
-    options?: Options<ProjectsControllerFindManyData>
+export const projectsInstancesControllerIndexQueryKey = (
+    options?: Options<ProjectsInstancesControllerIndexData>
+) => [createQueryKey('projectsInstancesControllerIndex', options)];
+
+export const projectsInstancesControllerIndexOptions = (
+    options?: Options<ProjectsInstancesControllerIndexData>
 ) => {
     return queryOptions({
         queryFn: async ({queryKey, signal}) => {
-            const {data} = await projectsControllerFindMany({
+            const {data} = await projectsInstancesControllerIndex({
                 ...options,
                 ...queryKey[0],
                 signal,
@@ -197,6 +237,171 @@ export const projectsControllerFindManyOptions = (
             });
             return data;
         },
-        queryKey: projectsControllerFindManyQueryKey(options)
+        queryKey: projectsInstancesControllerIndexQueryKey(options)
+    });
+};
+
+export const projectsInstancesControllerCreateQueryKey = (
+    options?: Options<ProjectsInstancesControllerCreateData>
+) => [createQueryKey('projectsInstancesControllerCreate', options)];
+
+export const projectsInstancesControllerCreateOptions = (
+    options?: Options<ProjectsInstancesControllerCreateData>
+) => {
+    return queryOptions({
+        queryFn: async ({queryKey, signal}) => {
+            const {data} = await projectsInstancesControllerCreate({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: projectsInstancesControllerCreateQueryKey(options)
+    });
+};
+
+export const projectsInstancesControllerCreateMutation = (
+    options?: Partial<Options<ProjectsInstancesControllerCreateData>>
+) => {
+    const mutationOptions: UseMutationOptions<
+        ProjectsInstancesControllerCreateResponse,
+        DefaultError,
+        Options<ProjectsInstancesControllerCreateData>
+    > = {
+        mutationFn: async (localOptions) => {
+            const {data} = await projectsInstancesControllerCreate({
+                ...options,
+                ...localOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const projectsInstancesControllerRemoveMutation = (
+    options?: Partial<Options<ProjectsInstancesControllerRemoveData>>
+) => {
+    const mutationOptions: UseMutationOptions<
+        unknown,
+        DefaultError,
+        Options<ProjectsInstancesControllerRemoveData>
+    > = {
+        mutationFn: async (localOptions) => {
+            const {data} = await projectsInstancesControllerRemove({
+                ...options,
+                ...localOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const projectsInstancesControllerGetQueryKey = (
+    options?: Options<ProjectsInstancesControllerGetData>
+) => [createQueryKey('projectsInstancesControllerGet', options)];
+
+export const projectsInstancesControllerGetOptions = (
+    options?: Options<ProjectsInstancesControllerGetData>
+) => {
+    return queryOptions({
+        queryFn: async ({queryKey, signal}) => {
+            const {data} = await projectsInstancesControllerGet({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: projectsInstancesControllerGetQueryKey(options)
+    });
+};
+
+export const projectsFilesControllerIndexQueryKey = (
+    options?: Options<ProjectsFilesControllerIndexData>
+) => [createQueryKey('projectsFilesControllerIndex', options)];
+
+export const projectsFilesControllerIndexOptions = (
+    options?: Options<ProjectsFilesControllerIndexData>
+) => {
+    return queryOptions({
+        queryFn: async ({queryKey, signal}) => {
+            const {data} = await projectsFilesControllerIndex({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: projectsFilesControllerIndexQueryKey(options)
+    });
+};
+
+export const projectsFilesControllerCreateQueryKey = (
+    options?: Options<ProjectsFilesControllerCreateData>
+) => [createQueryKey('projectsFilesControllerCreate', options)];
+
+export const projectsFilesControllerCreateOptions = (
+    options?: Options<ProjectsFilesControllerCreateData>
+) => {
+    return queryOptions({
+        queryFn: async ({queryKey, signal}) => {
+            const {data} = await projectsFilesControllerCreate({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: projectsFilesControllerCreateQueryKey(options)
+    });
+};
+
+export const projectsFilesControllerCreateMutation = (
+    options?: Partial<Options<ProjectsFilesControllerCreateData>>
+) => {
+    const mutationOptions: UseMutationOptions<
+        ProjectsFilesControllerCreateResponse,
+        DefaultError,
+        Options<ProjectsFilesControllerCreateData>
+    > = {
+        mutationFn: async (localOptions) => {
+            const {data} = await projectsFilesControllerCreate({
+                ...options,
+                ...localOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const projectsFilesControllerGetQueryKey = (
+    options: Options<ProjectsFilesControllerGetData>
+) => [createQueryKey('projectsFilesControllerGet', options)];
+
+export const projectsFilesControllerGetOptions = (
+    options: Options<ProjectsFilesControllerGetData>
+) => {
+    return queryOptions({
+        queryFn: async ({queryKey, signal}) => {
+            const {data} = await projectsFilesControllerGet({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: projectsFilesControllerGetQueryKey(options)
     });
 };
