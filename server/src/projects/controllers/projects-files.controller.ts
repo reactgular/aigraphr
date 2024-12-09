@@ -21,11 +21,11 @@ export class ProjectsFilesController {
         return scaffoldSort(storages, sortBy, sort);
     }
 
-    @Get(':id')
-    @ApiOperation({summary: 'Get project file by id'})
+    @Get(':fileId')
+    @ApiOperation({summary: 'Get project file by ID'})
     @ApiNotFoundResponse({description: 'Project file not found'})
     @DtoResponse(ProjectFileDto)
-    public async get(@Param('id') id: string): Promise<ProjectFileDto> {
+    public async get(@Param('fileId') id: string): Promise<ProjectFileDto> {
         return await this.files.getFileOrThrow(id);
     }
 }
