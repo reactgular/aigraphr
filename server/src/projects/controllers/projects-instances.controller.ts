@@ -6,9 +6,6 @@ import {scaffoldSort} from '@/scaffold/utils/scaffold-sort';
 import {Controller, Get, Logger, Query} from '@nestjs/common';
 import {ApiOperation, ApiTags} from '@nestjs/swagger';
 
-/**
- * @deprecated ProjectsController instead
- */
 @ApiTags('Projects')
 @Controller('projects/instances')
 export class ProjectsInstancesController {

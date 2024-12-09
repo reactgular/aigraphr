@@ -1,5 +1,5 @@
 import {EnvConfig} from '@/configs/env.config';
-import {ProjectStorageDto} from '@/projects/dtos/project-storage.dto';
+import {ProjectFileDto} from '@/projects/dtos/project-file.dto';
 import {Person} from '@/projects/models/person.model';
 import {Injectable, Logger, Scope} from '@nestjs/common';
 import {ConfigService} from '@nestjs/config';
@@ -12,7 +12,7 @@ import {Sequelize} from 'sequelize-typescript';
 export class ProjectService {
     private sequelize?: Sequelize;
 
-    private storage?: ProjectStorageDto;
+    private storage?: ProjectFileDto;
 
     public constructor(private config: ConfigService<EnvConfig>) {
         console.log('ProjectService created');
@@ -26,14 +26,14 @@ export class ProjectService {
         });
     }
 
-    public async open(storage: ProjectStorageDto) {
+    public async open(storage: ProjectFileDto) {
         await this.close();
 
         const storagePath = this.config.get('PROJECTS_FOLDER');
 
         this.storage = storage;
         this.sequelize = ProjectService.connect(
-            path.join(storagePath, storage.fileName)
+            path.join(storagePath, storage.name)
         );
     }
 

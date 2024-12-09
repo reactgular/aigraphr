@@ -1,10 +1,7 @@
-import {ProjectStorageDto} from '@/projects/dtos/project-storage.dto';
+import {ProjectFileDto} from '@/projects/dtos/project-file.dto';
 import {ApiProperty} from '@nestjs/swagger';
 import {IsObject, IsString, IsUUID} from 'class-validator';
 
-/**
- * @deprecated replaced by ProjectDto
- */
 export class ProjectInstanceDto {
     @IsString()
     @IsUUID()
@@ -33,5 +30,5 @@ export class ProjectInstanceDto {
     @ApiProperty({
         description: 'Project storage'
     })
-    storage: ProjectStorageDto;
+    storage: ProjectFileDto;
 }
