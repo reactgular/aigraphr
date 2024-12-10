@@ -1,20 +1,23 @@
-import {ProjectFileDto} from '@/projects/dtos/project-file.dto';
+import {ProjectFileDto} from '@/projects/_deprecated/dtos/project-file.dto';
 import {
     ProjectInstanceDto,
     ProjectInstanceWithFileDto
-} from '@/projects/dtos/project-instance.dto';
-import {ProjectService} from '@/projects/services/project.service';
+} from '@/projects/_deprecated/dtos/project-instance.dto';
+import {ProjectOldService} from '@/projects/_deprecated/project-old.service';
 import {Injectable} from '@nestjs/common';
 import {ContextId, ContextIdFactory, ModuleRef} from '@nestjs/core';
 
 interface ProjectRef {
     contextId: ContextId;
-    project: ProjectService;
+    project: ProjectOldService;
     instance: ProjectInstanceDto;
 }
 
+/**
+ * @deprecated
+ */
 @Injectable()
-export class ProjectInstancesService {
+export class ProjectOldInstancesService {
     private readonly loaded: Map<string, ProjectRef> = new Map();
 
     public constructor(private readonly moduleRef: ModuleRef) {}
@@ -23,7 +26,10 @@ export class ProjectInstancesService {
         storage: ProjectFileDto
     ): Promise<ProjectInstanceWithFileDto> {
         const contextId = ContextIdFactory.create();
-        const project = await this.moduleRef.create(ProjectService, contextId);
+        const project = await this.moduleRef.create(
+            ProjectOldService,
+            contextId
+        );
         return null;
     }
 

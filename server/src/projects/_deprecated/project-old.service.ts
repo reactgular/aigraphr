@@ -1,15 +1,18 @@
 import {EnvConfig} from '@/configs/env.config';
-import {ProjectFileDto} from '@/projects/dtos/project-file.dto';
-import {Person} from '@/projects/models/person.model';
+import {ProjectFileDto} from '@/projects/_deprecated/dtos/project-file.dto';
+import {Person} from '@/projects/_deprecated/models/person.model';
 import {Injectable, Logger, Scope} from '@nestjs/common';
 import {ConfigService} from '@nestjs/config';
 import * as path from 'path';
 import {Sequelize} from 'sequelize-typescript';
 
+/**
+ * @deprecated
+ */
 @Injectable({
     scope: Scope.REQUEST
 })
-export class ProjectService {
+export class ProjectOldService {
     private sequelize?: Sequelize;
 
     private storage?: ProjectFileDto;
@@ -33,7 +36,7 @@ export class ProjectService {
         const storagePath = this.config.get('PROJECTS_FOLDER');
 
         this.storage = storage;
-        this.sequelize = ProjectService.connect(
+        this.sequelize = ProjectOldService.connect(
             path.join(storagePath, storage.name)
         );
     }
@@ -45,4 +48,4 @@ export class ProjectService {
     }
 }
 
-const log = new Logger(ProjectService.name);
+const log = new Logger(ProjectOldService.name);

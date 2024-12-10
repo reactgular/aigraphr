@@ -1,22 +1,31 @@
 import {EnvConfig} from '@/configs/env.config';
-import {PROFILE_FILE_REGEX} from '@/projects/decorators/is-profile-name.decorator';
 import {
     ProjectFileDto,
     ProjectFileWithInstanceDto
-} from '@/projects/dtos/project-file.dto';
-import {ProjectService} from '@/projects/services/project.service';
+} from '@/projects/_deprecated/dtos/project-file.dto';
+import {ProjectOldService} from '@/projects/_deprecated/project-old.service';
+import {PROFILE_FILE_REGEX} from '@/projects/decorators/is-profile-name.decorator';
 import {Inject, Injectable, Logger, NotFoundException} from '@nestjs/common';
 import {ConfigService} from '@nestjs/config';
 import * as crypto from 'crypto';
 import {promises as fs} from 'fs';
 import * as path from 'path';
 
+/**
+ * @deprecated
+ */
 export const PROJECT_STORAGE_NONCE = Symbol();
 
+/**
+ * @deprecated
+ */
 export const PROJECT_EXTENSION = Symbol();
 
+/**
+ * @deprecated
+ */
 @Injectable()
-export class ProjectFilesService {
+export class ProjectOldFilesService {
     public constructor(
         @Inject(PROJECT_STORAGE_NONCE) private readonly nonce: string,
         @Inject(PROJECT_EXTENSION) private readonly extension: string,
@@ -29,7 +38,7 @@ export class ProjectFilesService {
     public async create(name: string) {
         const storagePath = await this.storagePath();
         const fileName = `${name}.aigraphr`;
-        const connection = ProjectService.connect(
+        const connection = ProjectOldService.connect(
             path.join(storagePath, fileName)
         );
         await connection.close();
@@ -111,4 +120,4 @@ export class ProjectFilesService {
     }
 }
 
-const log = new Logger(ProjectFilesService.name);
+const log = new Logger(ProjectOldFilesService.name);

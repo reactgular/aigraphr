@@ -1,4 +1,4 @@
-import {PROJECT_STORAGE_NONCE} from '@/projects/services/project-files.service';
+import {PROJECT_STORAGE_NONCE} from '@/projects/_deprecated/project-old-files.service';
 import {Inject, Injectable} from '@nestjs/common';
 import crypto from 'crypto';
 

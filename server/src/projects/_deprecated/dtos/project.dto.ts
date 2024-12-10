@@ -2,6 +2,9 @@ import {IsProfileName} from '@/projects/decorators/is-profile-name.decorator';
 import {ApiProperty} from '@nestjs/swagger';
 import {IsBoolean, IsDate, IsNumber, IsString} from 'class-validator';
 
+/**
+ * @deprecated
+ */
 export class ProjectDto {
     @IsString()
     @ApiProperty({

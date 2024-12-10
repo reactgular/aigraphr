@@ -1,7 +1,7 @@
+import {ProjectDto} from '@/projects/_deprecated/dtos/project.dto';
+import {PROJECT_EXTENSION} from '@/projects/_deprecated/project-old-files.service';
+import {ProjectOldService} from '@/projects/_deprecated/project-old.service';
 import {PROFILE_FILE_REGEX} from '@/projects/decorators/is-profile-name.decorator';
-import {ProjectDto} from '@/projects/dtos/project.dto';
-import {PROJECT_EXTENSION} from '@/projects/services/project-files.service';
-import {ProjectService} from '@/projects/services/project.service';
 import {ProjectsHashService} from '@/projects/services/projects-hash.service';
 import {ProjectsStorageService} from '@/projects/services/projects-storage.service';
 import {
@@ -16,8 +16,11 @@ import {
 import {promises as fs} from 'fs';
 import path from 'path';
 
+/**
+ * @deprecated
+ */
 @Injectable()
-export class ProjectsService
+export class ProjectsOldService
     implements OnApplicationBootstrap, OnApplicationShutdown
 {
     private readonly log = new Logger('ProjectsService');
@@ -96,7 +99,7 @@ export class ProjectsService
         const folder = await this.storage.path();
         const fileName = `${name}.aigraphr`;
 
-        const connection = ProjectService.connect(
+        const connection = ProjectOldService.connect(
             path.resolve(folder, fileName)
         );
         await connection.authenticate();

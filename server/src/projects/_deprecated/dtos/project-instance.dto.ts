@@ -1,7 +1,10 @@
-import {ProjectFileDto} from '@/projects/dtos/project-file.dto';
+import {ProjectFileDto} from '@/projects/_deprecated/dtos/project-file.dto';
 import {ApiProperty} from '@nestjs/swagger';
 import {IsObject, IsOptional, IsString, IsUUID} from 'class-validator';
 
+/**
+ * @deprecated
+ */
 export class ProjectInstanceDto {
     @IsString()
     @IsUUID()
@@ -27,6 +30,9 @@ export class ProjectInstanceDto {
     name: string;
 }
 
+/**
+ * @deprecated
+ */
 export class ProjectInstanceWithFileDto extends ProjectInstanceDto {
     @IsObject()
     @IsOptional()

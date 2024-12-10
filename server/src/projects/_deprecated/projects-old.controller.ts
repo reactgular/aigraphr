@@ -1,8 +1,8 @@
-import {ProjectCreateDto} from '@/projects/dtos/project-create.dto';
-import {ProjectPatchDto} from '@/projects/dtos/project-patch.dto';
-import {ProjectDto} from '@/projects/dtos/project.dto';
-import {ProjectsIndexDto} from '@/projects/dtos/projects-index.dto';
-import {ProjectsService} from '@/projects/services/projects.service';
+import {ProjectCreateDto} from '@/projects/_deprecated/dtos/project-create.dto';
+import {ProjectPatchDto} from '@/projects/_deprecated/dtos/project-patch.dto';
+import {ProjectDto} from '@/projects/_deprecated/dtos/project.dto';
+import {ProjectsIndexDto} from '@/projects/_deprecated/dtos/projects-index.dto';
+import {ProjectsOldService} from '@/projects/_deprecated/projects-old.service';
 import {DtoResponse} from '@/scaffold/decorators/dto-response';
 import {scaffoldSort} from '@/scaffold/utils/scaffold-sort';
 import {
@@ -17,10 +17,13 @@ import {
 } from '@nestjs/common';
 import {ApiNotFoundResponse, ApiOperation, ApiTags} from '@nestjs/swagger';
 
+/**
+ * @deprecated
+ */
 @ApiTags('Projects')
 @Controller('projects')
-export class ProjectsController {
-    public constructor(private readonly projects: ProjectsService) {}
+export class ProjectsOldController {
+    public constructor(private readonly projects: ProjectsOldService) {}
 
     @Get()
     @ApiOperation({summary: 'List all projects'})

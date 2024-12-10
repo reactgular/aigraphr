@@ -1,16 +1,19 @@
-import {ProjectInstanceWithFileDto} from '@/projects/dtos/project-instance.dto';
-import {ProjectInstancesService} from '@/projects/services/project-instances.service';
+import {ProjectInstanceWithFileDto} from '@/projects/_deprecated/dtos/project-instance.dto';
+import {ProjectOldInstancesService} from '@/projects/_deprecated/project-old-instances.service';
 import {DtoResponse} from '@/scaffold/decorators/dto-response';
 import {ScaffoldSortDto} from '@/scaffold/dtos/scaffold-sort.dto';
 import {scaffoldSort} from '@/scaffold/utils/scaffold-sort';
 import {Controller, Delete, Get, Logger, Post, Query} from '@nestjs/common';
 import {ApiOperation, ApiTags} from '@nestjs/swagger';
 
+/**
+ * @deprecated
+ */
 @ApiTags('Projects')
 @Controller('projects/instances')
 export class ProjectsInstancesController {
     public constructor(
-        private readonly projectInstances: ProjectInstancesService
+        private readonly projectInstances: ProjectOldInstancesService
     ) {}
 
     @Get()

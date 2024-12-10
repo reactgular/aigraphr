@@ -1,15 +1,18 @@
-import {ProjectFileWithInstanceDto} from '@/projects/dtos/project-file.dto';
-import {ProjectsIndexDto} from '@/projects/dtos/projects-index.dto';
-import {ProjectFilesService} from '@/projects/services/project-files.service';
+import {ProjectFileWithInstanceDto} from '@/projects/_deprecated/dtos/project-file.dto';
+import {ProjectsIndexDto} from '@/projects/_deprecated/dtos/projects-index.dto';
+import {ProjectOldFilesService} from '@/projects/_deprecated/project-old-files.service';
 import {DtoResponse} from '@/scaffold/decorators/dto-response';
 import {scaffoldSort} from '@/scaffold/utils/scaffold-sort';
 import {Controller, Get, Logger, Param, Post, Query} from '@nestjs/common';
 import {ApiNotFoundResponse, ApiOperation, ApiTags} from '@nestjs/swagger';
 
+/**
+ * @deprecated
+ */
 @ApiTags('Projects')
 @Controller('projects/files')
 export class ProjectsFilesController {
-    public constructor(private readonly files: ProjectFilesService) {}
+    public constructor(private readonly files: ProjectOldFilesService) {}
 
     @Get()
     @ApiOperation({summary: 'List all project files'})

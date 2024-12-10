@@ -1,5 +1,5 @@
+import {ProjectInstanceDto} from '@/projects/_deprecated/dtos/project-instance.dto';
 import {IsProfileName} from '@/projects/decorators/is-profile-name.decorator';
-import {ProjectInstanceDto} from '@/projects/dtos/project-instance.dto';
 import {ApiProperty} from '@nestjs/swagger';
 import {
     IsDate,
@@ -9,6 +9,9 @@ import {
     IsString
 } from 'class-validator';
 
+/**
+ * @deprecated
+ */
 export class ProjectFileDto {
     @IsString()
     @ApiProperty({
