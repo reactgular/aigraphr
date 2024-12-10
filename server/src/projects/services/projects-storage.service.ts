@@ -4,6 +4,8 @@ import {ConfigService} from '@nestjs/config';
 import {promises as fs} from 'fs';
 import path from 'path';
 
+export const PROJECT_EXTENSION = Symbol();
+
 @Injectable()
 export class ProjectsStorageService {
     private readonly log = new Logger('ProjectStorageService');

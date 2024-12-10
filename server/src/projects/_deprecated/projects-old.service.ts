@@ -1,9 +1,11 @@
 import {ProjectDto} from '@/projects/_deprecated/dtos/project.dto';
-import {PROJECT_EXTENSION} from '@/projects/_deprecated/project-old-files.service';
 import {ProjectOldService} from '@/projects/_deprecated/project-old.service';
 import {PROFILE_FILE_REGEX} from '@/projects/decorators/is-profile-name.decorator';
-import {ProjectsHashService} from '@/projects/services/projects-hash.service';
-import {ProjectsStorageService} from '@/projects/services/projects-storage.service';
+import {
+    PROJECT_EXTENSION,
+    ProjectsStorageService
+} from '@/projects/services/projects-storage.service';
+import {HashService} from '@/utils/services/hash.service';
 import {
     BadRequestException,
     Inject,
@@ -38,7 +40,7 @@ export class ProjectsOldService
     public constructor(
         @Inject(PROJECT_EXTENSION) private readonly extension: string,
         private readonly storage: ProjectsStorageService,
-        private readonly hash: ProjectsHashService
+        private readonly hash: HashService
     ) {}
 
     public onApplicationShutdown(signal?: string) {

@@ -5,7 +5,7 @@ import {
     ScaffoldEntity
 } from '@/scaffold/services/scaffold-crud.service';
 import {scaffoldSort} from '@/scaffold/utils/scaffold-sort';
-import {Get, Param, Query, Type} from '@nestjs/common';
+import {Delete, Get, Param, Post, Query, Type} from '@nestjs/common';
 import {
     ApiNotFoundResponse,
     ApiOkResponse,
@@ -49,6 +49,20 @@ export function createCrudController<Entity extends ScaffoldEntity>(
         @DtoResponse(entity)
         public async get(@Param('id') id: string): Promise<Entity> {
             return await this.scaffold.findOne(id);
+        }
+
+        @Post()
+        @ApiOperation({summary: `Create a new ${name}.`})
+        @DtoResponse(entity)
+        public async create(): Promise<Entity> {
+            return null;
+        }
+
+        @Delete(':id')
+        @ApiOperation({summary: `Delete ${name} by ID`})
+        @ApiNotFoundResponse({description: `${name} not found`})
+        public async remove(@Param('id') id: string): Promise<void> {
+            await this.scaffold.remove(id);
         }
     }
 

@@ -5,6 +5,9 @@ import {
 } from '@/projects/_deprecated/dtos/project-file.dto';
 import {ProjectOldService} from '@/projects/_deprecated/project-old.service';
 import {PROFILE_FILE_REGEX} from '@/projects/decorators/is-profile-name.decorator';
+import {PROJECT_EXTENSION} from '@/projects/services/projects-storage.service';
+
+import {HASH_NONCE} from '@/utils/services/hash.service';
 import {Inject, Injectable, Logger, NotFoundException} from '@nestjs/common';
 import {ConfigService} from '@nestjs/config';
 import * as crypto from 'crypto';
@@ -14,20 +17,10 @@ import * as path from 'path';
 /**
  * @deprecated
  */
-export const PROJECT_STORAGE_NONCE = Symbol();
-
-/**
- * @deprecated
- */
-export const PROJECT_EXTENSION = Symbol();
-
-/**
- * @deprecated
- */
 @Injectable()
 export class ProjectOldFilesService {
     public constructor(
-        @Inject(PROJECT_STORAGE_NONCE) private readonly nonce: string,
+        @Inject(HASH_NONCE) private readonly nonce: string,
         @Inject(PROJECT_EXTENSION) private readonly extension: string,
         private config: ConfigService<EnvConfig>
     ) {}
