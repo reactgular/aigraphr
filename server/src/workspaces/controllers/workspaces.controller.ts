@@ -1,5 +1,5 @@
 import {ProjectDatabasesService} from '@/projects/services/project-databases.service';
-import {Controller, Get} from '@nestjs/common';
+import {Controller, Get, Param} from '@nestjs/common';
 import {ApiOperation, ApiTags} from '@nestjs/swagger';
 
 @ApiTags('Workspaces')
@@ -11,7 +11,8 @@ export class WorkspacesController {
 
     @Get()
     @ApiOperation({})
-    findAll() {
+    public findAll(@Param('projectId') projectId: string): string {
+        console.log({projectId});
         return 'This action returns all workspaces';
     }
 }
