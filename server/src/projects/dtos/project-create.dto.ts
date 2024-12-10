@@ -1,6 +1,4 @@
-import {IsProfileName} from '@/projects/decorators/is-profile-name.decorator';
+import {ProjectDto} from '@/projects/dtos/project.dto';
+import {PickType} from '@nestjs/swagger';
 
-export class ProjectCreateDto {
-    @IsProfileName()
-    name: string;
-}
+export class ProjectCreateDto extends PickType(ProjectDto, ['name'] as const) {}

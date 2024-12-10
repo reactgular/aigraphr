@@ -18,6 +18,14 @@ import path from 'path';
 export class ProjectsService {
     private readonly log = new Logger('ProjectsService');
 
+    /**
+     * @deprecated this is lost on a hot-reload of code changes related to this service.
+     *
+     * We can move this to the global reference, and then do a dependency injection into the service, but
+     * we might have problems related to hot reloading code referenced by projects in memory.
+     *
+     * We might need to stare open-state on disk, and reference it on startup.
+     */
     private readonly open: Map<string, ProjectDto> = new Map();
 
     public constructor(
@@ -25,6 +33,42 @@ export class ProjectsService {
         private readonly storage: ProjectsStorageService,
         private readonly hash: ProjectsHashService
     ) {}
+
+    public async setOpen(id: string, open: boolean): Promise<ProjectDto> {
+        const project = await this.getProjectOrThrow(id);
+        project.open = open;
+        if (open) {
+            this.open.set(id, project);
+        } else {
+            this.open.delete(id);
+        }
+        return project;
+    }
+
+    public async rename(id: string, newName: string): Promise<ProjectDto> {
+        if (this.isOpen(id)) {
+            throw new BadRequestException(`Project with ID "${id}" is open`);
+        }
+
+        const project = await this.getProjectOrThrow(id);
+        if (project.name === newName) {
+            return project;
+        }
+
+        const newId = this.hash.hash(newName);
+
+        if (await this.exists(newId)) {
+            throw new BadRequestException(
+                `Project with ID "${newId}" already exists`
+            );
+        }
+
+        const newFileName = `${newName}.aigraphr`;
+        const newFilePath = path.resolve(project.folder, newFileName);
+        await fs.rename(project.path, newFilePath);
+
+        return await this.getProjectOrThrow(newId);
+    }
 
     public async create(name: string): Promise<ProjectDto> {
         const id = this.hash.hash(name);
@@ -47,6 +91,10 @@ export class ProjectsService {
         return this.getProjectOrThrow(id);
     }
 
+    public isOpen(id: string) {
+        return this.open.has(id);
+    }
+
     public async exists(id: string): Promise<boolean> {
         return (await this.getProject(id)) !== undefined;
     }
@@ -64,6 +112,11 @@ export class ProjectsService {
         return projects.find((project) => project.id === id);
     }
 
+    /**
+     * @deprecated this will silently fail and return an empty array
+     *
+     * @todo change return to Promise<[ProjectDto[], error]>
+     */
     public async getProjects(): Promise<ProjectDto[]> {
         const folder = await this.storage.path();
         const dir = await fs.opendir(folder);
@@ -78,15 +131,16 @@ export class ProjectsService {
                         ''
                     );
                     if (PROFILE_FILE_REGEX.test(name)) {
+                        const id = this.hash.hash(name);
                         files.push({
-                            id: this.hash.hash(name),
+                            id,
                             name,
                             fileName: dirent.name,
                             folder,
                             path: filePath,
                             size: stats.size,
                             createdAt: stats.birthtime,
-                            open: false
+                            open: this.open.has(id)
                         } satisfies ProjectDto);
                     }
                 }
