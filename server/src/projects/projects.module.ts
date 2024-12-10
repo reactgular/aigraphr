@@ -24,6 +24,7 @@ import * as crypto from 'crypto';
         ProjectsService,
         ProjectsStorageService,
         ProjectsHashService
-    ]
+    ],
+    exports: [ProjectsStorageService]
 })
 export class ProjectsModule {}
