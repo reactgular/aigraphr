@@ -9,13 +9,17 @@ import {
     Inject,
     Injectable,
     Logger,
-    NotFoundException
+    NotFoundException,
+    OnApplicationBootstrap,
+    OnApplicationShutdown
 } from '@nestjs/common';
 import {promises as fs} from 'fs';
 import path from 'path';
 
 @Injectable()
-export class ProjectsService {
+export class ProjectsService
+    implements OnApplicationBootstrap, OnApplicationShutdown
+{
     private readonly log = new Logger('ProjectsService');
 
     /**
@@ -33,6 +37,16 @@ export class ProjectsService {
         private readonly storage: ProjectsStorageService,
         private readonly hash: ProjectsHashService
     ) {}
+
+    public onApplicationShutdown(signal?: string) {
+        // TODO: Save open projects to disk
+        this.log.log('Shutting down');
+    }
+
+    public onApplicationBootstrap() {
+        // TODO: Load open projects from disk
+        this.log.log('Starting up');
+    }
 
     public async setOpen(id: string, open: boolean): Promise<ProjectDto> {
         const project = await this.getProjectOrThrow(id);

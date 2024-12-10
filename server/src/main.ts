@@ -44,6 +44,7 @@ async function bootstrap() {
             transformOptions: {enableImplicitConversion: true}
         })
     );
+    app.enableShutdownHooks();
 
     const config = app.get(ConfigService<EnvConfig>);
     log.log(`🔧 PROJECTS_FOLDER: ${config.get('PROJECTS_FOLDER')}`);
