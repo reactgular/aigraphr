@@ -1,24 +1,15 @@
 import {ProjectEntity} from '@/models/project.entity';
+import {ScaffoldCrudService} from '@/scaffold/services/scaffold-crud.service';
 import {Injectable} from '@nestjs/common';
 import {InjectRepository} from '@nestjs/typeorm';
 import {Repository} from 'typeorm';
 
 @Injectable()
-export class ProjectsService {
+export class ProjectsService extends ScaffoldCrudService<ProjectEntity> {
     public constructor(
         @InjectRepository(ProjectEntity)
-        private projects: Repository<ProjectEntity>
-    ) {}
-
-    public findAll(): Promise<ProjectEntity[]> {
-        return this.projects.find();
-    }
-
-    public findOne(id: number): Promise<ProjectEntity | null> {
-        return this.projects.findOneBy({id});
-    }
-
-    public async remove(id: number): Promise<void> {
-        await this.projects.delete(id);
+        private readonly projects: Repository<ProjectEntity>
+    ) {
+        super(projects);
     }
 }

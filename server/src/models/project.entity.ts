@@ -1,16 +1,11 @@
 import {IsProfileName} from '@/projects/decorators/is-profile-name.decorator';
+import {ScaffoldEntity} from '@/scaffold/models/scaffold.entity';
 import {ApiProperty} from '@nestjs/swagger';
-import {IsBoolean, IsNumber, Min} from 'class-validator';
-import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
+import {IsBoolean} from 'class-validator';
+import {Column, Entity} from 'typeorm';
 
 @Entity({name: 'projects'})
-export class ProjectEntity {
-    @IsNumber()
-    @Min(1)
-    @ApiProperty()
-    @PrimaryGeneratedColumn()
-    id: number;
-
+export class ProjectEntity extends ScaffoldEntity {
     @IsProfileName()
     @Column()
     name: string;
