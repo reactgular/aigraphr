@@ -26,7 +26,7 @@ export class ProjectsStorageService {
         return storagePath;
     }
 
-    public async databasePath(): Promise<string> {
+    public async database(): Promise<string> {
         return path.join(await this.path(), 'aigraphr.sqlite');
     }
 }

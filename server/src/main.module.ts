@@ -1,11 +1,13 @@
 import {AppModule} from '@/app/app.module';
 import {VALIDATE_ENV_CONFIG} from '@/configs/env.config';
+import {ProjectEntity} from '@/models/project.entity';
 import {ProjectsModule} from '@/projects/projects.module';
 import {ProjectsStorageService} from '@/projects/services/projects-storage.service';
 import {WorkspacesModule} from '@/workspaces/workspaces.module';
 import {Module} from '@nestjs/common';
 import {ConfigModule} from '@nestjs/config';
-import {SequelizeModule} from '@nestjs/sequelize';
+import {TypeOrmModule} from '@nestjs/typeorm';
+import {TypeOrmModuleOptions} from '@nestjs/typeorm/dist/interfaces/typeorm-options.interface';
 
 @Module({
     imports: [
@@ -17,14 +19,14 @@ import {SequelizeModule} from '@nestjs/sequelize';
                 abortEarly: true
             }
         }),
-        SequelizeModule.forRootAsync({
+        TypeOrmModule.forRootAsync({
             imports: [ProjectsModule],
-            useFactory: async (projectsStorage: ProjectsStorageService) => ({
-                name: 'app',
-                dialect: 'sqlite',
-                storage: await projectsStorage.databasePath(),
-                models: []
-            }),
+            useFactory: async (projectsStorage: ProjectsStorageService) =>
+                ({
+                    type: 'sqlite',
+                    database: await projectsStorage.database(),
+                    entities: [ProjectEntity]
+                }) satisfies TypeOrmModuleOptions,
             inject: [ProjectsStorageService]
         }),
         AppModule,
