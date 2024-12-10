@@ -1,8 +1,9 @@
+import {ProjectsModule} from '@/projects/projects.module';
 import {WorkspacesController} from '@/workspaces/controllers/workspaces.controller';
 import {Module} from '@nestjs/common';
 
 @Module({
-    imports: [],
+    imports: [ProjectsModule],
     controllers: [WorkspacesController],
     providers: []
 })

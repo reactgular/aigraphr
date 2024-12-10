@@ -6,20 +6,14 @@ import {
     ProjectsStorageService
 } from '@/projects/services/projects-storage.service';
 import {ProjectsService} from '@/projects/services/projects.service';
-import {HASH_NONCE} from '@/utils/services/hash.service';
 import {UtilsModule} from '@/utils/utils.module';
 import {Module} from '@nestjs/common';
 import {TypeOrmModule} from '@nestjs/typeorm';
-import * as crypto from 'crypto';
 
 @Module({
     imports: [TypeOrmModule.forFeature([ProjectEntity]), UtilsModule],
     controllers: [ProjectsController],
     providers: [
-        {
-            provide: HASH_NONCE,
-            useValue: crypto.randomBytes(16).toString('hex')
-        },
         {
             provide: PROJECT_EXTENSION,
             useValue: '.aigraphr'
@@ -28,6 +22,6 @@ import * as crypto from 'crypto';
         ProjectsStorageService,
         ProjectDatabasesService
     ],
-    exports: [ProjectsStorageService]
+    exports: [ProjectsStorageService, ProjectDatabasesService]
 })
 export class ProjectsModule {}
