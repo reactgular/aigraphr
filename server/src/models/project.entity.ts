@@ -1,13 +1,7 @@
 import {IsProfileName} from '@/projects/decorators/is-profile-name.decorator';
 import {ApiProperty} from '@nestjs/swagger';
-import {IsBoolean, IsDate, IsNumber, Min} from 'class-validator';
-import {
-    Column,
-    CreateDateColumn,
-    Entity,
-    PrimaryGeneratedColumn,
-    UpdateDateColumn
-} from 'typeorm';
+import {IsBoolean, IsNumber, Min} from 'class-validator';
+import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
 
 @Entity({name: 'projects'})
 export class ProjectEntity {
@@ -21,22 +15,8 @@ export class ProjectEntity {
     @Column()
     name: string;
 
-    @IsDate()
-    @ApiProperty()
-    @CreateDateColumn({
-        type: 'datetime',
-        default: () => 'CURRENT_TIMESTAMP(6)'
-    })
-    public createdAt: Date;
-
-    @IsDate()
-    @ApiProperty()
-    @UpdateDateColumn({
-        type: 'datetime',
-        default: () => 'CURRENT_TIMESTAMP(6)',
-        onUpdate: 'CURRENT_TIMESTAMP(6)'
-    })
-    public updatedAt: Date;
+    @Column()
+    test: string;
 
     @IsBoolean()
     @ApiProperty({

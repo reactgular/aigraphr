@@ -9,6 +9,6 @@ export class ProjectsIndexDto {
     @IsSortEnum()
     sort: ScaffoldSort = ScaffoldSort.ASC;
 
-    @IsKeyOf<ProjectEntity>(['createdAt', 'name'], false)
-    sortBy: keyof ProjectEntity = 'createdAt';
+    @IsKeyOf<ProjectEntity>(['name'], false)
+    sortBy: keyof ProjectEntity = 'name';
 }

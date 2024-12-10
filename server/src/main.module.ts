@@ -1,6 +1,5 @@
 import {AppModule} from '@/app/app.module';
 import {VALIDATE_ENV_CONFIG} from '@/configs/env.config';
-import {ProjectEntity} from '@/models/project.entity';
 import {ProjectsModule} from '@/projects/projects.module';
 import {ProjectsStorageService} from '@/projects/services/projects-storage.service';
 import {WorkspacesModule} from '@/workspaces/workspaces.module';
@@ -25,9 +24,11 @@ import {TypeOrmModuleOptions} from '@nestjs/typeorm/dist/interfaces/typeorm-opti
                 ({
                     type: 'sqlite',
                     database: await projectsStorage.database(),
-                    entities: [ProjectEntity],
+                    entities: [`${__dirname}/models/*.entity{.ts,.js}`],
+                    subscribers: [
+                        `${__dirname}/subscribers/*.subscriber{.ts,.js}`
+                    ],
                     migrationsRun: true,
-                    // @TODO Add migrations via import
                     migrations: [`${__dirname}/migrations/*{.ts,.js}`]
                 }) satisfies TypeOrmModuleOptions,
             inject: [ProjectsStorageService]
