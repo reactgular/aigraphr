@@ -1,4 +1,4 @@
-import {ProjectEntity} from '@/models/project.entity';
+import {ProjectEntity} from '@/entities/project.entity';
 import {ProjectsService} from '@/projects/services/projects.service';
 import {createCrudController} from '@/scaffold/controllers/scaffold-crud.controller';
 import {Controller, Logger} from '@nestjs/common';

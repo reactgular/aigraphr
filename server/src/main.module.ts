@@ -24,7 +24,7 @@ import {TypeOrmModuleOptions} from '@nestjs/typeorm/dist/interfaces/typeorm-opti
                 ({
                     type: 'sqlite',
                     database: await projectsStorage.database(),
-                    entities: [`${__dirname}/models/*.entity{.ts,.js}`],
+                    entities: [`${__dirname}/entities/*.entity{.ts,.js}`],
                     subscribers: [
                         `${__dirname}/subscribers/*.subscriber{.ts,.js}`
                     ],

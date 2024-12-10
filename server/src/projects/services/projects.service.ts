@@ -1,4 +1,4 @@
-import {ProjectEntity} from '@/models/project.entity';
+import {ProjectEntity} from '@/entities/project.entity';
 import {ScaffoldCrudService} from '@/scaffold/services/scaffold-crud.service';
 import {Injectable} from '@nestjs/common';
 import {InjectRepository} from '@nestjs/typeorm';

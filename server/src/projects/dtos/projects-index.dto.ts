@@ -1,4 +1,4 @@
-import {ProjectEntity} from '@/models/project.entity';
+import {ProjectEntity} from '@/entities/project.entity';
 import {IsKeyOf} from '@/scaffold/decorators/is-keyof.decorator';
 import {
     IsSortEnum,

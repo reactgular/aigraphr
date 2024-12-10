@@ -1,4 +1,4 @@
-import {ProjectEntity} from '@/models/project.entity';
+import {ProjectEntity} from '@/entities/project.entity';
 import {
     PROJECT_EXTENSION,
     PROJECT_STORAGE_NONCE
