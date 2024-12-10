@@ -25,7 +25,10 @@ import {TypeOrmModuleOptions} from '@nestjs/typeorm/dist/interfaces/typeorm-opti
                 ({
                     type: 'sqlite',
                     database: await projectsStorage.database(),
-                    entities: [ProjectEntity]
+                    entities: [ProjectEntity],
+                    migrationsRun: true,
+                    // @TODO Add migrations via import
+                    migrations: [`${__dirname}/migrations/*{.ts,.js}`]
                 }) satisfies TypeOrmModuleOptions,
             inject: [ProjectsStorageService]
         }),

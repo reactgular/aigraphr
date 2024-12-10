@@ -3,17 +3,17 @@ import {
     PROJECT_EXTENSION,
     PROJECT_STORAGE_NONCE
 } from '@/projects/_deprecated/project-old-files.service';
-import {ProjectsOldController} from '@/projects/_deprecated/projects-old.controller';
-import {ProjectsOldService} from '@/projects/_deprecated/projects-old.service';
+import {ProjectsController} from '@/projects/controllers/projects.controller';
 import {ProjectsHashService} from '@/projects/services/projects-hash.service';
 import {ProjectsStorageService} from '@/projects/services/projects-storage.service';
+import {ProjectsService} from '@/projects/services/projects.service';
 import {Module} from '@nestjs/common';
 import {TypeOrmModule} from '@nestjs/typeorm';
 import * as crypto from 'crypto';
 
 @Module({
     imports: [TypeOrmModule.forFeature([ProjectEntity])],
-    controllers: [ProjectsOldController],
+    controllers: [ProjectsController],
     providers: [
         {
             provide: PROJECT_STORAGE_NONCE,
@@ -23,7 +23,7 @@ import * as crypto from 'crypto';
             provide: PROJECT_EXTENSION,
             useValue: '.aigraphr'
         },
-        ProjectsOldService,
+        ProjectsService,
         ProjectsStorageService,
         ProjectsHashService
     ],
