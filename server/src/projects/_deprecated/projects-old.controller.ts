@@ -62,6 +62,7 @@ export class ProjectsOldController {
         } else if (open !== undefined) {
             return await this.projects.setOpen(id, open);
         }
+        return undefined;
     }
 
     @Delete(':id')

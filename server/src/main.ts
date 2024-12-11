@@ -9,13 +9,14 @@ import {NestFactory} from '@nestjs/core';
 import {NextFunction, Request, Response} from 'express';
 import * as process from 'process';
 
-const specPath = (function (argv: Array<string>) {
+const specPath = (function (argv: Array<string>): string | undefined {
     for (const arg of argv) {
         if (arg.startsWith('--openapi=')) {
             const [, value] = arg.split('=');
             return value;
         }
     }
+    return undefined;
 })([...process.argv]);
 
 const production = process.env.NODE_ENV === 'production';
