@@ -43,18 +43,20 @@ export function createCrudController<Entity extends ScaffoldEntity>(
             return scaffoldSort(storages, sortBy, sort);
         }
 
+        // @TODO fix null
         @Get(':id')
         @ApiOperation({summary: `Get ${name} by ID`})
         @ApiNotFoundResponse({description: `${name} not found`})
         @DtoResponse(entity)
-        public async get(@Param('id') id: string): Promise<Entity> {
+        public async get(@Param('id') id: string): Promise<Entity | null> {
             return await this.scaffold.findOne(id);
         }
 
+        // @TODO fix null
         @Post()
         @ApiOperation({summary: `Create a new ${name}.`})
         @DtoResponse(entity)
-        public async create(): Promise<Entity> {
+        public async create(): Promise<Entity | null> {
             return null;
         }
 

@@ -18,6 +18,10 @@ export abstract class ScaffoldCrudService<Entity extends ScaffoldEntity> {
         return this.repo.findOneBy({id});
     }
 
+    public async exists(id: number): Promise<boolean> {
+        return !!(await this.findOne(id));
+    }
+
     public async remove(id: Entity['id']): Promise<void> {
         await this.repo.delete(id);
     }

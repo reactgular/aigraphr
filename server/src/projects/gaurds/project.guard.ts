@@ -1,39 +1,43 @@
+import {ProjectRequest} from '@/projects/gaurds/project.request';
+import {ProjectsService} from '@/projects/services/projects.service';
 import {
     CanActivate,
     ExecutionContext,
     Injectable,
-    Logger
+    Logger,
+    NotFoundException
 } from '@nestjs/common';
-import {Request} from 'express';
-
-type ProjectId = {projectId: string};
 
 function isNumeric(value: string): boolean {
     return !isNaN(parseInt(value, 10));
-}
-
-export class ProjectContextDo {
-    public projectId: number;
-}
-
-export interface ProjectRequest extends Request<ProjectId> {
-    context: ProjectContextDo;
 }
 
 @Injectable()
 export class ProjectGuard implements CanActivate {
     private readonly log = new Logger('ProjectGuard');
 
+    public constructor(private readonly projects: ProjectsService) {
+        //
+    }
+
     public async canActivate(execContext: ExecutionContext): Promise<boolean> {
         const request = execContext.switchToHttp().getRequest<ProjectRequest>();
-
         const projectId = request.params.projectId;
+
         if (projectId && isNumeric(projectId)) {
             request.context = {
                 projectId: parseInt(projectId, 10)
             };
 
-            // @todo need to validate project ID and open the database connection
+            const exists = await this.projects.exists(
+                request.context.projectId
+            );
+
+            if (!exists) {
+                throw new NotFoundException(
+                    `Project with ID ${request.context.projectId} does not exist`
+                );
+            }
 
             return true;
         }

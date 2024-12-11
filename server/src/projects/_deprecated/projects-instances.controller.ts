@@ -29,7 +29,7 @@ export class ProjectsInstancesController {
     @Get(':instanceId')
     @ApiOperation({summary: 'Get project instance by ID'})
     @DtoResponse(ProjectInstanceWithFileDto)
-    public async get(): Promise<ProjectInstanceWithFileDto> {
+    public async get(): Promise<ProjectInstanceWithFileDto | null> {
         return null;
     }
 

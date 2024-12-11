@@ -13,7 +13,7 @@ export class ProjectsStorageService {
     public constructor(private config: ConfigService<EnvConfig>) {}
 
     public async path(): Promise<string> {
-        const storagePath = path.resolve(this.config.get('PROJECTS_FOLDER'));
+        const storagePath = path.resolve(this.config.get('PROJECTS_FOLDER')!);
         try {
             await fs.access(storagePath);
         } catch (error) {

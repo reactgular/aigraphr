@@ -30,7 +30,7 @@ export class ProjectsFilesController {
     @DtoResponse(ProjectFileWithInstanceDto)
     public async get(
         @Param('fileId') id: string
-    ): Promise<ProjectFileWithInstanceDto> {
+    ): Promise<ProjectFileWithInstanceDto | undefined> {
         return await this.files.getFileOrThrow(id);
     }
 
@@ -41,7 +41,7 @@ export class ProjectsFilesController {
             'To create a new profile file the server must create an empty instance of the project and load it, but if the profile file already exists. then the server must load the existing instance.'
     })
     @DtoResponse(ProjectFileWithInstanceDto)
-    public async create(): Promise<ProjectFileWithInstanceDto> {
+    public async create(): Promise<ProjectFileWithInstanceDto | null> {
         return null;
     }
 }

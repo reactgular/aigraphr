@@ -56,7 +56,7 @@ export class ProjectsOldController {
     public async patch(
         @Param('id') id: string,
         @Body() {name, open}: ProjectPatchDto
-    ): Promise<ProjectDto> {
+    ): Promise<ProjectDto | undefined> {
         if (name) {
             return await this.projects.rename(id, name);
         } else if (open !== undefined) {

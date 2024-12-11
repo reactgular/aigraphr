@@ -24,7 +24,7 @@ export class ProjectOldInstancesService {
 
     public async open(
         storage: ProjectFileDto
-    ): Promise<ProjectInstanceWithFileDto> {
+    ): Promise<ProjectInstanceWithFileDto | null> {
         const contextId = ContextIdFactory.create();
         const project = await this.moduleRef.create(
             ProjectOldService,

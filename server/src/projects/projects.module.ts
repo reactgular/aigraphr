@@ -1,5 +1,6 @@
 import {ProjectEntity} from '@/entities/project.entity';
 import {ProjectsController} from '@/projects/controllers/projects.controller';
+import {ProjectGuard} from '@/projects/gaurds/project.guard';
 import {ProjectDatabasesService} from '@/projects/services/project-databases.service';
 import {
     PROJECT_EXTENSION,
@@ -14,6 +15,7 @@ import {TypeOrmModule} from '@nestjs/typeorm';
     imports: [TypeOrmModule.forFeature([ProjectEntity]), UtilsModule],
     controllers: [ProjectsController],
     providers: [
+        ProjectGuard,
         {
             provide: PROJECT_EXTENSION,
             useValue: '.aigraphr'
@@ -22,6 +24,11 @@ import {TypeOrmModule} from '@nestjs/typeorm';
         ProjectsStorageService,
         ProjectDatabasesService
     ],
-    exports: [ProjectsStorageService, ProjectDatabasesService]
+    exports: [
+        ProjectGuard,
+        ProjectsService,
+        ProjectsStorageService,
+        ProjectDatabasesService
+    ]
 })
 export class ProjectsModule {}
