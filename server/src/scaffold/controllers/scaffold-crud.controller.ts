@@ -4,7 +4,15 @@ import {
     ScaffoldEntity
 } from '@/scaffold/services/scaffold-crud.service';
 import {toHumanUtils} from '@/scaffold/utils/to-human.utils';
-import {Body, Delete, Get, Param, Post, Type} from '@nestjs/common';
+import {
+    Body,
+    Delete,
+    Get,
+    Param,
+    Post,
+    Type,
+    ValidationPipe
+} from '@nestjs/common';
 import {
     ApiBody,
     ApiNotFoundResponse,
@@ -12,10 +20,17 @@ import {
     ApiOperation
 } from '@nestjs/swagger';
 
-export function createCrudController<
-    Entity extends ScaffoldEntity,
-    CreateEntity extends Partial<Entity>
->(Entity: Type<Entity>, CreateEntity: Type<CreateEntity>) {
+export interface ScaffoldCrudOptions<Entity extends ScaffoldEntity> {
+    entity: Type<Entity>;
+    createEntity: Type<Partial<Entity>>;
+    updateEntity: Type<Partial<Entity>>;
+}
+
+export function createCrudController<Entity extends ScaffoldEntity>({
+    entity: Entity,
+    createEntity: CreateEntity,
+    updateEntity: UpdateEntity
+}: ScaffoldCrudOptions<Entity>) {
     const name = toHumanUtils(Entity);
 
     class ScaffoldCrudController {
@@ -41,6 +56,7 @@ export function createCrudController<
         }
 
         // @todo need to fix the typing of id to match Entity['id'], maybe needs a custom pipe
+        // @todo I don't think any validation pipe is being used here
         @Get(':id')
         @ApiOperation({summary: `Get ${name} by ID`})
         @ApiNotFoundResponse({description: `${name} not found`})
@@ -53,11 +69,23 @@ export function createCrudController<
         @ApiOperation({summary: `Create a new ${name}.`})
         @ApiBody({type: CreateEntity})
         @DtoResponse(Entity)
-        public async create(@Body() data: CreateEntity): Promise<Entity> {
+        public async create(
+            @Body(
+                new ValidationPipe({
+                    expectedType: CreateEntity,
+                    whitelist: true,
+                    forbidNonWhitelisted: true,
+                    transform: true,
+                    transformOptions: {enableImplicitConversion: true}
+                })
+            )
+            data: Partial<Entity>
+        ): Promise<Entity> {
             return await this.scaffold.create(data);
         }
 
         // @todo need to fix the typing of id to match Entity['id'], maybe needs a custom pipe
+        // @todo I don't think any validation pipe is being used here
         @Delete(':id')
         @ApiOperation({summary: `Delete ${name} by ID`})
         @ApiNotFoundResponse({description: `${name} not found`})
