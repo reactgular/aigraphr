@@ -12,11 +12,6 @@ export class ProjectsService extends ScaffoldCrudService<ProjectEntity> {
         @InjectRepository(ProjectEntity)
         private readonly projects: Repository<ProjectEntity>
     ) {
-        super(projects);
-    }
-
-    public async open(id: number): Promise<boolean> {
-        this.log.log(`Opening project ${id}`);
-        return true;
+        super(projects, ProjectEntity);
     }
 }

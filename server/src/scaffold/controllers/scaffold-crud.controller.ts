@@ -5,6 +5,7 @@ import {
     ScaffoldEntity
 } from '@/scaffold/services/scaffold-crud.service';
 import {scaffoldSort} from '@/scaffold/utils/scaffold-sort';
+import {toHumanUtils} from '@/scaffold/utils/to-human.utils';
 import {Delete, Get, Param, Post, Query, Type} from '@nestjs/common';
 import {
     ApiNotFoundResponse,
@@ -12,14 +13,10 @@ import {
     ApiOperation
 } from '@nestjs/swagger';
 
-function toHuman<Entity extends ScaffoldEntity>(entity: Type<Entity>) {
-    return entity.name.replace(/Entity$/, '');
-}
-
 export function createCrudController<Entity extends ScaffoldEntity>(
     entity: Type<Entity>
 ) {
-    const name = toHuman(entity);
+    const name = toHumanUtils(entity);
 
     class ScaffoldCrudController {
         public constructor(
