@@ -23,7 +23,7 @@ export abstract class ScaffoldCrudService<Entity extends ScaffoldEntity> {
         return await this.repo.find();
     }
 
-    public async create(data: Omit<Entity, 'id'>): Promise<Entity> {
+    public async create(data: Omit<Partial<Entity>, 'id'>): Promise<Entity> {
         const entity = this.repo.create({...data, id: undefined} as Entity);
         return await this.repo.save(entity, {reload: true});
     }

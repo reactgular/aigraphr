@@ -14,7 +14,7 @@ import {
 
 export function createCrudController<
     Entity extends ScaffoldEntity,
-    CreateEntity extends Omit<Entity, 'id'>
+    CreateEntity extends Partial<Entity>
 >(Entity: Type<Entity>, CreateEntity: Type<CreateEntity>) {
     const name = toHumanUtils(Entity);
 

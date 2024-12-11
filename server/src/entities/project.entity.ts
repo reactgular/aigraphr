@@ -1,7 +1,7 @@
 import {IsProfileName} from '@/projects/decorators/is-profile-name.decorator';
 import {ScaffoldEntity} from '@/scaffold/models/scaffold.entity';
 import {ApiProperty, OmitType} from '@nestjs/swagger';
-import {IsBoolean} from 'class-validator';
+import {IsBoolean, IsString} from 'class-validator';
 import {Column, Entity} from 'typeorm';
 
 @Entity({name: 'projects'})
@@ -10,6 +10,7 @@ export class ProjectEntity extends ScaffoldEntity {
     @Column()
     name: string;
 
+    @IsString()
     @Column()
     test: string;
 
@@ -22,5 +23,6 @@ export class ProjectEntity extends ScaffoldEntity {
 }
 
 export class ProjectCreateEntity extends OmitType(ProjectEntity, [
-    'id'
+    'id',
+    'open'
 ] as const) {}
