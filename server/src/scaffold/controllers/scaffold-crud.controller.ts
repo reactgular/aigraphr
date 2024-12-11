@@ -1,66 +1,67 @@
-import {ProjectsIndexDto} from '@/projects/dtos/projects-index.dto';
 import {DtoResponse} from '@/scaffold/decorators/dto-response';
 import {
     ScaffoldCrudService,
     ScaffoldEntity
 } from '@/scaffold/services/scaffold-crud.service';
-import {scaffoldSort} from '@/scaffold/utils/scaffold-sort';
 import {toHumanUtils} from '@/scaffold/utils/to-human.utils';
-import {Delete, Get, Param, Post, Query, Type} from '@nestjs/common';
+import {Body, Delete, Get, Param, Post, Type} from '@nestjs/common';
 import {
+    ApiBody,
     ApiNotFoundResponse,
     ApiOkResponse,
     ApiOperation
 } from '@nestjs/swagger';
 
-export function createCrudController<Entity extends ScaffoldEntity>(
-    entity: Type<Entity>
-) {
-    const name = toHumanUtils(entity);
+export function createCrudController<
+    Entity extends ScaffoldEntity,
+    CreateEntity extends Omit<Entity, 'id'>
+>(Entity: Type<Entity>, CreateEntity: Type<CreateEntity>) {
+    const name = toHumanUtils(Entity);
 
     class ScaffoldCrudController {
+        public readonly type: Type<Entity>;
+
+        public readonly name: string;
+
         public constructor(
             public readonly scaffold: ScaffoldCrudService<Entity>
         ) {
-            //
+            this.type = Entity;
+            this.name = name;
         }
 
         @Get()
-        @ApiOperation({
-            summary: `List all ${name}`
-        })
-        @DtoResponse([entity])
+        @ApiOperation({summary: `List all ${name}`})
+        @DtoResponse([Entity])
         @ApiOkResponse({
-            type: [entity]
+            type: [Entity]
         })
-        public async index(
-            @Query() {sort, sortBy}: ProjectsIndexDto
-        ): Promise<Array<Entity>> {
-            const storages = await this.scaffold.findAll();
-            return scaffoldSort(storages, sortBy, sort);
+        public async index(): Promise<Array<Entity>> {
+            return await this.scaffold.findAll();
         }
 
-        // @TODO fix null
+        // @todo need to fix the typing of id to match Entity['id'], maybe needs a custom pipe
         @Get(':id')
         @ApiOperation({summary: `Get ${name} by ID`})
         @ApiNotFoundResponse({description: `${name} not found`})
-        @DtoResponse(entity)
-        public async get(@Param('id') id: string): Promise<Entity | null> {
-            return await this.scaffold.findOne(id);
+        @DtoResponse(Entity)
+        public async get(@Param('id') id: Entity['id']): Promise<Entity> {
+            return await this.scaffold.findOneOrThrow(id);
         }
 
-        // @TODO fix null
         @Post()
         @ApiOperation({summary: `Create a new ${name}.`})
-        @DtoResponse(entity)
-        public async create(): Promise<Entity | null> {
-            return null;
+        @ApiBody({type: CreateEntity})
+        @DtoResponse(Entity)
+        public async create(@Body() data: CreateEntity): Promise<Entity> {
+            return await this.scaffold.create(data);
         }
 
+        // @todo need to fix the typing of id to match Entity['id'], maybe needs a custom pipe
         @Delete(':id')
         @ApiOperation({summary: `Delete ${name} by ID`})
         @ApiNotFoundResponse({description: `${name} not found`})
-        public async remove(@Param('id') id: string): Promise<void> {
+        public async remove(@Param('id') id: Entity['id']): Promise<void> {
             await this.scaffold.remove(id);
         }
     }

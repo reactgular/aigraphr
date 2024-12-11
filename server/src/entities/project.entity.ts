@@ -1,6 +1,6 @@
 import {IsProfileName} from '@/projects/decorators/is-profile-name.decorator';
 import {ScaffoldEntity} from '@/scaffold/models/scaffold.entity';
-import {ApiProperty} from '@nestjs/swagger';
+import {ApiProperty, OmitType} from '@nestjs/swagger';
 import {IsBoolean} from 'class-validator';
 import {Column, Entity} from 'typeorm';
 
@@ -20,3 +20,7 @@ export class ProjectEntity extends ScaffoldEntity {
     @Column({default: false})
     open: boolean;
 }
+
+export class ProjectCreateEntity extends OmitType(ProjectEntity, [
+    'id'
+] as const) {}
