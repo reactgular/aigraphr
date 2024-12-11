@@ -38,6 +38,11 @@
         "noEmit": true,
         "resolveJsonModule": true,
         "skipLibCheck": true,
-        "strict": true
+        "strict": true,
+        "strictNullChecks": true,
+        "strictPropertyInitialization": true,
+        "strictBindCallApply": true,
+        "noImplicitReturns": true,
+        "useUnknownInCatchVariables": true
     }
 }
