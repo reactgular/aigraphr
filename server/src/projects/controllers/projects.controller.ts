@@ -1,6 +1,7 @@
 import {
     ProjectCreateDto,
     ProjectDto,
+    ProjectEntity,
     ProjectUpdateDto
 } from '@/entities/project.entity';
 import {ProjectsService} from '@/projects/services/projects.service';
@@ -11,9 +12,10 @@ import {ApiTags} from '@nestjs/swagger';
 @ApiTags('Projects')
 @Controller('projects')
 export class ProjectsController extends createCrudController({
-    entity: ProjectDto,
-    createEntity: ProjectCreateDto,
-    updateEntity: ProjectUpdateDto
+    entity: ProjectEntity,
+    getDto: ProjectDto,
+    createDto: ProjectCreateDto,
+    updateDto: ProjectUpdateDto
 }) {
     private readonly log = new Logger(ProjectsController.name);
 

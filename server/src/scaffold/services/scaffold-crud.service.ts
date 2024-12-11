@@ -2,6 +2,13 @@ import {toHumanUtils} from '@/scaffold/utils/to-human.utils';
 import {NotFoundException, Type} from '@nestjs/common';
 import {Repository} from 'typeorm';
 
+export type ScaffoldDto = {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    id: any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    [key: string]: any;
+};
+
 export type ScaffoldEntity = {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     id: any;
