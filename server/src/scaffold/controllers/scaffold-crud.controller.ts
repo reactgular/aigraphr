@@ -1,40 +1,39 @@
 import {DtoResponse} from '@/scaffold/decorators/dto-response';
+import {ScaffoldBody} from '@/scaffold/decorators/scaffold-body.decorator';
 import {
     ScaffoldCrudService,
     ScaffoldDto,
     ScaffoldEntity
 } from '@/scaffold/services/scaffold-crud.service';
 import {toHumanUtils} from '@/scaffold/utils/to-human.utils';
-import {
-    Body,
-    Delete,
-    Get,
-    Param,
-    Post,
-    Type,
-    ValidationPipe
-} from '@nestjs/common';
+import {Delete, Get, Param, ParseIntPipe, Post, Type} from '@nestjs/common';
 import {
     ApiBody,
     ApiNotFoundResponse,
     ApiOkResponse,
-    ApiOperation
+    ApiOperation,
+    ApiParam
 } from '@nestjs/swagger';
 
 export interface ScaffoldCrudOptions<
     TDto extends ScaffoldDto,
     TEntity extends ScaffoldEntity
 > {
+    primaryKey?: StringConstructor | NumberConstructor;
     entity: Type<TEntity>;
     getDto: Type<TDto>;
     createDto: Type<Partial<TDto>>;
     updateDto: Type<Partial<TDto>>;
 }
 
+/**
+ * @deprecated I'm going to try a different approach
+ */
 export function createCrudController<
     TDto extends ScaffoldEntity,
     TEntity extends ScaffoldEntity
 >({
+    primaryKey = Number,
     entity: Entity,
     getDto: GetDto,
     createDto: CreateDto,
@@ -42,12 +41,12 @@ export function createCrudController<
 }: ScaffoldCrudOptions<TDto, TEntity>) {
     const name = toHumanUtils(Entity);
 
-    class ScaffoldCrudController {
+    abstract class ScaffoldCrudController {
         public readonly entity: Type<TEntity>;
 
         public readonly name: string;
 
-        public constructor(
+        protected constructor(
             public readonly scaffold: ScaffoldCrudService<TEntity>
         ) {
             this.entity = Entity;
@@ -64,13 +63,18 @@ export function createCrudController<
             return await this.scaffold.findAll();
         }
 
-        // @todo need to fix the typing of id to match Entity['id'], maybe needs a custom pipe
-        // @todo I don't think any validation pipe is being used here
         @Get(':id')
+        @ApiParam({
+            type: primaryKey,
+            name: 'id'
+        })
+        @ApiOperation({summary: `Get ${name} by ID`})
         @ApiOperation({summary: `Get ${name} by ID`})
         @ApiNotFoundResponse({description: `${name} not found`})
         @DtoResponse(GetDto)
-        public async get(@Param('id') id: TDto['id']): Promise<TEntity> {
+        public async get(
+            @Param('id', ParseIntPipe) id: TDto['id']
+        ): Promise<TEntity> {
             return await this.scaffold.findOneOrThrow(id);
         }
 
@@ -79,25 +83,22 @@ export function createCrudController<
         @ApiBody({type: CreateDto})
         @DtoResponse(GetDto)
         public async create(
-            @Body(
-                new ValidationPipe({
-                    expectedType: CreateDto,
-                    whitelist: true,
-                    forbidNonWhitelisted: true,
-                    transform: true,
-                    transformOptions: {enableImplicitConversion: true}
-                })
-            )
+            @ScaffoldBody(CreateDto)
             data: InstanceType<typeof CreateDto>
         ): Promise<TEntity> {
             return await this.scaffold.create(this.beforeCreate(data));
         }
 
-        // @todo I don't think any validation pipe is being used here
         @Delete(':id')
+        @ApiParam({
+            type: primaryKey,
+            name: 'id'
+        })
         @ApiOperation({summary: `Delete ${name} by ID`})
         @ApiNotFoundResponse({description: `${name} not found`})
-        public async remove(@Param('id') id: TDto['id']): Promise<void> {
+        public async remove(
+            @Param('id', ParseIntPipe) id: TDto['id']
+        ): Promise<void> {
             await this.scaffold.remove(id);
         }
 
