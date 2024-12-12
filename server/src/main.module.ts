@@ -3,7 +3,6 @@ import {VALIDATE_ENV_CONFIG} from '@/configs/env.config';
 import {ProjectsModule} from '@/projects/projects.module';
 import {ProjectsStorageService} from '@/projects/services/projects-storage.service';
 import {UtilsModule} from '@/utils/utils.module';
-import {WorkspacesModule} from '@/workspaces/workspaces.module';
 import {Module} from '@nestjs/common';
 import {ConfigModule} from '@nestjs/config';
 import {TypeOrmModule} from '@nestjs/typeorm';
@@ -36,7 +35,6 @@ import {TypeOrmModuleOptions} from '@nestjs/typeorm/dist/interfaces/typeorm-opti
         }),
         AppModule,
         ProjectsModule,
-        WorkspacesModule,
         UtilsModule
     ],
     controllers: [],
