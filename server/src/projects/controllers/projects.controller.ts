@@ -25,7 +25,7 @@ export class ProjectsController {
         @Index.Query() query: Index['Query'],
         @Index.Body() body: Index['Body']
     ): Index['Response'] {
-        return await this.projects.findAll();
+        throw new Error('Method not implemented.');
     }
 
     @Get.Method()
@@ -34,6 +34,6 @@ export class ProjectsController {
         @Get.Query() query: Get['Query'],
         @Get.Body() body: Get['Body']
     ): Get['Response'] {
-        return await this.projects.findAll();
+        throw new Error('Method not implemented.');
     }
 }

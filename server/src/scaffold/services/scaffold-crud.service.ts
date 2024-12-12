@@ -1,3 +1,4 @@
+import {ScaffoldCreateType} from '@/scaffold/decorators/scaffold-create';
 import {ScaffoldGetType} from '@/scaffold/decorators/scaffold-get';
 import {ScaffoldIndexType} from '@/scaffold/decorators/scaffold-index';
 import {ScaffoldDtoService} from '@/scaffold/services/scaffold-dto.service';
@@ -9,8 +10,8 @@ import {
 export class ScaffoldCrudService<
     TEntity extends ScaffoldEntity,
     TGetDto extends ScaffoldEntity,
-    TCreateDto,
-    TUpdateDto
+    TCreateDto extends Partial<ScaffoldEntity>,
+    TUpdateDto extends Partial<ScaffoldEntity>
 > {
     public constructor(
         public readonly scaffoldEntity: ScaffoldEntityService<TEntity>,
@@ -37,6 +38,17 @@ export class ScaffoldCrudService<
         body: ScaffoldGetType<TGetDto>['Body']
     ): ScaffoldGetType<TGetDto>['Response'] {
         const entity = await this.scaffoldEntity.findOneOrThrow(params.id);
+        return this.scaffoldDto.toGetDto(entity);
+    }
+
+    public async create(
+        params: ScaffoldCreateType<TCreateDto, TGetDto>['Param'],
+        query: ScaffoldCreateType<TCreateDto, TGetDto>['Query'],
+        body: ScaffoldCreateType<TCreateDto, TGetDto>['Body']
+    ): ScaffoldCreateType<TCreateDto, TGetDto>['Response'] {
+        const entity = await this.scaffoldEntity.create(
+            this.scaffoldDto.fromCreateDto(body)
+        );
         return this.scaffoldDto.toGetDto(entity);
     }
 }

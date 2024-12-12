@@ -1,5 +1,3 @@
-import {DtoResponse} from '@/scaffold/decorators/dto-response';
-import {ScaffoldBody} from '@/scaffold/decorators/scaffold-body.decorator';
 import {ScaffoldGet, ScaffoldGetType} from '@/scaffold/decorators/scaffold-get';
 import {
     ScaffoldIndex,
@@ -13,13 +11,12 @@ import {
     ScaffoldEntityService
 } from '@/scaffold/services/scaffold-entity.service';
 import {toHumanUtils} from '@/scaffold/utils/to-human.utils';
-import {Delete, Param, ParseIntPipe, Post, Type} from '@nestjs/common';
+import {Delete, Param, ParseIntPipe, Type} from '@nestjs/common';
+import {ApiNotFoundResponse, ApiOperation, ApiParam} from '@nestjs/swagger';
 import {
-    ApiBody,
-    ApiNotFoundResponse,
-    ApiOperation,
-    ApiParam
-} from '@nestjs/swagger';
+    ScaffoldCreate,
+    ScaffoldCreateType
+} from '../decorators/scaffold-create';
 
 export interface ScaffoldCrudOptions<
     TDto extends ScaffoldDto,
@@ -32,9 +29,6 @@ export interface ScaffoldCrudOptions<
     updateDto: Type<Partial<TDto>>;
 }
 
-/**
- * @deprecated I'm going to try a different approach
- */
 export function createCrudController<
     TDto extends ScaffoldEntity,
     TEntity extends ScaffoldEntity
@@ -52,6 +46,12 @@ export function createCrudController<
 
     const Get = ScaffoldGet(GetDto);
     type Get = ScaffoldGetType<InstanceType<typeof GetDto>>;
+
+    const Create = ScaffoldCreate(CreateDto, GetDto);
+    type Create = ScaffoldCreateType<
+        InstanceType<typeof CreateDto>,
+        InstanceType<typeof GetDto>
+    >;
 
     abstract class ScaffoldCrudController {
         public readonly entity: Type<TEntity>;
@@ -95,15 +95,13 @@ export function createCrudController<
             return this.scaffoldCrud.get(params, query, body);
         }
 
-        @Post()
-        @ApiOperation({summary: `Create a new ${name}.`})
-        @ApiBody({type: CreateDto})
-        @DtoResponse(GetDto)
+        @Create.Method()
         public async create(
-            @ScaffoldBody(CreateDto)
-            data: InstanceType<typeof CreateDto>
-        ): Promise<TEntity> {
-            return await this.scaffoldEntity.create(this.beforeCreate(data));
+            @Create.Param() params: Create['Param'],
+            @Create.Query() query: Create['Query'],
+            @Create.Body() body: Create['Body']
+        ): Create['Response'] {
+            return this.scaffoldCrud.create(params, query, body);
         }
 
         @Delete(':id')
@@ -117,12 +115,6 @@ export function createCrudController<
             @Param('id', ParseIntPipe) id: TDto['id']
         ): Promise<void> {
             await this.scaffoldEntity.remove(id);
-        }
-
-        public beforeCreate(
-            data: InstanceType<typeof CreateDto>
-        ): Partial<TEntity> {
-            return data as Partial<TEntity>;
         }
     }
 

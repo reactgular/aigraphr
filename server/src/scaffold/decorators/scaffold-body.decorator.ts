@@ -1,6 +1,9 @@
 import {ScaffoldDto} from '@/scaffold/services/scaffold-entity.service';
 import {Body, Type, ValidationPipe} from '@nestjs/common';
 
+/**
+ * @deprecated use scaffoldDecoratorPipe() instead
+ */
 export function ScaffoldBody<TDto extends ScaffoldDto>(
     PostDto: Type<Partial<TDto>>
 ): ParameterDecorator {
