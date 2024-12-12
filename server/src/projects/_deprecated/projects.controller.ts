@@ -3,7 +3,7 @@ import {
     ProjectDto,
     ProjectUpdateDto
 } from '@/entities/project.entity';
-import {ProjectsService} from '@/projects/services/projects.service';
+import {ProjectsService} from '@/projects/_deprecated/projects.service';
 import {createCrudController} from '@/scaffold/_deprecated/create-crud.controller';
 import {ScaffoldCrudService} from '@/scaffold/_deprecated/scaffold-crud.service';
 import {Controller} from '@nestjs/common';

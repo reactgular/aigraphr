@@ -1,5 +1,5 @@
 import {ProjectEntity} from '@/entities/project.entity';
-import {ProjectGuard} from '@/projects/gaurds/project.guard';
+import {ProjectsController} from '@/projects/controllers/projects.controller';
 import {WORKSPACES_REPOSITORY} from '@/projects/project-symbols';
 import {ProjectDatabasesService} from '@/projects/services/project-databases.service';
 import {ProjectEntityService} from '@/projects/services/project-entity.service';
@@ -11,10 +11,11 @@ import {ProjectsService} from '@/projects/services/projects.service';
 import {UtilsModule} from '@/utils/utils.module';
 import {Module, Scope} from '@nestjs/common';
 import {TypeOrmModule} from '@nestjs/typeorm';
+import {ProjectGuard} from './gaurds/project.guard';
 
 @Module({
     imports: [TypeOrmModule.forFeature([ProjectEntity]), UtilsModule],
-    controllers: [],
+    controllers: [ProjectsController],
     providers: [
         ProjectGuard,
         {

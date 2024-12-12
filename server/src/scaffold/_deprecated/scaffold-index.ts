@@ -1,6 +1,6 @@
 import {ScaffoldEntity} from '@/scaffold/_deprecated/scaffold-entity.service';
 import {ScaffoldParam} from '@/scaffold/_deprecated/scaffold-param';
-import {ScaffoldResponse} from '@/scaffold/decorators/scaffold-response';
+import {Response} from '@/scaffold/decorators/response';
 import {ScaffoldEmptyDto} from '@/scaffold/dtos/scaffold-empty';
 import {
     applyDecorators,
@@ -32,7 +32,7 @@ export function ScaffoldIndex<TDto extends ScaffoldEntity>(
             Get(),
             ApiOperation({summary: `List all ${name}`}),
             ApiOkResponse({type: [IndexDto]}),
-            ScaffoldResponse([IndexDto]),
+            Response([IndexDto]),
             ...(params?.method ?? defaultParam.method)
         ];
         return applyDecorators(...decorators);
