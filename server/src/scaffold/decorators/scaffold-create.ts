@@ -9,7 +9,7 @@ import {
     Query as CommonQuery,
     Type
 } from '@nestjs/common';
-import {ApiOkResponse, ApiOperation} from '@nestjs/swagger';
+import {ApiBody, ApiOkResponse, ApiOperation} from '@nestjs/swagger';
 
 export function ScaffoldCreate<
     TCreateDto extends Partial<ScaffoldEntity>,
@@ -20,6 +20,7 @@ export function ScaffoldCreate<
         const decorators = [
             Post(),
             ApiOperation({summary: `Create a new ${name}.`}),
+            ApiBody({type: CreateDto}),
             ApiOkResponse({type: GetDto}),
             DtoResponse(GetDto)
         ];

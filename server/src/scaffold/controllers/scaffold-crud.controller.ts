@@ -12,7 +12,6 @@ import {
     ScaffoldDto,
     ScaffoldEntity
 } from '@/scaffold/services/scaffold-entity.service';
-import {toHumanUtils} from '@/scaffold/utils/to-human.utils';
 import {Type} from '@nestjs/common';
 import {
     ScaffoldCreate,
@@ -38,8 +37,6 @@ export function createCrudController<
     createDto: CreateDto,
     updateDto: UpdateDto
 }: ScaffoldCrudOptions<TDto, TEntity>) {
-    const name = toHumanUtils(Entity);
-
     const Index = ScaffoldIndex(GetDto);
     type Index = ScaffoldIndexType<InstanceType<typeof GetDto>>;
 

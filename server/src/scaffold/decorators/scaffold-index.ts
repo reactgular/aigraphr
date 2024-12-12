@@ -10,14 +10,14 @@ import {
 } from '@nestjs/common';
 import {ApiOkResponse, ApiOperation} from '@nestjs/swagger';
 
-export function ScaffoldIndex<TDto extends ScaffoldEntity>(Dto: Type<TDto>) {
+export function ScaffoldIndex<TDto extends ScaffoldEntity>(GetDto: Type<TDto>) {
     const Method = function () {
-        const name = Dto.name.replace(/Dto$/, '');
+        const name = GetDto.name.replace(/Dto$/, '');
         const decorators = [
             Get(),
             ApiOperation({summary: `List all ${name}`}),
-            ApiOkResponse({type: [Dto]}),
-            DtoResponse([Dto])
+            ApiOkResponse({type: [GetDto]}),
+            DtoResponse([GetDto])
         ];
         return applyDecorators(...decorators);
     };

@@ -12,9 +12,9 @@ import {
 } from '@nestjs/common';
 import {ApiOkResponse, ApiOperation, ApiParam} from '@nestjs/swagger';
 
-export function ScaffoldGet<TDto extends ScaffoldEntity>(Dto: Type<TDto>) {
+export function ScaffoldGet<TDto extends ScaffoldEntity>(GetDto: Type<TDto>) {
     const Method = function () {
-        const name = Dto.name.replace(/Dto$/, '');
+        const name = GetDto.name.replace(/Dto$/, '');
         const decorators = [
             Get(':id'),
             ApiParam({
@@ -22,8 +22,8 @@ export function ScaffoldGet<TDto extends ScaffoldEntity>(Dto: Type<TDto>) {
                 name: 'id'
             }),
             ApiOperation({summary: `Get ${name} by ID`}),
-            ApiOkResponse({type: Dto}),
-            DtoResponse(Dto)
+            ApiOkResponse({type: GetDto}),
+            DtoResponse(GetDto)
         ];
         return applyDecorators(...decorators);
     };
