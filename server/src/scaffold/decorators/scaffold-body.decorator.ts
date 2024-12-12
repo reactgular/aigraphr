@@ -1,4 +1,4 @@
-import {ScaffoldDto} from '@/scaffold/services/scaffold-crud.service';
+import {ScaffoldDto} from '@/scaffold/services/scaffold-entity.service';
 import {Body, Type, ValidationPipe} from '@nestjs/common';
 
 export function ScaffoldBody<TDto extends ScaffoldDto>(

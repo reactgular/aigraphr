@@ -1,11 +1,11 @@
 import {ProjectEntity} from '@/entities/project.entity';
-import {ScaffoldCrudService} from '@/scaffold/services/scaffold-crud.service';
+import {ScaffoldEntityService} from '@/scaffold/services/scaffold-entity.service';
 import {Injectable, Logger} from '@nestjs/common';
 import {InjectRepository} from '@nestjs/typeorm';
 import {Repository} from 'typeorm';
 
 @Injectable()
-export class ProjectsService extends ScaffoldCrudService<ProjectEntity> {
+export class ProjectsService extends ScaffoldEntityService<ProjectEntity> {
     private readonly log = new Logger('ProjectsService');
 
     public constructor(

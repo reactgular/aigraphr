@@ -1,7 +1,7 @@
 import {DtoResponse} from '@/scaffold/decorators/dto-response';
 import {ScaffoldIdDto} from '@/scaffold/dtos/scaffold-id.dto';
 import {scaffoldValidationPipe} from '@/scaffold/pipes/scaffold-validation.pipe';
-import {ScaffoldEntity} from '@/scaffold/services/scaffold-crud.service';
+import {ScaffoldEntity} from '@/scaffold/services/scaffold-entity.service';
 import {
     applyDecorators,
     Body as CommonBody,
@@ -61,5 +61,5 @@ export type ScaffoldGetType<TDto extends ScaffoldEntity> = {
     Param: ScaffoldIdDto;
     Query: never;
     Body: never;
-    Response: Promise<Array<TDto>>;
+    Response: Promise<TDto>;
 };

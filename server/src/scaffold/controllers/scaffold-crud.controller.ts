@@ -1,16 +1,22 @@
 import {DtoResponse} from '@/scaffold/decorators/dto-response';
 import {ScaffoldBody} from '@/scaffold/decorators/scaffold-body.decorator';
+import {ScaffoldGet, ScaffoldGetType} from '@/scaffold/decorators/scaffold-get';
 import {
-    ScaffoldCrudService,
+    ScaffoldIndex,
+    ScaffoldIndexType
+} from '@/scaffold/decorators/scaffold-index';
+import {ScaffoldCrudService} from '@/scaffold/services/scaffold-crud.service';
+import {ScaffoldDtoService} from '@/scaffold/services/scaffold-dto.service';
+import {
     ScaffoldDto,
-    ScaffoldEntity
-} from '@/scaffold/services/scaffold-crud.service';
+    ScaffoldEntity,
+    ScaffoldEntityService
+} from '@/scaffold/services/scaffold-entity.service';
 import {toHumanUtils} from '@/scaffold/utils/to-human.utils';
-import {Delete, Get, Param, ParseIntPipe, Post, Type} from '@nestjs/common';
+import {Delete, Param, ParseIntPipe, Post, Type} from '@nestjs/common';
 import {
     ApiBody,
     ApiNotFoundResponse,
-    ApiOkResponse,
     ApiOperation,
     ApiParam
 } from '@nestjs/swagger';
@@ -41,40 +47,52 @@ export function createCrudController<
 }: ScaffoldCrudOptions<TDto, TEntity>) {
     const name = toHumanUtils(Entity);
 
+    const Index = ScaffoldIndex(GetDto);
+    type Index = ScaffoldIndexType<InstanceType<typeof GetDto>>;
+
+    const Get = ScaffoldGet(GetDto);
+    type Get = ScaffoldGetType<InstanceType<typeof GetDto>>;
+
     abstract class ScaffoldCrudController {
         public readonly entity: Type<TEntity>;
 
         public readonly name: string;
 
         protected constructor(
-            public readonly scaffold: ScaffoldCrudService<TEntity>
+            public readonly scaffoldEntity: ScaffoldEntityService<TEntity>,
+            public readonly scaffoldDto: ScaffoldDtoService<
+                TEntity,
+                InstanceType<typeof GetDto>,
+                InstanceType<typeof CreateDto>,
+                InstanceType<typeof UpdateDto>
+            >,
+            public readonly scaffoldCrud: ScaffoldCrudService<
+                TEntity,
+                InstanceType<typeof GetDto>,
+                InstanceType<typeof CreateDto>,
+                InstanceType<typeof UpdateDto>
+            >
         ) {
             this.entity = Entity;
             this.name = name;
         }
 
-        @Get()
-        @ApiOperation({summary: `List all ${name}`})
-        @ApiOkResponse({
-            type: [GetDto]
-        })
-        @DtoResponse([GetDto])
-        public async index(): Promise<Array<TEntity>> {
-            return await this.scaffold.findAll();
+        @Index.Method()
+        public async index(
+            @Index.Param() params: Index['Param'],
+            @Index.Query() query: Index['Query'],
+            @Index.Body() body: Index['Body']
+        ): Index['Response'] {
+            return this.scaffoldCrud.index(params, query, body);
         }
 
-        @Get(':id')
-        @ApiParam({
-            type: primaryKey,
-            name: 'id'
-        })
-        @ApiOperation({summary: `Get ${name} by ID`})
-        @ApiNotFoundResponse({description: `${name} not found`})
-        @DtoResponse(GetDto)
+        @Get.Method()
         public async get(
-            @Param('id', ParseIntPipe) id: TDto['id']
-        ): Promise<TEntity> {
-            return await this.scaffold.findOneOrThrow(id);
+            @Get.Param() params: Get['Param'],
+            @Get.Query() query: Get['Query'],
+            @Get.Body() body: Get['Body']
+        ): Get['Response'] {
+            return this.scaffoldCrud.get(params, query, body);
         }
 
         @Post()
@@ -85,7 +103,7 @@ export function createCrudController<
             @ScaffoldBody(CreateDto)
             data: InstanceType<typeof CreateDto>
         ): Promise<TEntity> {
-            return await this.scaffold.create(this.beforeCreate(data));
+            return await this.scaffoldEntity.create(this.beforeCreate(data));
         }
 
         @Delete(':id')
@@ -98,7 +116,7 @@ export function createCrudController<
         public async remove(
             @Param('id', ParseIntPipe) id: TDto['id']
         ): Promise<void> {
-            await this.scaffold.remove(id);
+            await this.scaffoldEntity.remove(id);
         }
 
         public beforeCreate(

@@ -1,5 +1,5 @@
 import {DtoResponse} from '@/scaffold/decorators/dto-response';
-import {ScaffoldEntity} from '@/scaffold/services/scaffold-crud.service';
+import {ScaffoldEntity} from '@/scaffold/services/scaffold-entity.service';
 import {
     applyDecorators,
     Body as CommonBody,
