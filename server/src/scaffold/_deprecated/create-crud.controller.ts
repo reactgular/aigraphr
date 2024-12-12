@@ -1,24 +1,21 @@
-import {createReadController} from '@/scaffold/controllers/create-read.controller';
+import {createReadController} from '@/scaffold/_deprecated/create-read.controller';
+import {ScaffoldCrudService} from '@/scaffold/_deprecated/scaffold-crud.service';
 import {
     ScaffoldDelete,
     ScaffoldDeleteType
-} from '@/scaffold/decorators/scaffold-delete';
-import {ScaffoldParam} from '@/scaffold/decorators/scaffold-param';
-import {ScaffoldCrudService} from '@/scaffold/services/scaffold-crud.service';
+} from '@/scaffold/_deprecated/scaffold-delete';
 import {
     ScaffoldDto,
     ScaffoldEntity
-} from '@/scaffold/services/scaffold-entity.service';
+} from '@/scaffold/_deprecated/scaffold-entity.service';
+import {ScaffoldParam} from '@/scaffold/_deprecated/scaffold-param';
 import {Type} from '@nestjs/common';
-import {
-    ScaffoldCreate,
-    ScaffoldCreateType
-} from '../decorators/scaffold-create';
-import {
-    ScaffoldUpdate,
-    ScaffoldUpdateType
-} from '../decorators/scaffold-update';
+import {ScaffoldCreate, ScaffoldCreateType} from './scaffold-create';
+import {ScaffoldUpdate, ScaffoldUpdateType} from './scaffold-update';
 
+/**
+ * @deprecated
+ */
 export interface ScaffoldCrudOptions<TDto extends ScaffoldDto> {
     getDto: Type<TDto>;
     createDto: Type<Partial<TDto>>;
@@ -30,6 +27,9 @@ export interface ScaffoldCrudOptions<TDto extends ScaffoldDto> {
     updateParam?: ScaffoldParam;
 }
 
+/**
+ * @deprecated
+ */
 export function createCrudController<
     TDto extends ScaffoldEntity,
     TEntity extends ScaffoldEntity

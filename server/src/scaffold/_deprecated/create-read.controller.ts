@@ -1,23 +1,32 @@
-import {ScaffoldGet, ScaffoldGetType} from '@/scaffold/decorators/scaffold-get';
-import {
-    ScaffoldIndex,
-    ScaffoldIndexType
-} from '@/scaffold/decorators/scaffold-index';
-import {ScaffoldParam} from '@/scaffold/decorators/scaffold-param';
-import {ScaffoldEmptyDto} from '@/scaffold/dtos/scaffold-empty';
 import {
     ScaffoldDto,
     ScaffoldEntity
-} from '@/scaffold/services/scaffold-entity.service';
-import {ScaffoldReadService} from '@/scaffold/services/scaffold-read.service';
+} from '@/scaffold/_deprecated/scaffold-entity.service';
+import {
+    ScaffoldGet,
+    ScaffoldGetType
+} from '@/scaffold/_deprecated/scaffold-get';
+import {
+    ScaffoldIndex,
+    ScaffoldIndexType
+} from '@/scaffold/_deprecated/scaffold-index';
+import {ScaffoldParam} from '@/scaffold/_deprecated/scaffold-param';
+import {ScaffoldReadService} from '@/scaffold/_deprecated/scaffold-read.service';
+import {ScaffoldEmptyDto} from '@/scaffold/dtos/scaffold-empty';
 import {Type} from '@nestjs/common';
 
+/**
+ * @deprecated
+ */
 export interface ScaffoldReadOptions<TDto extends ScaffoldDto> {
     getDto: Type<TDto>;
     indexParam?: ScaffoldParam;
     getParam?: ScaffoldParam;
 }
 
+/**
+ * @deprecated
+ */
 export function createReadController<
     TDto extends ScaffoldEntity,
     TEntity extends ScaffoldEntity,

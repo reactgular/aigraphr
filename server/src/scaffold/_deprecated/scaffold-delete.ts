@@ -1,7 +1,7 @@
-import {ScaffoldParam} from '@/scaffold/decorators/scaffold-param';
+import {ScaffoldEntity} from '@/scaffold/_deprecated/scaffold-entity.service';
+import {ScaffoldParam} from '@/scaffold/_deprecated/scaffold-param';
 import {ScaffoldIdDto} from '@/scaffold/dtos/scaffold-id.dto';
 import {scaffoldValidationPipe} from '@/scaffold/pipes/scaffold-validation.pipe';
-import {ScaffoldEntity} from '@/scaffold/services/scaffold-entity.service';
 import {
     applyDecorators,
     Body as CommonBody,
@@ -24,6 +24,9 @@ const defaultParam = {
     body: []
 } satisfies ScaffoldParam;
 
+/**
+ * @deprecated
+ */
 export function ScaffoldDelete<TDto extends ScaffoldEntity>(
     DeleteDto: Type<TDto>,
     params?: ScaffoldParam

@@ -1,5 +1,4 @@
 import {ProjectEntity} from '@/entities/project.entity';
-import {ProjectsController} from '@/projects/controllers/projects.controller';
 import {ProjectGuard} from '@/projects/gaurds/project.guard';
 import {WORKSPACES_REPOSITORY} from '@/projects/project-symbols';
 import {ProjectDatabasesService} from '@/projects/services/project-databases.service';
@@ -13,13 +12,9 @@ import {UtilsModule} from '@/utils/utils.module';
 import {Module, Scope} from '@nestjs/common';
 import {TypeOrmModule} from '@nestjs/typeorm';
 
-function isNumeric(value: string): boolean {
-    return !isNaN(parseInt(value, 10));
-}
-
 @Module({
     imports: [TypeOrmModule.forFeature([ProjectEntity]), UtilsModule],
-    controllers: [ProjectsController],
+    controllers: [],
     providers: [
         ProjectGuard,
         {

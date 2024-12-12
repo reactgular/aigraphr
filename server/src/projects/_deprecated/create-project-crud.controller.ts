@@ -1,15 +1,18 @@
 import {
     ProjectIdDto,
     ProjectIdEntityIdDto
-} from '@/projects/dtos/project-id-entity-id.dto';
+} from '@/projects/_deprecated/project-id-entity-id.dto';
 import {
     createCrudController,
     ScaffoldCrudOptions
-} from '@/scaffold/controllers/create-crud.controller';
+} from '@/scaffold/_deprecated/create-crud.controller';
+import {ScaffoldEntity} from '@/scaffold/_deprecated/scaffold-entity.service';
 import {scaffoldValidationPipe} from '@/scaffold/pipes/scaffold-validation.pipe';
-import {ScaffoldEntity} from '@/scaffold/services/scaffold-entity.service';
 import {ApiParam} from '@nestjs/swagger';
 
+/**
+ * @deprecated
+ */
 export function createProjectCrudController<
     TDto extends ScaffoldEntity,
     TEntity extends ScaffoldEntity

@@ -4,11 +4,14 @@ import {
     ProjectUpdateDto
 } from '@/entities/project.entity';
 import {ProjectsService} from '@/projects/services/projects.service';
-import {createCrudController} from '@/scaffold/controllers/create-crud.controller';
-import {ScaffoldCrudService} from '@/scaffold/services/scaffold-crud.service';
+import {createCrudController} from '@/scaffold/_deprecated/create-crud.controller';
+import {ScaffoldCrudService} from '@/scaffold/_deprecated/scaffold-crud.service';
 import {Controller} from '@nestjs/common';
 import {ApiTags} from '@nestjs/swagger';
 
+/**
+ * @deprecated
+ */
 @ApiTags('Projects')
 @Controller('projects')
 export class ProjectsController extends createCrudController({

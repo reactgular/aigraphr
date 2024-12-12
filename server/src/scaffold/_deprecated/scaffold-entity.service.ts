@@ -16,6 +16,9 @@ export type ScaffoldEntity = {
     [key: string]: any;
 };
 
+/**
+ * @deprecated
+ */
 export abstract class ScaffoldEntityService<Entity extends ScaffoldEntity> {
     private readonly name: string;
 

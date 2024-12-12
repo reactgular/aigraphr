@@ -1,11 +1,14 @@
-import {ScaffoldGetType} from '@/scaffold/decorators/scaffold-get';
-import {ScaffoldIndexType} from '@/scaffold/decorators/scaffold-index';
 import {
     ScaffoldEntity,
     ScaffoldEntityService
-} from '@/scaffold/services/scaffold-entity.service';
-import {ScaffoldReadDtoService} from '@/scaffold/services/scaffold-read-dto.service';
+} from '@/scaffold/_deprecated/scaffold-entity.service';
+import {ScaffoldGetType} from '@/scaffold/_deprecated/scaffold-get';
+import {ScaffoldIndexType} from '@/scaffold/_deprecated/scaffold-index';
+import {ScaffoldReadDtoService} from '@/scaffold/_deprecated/scaffold-read-dto.service';
 
+/**
+ * @deprecated
+ */
 export class ScaffoldReadService<
     TEntity extends ScaffoldEntity,
     TGetDto extends ScaffoldEntity

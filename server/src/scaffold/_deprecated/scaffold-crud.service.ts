@@ -1,14 +1,17 @@
-import {ScaffoldCreateType} from '@/scaffold/decorators/scaffold-create';
-import {ScaffoldDeleteType} from '@/scaffold/decorators/scaffold-delete';
-import {ScaffoldGetType} from '@/scaffold/decorators/scaffold-get';
-import {ScaffoldIndexType} from '@/scaffold/decorators/scaffold-index';
-import {ScaffoldUpdateType} from '@/scaffold/decorators/scaffold-update';
-import {ScaffoldCrudDtoService} from '@/scaffold/services/scaffold-crud-dto.service';
+import {ScaffoldCreateType} from '@/scaffold/_deprecated/scaffold-create';
+import {ScaffoldCrudDtoService} from '@/scaffold/_deprecated/scaffold-crud-dto.service';
+import {ScaffoldDeleteType} from '@/scaffold/_deprecated/scaffold-delete';
 import {
     ScaffoldEntity,
     ScaffoldEntityService
-} from '@/scaffold/services/scaffold-entity.service';
+} from '@/scaffold/_deprecated/scaffold-entity.service';
+import {ScaffoldGetType} from '@/scaffold/_deprecated/scaffold-get';
+import {ScaffoldIndexType} from '@/scaffold/_deprecated/scaffold-index';
+import {ScaffoldUpdateType} from '@/scaffold/_deprecated/scaffold-update';
 
+/**
+ * @deprecated
+ */
 export class ScaffoldCrudService<
     TEntity extends ScaffoldEntity,
     TGetDto extends ScaffoldEntity,

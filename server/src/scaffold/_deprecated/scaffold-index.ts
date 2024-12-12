@@ -1,7 +1,7 @@
-import {ScaffoldParam} from '@/scaffold/decorators/scaffold-param';
+import {ScaffoldEntity} from '@/scaffold/_deprecated/scaffold-entity.service';
+import {ScaffoldParam} from '@/scaffold/_deprecated/scaffold-param';
 import {ScaffoldResponse} from '@/scaffold/decorators/scaffold-response';
 import {ScaffoldEmptyDto} from '@/scaffold/dtos/scaffold-empty';
-import {ScaffoldEntity} from '@/scaffold/services/scaffold-entity.service';
 import {
     applyDecorators,
     Body as CommonBody,
@@ -19,6 +19,9 @@ const defaultParam = {
     body: []
 } satisfies ScaffoldParam;
 
+/**
+ * @deprecated
+ */
 export function ScaffoldIndex<TDto extends ScaffoldEntity>(
     IndexDto: Type<TDto>,
     params?: ScaffoldParam

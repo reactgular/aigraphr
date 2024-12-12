@@ -1,11 +1,13 @@
-import {ScaffoldEntity} from '@/scaffold/services/scaffold-entity.service';
-import {ScaffoldReadDtoService} from '@/scaffold/services/scaffold-read-dto.service';
+import {ScaffoldEntity} from '@/scaffold/_deprecated/scaffold-entity.service';
+import {ScaffoldReadDtoService} from '@/scaffold/_deprecated/scaffold-read-dto.service';
 
 /**
  * This interface bothers me, it seems like a entity transformer but it is
  * really just a hack to get around typing. All these types are the same
  * underlying DTOs, but they are typed differently because of the way the
  * decorators are set up.
+ *
+ * @deprecated
  */
 export interface ScaffoldCrudDtoService<
     TEntity extends ScaffoldEntity,

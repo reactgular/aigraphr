@@ -1,8 +1,8 @@
-import {ScaffoldParam} from '@/scaffold/decorators/scaffold-param';
+import {ScaffoldEntity} from '@/scaffold/_deprecated/scaffold-entity.service';
+import {ScaffoldParam} from '@/scaffold/_deprecated/scaffold-param';
 import {ScaffoldResponse} from '@/scaffold/decorators/scaffold-response';
 import {ScaffoldEmptyDto} from '@/scaffold/dtos/scaffold-empty';
 import {scaffoldValidationPipe} from '@/scaffold/pipes/scaffold-validation.pipe';
-import {ScaffoldEntity} from '@/scaffold/services/scaffold-entity.service';
 import {
     applyDecorators,
     Body as CommonBody,
@@ -20,6 +20,9 @@ const defaultParam = {
     body: []
 } satisfies ScaffoldParam;
 
+/**
+ * @deprecated
+ */
 export function ScaffoldCreate<
     TCreateDto extends Partial<ScaffoldEntity>,
     TGetDtp extends ScaffoldEntity
