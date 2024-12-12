@@ -58,6 +58,6 @@ export class ScaffoldCrudService<
         query: ScaffoldDeleteType['Query'],
         body: ScaffoldDeleteType['Body']
     ): ScaffoldDeleteType['Response'] {
-        throw new Error('Not implemented');
+        await this.scaffoldEntity.remove(params.id);
     }
 }
