@@ -3,8 +3,7 @@ import {
     ScaffoldDelete,
     ScaffoldDeleteType
 } from '@/scaffold/decorators/scaffold-delete';
-import {GetParams} from '@/scaffold/decorators/scaffold-index';
-import {ScaffoldEmptyDto} from '@/scaffold/dtos/scaffold-empty';
+import {ScaffoldParam} from '@/scaffold/decorators/scaffold-param';
 import {ScaffoldCrudService} from '@/scaffold/services/scaffold-crud.service';
 import {
     ScaffoldDto,
@@ -20,44 +19,49 @@ import {
     ScaffoldUpdateType
 } from '../decorators/scaffold-update';
 
-export interface ScaffoldCrudOptions<
-    TDto extends ScaffoldDto,
-    TParamDto extends ScaffoldEmptyDto
-> {
+export interface ScaffoldCrudOptions<TDto extends ScaffoldDto> {
     getDto: Type<TDto>;
-    getParams: GetParams<TParamDto>;
     createDto: Type<Partial<TDto>>;
     updateDto: Type<Partial<TDto>>;
+    indexParam?: ScaffoldParam;
+    getParam?: ScaffoldParam;
+    createParam?: ScaffoldParam;
+    deleteParam?: ScaffoldParam;
+    updateParam?: ScaffoldParam;
 }
 
 export function createCrudController<
     TDto extends ScaffoldEntity,
-    TEntity extends ScaffoldEntity,
-    TParamDto extends ScaffoldEmptyDto
+    TEntity extends ScaffoldEntity
 >({
     getDto: GetDto,
-    getParams,
     createDto: CreateDto,
-    updateDto: UpdateDto
-}: ScaffoldCrudOptions<TDto, TParamDto>) {
-    const Create = ScaffoldCreate(CreateDto, GetDto);
+    updateDto: UpdateDto,
+    indexParam,
+    getParam,
+    createParam,
+    deleteParam,
+    updateParam
+}: ScaffoldCrudOptions<TDto>) {
+    const Create = ScaffoldCreate(CreateDto, GetDto, createParam);
     type Create = ScaffoldCreateType<
         InstanceType<typeof CreateDto>,
         InstanceType<typeof GetDto>
     >;
 
-    const Update = ScaffoldUpdate(UpdateDto, GetDto);
+    const Update = ScaffoldUpdate(UpdateDto, GetDto, updateParam);
     type Update = ScaffoldUpdateType<
         InstanceType<typeof UpdateDto>,
         InstanceType<typeof GetDto>
     >;
 
-    const Delete = ScaffoldDelete(GetDto);
+    const Delete = ScaffoldDelete(GetDto, deleteParam);
     type Delete = ScaffoldDeleteType;
 
     abstract class ScaffoldCrudController extends createReadController({
         getDto: GetDto,
-        getParams
+        indexParam,
+        getParam
     }) {
         protected constructor(
             public readonly scaffoldCrud: ScaffoldCrudService<

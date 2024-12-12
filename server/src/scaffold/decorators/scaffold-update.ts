@@ -1,3 +1,4 @@
+import {ScaffoldParam} from '@/scaffold/decorators/scaffold-param';
 import {ScaffoldResponse} from '@/scaffold/decorators/scaffold-response';
 import {ScaffoldIdDto} from '@/scaffold/dtos/scaffold-id.dto';
 import {scaffoldValidationPipe} from '@/scaffold/pipes/scaffold-validation.pipe';
@@ -12,12 +13,24 @@ import {
 import {Patch} from '@nestjs/common/decorators/http/request-mapping.decorator';
 import {ApiBody, ApiOkResponse, ApiOperation, ApiParam} from '@nestjs/swagger';
 
+const defaultParam = {
+    method: [
+        ApiParam({
+            type: Number,
+            name: 'id'
+        })
+    ],
+    param: [scaffoldValidationPipe(ScaffoldIdDto)],
+    query: [],
+    body: []
+} satisfies ScaffoldParam;
+
 export function ScaffoldUpdate<
     TUpdateDto extends Partial<ScaffoldEntity>,
     TGetDtp extends ScaffoldEntity
->(PatchDto: Type<TUpdateDto>, GetDto: Type<TGetDtp>) {
+>(UpdateDto: Type<TUpdateDto>, GetDto: Type<TGetDtp>, params?: ScaffoldParam) {
     const Method = function () {
-        const name = PatchDto.name.replace(/Dto$/, '');
+        const name = UpdateDto.name.replace(/Dto$/, '');
         const decorators = [
             Patch(':id'),
             ApiParam({
@@ -25,23 +38,27 @@ export function ScaffoldUpdate<
                 name: 'id'
             }),
             ApiOperation({summary: `Updates a ${name}.`}),
-            ApiBody({type: PatchDto}),
+            ApiBody({type: UpdateDto}),
             ApiOkResponse({type: GetDto}),
-            ScaffoldResponse(GetDto)
+            ScaffoldResponse(GetDto),
+            ...(params?.method ?? defaultParam.method)
         ];
         return applyDecorators(...decorators);
     };
 
     const Param = function (): ParameterDecorator {
-        return CommonParam(scaffoldValidationPipe(ScaffoldIdDto));
+        return CommonParam(...(params?.param ?? defaultParam.param));
     };
 
     const Query = function (): ParameterDecorator {
-        return CommonQuery();
+        return CommonQuery(...(params?.query ?? defaultParam.query));
     };
 
     const Body = function (): ParameterDecorator {
-        return CommonBody(scaffoldValidationPipe(PatchDto));
+        return CommonBody(
+            ...(params?.body ?? defaultParam.body),
+            scaffoldValidationPipe(UpdateDto)
+        );
     };
 
     return {Method, Param, Query, Body};

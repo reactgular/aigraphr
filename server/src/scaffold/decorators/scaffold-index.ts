@@ -1,6 +1,6 @@
+import {ScaffoldParam} from '@/scaffold/decorators/scaffold-param';
 import {ScaffoldResponse} from '@/scaffold/decorators/scaffold-response';
 import {ScaffoldEmptyDto} from '@/scaffold/dtos/scaffold-empty';
-import {scaffoldValidationPipe} from '@/scaffold/pipes/scaffold-validation.pipe';
 import {ScaffoldEntity} from '@/scaffold/services/scaffold-entity.service';
 import {
     applyDecorators,
@@ -10,44 +10,41 @@ import {
     Query as CommonQuery,
     Type
 } from '@nestjs/common';
-import {
-    ApiOkResponse,
-    ApiOperation,
-    ApiParam,
-    ApiParamOptions
-} from '@nestjs/swagger';
+import {ApiOkResponse, ApiOperation} from '@nestjs/swagger';
 
-export interface GetParams<TParamDto extends ScaffoldEmptyDto> {
-    params: Array<ApiParamOptions>;
-    dto: Type<TParamDto>;
-}
+const defaultParam = {
+    method: [],
+    param: [],
+    query: [],
+    body: []
+} satisfies ScaffoldParam;
 
-export function ScaffoldIndex<
-    TDto extends ScaffoldEntity,
-    TParamDto extends ScaffoldEmptyDto
->(GetDto: Type<TDto>, params: GetParams<TParamDto>) {
+export function ScaffoldIndex<TDto extends ScaffoldEntity>(
+    IndexDto: Type<TDto>,
+    params?: ScaffoldParam
+) {
     const Method = function () {
-        const name = GetDto.name.replace(/Dto$/, '');
+        const name = IndexDto.name.replace(/Dto$/, '');
         const decorators = [
             Get(),
-            ...params.params.map((param) => ApiParam(param)),
             ApiOperation({summary: `List all ${name}`}),
-            ApiOkResponse({type: [GetDto]}),
-            ScaffoldResponse([GetDto])
+            ApiOkResponse({type: [IndexDto]}),
+            ScaffoldResponse([IndexDto]),
+            ...(params?.method ?? defaultParam.method)
         ];
         return applyDecorators(...decorators);
     };
 
     const Param = function (): ParameterDecorator {
-        return CommonParam(scaffoldValidationPipe(params.dto));
+        return CommonParam(...(params?.param ?? defaultParam.param));
     };
 
     const Query = function (): ParameterDecorator {
-        return CommonQuery();
+        return CommonQuery(...(params?.query ?? defaultParam.query));
     };
 
     const Body = function (): ParameterDecorator {
-        return CommonBody();
+        return CommonBody(...(params?.body ?? defaultParam.body));
     };
 
     return {Method, Param, Query, Body};

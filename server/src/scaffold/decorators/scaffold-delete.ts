@@ -1,3 +1,4 @@
+import {ScaffoldParam} from '@/scaffold/decorators/scaffold-param';
 import {ScaffoldIdDto} from '@/scaffold/dtos/scaffold-id.dto';
 import {scaffoldValidationPipe} from '@/scaffold/pipes/scaffold-validation.pipe';
 import {ScaffoldEntity} from '@/scaffold/services/scaffold-entity.service';
@@ -11,31 +12,43 @@ import {
 } from '@nestjs/common';
 import {ApiNotFoundResponse, ApiOperation, ApiParam} from '@nestjs/swagger';
 
-export function ScaffoldDelete<TDto extends ScaffoldEntity>(Dto: Type<TDto>) {
+const defaultParam = {
+    method: [
+        ApiParam({
+            type: Number,
+            name: 'id'
+        })
+    ],
+    param: [scaffoldValidationPipe(ScaffoldIdDto)],
+    query: [],
+    body: []
+} satisfies ScaffoldParam;
+
+export function ScaffoldDelete<TDto extends ScaffoldEntity>(
+    DeleteDto: Type<TDto>,
+    params?: ScaffoldParam
+) {
     const Method = function () {
-        const name = Dto.name.replace(/Dto$/, '');
+        const name = DeleteDto.name.replace(/Dto$/, '');
         const decorators = [
             Delete(':id'),
-            ApiParam({
-                type: Number,
-                name: 'id'
-            }),
             ApiOperation({summary: `Delete ${name} by ID`}),
-            ApiNotFoundResponse({description: `${name} not found`})
+            ApiNotFoundResponse({description: `${name} not found`}),
+            ...(params?.method ?? defaultParam.method)
         ];
         return applyDecorators(...decorators);
     };
 
     const Param = function (): ParameterDecorator {
-        return CommonParam(scaffoldValidationPipe(ScaffoldIdDto));
+        return CommonParam(...(params?.param ?? defaultParam.param));
     };
 
     const Query = function (): ParameterDecorator {
-        return CommonQuery();
+        return CommonQuery(...(params?.query ?? defaultParam.query));
     };
 
     const Body = function (): ParameterDecorator {
-        return CommonBody();
+        return CommonBody(...(params?.body ?? defaultParam.body));
     };
 
     return {Method, Param, Query, Body};

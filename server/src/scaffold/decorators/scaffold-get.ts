@@ -1,3 +1,4 @@
+import {ScaffoldParam} from '@/scaffold/decorators/scaffold-param';
 import {ScaffoldResponse} from '@/scaffold/decorators/scaffold-response';
 import {ScaffoldIdDto} from '@/scaffold/dtos/scaffold-id.dto';
 import {scaffoldValidationPipe} from '@/scaffold/pipes/scaffold-validation.pipe';
@@ -12,32 +13,44 @@ import {
 } from '@nestjs/common';
 import {ApiOkResponse, ApiOperation, ApiParam} from '@nestjs/swagger';
 
-export function ScaffoldGet<TDto extends ScaffoldEntity>(GetDto: Type<TDto>) {
+const defaultParam = {
+    method: [
+        ApiParam({
+            type: Number,
+            name: 'id'
+        })
+    ],
+    param: [scaffoldValidationPipe(ScaffoldIdDto)],
+    query: [],
+    body: []
+} satisfies ScaffoldParam;
+
+export function ScaffoldGet<TDto extends ScaffoldEntity>(
+    GetDto: Type<TDto>,
+    params?: ScaffoldParam
+) {
     const Method = function () {
         const name = GetDto.name.replace(/Dto$/, '');
         const decorators = [
             Get(':id'),
-            ApiParam({
-                type: Number,
-                name: 'id'
-            }),
             ApiOperation({summary: `Get ${name} by ID`}),
             ApiOkResponse({type: GetDto}),
-            ScaffoldResponse(GetDto)
+            ScaffoldResponse(GetDto),
+            ...(params?.method ?? defaultParam.method)
         ];
         return applyDecorators(...decorators);
     };
 
     const Param = function (): ParameterDecorator {
-        return CommonParam(scaffoldValidationPipe(ScaffoldIdDto));
+        return CommonParam(...(params?.param ?? defaultParam.param));
     };
 
     const Query = function (): ParameterDecorator {
-        return CommonQuery();
+        return CommonQuery(...(params?.query ?? defaultParam.query));
     };
 
     const Body = function (): ParameterDecorator {
-        return CommonBody();
+        return CommonBody(...(params?.body ?? defaultParam.body));
     };
 
     return {Method, Param, Query, Body};
