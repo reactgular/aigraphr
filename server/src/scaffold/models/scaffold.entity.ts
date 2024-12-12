@@ -5,7 +5,7 @@ import {PrimaryGeneratedColumn} from 'typeorm';
 export abstract class ScaffoldEntity {
     @IsNumber()
     @Min(1)
-    @ApiProperty()
+    @ApiProperty({example: 1234})
     @PrimaryGeneratedColumn()
     id: number;
 }

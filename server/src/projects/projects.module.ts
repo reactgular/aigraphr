@@ -2,13 +2,14 @@ import {ProjectEntity} from '@/entities/project.entity';
 import {ProjectsController} from '@/projects/controllers/projects.controller';
 import {ProjectGuard} from '@/projects/gaurds/project.guard';
 import {ProjectDatabasesService} from '@/projects/services/project-databases.service';
+import {WORKSPACES_REPOSITORY} from '@/projects/services/project-repositories';
 import {
     PROJECT_EXTENSION,
     ProjectsStorageService
 } from '@/projects/services/projects-storage.service';
 import {ProjectsService} from '@/projects/services/projects.service';
 import {UtilsModule} from '@/utils/utils.module';
-import {Module} from '@nestjs/common';
+import {Module, Scope} from '@nestjs/common';
 import {TypeOrmModule} from '@nestjs/typeorm';
 
 @Module({
@@ -22,13 +23,21 @@ import {TypeOrmModule} from '@nestjs/typeorm';
         },
         ProjectsService,
         ProjectsStorageService,
-        ProjectDatabasesService
+        ProjectDatabasesService,
+        {
+            scope: Scope.REQUEST,
+            provide: WORKSPACES_REPOSITORY,
+            useFactory: (databases: ProjectDatabasesService) =>
+                databases.workspaces(),
+            inject: [ProjectDatabasesService]
+        }
     ],
     exports: [
         ProjectGuard,
         ProjectsService,
         ProjectsStorageService,
-        ProjectDatabasesService
+        ProjectDatabasesService,
+        WORKSPACES_REPOSITORY
     ]
 })
 export class ProjectsModule {}

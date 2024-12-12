@@ -1,4 +1,5 @@
 import {EnvConfig} from '@/configs/env.config';
+import {ProjectEntity} from '@/entities/project.entity';
 import {Injectable, Logger} from '@nestjs/common';
 import {ConfigService} from '@nestjs/config';
 import {promises as fs} from 'fs';
@@ -30,5 +31,13 @@ export class ProjectsStorageService {
 
     public async database(): Promise<string> {
         return path.join(await this.path(), 'aigraphr.sqlite');
+    }
+
+    public async project(project: ProjectEntity): Promise<string> {
+        // TODO: including the ID until I can make name unique
+        return path.join(
+            await this.path(),
+            `${project.name}-${project.id}.sqlite`
+        );
     }
 }

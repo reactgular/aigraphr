@@ -22,24 +22,20 @@ export class ProjectGuard implements CanActivate {
 
     public async canActivate(execContext: ExecutionContext): Promise<boolean> {
         const request = execContext.switchToHttp().getRequest<ProjectRequest>();
-        const projectId = request.params.projectId;
+        const param = request.params.projectId;
 
-        if (projectId && isNumeric(projectId)) {
-            request.context = {
-                projectId: parseInt(projectId, 10)
-            };
+        if (param && isNumeric(param)) {
+            const projectId = parseInt(param, 10);
+            const project = await this.projects.findOne(projectId);
 
-            const exists = await this.projects.exists(
-                request.context.projectId
-            );
-
-            if (!exists) {
-                throw new NotFoundException(
-                    `Project with ID ${request.context.projectId} does not exist`
-                );
+            if (project) {
+                request.context = {projectId, project};
+                return true;
             }
 
-            return true;
+            throw new NotFoundException(
+                `Project with ID ${request.context.projectId} does not exist`
+            );
         }
 
         this.log.warn('Project ID is not a number');

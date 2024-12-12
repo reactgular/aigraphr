@@ -4,10 +4,10 @@ import {
     WorkspaceEntity,
     WorkspaceUpdateDto
 } from '@/projects/entities/workspace.entity';
-import {ProjectDatabasesService} from '@/projects/services/project-databases.service';
+import {WORKSPACES_REPOSITORY} from '@/projects/services/project-repositories';
 import {ScaffoldCrudDtoService} from '@/scaffold/services/scaffold-crud-dto.service';
 import {ScaffoldEntityService} from '@/scaffold/services/scaffold-entity.service';
-import {Injectable, Logger} from '@nestjs/common';
+import {Inject, Injectable, Logger} from '@nestjs/common';
 import {Repository} from 'typeorm';
 
 @Injectable()
@@ -23,14 +23,11 @@ export class WorkspacesService
 {
     private readonly log = new Logger('WorkspacesService');
 
-    private readonly workspaces: Repository<WorkspaceEntity>;
-
-    /**
-     * @todo: I bet we could use a provider factory in the Workspaces module to provide the Repository<WorkspaceEntity> instance
-     */
-    public constructor(private readonly databases: ProjectDatabasesService) {
-        super(databases.workspaces(), WorkspaceEntity);
-        this.workspaces = databases.workspaces();
+    public constructor(
+        @Inject(WORKSPACES_REPOSITORY)
+        private readonly workspaces: Repository<WorkspaceEntity>
+    ) {
+        super(workspaces, WorkspaceEntity);
     }
 
     public toGetDto(entity: WorkspaceEntity): WorkspaceDto {

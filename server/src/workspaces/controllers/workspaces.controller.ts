@@ -4,7 +4,6 @@ import {
     WorkspaceUpdateDto
 } from '@/projects/entities/workspace.entity';
 import {ProjectGuard} from '@/projects/gaurds/project.guard';
-import {ProjectDatabasesService} from '@/projects/services/project-databases.service';
 import {createCrudController} from '@/scaffold/controllers/scaffold-crud.controller';
 import {ScaffoldCrudService} from '@/scaffold/services/scaffold-crud.service';
 import {WorkspacesService} from '@/workspaces/services/workspaces.service';
@@ -19,10 +18,7 @@ export class WorkspacesController extends createCrudController({
     createDto: WorkspaceCreateDto,
     updateDto: WorkspaceUpdateDto
 }) {
-    public constructor(
-        private readonly databases: ProjectDatabasesService,
-        workspaces: WorkspacesService
-    ) {
+    public constructor(workspaces: WorkspacesService) {
         super(new ScaffoldCrudService(workspaces, workspaces));
     }
 }
