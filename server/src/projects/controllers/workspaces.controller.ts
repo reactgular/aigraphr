@@ -1,10 +1,9 @@
-import {ProjectsService} from '@/app/services/projects.service';
-import {ProjectDto} from '@/entities/project.entity';
 import {
     WorkspaceCreateDto,
     WorkspaceDto,
     WorkspaceUpdateDto
 } from '@/projects/entities/workspace.entity';
+import {WorkspacesService} from '@/projects/services/workspaces.service';
 import {Response} from '@/scaffold/decorators/response';
 import {Body, Controller, Delete, Get, Param, Post} from '@nestjs/common';
 import {ApiOperation, ApiTags} from '@nestjs/swagger';
@@ -12,7 +11,7 @@ import {ApiOperation, ApiTags} from '@nestjs/swagger';
 @ApiTags('Editor')
 @Controller('projects/:projectId/workspaces')
 export class WorkspacesController {
-    public constructor(private readonly projects: ProjectsService) {
+    public constructor(private readonly workspaces: WorkspacesService) {
         //
     }
 
@@ -20,14 +19,14 @@ export class WorkspacesController {
     @ApiOperation({summary: `List all workspaces`})
     @Response([WorkspaceDto])
     public async index(): Promise<Array<WorkspaceDto>> {
-        return await this.projects.index();
+        return await this.workspaces.index();
     }
 
     @Get(':id')
     @ApiOperation({summary: `Get workspace by ID`})
     @Response(WorkspaceDto)
     public async get(@Param('id') id: number): Promise<WorkspaceDto> {
-        return await this.projects.get(id);
+        return await this.workspaces.get(id);
     }
 
     @Post()
@@ -36,7 +35,7 @@ export class WorkspacesController {
     public async create(
         @Body() data: WorkspaceCreateDto
     ): Promise<WorkspaceDto> {
-        return await this.projects.create(data);
+        return await this.workspaces.create(data);
     }
 
     @Post(':id')
@@ -45,13 +44,13 @@ export class WorkspacesController {
     public async update(
         @Param('id') id: number,
         @Body() data: WorkspaceUpdateDto
-    ): Promise<ProjectDto> {
-        return await this.projects.update(id, data);
+    ): Promise<WorkspaceDto> {
+        return await this.workspaces.update(id, data);
     }
 
     @Delete(':id')
     @ApiOperation({summary: `Delete a workspace by ID`})
     public async remove(@Param('id') id: number): Promise<void> {
-        return await this.projects.remove(id);
+        return await this.workspaces.remove(id);
     }
 }
