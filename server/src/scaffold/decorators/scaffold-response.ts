@@ -15,7 +15,7 @@ function isOneObject<T>(object: T | [T]): object is T {
     return !Array.isArray(object);
 }
 
-export function DtoResponse<T extends object>(dto: Type<T> | [Type<T>]) {
+export function ScaffoldResponse<T extends object>(dto: Type<T> | [Type<T>]) {
     if (isOneElementArray(dto)) {
         return applyDecorators(
             UseInterceptors(new ScaffoldArrayResponseInterceptor<T>(dto[0]))
@@ -26,5 +26,7 @@ export function DtoResponse<T extends object>(dto: Type<T> | [Type<T>]) {
         );
     }
 
-    throw new InternalServerErrorException('Invalid parameter for DtoResponse');
+    throw new InternalServerErrorException(
+        'Invalid parameter for ScaffoldResponse'
+    );
 }

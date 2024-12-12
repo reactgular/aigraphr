@@ -1,4 +1,4 @@
-import {DtoResponse} from '@/scaffold/decorators/dto-response';
+import {ScaffoldResponse} from '@/scaffold/decorators/scaffold-response';
 import {ScaffoldIdDto} from '@/scaffold/dtos/scaffold-id.dto';
 import {scaffoldValidationPipe} from '@/scaffold/pipes/scaffold-validation.pipe';
 import {ScaffoldEntity} from '@/scaffold/services/scaffold-entity.service';
@@ -23,7 +23,7 @@ export function ScaffoldGet<TDto extends ScaffoldEntity>(GetDto: Type<TDto>) {
             }),
             ApiOperation({summary: `Get ${name} by ID`}),
             ApiOkResponse({type: GetDto}),
-            DtoResponse(GetDto)
+            ScaffoldResponse(GetDto)
         ];
         return applyDecorators(...decorators);
     };

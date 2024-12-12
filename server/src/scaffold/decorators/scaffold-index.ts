@@ -1,4 +1,4 @@
-import {DtoResponse} from '@/scaffold/decorators/dto-response';
+import {ScaffoldResponse} from '@/scaffold/decorators/scaffold-response';
 import {ScaffoldEntity} from '@/scaffold/services/scaffold-entity.service';
 import {
     applyDecorators,
@@ -17,7 +17,7 @@ export function ScaffoldIndex<TDto extends ScaffoldEntity>(GetDto: Type<TDto>) {
             Get(),
             ApiOperation({summary: `List all ${name}`}),
             ApiOkResponse({type: [GetDto]}),
-            DtoResponse([GetDto])
+            ScaffoldResponse([GetDto])
         ];
         return applyDecorators(...decorators);
     };

@@ -1,4 +1,4 @@
-import {DtoResponse} from '@/scaffold/decorators/dto-response';
+import {ScaffoldResponse} from '@/scaffold/decorators/scaffold-response';
 import {scaffoldValidationPipe} from '@/scaffold/pipes/scaffold-validation.pipe';
 import {ScaffoldEntity} from '@/scaffold/services/scaffold-entity.service';
 import {
@@ -22,7 +22,7 @@ export function ScaffoldCreate<
             ApiOperation({summary: `Create a new ${name}.`}),
             ApiBody({type: CreateDto}),
             ApiOkResponse({type: GetDto}),
-            DtoResponse(GetDto)
+            ScaffoldResponse(GetDto)
         ];
         return applyDecorators(...decorators);
     };
