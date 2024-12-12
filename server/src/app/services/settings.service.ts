@@ -13,4 +13,12 @@ export class SettingsService {
     public async get(id: number): Promise<SettingEntity> {
         return await this.settings.findOneByOrFail({id});
     }
+
+    public async update(
+        id: number,
+        data: Partial<SettingEntity>
+    ): Promise<SettingEntity> {
+        await this.settings.update(id, data);
+        return await this.get(id);
+    }
 }

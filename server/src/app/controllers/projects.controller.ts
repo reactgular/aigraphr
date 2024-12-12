@@ -8,8 +8,8 @@ import {Body, Controller, Delete, Get, Param, Post} from '@nestjs/common';
 import {ApiOperation, ApiTags} from '@nestjs/swagger';
 import {ProjectsService} from '../services/projects.service';
 
-@ApiTags('Projects')
-@Controller('projects')
+@ApiTags('App')
+@Controller('app/projects')
 export class ProjectsController {
     public constructor(private readonly projects: ProjectsService) {
         //

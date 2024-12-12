@@ -1,4 +1,4 @@
-import {ProjectsService} from '@/projects/services/projects.service';
+import {ProjectsService} from '@/app/services/projects.service';
 import {
     CanActivate,
     ExecutionContext,
