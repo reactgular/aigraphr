@@ -1,9 +1,159 @@
 {
     "openapi": "3.0.0",
     "paths": {
+        "/projects": {
+            "post": {
+                "operationId": "Projects_create",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProjectCreateDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProjectDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Create a new ProjectCreate.",
+                "tags": [
+                    "Projects"
+                ]
+            },
+            "get": {
+                "operationId": "Projects_index",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ProjectDto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "List all Project",
+                "tags": [
+                    "Projects"
+                ]
+            }
+        },
+        "/projects/{id}": {
+            "patch": {
+                "operationId": "Projects_update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProjectUpdateDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProjectDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Updates a ProjectUpdate.",
+                "tags": [
+                    "Projects"
+                ]
+            },
+            "delete": {
+                "operationId": "Projects_remove",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "404": {
+                        "description": "Project not found"
+                    }
+                },
+                "summary": "Delete Project by ID",
+                "tags": [
+                    "Projects"
+                ]
+            },
+            "get": {
+                "operationId": "Projects_get",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProjectDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Get Project by ID",
+                "tags": [
+                    "Projects"
+                ]
+            }
+        },
         "/": {
             "get": {
-                "operationId": "AppController_getHello",
+                "operationId": "App_getHello",
                 "parameters": [],
                 "responses": {
                     "200": {
@@ -22,7 +172,7 @@
                 ]
             },
             "post": {
-                "operationId": "AppController_create",
+                "operationId": "App_create",
                 "parameters": [],
                 "responses": {
                     "201": {
@@ -41,7 +191,7 @@
                 ]
             },
             "delete": {
-                "operationId": "AppController_remove",
+                "operationId": "App_remove",
                 "parameters": [],
                 "responses": {
                     "200": {
@@ -60,7 +210,7 @@
                 ]
             },
             "patch": {
-                "operationId": "AppController_patch",
+                "operationId": "App_patch",
                 "parameters": [],
                 "responses": {
                     "200": {
@@ -79,7 +229,7 @@
                 ]
             },
             "put": {
-                "operationId": "AppController_put",
+                "operationId": "App_put",
                 "parameters": [],
                 "responses": {
                     "200": {
@@ -98,150 +248,40 @@
                 ]
             }
         },
-        "/projects/instances": {
-            "get": {
-                "operationId": "ProjectsInstancesController_index",
-                "parameters": [
-                    {
-                        "name": "sort",
-                        "required": false,
-                        "in": "query",
-                        "schema": {
-                            "default": "asc",
-                            "enum": [
-                                "asc",
-                                "desc"
-                            ],
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/ProjectInstanceWithFileDto"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "summary": "List all project instances",
-                "tags": [
-                    "Projects"
-                ]
-            },
+        "/projects/{projectId}/workspaces": {
             "post": {
-                "description": "Opens a project file and loads it into memory as an instance.",
-                "operationId": "ProjectsInstancesController_create",
+                "operationId": "Workspaces_create",
                 "parameters": [],
-                "responses": {
-                    "201": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/ProjectInstanceWithFileDto"
-                                    }
-                                }
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/WorkspaceCreateDto"
                             }
                         }
                     }
                 },
-                "summary": "Create a new project instance",
-                "tags": [
-                    "Projects"
-                ]
-            },
-            "delete": {
-                "description": "Close all project files and removes them from memory.",
-                "operationId": "ProjectsInstancesController_removeAll",
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": ""
-                    }
-                },
-                "summary": "Removes all project instances",
-                "tags": [
-                    "Projects"
-                ]
-            }
-        },
-        "/projects/instances/{instanceId}": {
-            "get": {
-                "operationId": "ProjectsInstancesController_get",
-                "parameters": [],
                 "responses": {
                     "200": {
                         "description": "",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ProjectInstanceWithFileDto"
+                                    "$ref": "#/components/schemas/WorkspaceDto"
                                 }
                             }
                         }
                     }
                 },
-                "summary": "Get project instance by ID",
+                "summary": "Create a new WorkspaceCreate.",
                 "tags": [
-                    "Projects"
+                    "Workspaces"
                 ]
             },
-            "delete": {
-                "description": "Close a project file and removes it from memory.",
-                "operationId": "ProjectsInstancesController_remove",
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": ""
-                    }
-                },
-                "summary": "Removes a project instance",
-                "tags": [
-                    "Projects"
-                ]
-            }
-        },
-        "/projects/files": {
             "get": {
-                "operationId": "ProjectsFilesController_index",
-                "parameters": [
-                    {
-                        "name": "sort",
-                        "required": false,
-                        "in": "query",
-                        "schema": {
-                            "default": "asc",
-                            "enum": [
-                                "asc",
-                                "desc"
-                            ],
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "sortBy",
-                        "required": false,
-                        "in": "query",
-                        "schema": {
-                            "default": "createdAt",
-                            "enum": [
-                                "createdAt",
-                                "name"
-                            ],
-                            "type": "string"
-                        }
-                    }
-                ],
+                "operationId": "Workspaces_index",
+                "parameters": [],
                 "responses": {
                     "200": {
                         "description": "",
@@ -250,50 +290,93 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/components/schemas/ProjectFileWithInstanceDto"
+                                        "$ref": "#/components/schemas/WorkspaceDto"
                                     }
                                 }
                             }
                         }
                     }
                 },
-                "summary": "List all project files",
+                "summary": "List all Workspace",
                 "tags": [
-                    "Projects"
-                ]
-            },
-            "post": {
-                "description": "To create a new profile file the server must create an empty instance of the project and load it, but if the profile file already exists. then the server must load the existing instance.",
-                "operationId": "ProjectsFilesController_create",
-                "parameters": [],
-                "responses": {
-                    "201": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ProjectFileWithInstanceDto"
-                                }
-                            }
-                        }
-                    }
-                },
-                "summary": "Create a new project file.",
-                "tags": [
-                    "Projects"
+                    "Workspaces"
                 ]
             }
         },
-        "/projects/files/{fileId}": {
-            "get": {
-                "operationId": "ProjectsFilesController_get",
+        "/projects/{projectId}/workspaces/{id}": {
+            "patch": {
+                "operationId": "Workspaces_update",
                 "parameters": [
                     {
-                        "name": "fileId",
+                        "name": "id",
                         "required": true,
                         "in": "path",
                         "schema": {
-                            "type": "string"
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/WorkspaceUpdateDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WorkspaceDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Updates a WorkspaceUpdate.",
+                "tags": [
+                    "Workspaces"
+                ]
+            },
+            "delete": {
+                "operationId": "Workspaces_remove",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "404": {
+                        "description": "Workspace not found"
+                    }
+                },
+                "summary": "Delete Workspace by ID",
+                "tags": [
+                    "Workspaces"
+                ]
+            },
+            "get": {
+                "operationId": "Workspaces_get",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
                         }
                     }
                 ],
@@ -303,18 +386,15 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ProjectFileWithInstanceDto"
+                                    "$ref": "#/components/schemas/WorkspaceDto"
                                 }
                             }
                         }
-                    },
-                    "404": {
-                        "description": "Project file not found"
                     }
                 },
-                "summary": "Get project file by ID",
+                "summary": "Get Workspace by ID",
                 "tags": [
-                    "Projects"
+                    "Workspaces"
                 ]
             }
         }
@@ -336,172 +416,118 @@
             }
         },
         "schemas": {
-            "ProjectFileDto": {
+            "ProjectCreateDto": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the project (alphanumeric)",
+                        "example": "example-project"
+                    },
+                    "test": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name",
+                    "test"
+                ]
+            },
+            "ProjectDto": {
                 "type": "object",
                 "properties": {
                     "id": {
-                        "type": "string",
-                        "description": "The unique identifier of the project file",
-                        "example": "344feee1cda9f0d3b68d14cb0586e948c72bad81f96a8fba4311376b62545dde"
+                        "type": "number",
+                        "example": 1234
                     },
                     "name": {
                         "type": "string",
                         "description": "The name of the project (alphanumeric)",
                         "example": "example-project"
                     },
-                    "fileName": {
-                        "type": "string",
-                        "description": "The name of the project file",
-                        "example": "example-project.aigraphr"
+                    "open": {
+                        "type": "boolean",
+                        "description": "The open status of the project"
                     },
-                    "size": {
-                        "type": "number",
-                        "description": "The size of the project file in bytes",
-                        "example": 1024
-                    },
-                    "folder": {
-                        "type": "string",
-                        "description": "The folder where the project file is stored",
-                        "example": "/path/to"
-                    },
-                    "path": {
-                        "type": "string",
-                        "description": "The path to the project file",
-                        "example": "/path/to/example-project.aigraphr"
-                    },
-                    "createdAt": {
-                        "format": "date-time",
+                    "test": {
                         "type": "string"
                     }
                 },
                 "required": [
                     "id",
                     "name",
-                    "fileName",
-                    "size",
-                    "folder",
-                    "path",
-                    "createdAt"
+                    "open",
+                    "test"
                 ]
             },
-            "ProjectInstanceWithFileDto": {
+            "ProjectUpdateDto": {
                 "type": "object",
                 "properties": {
-                    "id": {
-                        "type": "string",
-                        "description": "ID of the project in memory",
-                        "example": "344feee-1cda-9f0d-3b68-d14cb0586e94"
-                    },
-                    "fileId": {
-                        "type": "string",
-                        "description": "The unique identifier of the project file",
-                        "example": "344feee1cda9f0d3b68d14cb0586e948c72bad81f96a8fba4311376b62545dde"
-                    },
                     "name": {
                         "type": "string",
-                        "description": "Name of the project",
-                        "example": "My project"
+                        "description": "The name of the project (alphanumeric)",
+                        "example": "example-project"
                     },
-                    "file": {
-                        "description": "Project file",
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/ProjectFileDto"
-                            }
-                        ]
+                    "open": {
+                        "type": "boolean",
+                        "description": "The open status of the project"
+                    },
+                    "test": {
+                        "type": "string"
+                    }
+                }
+            },
+            "WorkspaceCreateDto": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the project (alphanumeric)",
+                        "example": "example-project"
+                    },
+                    "test": {
+                        "type": "string"
                     }
                 },
                 "required": [
-                    "id",
-                    "fileId",
-                    "name"
+                    "name",
+                    "test"
                 ]
             },
-            "ProjectInstanceDto": {
+            "WorkspaceDto": {
                 "type": "object",
                 "properties": {
                     "id": {
-                        "type": "string",
-                        "description": "ID of the project in memory",
-                        "example": "344feee-1cda-9f0d-3b68-d14cb0586e94"
-                    },
-                    "fileId": {
-                        "type": "string",
-                        "description": "The unique identifier of the project file",
-                        "example": "344feee1cda9f0d3b68d14cb0586e948c72bad81f96a8fba4311376b62545dde"
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "Name of the project",
-                        "example": "My project"
-                    }
-                },
-                "required": [
-                    "id",
-                    "fileId",
-                    "name"
-                ]
-            },
-            "ProjectFileWithInstanceDto": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "string",
-                        "description": "The unique identifier of the project file",
-                        "example": "344feee1cda9f0d3b68d14cb0586e948c72bad81f96a8fba4311376b62545dde"
+                        "type": "number",
+                        "example": 1234
                     },
                     "name": {
                         "type": "string",
                         "description": "The name of the project (alphanumeric)",
                         "example": "example-project"
                     },
-                    "fileName": {
-                        "type": "string",
-                        "description": "The name of the project file",
-                        "example": "example-project.aigraphr"
-                    },
-                    "size": {
-                        "type": "number",
-                        "description": "The size of the project file in bytes",
-                        "example": 1024
-                    },
-                    "folder": {
-                        "type": "string",
-                        "description": "The folder where the project file is stored",
-                        "example": "/path/to"
-                    },
-                    "path": {
-                        "type": "string",
-                        "description": "The path to the project file",
-                        "example": "/path/to/example-project.aigraphr"
-                    },
-                    "createdAt": {
-                        "format": "date-time",
+                    "test": {
                         "type": "string"
-                    },
-                    "instanceId": {
-                        "type": "string",
-                        "description": "The unique identifier of the project instance",
-                        "example": "344feee1cda9f0d3b68d14cb0586e94"
-                    },
-                    "instance": {
-                        "description": "Project instance",
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/ProjectInstanceDto"
-                            }
-                        ]
                     }
                 },
                 "required": [
                     "id",
                     "name",
-                    "fileName",
-                    "size",
-                    "folder",
-                    "path",
-                    "createdAt"
+                    "test"
                 ]
+            },
+            "WorkspaceUpdateDto": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the project (alphanumeric)",
+                        "example": "example-project"
+                    },
+                    "test": {
+                        "type": "string"
+                    }
+                }
             }
         }
     }
