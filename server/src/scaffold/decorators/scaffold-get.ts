@@ -43,8 +43,11 @@ export function ScaffoldGet<TDto extends ScaffoldEntity>(GetDto: Type<TDto>) {
     return {Method, Param, Query, Body};
 }
 
-export type ScaffoldGetType<TDto extends ScaffoldEntity> = {
-    Param: ScaffoldIdDto;
+export type ScaffoldGetType<
+    TDto extends ScaffoldEntity,
+    TParam extends ScaffoldIdDto = ScaffoldIdDto
+> = {
+    Param: TParam;
     Query: never;
     Body: never;
     Response: Promise<TDto>;

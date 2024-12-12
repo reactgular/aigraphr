@@ -1,4 +1,5 @@
 import {ScaffoldResponse} from '@/scaffold/decorators/scaffold-response';
+import {ScaffoldEmptyDto} from '@/scaffold/dtos/scaffold-empty';
 import {scaffoldValidationPipe} from '@/scaffold/pipes/scaffold-validation.pipe';
 import {ScaffoldEntity} from '@/scaffold/services/scaffold-entity.service';
 import {
@@ -44,9 +45,10 @@ export function ScaffoldCreate<
 
 export type ScaffoldCreateType<
     TCreateDto extends Partial<ScaffoldEntity>,
-    TGetDto extends ScaffoldEntity
+    TGetDto extends ScaffoldEntity,
+    TParam extends ScaffoldEmptyDto = ScaffoldEmptyDto
 > = {
-    Param: never;
+    Param: TParam;
     Query: never;
     Body: TCreateDto;
     Response: Promise<TGetDto>;

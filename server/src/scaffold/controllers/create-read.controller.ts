@@ -1,8 +1,10 @@
 import {ScaffoldGet, ScaffoldGetType} from '@/scaffold/decorators/scaffold-get';
 import {
+    GetParams,
     ScaffoldIndex,
     ScaffoldIndexType
 } from '@/scaffold/decorators/scaffold-index';
+import {ScaffoldEmptyDto} from '@/scaffold/dtos/scaffold-empty';
 import {
     ScaffoldDto,
     ScaffoldEntity
@@ -10,16 +12,22 @@ import {
 import {ScaffoldReadService} from '@/scaffold/services/scaffold-read.service';
 import {Type} from '@nestjs/common';
 
-export interface ScaffoldReadOptions<TDto extends ScaffoldDto> {
+export interface ScaffoldReadOptions<
+    TDto extends ScaffoldDto,
+    TParamDto extends ScaffoldEmptyDto
+> {
     getDto: Type<TDto>;
+
+    getParams: GetParams<TParamDto>;
 }
 
 export function createReadController<
     TDto extends ScaffoldEntity,
-    TEntity extends ScaffoldEntity
->({getDto: GetDto}: ScaffoldReadOptions<TDto>) {
-    const Index = ScaffoldIndex(GetDto);
-    type Index = ScaffoldIndexType<InstanceType<typeof GetDto>>;
+    TEntity extends ScaffoldEntity,
+    TParamDto extends ScaffoldEmptyDto
+>({getDto: GetDto, getParams}: ScaffoldReadOptions<TDto, TParamDto>) {
+    const Index = ScaffoldIndex(GetDto, getParams);
+    type Index = ScaffoldIndexType<InstanceType<typeof GetDto>, TParamDto>;
 
     const Get = ScaffoldGet(GetDto);
     type Get = ScaffoldGetType<InstanceType<typeof GetDto>>;

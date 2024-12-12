@@ -1,10 +1,11 @@
+import {ProjectIdDto} from '@/projects/dtos/project-id.dto';
 import {
     WorkspaceCreateDto,
     WorkspaceDto,
     WorkspaceUpdateDto
 } from '@/projects/entities/workspace.entity';
 import {ProjectGuard} from '@/projects/gaurds/project.guard';
-import {createCrudController} from '@/scaffold/controllers/scaffold-crud.controller';
+import {createCrudController} from '@/scaffold/controllers/create-crud.controller';
 import {ScaffoldCrudService} from '@/scaffold/services/scaffold-crud.service';
 import {WorkspacesService} from '@/workspaces/services/workspaces.service';
 import {Controller, UseGuards} from '@nestjs/common';
@@ -15,6 +16,21 @@ import {ApiTags} from '@nestjs/swagger';
 @UseGuards(ProjectGuard)
 export class WorkspacesController extends createCrudController({
     getDto: WorkspaceDto,
+    getParams: {
+        params: [
+            {
+                name: 'id',
+                type: Number,
+                required: true
+            },
+            {
+                name: 'projectId',
+                type: Number,
+                required: true
+            }
+        ],
+        dto: ProjectIdDto
+    },
     createDto: WorkspaceCreateDto,
     updateDto: WorkspaceUpdateDto
 }) {

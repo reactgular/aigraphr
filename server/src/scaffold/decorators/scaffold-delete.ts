@@ -41,8 +41,8 @@ export function ScaffoldDelete<TDto extends ScaffoldEntity>(Dto: Type<TDto>) {
     return {Method, Param, Query, Body};
 }
 
-export type ScaffoldDeleteType = {
-    Param: ScaffoldIdDto;
+export type ScaffoldDeleteType<TParam extends ScaffoldIdDto = ScaffoldIdDto> = {
+    Param: TParam;
     Query: never;
     Body: never;
     Response: Promise<void>;

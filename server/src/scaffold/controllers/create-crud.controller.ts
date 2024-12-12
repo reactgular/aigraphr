@@ -1,8 +1,10 @@
-import {createReadController} from '@/scaffold/controllers/scaffold-read.controller';
+import {createReadController} from '@/scaffold/controllers/create-read.controller';
 import {
     ScaffoldDelete,
     ScaffoldDeleteType
 } from '@/scaffold/decorators/scaffold-delete';
+import {GetParams} from '@/scaffold/decorators/scaffold-index';
+import {ScaffoldEmptyDto} from '@/scaffold/dtos/scaffold-empty';
 import {ScaffoldCrudService} from '@/scaffold/services/scaffold-crud.service';
 import {
     ScaffoldDto,
@@ -18,20 +20,26 @@ import {
     ScaffoldUpdateType
 } from '../decorators/scaffold-update';
 
-export interface ScaffoldCrudOptions<TDto extends ScaffoldDto> {
+export interface ScaffoldCrudOptions<
+    TDto extends ScaffoldDto,
+    TParamDto extends ScaffoldEmptyDto
+> {
     getDto: Type<TDto>;
+    getParams: GetParams<TParamDto>;
     createDto: Type<Partial<TDto>>;
     updateDto: Type<Partial<TDto>>;
 }
 
 export function createCrudController<
     TDto extends ScaffoldEntity,
-    TEntity extends ScaffoldEntity
+    TEntity extends ScaffoldEntity,
+    TParamDto extends ScaffoldEmptyDto
 >({
     getDto: GetDto,
+    getParams,
     createDto: CreateDto,
     updateDto: UpdateDto
-}: ScaffoldCrudOptions<TDto>) {
+}: ScaffoldCrudOptions<TDto, TParamDto>) {
     const Create = ScaffoldCreate(CreateDto, GetDto);
     type Create = ScaffoldCreateType<
         InstanceType<typeof CreateDto>,
@@ -48,7 +56,8 @@ export function createCrudController<
     type Delete = ScaffoldDeleteType;
 
     abstract class ScaffoldCrudController extends createReadController({
-        getDto: GetDto
+        getDto: GetDto,
+        getParams
     }) {
         protected constructor(
             public readonly scaffoldCrud: ScaffoldCrudService<

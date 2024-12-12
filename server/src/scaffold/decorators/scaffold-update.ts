@@ -49,9 +49,10 @@ export function ScaffoldUpdate<
 
 export type ScaffoldUpdateType<
     TUpdateDto extends Partial<ScaffoldEntity>,
-    TGetDto extends ScaffoldEntity
+    TGetDto extends ScaffoldEntity,
+    TParam extends ScaffoldIdDto = ScaffoldIdDto
 > = {
-    Param: ScaffoldIdDto;
+    Param: TParam;
     Query: never;
     Body: TUpdateDto;
     Response: Promise<TGetDto>;
