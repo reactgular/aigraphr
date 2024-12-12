@@ -1,7 +1,9 @@
+import {WorkspaceEntity} from '@/projects/entities/workspace.entity';
 import {ProjectsService} from '@/projects/services/projects.service';
 import {Inject, Injectable, Logger, Scope} from '@nestjs/common';
 import {REQUEST} from '@nestjs/core';
 import {Request} from 'express';
+import {Repository} from 'typeorm';
 
 @Injectable({
     scope: Scope.REQUEST
@@ -15,5 +17,9 @@ export class ProjectDatabasesService {
     ) {
         // Empty
         this.log.debug(request.params);
+    }
+
+    public workspaces(): Repository<WorkspaceEntity> {
+        throw new Error('Not implemented');
     }
 }
