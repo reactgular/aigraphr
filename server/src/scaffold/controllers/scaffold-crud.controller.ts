@@ -1,18 +1,19 @@
+import {
+    ScaffoldDelete,
+    ScaffoldDeleteType
+} from '@/scaffold/decorators/scaffold-delete';
 import {ScaffoldGet, ScaffoldGetType} from '@/scaffold/decorators/scaffold-get';
 import {
     ScaffoldIndex,
     ScaffoldIndexType
 } from '@/scaffold/decorators/scaffold-index';
 import {ScaffoldCrudService} from '@/scaffold/services/scaffold-crud.service';
-import {ScaffoldDtoService} from '@/scaffold/services/scaffold-dto.service';
 import {
     ScaffoldDto,
-    ScaffoldEntity,
-    ScaffoldEntityService
+    ScaffoldEntity
 } from '@/scaffold/services/scaffold-entity.service';
 import {toHumanUtils} from '@/scaffold/utils/to-human.utils';
-import {Delete, Param, ParseIntPipe, Type} from '@nestjs/common';
-import {ApiNotFoundResponse, ApiOperation, ApiParam} from '@nestjs/swagger';
+import {Type} from '@nestjs/common';
 import {
     ScaffoldCreate,
     ScaffoldCreateType
@@ -22,7 +23,6 @@ export interface ScaffoldCrudOptions<
     TDto extends ScaffoldDto,
     TEntity extends ScaffoldEntity
 > {
-    primaryKey?: StringConstructor | NumberConstructor;
     entity: Type<TEntity>;
     getDto: Type<TDto>;
     createDto: Type<Partial<TDto>>;
@@ -33,7 +33,6 @@ export function createCrudController<
     TDto extends ScaffoldEntity,
     TEntity extends ScaffoldEntity
 >({
-    primaryKey = Number,
     entity: Entity,
     getDto: GetDto,
     createDto: CreateDto,
@@ -53,29 +52,18 @@ export function createCrudController<
         InstanceType<typeof GetDto>
     >;
 
+    const Delete = ScaffoldDelete(GetDto);
+    type Delete = ScaffoldDeleteType;
+
     abstract class ScaffoldCrudController {
-        public readonly entity: Type<TEntity>;
-
-        public readonly name: string;
-
         protected constructor(
-            public readonly scaffoldEntity: ScaffoldEntityService<TEntity>,
-            public readonly scaffoldDto: ScaffoldDtoService<
-                TEntity,
-                InstanceType<typeof GetDto>,
-                InstanceType<typeof CreateDto>,
-                InstanceType<typeof UpdateDto>
-            >,
             public readonly scaffoldCrud: ScaffoldCrudService<
                 TEntity,
                 InstanceType<typeof GetDto>,
                 InstanceType<typeof CreateDto>,
                 InstanceType<typeof UpdateDto>
             >
-        ) {
-            this.entity = Entity;
-            this.name = name;
-        }
+        ) {}
 
         @Index.Method()
         public async index(
@@ -104,17 +92,13 @@ export function createCrudController<
             return this.scaffoldCrud.create(params, query, body);
         }
 
-        @Delete(':id')
-        @ApiParam({
-            type: primaryKey,
-            name: 'id'
-        })
-        @ApiOperation({summary: `Delete ${name} by ID`})
-        @ApiNotFoundResponse({description: `${name} not found`})
+        @Delete.Method()
         public async remove(
-            @Param('id', ParseIntPipe) id: TDto['id']
-        ): Promise<void> {
-            await this.scaffoldEntity.remove(id);
+            @Delete.Param() params: Delete['Param'],
+            @Delete.Query() query: Delete['Query'],
+            @Delete.Body() body: Delete['Body']
+        ): Delete['Response'] {
+            return this.scaffoldCrud.remove(params, query, body);
         }
     }
 

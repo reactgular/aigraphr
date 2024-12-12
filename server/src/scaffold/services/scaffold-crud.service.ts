@@ -1,4 +1,5 @@
 import {ScaffoldCreateType} from '@/scaffold/decorators/scaffold-create';
+import {ScaffoldDeleteType} from '@/scaffold/decorators/scaffold-delete';
 import {ScaffoldGetType} from '@/scaffold/decorators/scaffold-get';
 import {ScaffoldIndexType} from '@/scaffold/decorators/scaffold-index';
 import {ScaffoldDtoService} from '@/scaffold/services/scaffold-dto.service';
@@ -50,5 +51,13 @@ export class ScaffoldCrudService<
             this.scaffoldDto.fromCreateDto(body)
         );
         return this.scaffoldDto.toGetDto(entity);
+    }
+
+    public async remove(
+        params: ScaffoldDeleteType['Param'],
+        query: ScaffoldDeleteType['Query'],
+        body: ScaffoldDeleteType['Body']
+    ): ScaffoldDeleteType['Response'] {
+        throw new Error('Not implemented');
     }
 }

@@ -1,33 +1,33 @@
-import {DtoResponse} from '@/scaffold/decorators/dto-response';
+import {ScaffoldIdDto} from '@/scaffold/dtos/scaffold-id.dto';
 import {scaffoldValidationPipe} from '@/scaffold/pipes/scaffold-validation.pipe';
 import {ScaffoldEntity} from '@/scaffold/services/scaffold-entity.service';
 import {
     applyDecorators,
     Body as CommonBody,
+    Delete,
     Param as CommonParam,
-    Post,
     Query as CommonQuery,
     Type
 } from '@nestjs/common';
-import {ApiOkResponse, ApiOperation} from '@nestjs/swagger';
+import {ApiNotFoundResponse, ApiOperation, ApiParam} from '@nestjs/swagger';
 
-export function ScaffoldCreate<
-    TCreateDto extends Partial<ScaffoldEntity>,
-    TGetDtp extends ScaffoldEntity
->(CreateDto: Type<TCreateDto>, GetDto: Type<TGetDtp>) {
+export function ScaffoldDelete<TDto extends ScaffoldEntity>(Dto: Type<TDto>) {
     const MethodDecorator = function () {
-        const name = CreateDto.name.replace(/Dto$/, '');
+        const name = Dto.name.replace(/Dto$/, '');
         const decorators = [
-            Post(),
-            ApiOperation({summary: `Create a new ${name}.`}),
-            ApiOkResponse({type: GetDto}),
-            DtoResponse(GetDto)
+            Delete(':id'),
+            ApiParam({
+                type: Number,
+                name: 'id'
+            }),
+            ApiOperation({summary: `Delete ${name} by ID`}),
+            ApiNotFoundResponse({description: `${name} not found`})
         ];
         return applyDecorators(...decorators);
     };
 
     const ParamDecorator = function (): ParameterDecorator {
-        return CommonParam();
+        return CommonParam(scaffoldValidationPipe(ScaffoldIdDto));
     };
 
     const QueryDecorator = function (): ParameterDecorator {
@@ -35,7 +35,7 @@ export function ScaffoldCreate<
     };
 
     const BodyDecorator = function (): ParameterDecorator {
-        return CommonBody(scaffoldValidationPipe(CreateDto));
+        return CommonBody();
     };
 
     return {
@@ -51,16 +51,13 @@ export function ScaffoldCreate<
         _queryType: never;
         Body: typeof BodyDecorator;
         _bodyType: never;
-        _response: Promise<Array<TCreateDto>>;
+        _response: Promise<Array<TDto>>;
     };
 }
 
-export type ScaffoldCreateType<
-    TCreateDto extends Partial<ScaffoldEntity>,
-    TGetDto extends ScaffoldEntity
-> = {
-    Param: never;
+export type ScaffoldDeleteType = {
+    Param: ScaffoldIdDto;
     Query: never;
-    Body: TCreateDto;
-    Response: Promise<TGetDto>;
+    Body: never;
+    Response: Promise<void>;
 };
