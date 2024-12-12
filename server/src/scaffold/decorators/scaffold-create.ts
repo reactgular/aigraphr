@@ -15,7 +15,7 @@ export function ScaffoldCreate<
     TCreateDto extends Partial<ScaffoldEntity>,
     TGetDtp extends ScaffoldEntity
 >(CreateDto: Type<TCreateDto>, GetDto: Type<TGetDtp>) {
-    const MethodDecorator = function () {
+    const Method = function () {
         const name = CreateDto.name.replace(/Dto$/, '');
         const decorators = [
             Post(),
@@ -26,33 +26,19 @@ export function ScaffoldCreate<
         return applyDecorators(...decorators);
     };
 
-    const ParamDecorator = function (): ParameterDecorator {
+    const Param = function (): ParameterDecorator {
         return CommonParam();
     };
 
-    const QueryDecorator = function (): ParameterDecorator {
+    const Query = function (): ParameterDecorator {
         return CommonQuery();
     };
 
-    const BodyDecorator = function (): ParameterDecorator {
+    const Body = function (): ParameterDecorator {
         return CommonBody(scaffoldValidationPipe(CreateDto));
     };
 
-    return {
-        Method: MethodDecorator,
-        Param: ParamDecorator,
-        Query: QueryDecorator,
-        Body: BodyDecorator
-    } as {
-        Method: typeof MethodDecorator;
-        Param: typeof ParamDecorator;
-        _paramType: never;
-        Query: typeof QueryDecorator;
-        _queryType: never;
-        Body: typeof BodyDecorator;
-        _bodyType: never;
-        _response: Promise<Array<TCreateDto>>;
-    };
+    return {Method, Param, Query, Body};
 }
 
 export type ScaffoldCreateType<

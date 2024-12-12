@@ -13,7 +13,7 @@ import {
 import {ApiOkResponse, ApiOperation, ApiParam} from '@nestjs/swagger';
 
 export function ScaffoldGet<TDto extends ScaffoldEntity>(Dto: Type<TDto>) {
-    const MethodDecorator = function () {
+    const Method = function () {
         const name = Dto.name.replace(/Dto$/, '');
         const decorators = [
             Get(':id'),
@@ -28,33 +28,19 @@ export function ScaffoldGet<TDto extends ScaffoldEntity>(Dto: Type<TDto>) {
         return applyDecorators(...decorators);
     };
 
-    const ParamDecorator = function (): ParameterDecorator {
+    const Param = function (): ParameterDecorator {
         return CommonParam(scaffoldValidationPipe(ScaffoldIdDto));
     };
 
-    const QueryDecorator = function (): ParameterDecorator {
+    const Query = function (): ParameterDecorator {
         return CommonQuery();
     };
 
-    const BodyDecorator = function (): ParameterDecorator {
+    const Body = function (): ParameterDecorator {
         return CommonBody();
     };
 
-    return {
-        Method: MethodDecorator,
-        Param: ParamDecorator,
-        Query: QueryDecorator,
-        Body: BodyDecorator
-    } as {
-        Method: typeof MethodDecorator;
-        Param: typeof ParamDecorator;
-        _paramType: never;
-        Query: typeof QueryDecorator;
-        _queryType: never;
-        Body: typeof BodyDecorator;
-        _bodyType: never;
-        _response: Promise<TDto>;
-    };
+    return {Method, Param, Query, Body};
 }
 
 export type ScaffoldGetType<TDto extends ScaffoldEntity> = {
