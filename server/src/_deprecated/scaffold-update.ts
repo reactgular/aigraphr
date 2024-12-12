@@ -1,17 +1,17 @@
-import {ScaffoldEntity} from '@/scaffold/_deprecated/scaffold-entity.service';
-import {ScaffoldParam} from '@/scaffold/_deprecated/scaffold-param';
+import {ScaffoldEntity} from '@/_deprecated/scaffold-entity.service';
+import {ScaffoldParam} from '@/_deprecated/scaffold-param';
 import {Response} from '@/scaffold/decorators/response';
 import {ScaffoldIdDto} from '@/scaffold/dtos/scaffold-id.dto';
 import {scaffoldValidationPipe} from '@/scaffold/pipes/scaffold-validation.pipe';
 import {
     applyDecorators,
     Body as CommonBody,
-    Get,
     Param as CommonParam,
     Query as CommonQuery,
     Type
 } from '@nestjs/common';
-import {ApiOkResponse, ApiOperation, ApiParam} from '@nestjs/swagger';
+import {Patch} from '@nestjs/common/decorators/http/request-mapping.decorator';
+import {ApiBody, ApiOkResponse, ApiOperation, ApiParam} from '@nestjs/swagger';
 
 const defaultParam = {
     method: [
@@ -28,15 +28,20 @@ const defaultParam = {
 /**
  * @deprecated
  */
-export function ScaffoldGet<TDto extends ScaffoldEntity>(
-    GetDto: Type<TDto>,
-    params?: ScaffoldParam
-) {
+export function ScaffoldUpdate<
+    TUpdateDto extends Partial<ScaffoldEntity>,
+    TGetDtp extends ScaffoldEntity
+>(UpdateDto: Type<TUpdateDto>, GetDto: Type<TGetDtp>, params?: ScaffoldParam) {
     const Method = function () {
-        const name = GetDto.name.replace(/Dto$/, '');
+        const name = UpdateDto.name.replace(/Dto$/, '');
         const decorators = [
-            Get(':id'),
-            ApiOperation({summary: `Get ${name} by ID`}),
+            Patch(':id'),
+            ApiParam({
+                type: Number,
+                name: 'id'
+            }),
+            ApiOperation({summary: `Updates a ${name}.`}),
+            ApiBody({type: UpdateDto}),
             ApiOkResponse({type: GetDto}),
             Response(GetDto),
             ...(params?.method ?? defaultParam.method)
@@ -53,18 +58,22 @@ export function ScaffoldGet<TDto extends ScaffoldEntity>(
     };
 
     const Body = function (): ParameterDecorator {
-        return CommonBody(...(params?.body ?? defaultParam.body));
+        return CommonBody(
+            ...(params?.body ?? defaultParam.body),
+            scaffoldValidationPipe(UpdateDto)
+        );
     };
 
     return {Method, Param, Query, Body};
 }
 
-export type ScaffoldGetType<
-    TDto extends ScaffoldEntity,
+export type ScaffoldUpdateType<
+    TUpdateDto extends Partial<ScaffoldEntity>,
+    TGetDto extends ScaffoldEntity,
     TParam extends ScaffoldIdDto = ScaffoldIdDto
 > = {
     Param: TParam;
     Query: never;
-    Body: never;
-    Response: Promise<TDto>;
+    Body: TUpdateDto;
+    Response: Promise<TGetDto>;
 };

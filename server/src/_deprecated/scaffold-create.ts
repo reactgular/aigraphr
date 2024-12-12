@@ -1,5 +1,5 @@
-import {ScaffoldEntity} from '@/scaffold/_deprecated/scaffold-entity.service';
-import {ScaffoldParam} from '@/scaffold/_deprecated/scaffold-param';
+import {ScaffoldEntity} from '@/_deprecated/scaffold-entity.service';
+import {ScaffoldParam} from '@/_deprecated/scaffold-param';
 import {Response} from '@/scaffold/decorators/response';
 import {ScaffoldEmptyDto} from '@/scaffold/dtos/scaffold-empty';
 import {scaffoldValidationPipe} from '@/scaffold/pipes/scaffold-validation.pipe';

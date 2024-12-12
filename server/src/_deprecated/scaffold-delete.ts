@@ -1,20 +1,25 @@
-import {ScaffoldEntity} from '@/scaffold/_deprecated/scaffold-entity.service';
-import {ScaffoldParam} from '@/scaffold/_deprecated/scaffold-param';
-import {Response} from '@/scaffold/decorators/response';
-import {ScaffoldEmptyDto} from '@/scaffold/dtos/scaffold-empty';
+import {ScaffoldEntity} from '@/_deprecated/scaffold-entity.service';
+import {ScaffoldParam} from '@/_deprecated/scaffold-param';
+import {ScaffoldIdDto} from '@/scaffold/dtos/scaffold-id.dto';
+import {scaffoldValidationPipe} from '@/scaffold/pipes/scaffold-validation.pipe';
 import {
     applyDecorators,
     Body as CommonBody,
-    Get,
+    Delete,
     Param as CommonParam,
     Query as CommonQuery,
     Type
 } from '@nestjs/common';
-import {ApiOkResponse, ApiOperation} from '@nestjs/swagger';
+import {ApiNotFoundResponse, ApiOperation, ApiParam} from '@nestjs/swagger';
 
 const defaultParam = {
-    method: [],
-    param: [],
+    method: [
+        ApiParam({
+            type: Number,
+            name: 'id'
+        })
+    ],
+    param: [scaffoldValidationPipe(ScaffoldIdDto)],
     query: [],
     body: []
 } satisfies ScaffoldParam;
@@ -22,17 +27,16 @@ const defaultParam = {
 /**
  * @deprecated
  */
-export function ScaffoldIndex<TDto extends ScaffoldEntity>(
-    IndexDto: Type<TDto>,
+export function ScaffoldDelete<TDto extends ScaffoldEntity>(
+    DeleteDto: Type<TDto>,
     params?: ScaffoldParam
 ) {
     const Method = function () {
-        const name = IndexDto.name.replace(/Dto$/, '');
+        const name = DeleteDto.name.replace(/Dto$/, '');
         const decorators = [
-            Get(),
-            ApiOperation({summary: `List all ${name}`}),
-            ApiOkResponse({type: [IndexDto]}),
-            Response([IndexDto]),
+            Delete(':id'),
+            ApiOperation({summary: `Delete ${name} by ID`}),
+            ApiNotFoundResponse({description: `${name} not found`}),
             ...(params?.method ?? defaultParam.method)
         ];
         return applyDecorators(...decorators);
@@ -53,12 +57,9 @@ export function ScaffoldIndex<TDto extends ScaffoldEntity>(
     return {Method, Param, Query, Body};
 }
 
-export type ScaffoldIndexType<
-    TDto extends ScaffoldEntity,
-    TParam extends ScaffoldEmptyDto = ScaffoldEmptyDto
-> = {
+export type ScaffoldDeleteType<TParam extends ScaffoldIdDto = ScaffoldIdDto> = {
     Param: TParam;
     Query: never;
     Body: never;
-    Response: Promise<Array<TDto>>;
+    Response: Promise<void>;
 };

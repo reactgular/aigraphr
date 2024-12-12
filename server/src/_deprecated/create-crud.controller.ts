@@ -1,14 +1,14 @@
-import {createReadController} from '@/scaffold/_deprecated/create-read.controller';
-import {ScaffoldCrudService} from '@/scaffold/_deprecated/scaffold-crud.service';
+import {createReadController} from '@/_deprecated/create-read.controller';
+import {ScaffoldCrudService} from '@/_deprecated/scaffold-crud.service';
 import {
     ScaffoldDelete,
     ScaffoldDeleteType
-} from '@/scaffold/_deprecated/scaffold-delete';
+} from '@/_deprecated/scaffold-delete';
 import {
     ScaffoldDto,
     ScaffoldEntity
-} from '@/scaffold/_deprecated/scaffold-entity.service';
-import {ScaffoldParam} from '@/scaffold/_deprecated/scaffold-param';
+} from '@/_deprecated/scaffold-entity.service';
+import {ScaffoldParam} from '@/_deprecated/scaffold-param';
 import {Type} from '@nestjs/common';
 import {ScaffoldCreate, ScaffoldCreateType} from './scaffold-create';
 import {ScaffoldUpdate, ScaffoldUpdateType} from './scaffold-update';

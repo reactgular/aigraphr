@@ -1,5 +1,5 @@
-import {ScaffoldEntity} from '@/scaffold/_deprecated/scaffold-entity.service';
-import {ScaffoldReadDtoService} from '@/scaffold/_deprecated/scaffold-read-dto.service';
+import {ScaffoldEntity} from '@/_deprecated/scaffold-entity.service';
+import {ScaffoldReadDtoService} from '@/_deprecated/scaffold-read-dto.service';
 
 /**
  * This interface bothers me, it seems like a entity transformer but it is

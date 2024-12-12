@@ -1,12 +1,12 @@
 import {
-    ProjectIdDto,
-    ProjectIdEntityIdDto
-} from '@/projects/_deprecated/project-id-entity-id.dto';
-import {
     createCrudController,
     ScaffoldCrudOptions
-} from '@/scaffold/_deprecated/create-crud.controller';
-import {ScaffoldEntity} from '@/scaffold/_deprecated/scaffold-entity.service';
+} from '@/_deprecated/create-crud.controller';
+import {
+    ProjectIdDto,
+    ProjectIdEntityIdDto
+} from '@/_deprecated/project-id-entity-id.dto';
+import {ScaffoldEntity} from '@/_deprecated/scaffold-entity.service';
 import {scaffoldValidationPipe} from '@/scaffold/pipes/scaffold-validation.pipe';
 import {ApiParam} from '@nestjs/swagger';
 

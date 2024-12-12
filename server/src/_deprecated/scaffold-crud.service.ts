@@ -1,13 +1,13 @@
-import {ScaffoldCreateType} from '@/scaffold/_deprecated/scaffold-create';
-import {ScaffoldCrudDtoService} from '@/scaffold/_deprecated/scaffold-crud-dto.service';
-import {ScaffoldDeleteType} from '@/scaffold/_deprecated/scaffold-delete';
+import {ScaffoldCreateType} from '@/_deprecated/scaffold-create';
+import {ScaffoldCrudDtoService} from '@/_deprecated/scaffold-crud-dto.service';
+import {ScaffoldDeleteType} from '@/_deprecated/scaffold-delete';
 import {
     ScaffoldEntity,
     ScaffoldEntityService
-} from '@/scaffold/_deprecated/scaffold-entity.service';
-import {ScaffoldGetType} from '@/scaffold/_deprecated/scaffold-get';
-import {ScaffoldIndexType} from '@/scaffold/_deprecated/scaffold-index';
-import {ScaffoldUpdateType} from '@/scaffold/_deprecated/scaffold-update';
+} from '@/_deprecated/scaffold-entity.service';
+import {ScaffoldGetType} from '@/_deprecated/scaffold-get';
+import {ScaffoldIndexType} from '@/_deprecated/scaffold-index';
+import {ScaffoldUpdateType} from '@/_deprecated/scaffold-update';
 
 /**
  * @deprecated

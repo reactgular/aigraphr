@@ -1,10 +1,10 @@
 import {
     ScaffoldEntity,
     ScaffoldEntityService
-} from '@/scaffold/_deprecated/scaffold-entity.service';
-import {ScaffoldGetType} from '@/scaffold/_deprecated/scaffold-get';
-import {ScaffoldIndexType} from '@/scaffold/_deprecated/scaffold-index';
-import {ScaffoldReadDtoService} from '@/scaffold/_deprecated/scaffold-read-dto.service';
+} from '@/_deprecated/scaffold-entity.service';
+import {ScaffoldGetType} from '@/_deprecated/scaffold-get';
+import {ScaffoldIndexType} from '@/_deprecated/scaffold-index';
+import {ScaffoldReadDtoService} from '@/_deprecated/scaffold-read-dto.service';
 
 /**
  * @deprecated

@@ -1,17 +1,11 @@
 import {
     ScaffoldDto,
     ScaffoldEntity
-} from '@/scaffold/_deprecated/scaffold-entity.service';
-import {
-    ScaffoldGet,
-    ScaffoldGetType
-} from '@/scaffold/_deprecated/scaffold-get';
-import {
-    ScaffoldIndex,
-    ScaffoldIndexType
-} from '@/scaffold/_deprecated/scaffold-index';
-import {ScaffoldParam} from '@/scaffold/_deprecated/scaffold-param';
-import {ScaffoldReadService} from '@/scaffold/_deprecated/scaffold-read.service';
+} from '@/_deprecated/scaffold-entity.service';
+import {ScaffoldGet, ScaffoldGetType} from '@/_deprecated/scaffold-get';
+import {ScaffoldIndex, ScaffoldIndexType} from '@/_deprecated/scaffold-index';
+import {ScaffoldParam} from '@/_deprecated/scaffold-param';
+import {ScaffoldReadService} from '@/_deprecated/scaffold-read.service';
 import {ScaffoldEmptyDto} from '@/scaffold/dtos/scaffold-empty';
 import {Type} from '@nestjs/common';
 

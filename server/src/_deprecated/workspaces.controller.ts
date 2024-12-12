@@ -1,12 +1,12 @@
-import {createProjectCrudController} from '@/projects/_deprecated/create-project-crud.controller';
+import {createProjectCrudController} from '@/_deprecated/create-project-crud.controller';
+import {ScaffoldCrudService} from '@/_deprecated/scaffold-crud.service';
+import {WorkspacesService} from '@/_deprecated/workspaces.service';
 import {
     WorkspaceCreateDto,
     WorkspaceDto,
     WorkspaceUpdateDto
 } from '@/projects/entities/workspace.entity';
 import {ProjectGuard} from '@/projects/gaurds/project.guard';
-import {ScaffoldCrudService} from '@/scaffold/_deprecated/scaffold-crud.service';
-import {WorkspacesService} from '@/workspaces/_deprecated/workspaces.service';
 import {Controller, UseGuards} from '@nestjs/common';
 import {ApiTags} from '@nestjs/swagger';
 
