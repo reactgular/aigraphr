@@ -1,25 +1,39 @@
-import {
-    ProjectCreateDto,
-    ProjectDto,
-    ProjectEntity,
-    ProjectUpdateDto
-} from '@/entities/project.entity';
+import {ProjectDto} from '@/entities/project.entity';
 import {ProjectsService} from '@/projects/services/projects.service';
-import {createCrudController} from '@/scaffold/controllers/scaffold-crud.controller';
-import {Controller, Logger} from '@nestjs/common';
+import {ScaffoldGet, ScaffoldGetType} from '@/scaffold/decorators/scaffold-get';
+import {
+    ScaffoldIndex,
+    ScaffoldIndexType
+} from '@/scaffold/decorators/scaffold-index';
+import {Controller} from '@nestjs/common';
 import {ApiTags} from '@nestjs/swagger';
+
+const Index = ScaffoldIndex(ProjectDto);
+type Index = ScaffoldIndexType<ProjectDto>;
+
+const Get = ScaffoldGet(ProjectDto);
+type Get = ScaffoldGetType<ProjectDto>;
 
 @ApiTags('Projects')
 @Controller('projects')
-export class ProjectsController extends createCrudController({
-    entity: ProjectEntity,
-    getDto: ProjectDto,
-    createDto: ProjectCreateDto,
-    updateDto: ProjectUpdateDto
-}) {
-    private readonly log = new Logger(ProjectsController.name);
+export class ProjectsController {
+    public constructor(private readonly projects: ProjectsService) {}
 
-    public constructor(private readonly projects: ProjectsService) {
-        super(projects);
+    @Index.Method()
+    public async index(
+        @Index.Param() params: Index['Param'],
+        @Index.Query() query: Index['Query'],
+        @Index.Body() body: Index['Body']
+    ): Index['Response'] {
+        return await this.projects.findAll();
+    }
+
+    @Get.Method()
+    public async get(
+        @Get.Param() params: Get['Param'],
+        @Get.Query() query: Get['Query'],
+        @Get.Body() body: Get['Body']
+    ): Get['Response'] {
+        return await this.projects.findAll();
     }
 }

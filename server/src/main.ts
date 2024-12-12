@@ -1,9 +1,10 @@
 import {EnvConfig} from '@/configs/env.config';
 import {MainModule} from '@/main.module';
+import {scaffoldValidationPipe} from '@/scaffold/pipes/scaffold-validation.pipe';
 import {swaggerApiDocument} from '@/swagger/swagger-api-document';
 import {swaggerApiSave} from '@/swagger/swagger-api-save';
 import {swaggerApiSetup} from '@/swagger/swagger-api-setup';
-import {Logger, ValidationPipe} from '@nestjs/common';
+import {Logger} from '@nestjs/common';
 import {ConfigService} from '@nestjs/config';
 import {NestFactory} from '@nestjs/core';
 import {NextFunction, Request, Response} from 'express';
@@ -34,17 +35,7 @@ async function bootstrap() {
 
     const app = await NestFactory.create(MainModule);
     app.enableCors();
-    app.useGlobalPipes(
-        new ValidationPipe({
-            // Allow only parameters specified in the endpoint
-            whitelist: true,
-            // Throws error if unknown parameter is provided
-            forbidNonWhitelisted: true,
-            // implicit type conversion of request params in the DTO
-            transform: true,
-            transformOptions: {enableImplicitConversion: true}
-        })
-    );
+    app.useGlobalPipes(scaffoldValidationPipe());
     app.enableShutdownHooks();
 
     const config = app.get(ConfigService<EnvConfig>);

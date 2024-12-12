@@ -69,7 +69,6 @@ export function createCrudController<
             name: 'id'
         })
         @ApiOperation({summary: `Get ${name} by ID`})
-        @ApiOperation({summary: `Get ${name} by ID`})
         @ApiNotFoundResponse({description: `${name} not found`})
         @DtoResponse(GetDto)
         public async get(
