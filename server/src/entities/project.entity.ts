@@ -1,6 +1,6 @@
 import {IsProfileName} from '@/projects/decorators/is-profile-name.decorator';
 import {ScaffoldEntity} from '@/scaffold/models/scaffold.entity';
-import {ApiProperty, OmitType} from '@nestjs/swagger';
+import {ApiProperty, OmitType, PartialType} from '@nestjs/swagger';
 import {IsBoolean, IsString} from 'class-validator';
 import {Column, Entity} from 'typeorm';
 
@@ -30,4 +30,6 @@ export class ProjectCreateDto extends OmitType(ProjectDto, [
     'open'
 ] as const) {}
 
-export class ProjectUpdateDto extends OmitType(ProjectDto, ['id'] as const) {}
+export class ProjectUpdateDto extends PartialType(
+    OmitType(ProjectDto, ['id'] as const)
+) {}

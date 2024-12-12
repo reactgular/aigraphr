@@ -17,6 +17,10 @@ import {
     ScaffoldCreate,
     ScaffoldCreateType
 } from '../decorators/scaffold-create';
+import {
+    ScaffoldUpdate,
+    ScaffoldUpdateType
+} from '../decorators/scaffold-update';
 
 export interface ScaffoldCrudOptions<
     TDto extends ScaffoldDto,
@@ -46,6 +50,12 @@ export function createCrudController<
     const Create = ScaffoldCreate(CreateDto, GetDto);
     type Create = ScaffoldCreateType<
         InstanceType<typeof CreateDto>,
+        InstanceType<typeof GetDto>
+    >;
+
+    const Update = ScaffoldUpdate(UpdateDto, GetDto);
+    type Update = ScaffoldUpdateType<
+        InstanceType<typeof UpdateDto>,
         InstanceType<typeof GetDto>
     >;
 
@@ -87,6 +97,15 @@ export function createCrudController<
             @Create.Body() body: Create['Body']
         ): Create['Response'] {
             return this.scaffoldCrud.create(params, query, body);
+        }
+
+        @Update.Method()
+        public async update(
+            @Update.Param() params: Update['Param'],
+            @Update.Query() query: Update['Query'],
+            @Update.Body() body: Update['Body']
+        ): Update['Response'] {
+            return this.scaffoldCrud.update(params, query, body);
         }
 
         @Delete.Method()

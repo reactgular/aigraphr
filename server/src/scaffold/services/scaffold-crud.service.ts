@@ -2,6 +2,7 @@ import {ScaffoldCreateType} from '@/scaffold/decorators/scaffold-create';
 import {ScaffoldDeleteType} from '@/scaffold/decorators/scaffold-delete';
 import {ScaffoldGetType} from '@/scaffold/decorators/scaffold-get';
 import {ScaffoldIndexType} from '@/scaffold/decorators/scaffold-index';
+import {ScaffoldUpdateType} from '@/scaffold/decorators/scaffold-update';
 import {ScaffoldDtoService} from '@/scaffold/services/scaffold-dto.service';
 import {
     ScaffoldEntity,
@@ -51,6 +52,17 @@ export class ScaffoldCrudService<
             this.scaffoldDto.fromCreateDto(body)
         );
         return this.scaffoldDto.toGetDto(entity);
+    }
+
+    public async update(
+        params: ScaffoldUpdateType<TUpdateDto, TGetDto>['Param'],
+        query: ScaffoldUpdateType<TUpdateDto, TGetDto>['Query'],
+        body: ScaffoldUpdateType<TUpdateDto, TGetDto>['Body']
+    ): ScaffoldUpdateType<TUpdateDto, TGetDto>['Response'] {
+        await this.scaffoldEntity.update(params.id, body as any);
+        return this.scaffoldDto.toGetDto(
+            await this.scaffoldEntity.findOneOrThrow(params.id)
+        );
     }
 
     public async remove(
