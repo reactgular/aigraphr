@@ -1,41 +1,35 @@
-import {ProjectRequest} from '@/projects/gaurds/project.request';
 import {ProjectsService} from '@/projects/services/projects.service';
 import {
     CanActivate,
     ExecutionContext,
     Injectable,
     Logger,
-    NotFoundException
+    Scope
 } from '@nestjs/common';
+import {Request} from 'express';
 
 function isNumeric(value: string): boolean {
     return !isNaN(parseInt(value, 10));
 }
 
-@Injectable()
+/**
+ * @todo we could use the ProjectEntityService to check if the project exists
+ */
+@Injectable({scope: Scope.REQUEST})
 export class ProjectGuard implements CanActivate {
     private readonly log = new Logger('ProjectGuard');
 
-    public constructor(private readonly projects: ProjectsService) {
-        //
-    }
+    public constructor(private readonly projects: ProjectsService) {}
 
     public async canActivate(execContext: ExecutionContext): Promise<boolean> {
-        const request = execContext.switchToHttp().getRequest<ProjectRequest>();
+        const request = execContext
+            .switchToHttp()
+            .getRequest<Request<{projectId?: string}>>();
         const param = request.params.projectId;
 
         if (param && isNumeric(param)) {
             const projectId = parseInt(param, 10);
-            const project = await this.projects.findOne(projectId);
-
-            if (project) {
-                request.context = {projectId, project};
-                return true;
-            }
-
-            throw new NotFoundException(
-                `Project with ID ${request.context.projectId} does not exist`
-            );
+            return await this.projects.exists(projectId);
         }
 
         this.log.warn('Project ID is not a number');

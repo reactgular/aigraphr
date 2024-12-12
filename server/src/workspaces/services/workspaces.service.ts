@@ -4,7 +4,7 @@ import {
     WorkspaceEntity,
     WorkspaceUpdateDto
 } from '@/projects/entities/workspace.entity';
-import {WORKSPACES_REPOSITORY} from '@/projects/services/project-repositories';
+import {WORKSPACES_REPOSITORY} from '@/projects/project-symbols';
 import {ScaffoldCrudDtoService} from '@/scaffold/services/scaffold-crud-dto.service';
 import {ScaffoldEntityService} from '@/scaffold/services/scaffold-entity.service';
 import {Inject, Injectable, Logger} from '@nestjs/common';

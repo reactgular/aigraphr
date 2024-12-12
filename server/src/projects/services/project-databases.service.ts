@@ -1,9 +1,7 @@
-import {ProjectEntity} from '@/entities/project.entity';
 import {WorkspaceEntity} from '@/projects/entities/workspace.entity';
-import {ProjectRequest} from '@/projects/gaurds/project.request';
+import {ProjectEntityService} from '@/projects/services/project-entity.service';
 import {ProjectsStorageService} from '@/projects/services/projects-storage.service';
-import {Inject, Injectable, Logger, Scope} from '@nestjs/common';
-import {REQUEST} from '@nestjs/core';
+import {Injectable, Logger, Scope} from '@nestjs/common';
 import {DataSource, Repository} from 'typeorm';
 
 @Injectable({
@@ -14,32 +12,27 @@ export class ProjectDatabasesService {
 
     private dataSource?: DataSource;
 
-    private readonly project: ProjectEntity;
-
     public constructor(
-        @Inject(REQUEST) request: ProjectRequest,
-        private readonly projectsStorage: ProjectsStorageService
-    ) {
-        this.project = request.context.project;
-    }
+        private readonly projectsStorage: ProjectsStorageService,
+        private readonly projectEntity: ProjectEntityService
+    ) {}
 
-    public async workspaces(): Promise<Repository<WorkspaceEntity>> {
+    public async workspaces(): Promise<Repository<WorkspaceEntity> | null> {
         return (await this.connection()).getRepository(WorkspaceEntity);
     }
 
     protected async connection(): Promise<DataSource> {
         if (!this.dataSource) {
-            this.log.warn(__dirname);
-            throw new Error('debugging');
-
+            const project = await this.projectEntity.getProjectOrThrow();
             this.dataSource = new DataSource({
                 type: 'sqlite',
-                database: await this.projectsStorage.project(this.project),
-                // TODO: is this __dirname correct?
-                entities: [`${__dirname}/entities/*.entity{.ts,.js}`],
-                subscribers: [`${__dirname}/subscribers/*.subscriber{.ts,.js}`],
+                database: await this.projectsStorage.project(project),
+                entities: [`${__dirname}/../entities/*.entity{.ts,.js}`],
+                subscribers: [
+                    `${__dirname}/../subscribers/*.subscriber{.ts,.js}`
+                ],
                 migrationsRun: true,
-                migrations: [`${__dirname}/migrations/*{.ts,.js}`]
+                migrations: [`${__dirname}/../migrations/*{.ts,.js}`]
             });
         }
         return this.dataSource!;
