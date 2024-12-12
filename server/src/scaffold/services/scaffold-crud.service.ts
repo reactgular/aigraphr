@@ -3,7 +3,7 @@ import {ScaffoldDeleteType} from '@/scaffold/decorators/scaffold-delete';
 import {ScaffoldGetType} from '@/scaffold/decorators/scaffold-get';
 import {ScaffoldIndexType} from '@/scaffold/decorators/scaffold-index';
 import {ScaffoldUpdateType} from '@/scaffold/decorators/scaffold-update';
-import {ScaffoldDtoService} from '@/scaffold/services/scaffold-dto.service';
+import {ScaffoldCrudDtoService} from '@/scaffold/services/scaffold-crud-dto.service';
 import {
     ScaffoldEntity,
     ScaffoldEntityService
@@ -17,7 +17,7 @@ export class ScaffoldCrudService<
 > {
     public constructor(
         public readonly scaffoldEntity: ScaffoldEntityService<TEntity>,
-        public readonly scaffoldDto: ScaffoldDtoService<
+        public readonly scaffoldDto: ScaffoldCrudDtoService<
             TEntity,
             TGetDto,
             TCreateDto,

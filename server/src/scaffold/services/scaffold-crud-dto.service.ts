@@ -1,4 +1,5 @@
 import {ScaffoldEntity} from '@/scaffold/services/scaffold-entity.service';
+import {ScaffoldReadDtoService} from '@/scaffold/services/scaffold-read-dto.service';
 
 /**
  * This interface bothers me, it seems like a entity transformer but it is
@@ -6,14 +7,12 @@ import {ScaffoldEntity} from '@/scaffold/services/scaffold-entity.service';
  * underlying DTOs, but they are typed differently because of the way the
  * decorators are set up.
  */
-export interface ScaffoldDtoService<
+export interface ScaffoldCrudDtoService<
     TEntity extends ScaffoldEntity,
     TGetDto extends ScaffoldEntity,
     TCreateDto extends Partial<ScaffoldEntity>,
     TUpdateDto extends Partial<ScaffoldEntity>
-> {
-    toGetDto(entity: TEntity): TGetDto;
-
+> extends ScaffoldReadDtoService<TEntity, TGetDto> {
     /**
      * @todo should return a type that omits ID
      */

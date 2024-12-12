@@ -1,12 +1,8 @@
+import {createReadController} from '@/scaffold/controllers/scaffold-read.controller';
 import {
     ScaffoldDelete,
     ScaffoldDeleteType
 } from '@/scaffold/decorators/scaffold-delete';
-import {ScaffoldGet, ScaffoldGetType} from '@/scaffold/decorators/scaffold-get';
-import {
-    ScaffoldIndex,
-    ScaffoldIndexType
-} from '@/scaffold/decorators/scaffold-index';
 import {ScaffoldCrudService} from '@/scaffold/services/scaffold-crud.service';
 import {
     ScaffoldDto,
@@ -22,11 +18,7 @@ import {
     ScaffoldUpdateType
 } from '../decorators/scaffold-update';
 
-export interface ScaffoldCrudOptions<
-    TDto extends ScaffoldDto,
-    TEntity extends ScaffoldEntity
-> {
-    entity: Type<TEntity>;
+export interface ScaffoldCrudOptions<TDto extends ScaffoldDto> {
     getDto: Type<TDto>;
     createDto: Type<Partial<TDto>>;
     updateDto: Type<Partial<TDto>>;
@@ -36,17 +28,10 @@ export function createCrudController<
     TDto extends ScaffoldEntity,
     TEntity extends ScaffoldEntity
 >({
-    entity: Entity,
     getDto: GetDto,
     createDto: CreateDto,
     updateDto: UpdateDto
-}: ScaffoldCrudOptions<TDto, TEntity>) {
-    const Index = ScaffoldIndex(GetDto);
-    type Index = ScaffoldIndexType<InstanceType<typeof GetDto>>;
-
-    const Get = ScaffoldGet(GetDto);
-    type Get = ScaffoldGetType<InstanceType<typeof GetDto>>;
-
+}: ScaffoldCrudOptions<TDto>) {
     const Create = ScaffoldCreate(CreateDto, GetDto);
     type Create = ScaffoldCreateType<
         InstanceType<typeof CreateDto>,
@@ -62,7 +47,9 @@ export function createCrudController<
     const Delete = ScaffoldDelete(GetDto);
     type Delete = ScaffoldDeleteType;
 
-    abstract class ScaffoldCrudController {
+    abstract class ScaffoldCrudController extends createReadController({
+        getDto: GetDto
+    }) {
         protected constructor(
             public readonly scaffoldCrud: ScaffoldCrudService<
                 TEntity,
@@ -70,24 +57,8 @@ export function createCrudController<
                 InstanceType<typeof CreateDto>,
                 InstanceType<typeof UpdateDto>
             >
-        ) {}
-
-        @Index.Method()
-        public async index(
-            @Index.Param() params: Index['Param'],
-            @Index.Query() query: Index['Query'],
-            @Index.Body() body: Index['Body']
-        ): Index['Response'] {
-            return this.scaffoldCrud.index(params, query, body);
-        }
-
-        @Get.Method()
-        public async get(
-            @Get.Param() params: Get['Param'],
-            @Get.Query() query: Get['Query'],
-            @Get.Body() body: Get['Body']
-        ): Get['Response'] {
-            return this.scaffoldCrud.get(params, query, body);
+        ) {
+            super(scaffoldCrud);
         }
 
         @Create.Method()

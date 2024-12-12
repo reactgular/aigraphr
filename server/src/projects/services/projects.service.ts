@@ -4,7 +4,7 @@ import {
     ProjectEntity,
     ProjectUpdateDto
 } from '@/entities/project.entity';
-import {ScaffoldDtoService} from '@/scaffold/services/scaffold-dto.service';
+import {ScaffoldCrudDtoService} from '@/scaffold/services/scaffold-crud-dto.service';
 import {ScaffoldEntityService} from '@/scaffold/services/scaffold-entity.service';
 import {Injectable, Logger} from '@nestjs/common';
 import {InjectRepository} from '@nestjs/typeorm';
@@ -14,7 +14,7 @@ import {Repository} from 'typeorm';
 export class ProjectsService
     extends ScaffoldEntityService<ProjectEntity>
     implements
-        ScaffoldDtoService<
+        ScaffoldCrudDtoService<
             ProjectEntity,
             ProjectDto,
             ProjectCreateDto,
