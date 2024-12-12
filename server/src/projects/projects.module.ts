@@ -1,5 +1,6 @@
 import {AppModule} from '@/app/app.module';
 import {ProjectEntity} from '@/entities/project.entity';
+import {WorkspacesController} from '@/projects/controllers/workspaces.controller';
 import {WORKSPACES_REPOSITORY} from '@/projects/project-symbols';
 import {ProjectDatabasesService} from '@/projects/services/project-databases.service';
 import {ProjectEntityService} from '@/projects/services/project-entity.service';
@@ -7,6 +8,7 @@ import {
     PROJECT_EXTENSION,
     ProjectsStorageService
 } from '@/projects/services/projects-storage.service';
+import {WorkspacesService} from '@/projects/services/workspaces.service';
 import {UtilsModule} from '@/utils/utils.module';
 import {Module, Scope} from '@nestjs/common';
 import {TypeOrmModule} from '@nestjs/typeorm';
@@ -18,7 +20,7 @@ import {ProjectGuard} from './gaurds/project.guard';
         TypeOrmModule.forFeature([ProjectEntity]),
         UtilsModule
     ],
-    controllers: [],
+    controllers: [WorkspacesController],
     providers: [
         ProjectGuard,
         {
@@ -34,7 +36,8 @@ import {ProjectGuard} from './gaurds/project.guard';
                 databases.workspaces(),
             inject: [ProjectDatabasesService]
         },
-        ProjectEntityService
+        ProjectEntityService,
+        WorkspacesService
     ],
     exports: [
         ProjectGuard,
