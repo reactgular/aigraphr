@@ -17,8 +17,8 @@ import {Controller} from '@nestjs/common';
 import {ApiTags} from '@nestjs/swagger';
 import {ProjectsService} from '../services/projects.service';
 
-@ApiTags('App')
-@Controller('app/projects')
+@ApiTags('Projects')
+@Controller('projects')
 export class ProjectsController {
     public constructor(private readonly projects: ProjectsService) {
         //
