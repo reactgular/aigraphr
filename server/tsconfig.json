@@ -20,11 +20,17 @@
         },
         "incremental": true,
         "skipLibCheck": true,
-        "strictNullChecks": false,
-        "noImplicitAny": false,
-        "strictBindCallApply": false,
+        "noImplicitAny": true,
         "forceConsistentCasingInFileNames": false,
         "noFallthroughCasesInSwitch": false,
-        "preserveWatchOutput": true
+        "preserveWatchOutput": true,
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "strict": true,
+        "strictNullChecks": true,
+        "strictPropertyInitialization": false,
+        "strictBindCallApply": true,
+        "noImplicitReturns": true,
+        "useUnknownInCatchVariables": true
     }
 }

@@ -2,56 +2,267 @@
 
 import {createClient, createConfig, type Options} from '@hey-api/client-fetch';
 import type {
-    AppControllerRemoveData,
-    AppControllerGetHelloData,
-    AppControllerPatchData,
-    AppControllerCreateData,
-    AppControllerPutData
+    ProjectsIndexData,
+    ProjectsIndexResponse,
+    ProjectsCreateData,
+    ProjectsCreateResponse,
+    ProjectsRemoveData,
+    ProjectsGetData,
+    ProjectsGetResponse,
+    ProjectsUpdateData,
+    ProjectsUpdateResponse,
+    AppRemoveData,
+    AppRemoveResponse,
+    AppGetHelloData,
+    AppGetHelloResponse,
+    AppPatchData,
+    AppPatchResponse,
+    AppCreateData,
+    AppCreateResponse,
+    AppPutData,
+    AppPutResponse,
+    WorkspacesIndexData,
+    WorkspacesIndexResponse,
+    WorkspacesCreateData,
+    WorkspacesCreateResponse,
+    WorkspacesRemoveData,
+    WorkspacesGetData,
+    WorkspacesGetResponse,
+    WorkspacesUpdateData,
+    WorkspacesUpdateResponse
 } from './types.gen';
 
 export const client = createClient(createConfig());
 
-export const appControllerRemove = <ThrowOnError extends boolean = false>(
-    options?: Options<AppControllerRemoveData, ThrowOnError>
+/**
+ * List all Project
+ */
+export const projectsIndex = <ThrowOnError extends boolean = false>(
+    options?: Options<ProjectsIndexData, ThrowOnError>
+) => {
+    return (options?.client ?? client).get<
+        ProjectsIndexResponse,
+        unknown,
+        ThrowOnError
+    >({
+        ...options,
+        url: '/projects'
+    });
+};
+
+/**
+ * Create a new ProjectCreate.
+ */
+export const projectsCreate = <ThrowOnError extends boolean = false>(
+    options: Options<ProjectsCreateData, ThrowOnError>
+) => {
+    return (options?.client ?? client).post<
+        ProjectsCreateResponse,
+        unknown,
+        ThrowOnError
+    >({
+        ...options,
+        headers: {
+            'Content-Type': 'application/json',
+            ...options?.headers
+        },
+        url: '/projects'
+    });
+};
+
+/**
+ * Delete Project by ID
+ */
+export const projectsRemove = <ThrowOnError extends boolean = false>(
+    options: Options<ProjectsRemoveData, ThrowOnError>
 ) => {
     return (options?.client ?? client).delete<unknown, unknown, ThrowOnError>({
         ...options,
-        url: '/'
+        url: '/projects/{id}'
     });
 };
 
-export const appControllerGetHello = <ThrowOnError extends boolean = false>(
-    options?: Options<AppControllerGetHelloData, ThrowOnError>
+/**
+ * Get Project by ID
+ */
+export const projectsGet = <ThrowOnError extends boolean = false>(
+    options: Options<ProjectsGetData, ThrowOnError>
 ) => {
-    return (options?.client ?? client).get<unknown, unknown, ThrowOnError>({
+    return (options?.client ?? client).get<
+        ProjectsGetResponse,
+        unknown,
+        ThrowOnError
+    >({
+        ...options,
+        url: '/projects/{id}'
+    });
+};
+
+/**
+ * Updates a ProjectUpdate.
+ */
+export const projectsUpdate = <ThrowOnError extends boolean = false>(
+    options: Options<ProjectsUpdateData, ThrowOnError>
+) => {
+    return (options?.client ?? client).patch<
+        ProjectsUpdateResponse,
+        unknown,
+        ThrowOnError
+    >({
+        ...options,
+        headers: {
+            'Content-Type': 'application/json',
+            ...options?.headers
+        },
+        url: '/projects/{id}'
+    });
+};
+
+export const appRemove = <ThrowOnError extends boolean = false>(
+    options?: Options<AppRemoveData, ThrowOnError>
+) => {
+    return (options?.client ?? client).delete<
+        AppRemoveResponse,
+        unknown,
+        ThrowOnError
+    >({
         ...options,
         url: '/'
     });
 };
 
-export const appControllerPatch = <ThrowOnError extends boolean = false>(
-    options?: Options<AppControllerPatchData, ThrowOnError>
+export const appGetHello = <ThrowOnError extends boolean = false>(
+    options?: Options<AppGetHelloData, ThrowOnError>
 ) => {
-    return (options?.client ?? client).patch<unknown, unknown, ThrowOnError>({
+    return (options?.client ?? client).get<
+        AppGetHelloResponse,
+        unknown,
+        ThrowOnError
+    >({
         ...options,
         url: '/'
     });
 };
 
-export const appControllerCreate = <ThrowOnError extends boolean = false>(
-    options?: Options<AppControllerCreateData, ThrowOnError>
+export const appPatch = <ThrowOnError extends boolean = false>(
+    options?: Options<AppPatchData, ThrowOnError>
 ) => {
-    return (options?.client ?? client).post<unknown, unknown, ThrowOnError>({
+    return (options?.client ?? client).patch<
+        AppPatchResponse,
+        unknown,
+        ThrowOnError
+    >({
         ...options,
         url: '/'
     });
 };
 
-export const appControllerPut = <ThrowOnError extends boolean = false>(
-    options?: Options<AppControllerPutData, ThrowOnError>
+export const appCreate = <ThrowOnError extends boolean = false>(
+    options?: Options<AppCreateData, ThrowOnError>
 ) => {
-    return (options?.client ?? client).put<unknown, unknown, ThrowOnError>({
+    return (options?.client ?? client).post<
+        AppCreateResponse,
+        unknown,
+        ThrowOnError
+    >({
         ...options,
         url: '/'
+    });
+};
+
+export const appPut = <ThrowOnError extends boolean = false>(
+    options?: Options<AppPutData, ThrowOnError>
+) => {
+    return (options?.client ?? client).put<
+        AppPutResponse,
+        unknown,
+        ThrowOnError
+    >({
+        ...options,
+        url: '/'
+    });
+};
+
+/**
+ * List all Workspace
+ */
+export const workspacesIndex = <ThrowOnError extends boolean = false>(
+    options?: Options<WorkspacesIndexData, ThrowOnError>
+) => {
+    return (options?.client ?? client).get<
+        WorkspacesIndexResponse,
+        unknown,
+        ThrowOnError
+    >({
+        ...options,
+        url: '/projects/{projectId}/workspaces'
+    });
+};
+
+/**
+ * Create a new WorkspaceCreate.
+ */
+export const workspacesCreate = <ThrowOnError extends boolean = false>(
+    options: Options<WorkspacesCreateData, ThrowOnError>
+) => {
+    return (options?.client ?? client).post<
+        WorkspacesCreateResponse,
+        unknown,
+        ThrowOnError
+    >({
+        ...options,
+        headers: {
+            'Content-Type': 'application/json',
+            ...options?.headers
+        },
+        url: '/projects/{projectId}/workspaces'
+    });
+};
+
+/**
+ * Delete Workspace by ID
+ */
+export const workspacesRemove = <ThrowOnError extends boolean = false>(
+    options: Options<WorkspacesRemoveData, ThrowOnError>
+) => {
+    return (options?.client ?? client).delete<unknown, unknown, ThrowOnError>({
+        ...options,
+        url: '/projects/{projectId}/workspaces/{id}'
+    });
+};
+
+/**
+ * Get Workspace by ID
+ */
+export const workspacesGet = <ThrowOnError extends boolean = false>(
+    options: Options<WorkspacesGetData, ThrowOnError>
+) => {
+    return (options?.client ?? client).get<
+        WorkspacesGetResponse,
+        unknown,
+        ThrowOnError
+    >({
+        ...options,
+        url: '/projects/{projectId}/workspaces/{id}'
+    });
+};
+
+/**
+ * Updates a WorkspaceUpdate.
+ */
+export const workspacesUpdate = <ThrowOnError extends boolean = false>(
+    options: Options<WorkspacesUpdateData, ThrowOnError>
+) => {
+    return (options?.client ?? client).patch<
+        WorkspacesUpdateResponse,
+        unknown,
+        ThrowOnError
+    >({
+        ...options,
+        headers: {
+            'Content-Type': 'application/json',
+            ...options?.headers
+        },
+        url: '/projects/{projectId}/workspaces/{id}'
     });
 };

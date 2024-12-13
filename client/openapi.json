@@ -1,13 +1,170 @@
 {
     "openapi": "3.0.0",
     "paths": {
-        "/": {
+        "/projects": {
+            "post": {
+                "operationId": "Projects_create",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProjectCreateDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProjectDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Create a new ProjectCreate.",
+                "tags": [
+                    "Projects"
+                ]
+            },
             "get": {
-                "operationId": "AppController_getHello",
+                "operationId": "Projects_index",
                 "parameters": [],
                 "responses": {
                     "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ProjectDto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "List all Project",
+                "tags": [
+                    "Projects"
+                ]
+            }
+        },
+        "/projects/{id}": {
+            "patch": {
+                "operationId": "Projects_update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProjectUpdateDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProjectDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Updates a ProjectUpdate.",
+                "tags": [
+                    "Projects"
+                ]
+            },
+            "delete": {
+                "operationId": "Projects_remove",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
                         "description": ""
+                    },
+                    "404": {
+                        "description": "Project not found"
+                    }
+                },
+                "summary": "Delete Project by ID",
+                "tags": [
+                    "Projects"
+                ]
+            },
+            "get": {
+                "operationId": "Projects_get",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProjectDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Get Project by ID",
+                "tags": [
+                    "Projects"
+                ]
+            }
+        },
+        "/": {
+            "get": {
+                "operationId": "App_getHello",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
                     }
                 },
                 "tags": [
@@ -15,11 +172,18 @@
                 ]
             },
             "post": {
-                "operationId": "AppController_create",
+                "operationId": "App_create",
                 "parameters": [],
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
                     }
                 },
                 "tags": [
@@ -27,11 +191,18 @@
                 ]
             },
             "delete": {
-                "operationId": "AppController_remove",
+                "operationId": "App_remove",
                 "parameters": [],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
                     }
                 },
                 "tags": [
@@ -39,11 +210,18 @@
                 ]
             },
             "patch": {
-                "operationId": "AppController_patch",
+                "operationId": "App_patch",
                 "parameters": [],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
                     }
                 },
                 "tags": [
@@ -51,15 +229,172 @@
                 ]
             },
             "put": {
-                "operationId": "AppController_put",
+                "operationId": "App_put",
                 "parameters": [],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
                     }
                 },
                 "tags": [
                     "App"
+                ]
+            }
+        },
+        "/projects/{projectId}/workspaces": {
+            "post": {
+                "operationId": "Workspaces_create",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/WorkspaceCreateDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WorkspaceDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Create a new WorkspaceCreate.",
+                "tags": [
+                    "Workspaces"
+                ]
+            },
+            "get": {
+                "operationId": "Workspaces_index",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/WorkspaceDto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "List all Workspace",
+                "tags": [
+                    "Workspaces"
+                ]
+            }
+        },
+        "/projects/{projectId}/workspaces/{id}": {
+            "patch": {
+                "operationId": "Workspaces_update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/WorkspaceUpdateDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WorkspaceDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Updates a WorkspaceUpdate.",
+                "tags": [
+                    "Workspaces"
+                ]
+            },
+            "delete": {
+                "operationId": "Workspaces_remove",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "404": {
+                        "description": "Workspace not found"
+                    }
+                },
+                "summary": "Delete Workspace by ID",
+                "tags": [
+                    "Workspaces"
+                ]
+            },
+            "get": {
+                "operationId": "Workspaces_get",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WorkspaceDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Get Workspace by ID",
+                "tags": [
+                    "Workspaces"
                 ]
             }
         }
@@ -80,6 +415,120 @@
                 "type": "http"
             }
         },
-        "schemas": {}
+        "schemas": {
+            "ProjectCreateDto": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the project (alphanumeric)",
+                        "example": "example-project"
+                    },
+                    "test": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name",
+                    "test"
+                ]
+            },
+            "ProjectDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number",
+                        "example": 1234
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the project (alphanumeric)",
+                        "example": "example-project"
+                    },
+                    "open": {
+                        "type": "boolean",
+                        "description": "The open status of the project"
+                    },
+                    "test": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "open",
+                    "test"
+                ]
+            },
+            "ProjectUpdateDto": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the project (alphanumeric)",
+                        "example": "example-project"
+                    },
+                    "open": {
+                        "type": "boolean",
+                        "description": "The open status of the project"
+                    },
+                    "test": {
+                        "type": "string"
+                    }
+                }
+            },
+            "WorkspaceCreateDto": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the project (alphanumeric)",
+                        "example": "example-project"
+                    },
+                    "test": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name",
+                    "test"
+                ]
+            },
+            "WorkspaceDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number",
+                        "example": 1234
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the project (alphanumeric)",
+                        "example": "example-project"
+                    },
+                    "test": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "test"
+                ]
+            },
+            "WorkspaceUpdateDto": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the project (alphanumeric)",
+                        "example": "example-project"
+                    },
+                    "test": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
     }
 }

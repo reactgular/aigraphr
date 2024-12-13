@@ -1,19 +1,23 @@
+import {EnvConfig} from '@/configs/env.config';
 import {MainModule} from '@/main.module';
+import {scaffoldValidationPipe} from '@/scaffold/pipes/scaffold-validation.pipe';
 import {swaggerApiDocument} from '@/swagger/swagger-api-document';
 import {swaggerApiSave} from '@/swagger/swagger-api-save';
 import {swaggerApiSetup} from '@/swagger/swagger-api-setup';
-import {Logger, ValidationPipe} from '@nestjs/common';
+import {Logger} from '@nestjs/common';
+import {ConfigService} from '@nestjs/config';
 import {NestFactory} from '@nestjs/core';
 import {NextFunction, Request, Response} from 'express';
 import * as process from 'process';
 
-const specPath = (function (argv: Array<string>) {
+const specPath = (function (argv: Array<string>): string | undefined {
     for (const arg of argv) {
         if (arg.startsWith('--openapi=')) {
             const [, value] = arg.split('=');
             return value;
         }
     }
+    return undefined;
 })([...process.argv]);
 
 const production = process.env.NODE_ENV === 'production';
@@ -27,21 +31,15 @@ if (production && specPath) {
 async function bootstrap() {
     const port = process.env.PORT ? parseInt(process.env.PORT) : 3030;
 
-    const logger = new Logger('bootstrap');
+    const log = new Logger('bootstrap');
 
     const app = await NestFactory.create(MainModule);
     app.enableCors();
-    app.useGlobalPipes(
-        new ValidationPipe({
-            // Allow only parameters specified in the endpoint
-            whitelist: true,
-            // Throws error if unknown parameter is provided
-            forbidNonWhitelisted: true,
-            // implicit type conversion of request params in the DTO
-            transform: true,
-            transformOptions: {enableImplicitConversion: true}
-        })
-    );
+    app.useGlobalPipes(scaffoldValidationPipe());
+    app.enableShutdownHooks();
+
+    const config = app.get(ConfigService<EnvConfig>);
+    log.log(`🔧 PROJECTS_FOLDER: ${config.get('PROJECTS_FOLDER')}`);
 
     // DEBUG: This is for debugging on prod server
     // app.useLogger(new Logger('Debug'));
@@ -80,7 +78,7 @@ async function bootstrap() {
             swaggerApiSetup({
                 app,
                 document,
-                path: 'api',
+                path: 'swagger',
                 port
             });
         }
@@ -89,13 +87,13 @@ async function bootstrap() {
     if (production || !specPath) {
         await app.listen(port, '0.0.0.0');
 
-        logger.log(
+        log.log(
             `🔥 AIGraphr is running on: http://${
                 production ? '0.0.0.0' : 'localhost'
             }:${port}/`
         );
     } else {
-        logger.warn('⚠️ API is exiting without starting.');
+        log.warn('⚠️ API is exiting without starting.');
     }
 }
 
