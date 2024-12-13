@@ -1,7 +1,7 @@
 import {ScaffoldEntity} from '@/_deprecated/scaffold-entity.service';
 import {ScaffoldParam} from '@/_deprecated/scaffold-param';
 import {ScaResponse} from '@/scaffold/decorators/sca-response';
-import {ScaffoldIdDto} from '@/scaffold/dtos/scaffold-id.dto';
+import {ScaIdDto} from '@/scaffold/dtos/sca-id.dto';
 import {scaValidationPipe} from '@/scaffold/pipes/sca-validation.pipe';
 import {
     applyDecorators,
@@ -20,7 +20,7 @@ const defaultParam = {
             name: 'id'
         })
     ],
-    param: [scaValidationPipe(ScaffoldIdDto)],
+    param: [scaValidationPipe(ScaIdDto)],
     query: [],
     body: []
 } satisfies ScaffoldParam;
@@ -70,7 +70,7 @@ export function ScaffoldUpdate<
 export type ScaffoldUpdateType<
     TUpdateDto extends Partial<ScaffoldEntity>,
     TGetDto extends ScaffoldEntity,
-    TParam extends ScaffoldIdDto = ScaffoldIdDto
+    TParam extends ScaIdDto = ScaIdDto
 > = {
     Param: TParam;
     Query: never;

@@ -1,4 +1,4 @@
-import {ScaffoldResponseInterceptor} from '@/scaffold/interceptors/scaffold-response.interceptor';
+import {ScaResponseInterceptor} from '@/scaffold/interceptors/sca-response.interceptor';
 import {
     CallHandler,
     ExecutionContext,
@@ -11,8 +11,8 @@ import {Observable} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
 
 @Injectable()
-export class ScaffoldArrayResponseInterceptor<T extends object>
-    extends ScaffoldResponseInterceptor<T>
+export class ScaArrayResponseInterceptor<T extends object>
+    extends ScaResponseInterceptor<T>
     implements NestInterceptor<T[], T[]>
 {
     public constructor(dto: Type<T>) {

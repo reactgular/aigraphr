@@ -3,11 +3,11 @@ import {
     ScaPaginateResponse
 } from '@/scaffold/decorators/sca-paginate';
 import {ScaConstructor, ScaEmptyBase} from '@/scaffold/mixins/sca.mixin';
-import {ScaffoldEntity} from '@/scaffold/models/scaffold.entity';
+import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {Type} from '@nestjs/common';
 
 export function scaPaginateMixin<
-    TDo extends ScaffoldEntity,
+    TDo extends ScaEntity,
     TBase extends ScaConstructor
 >(dto: Type<TDo>, Base: TBase = ScaEmptyBase as TBase) {
     class ScaPaginateClass extends Base {

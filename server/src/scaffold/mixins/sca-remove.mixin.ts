@@ -1,11 +1,11 @@
 import {ScaParamId} from '@/scaffold/decorators/sca-param-id';
 import {ScaRemove, ScaRemoveResponse} from '@/scaffold/decorators/sca-remove';
 import {ScaConstructor, ScaEmptyBase} from '@/scaffold/mixins/sca.mixin';
-import {ScaffoldEntity} from '@/scaffold/models/scaffold.entity';
+import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {Type} from '@nestjs/common';
 
 export function scaRemoveMixin<
-    TDo extends ScaffoldEntity,
+    TDo extends ScaEntity,
     TBase extends ScaConstructor
 >(dto: Type<TDo>, Base: TBase = ScaEmptyBase as TBase) {
     class ScaRemoveClass extends Base {

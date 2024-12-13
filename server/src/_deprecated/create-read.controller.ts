@@ -6,7 +6,7 @@ import {ScaffoldGet, ScaffoldGetType} from '@/_deprecated/scaffold-get';
 import {ScaffoldIndex, ScaffoldIndexType} from '@/_deprecated/scaffold-index';
 import {ScaffoldParam} from '@/_deprecated/scaffold-param';
 import {ScaffoldReadService} from '@/_deprecated/scaffold-read.service';
-import {ScaffoldEmptyDto} from '@/scaffold/dtos/scaffold-empty';
+import {ScaffoldEmptyDto} from '@/scaffold/dtos/sca-empty';
 import {Type} from '@nestjs/common';
 
 /**

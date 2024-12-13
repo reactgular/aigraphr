@@ -2,11 +2,11 @@ import {ScaBody} from '@/scaffold/decorators/sca-body';
 import {ScaParamId} from '@/scaffold/decorators/sca-param-id';
 import {ScaUpdate, ScaUpdateResponse} from '@/scaffold/decorators/sca-update';
 import {ScaConstructor, ScaEmptyBase} from '@/scaffold/mixins/sca.mixin';
-import {ScaffoldEntity} from '@/scaffold/models/scaffold.entity';
+import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {Type} from '@nestjs/common';
 
 export function scaUpdateMixin<
-    TDo extends ScaffoldEntity,
+    TDo extends ScaEntity,
     TUpdateDto extends object,
     TBase extends ScaConstructor
 >(

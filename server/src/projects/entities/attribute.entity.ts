@@ -1,10 +1,10 @@
-import {ScaffoldEntity} from '@/scaffold/models/scaffold.entity';
+import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {OmitType, PartialType} from '@nestjs/swagger';
 import {IsString} from 'class-validator';
 import {Column, Entity} from 'typeorm';
 
 @Entity({name: 'attributes'})
-export class AttributeEntity extends ScaffoldEntity {
+export class AttributeEntity extends ScaEntity {
     @IsString()
     @Column()
     test: string;

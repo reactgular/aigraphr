@@ -1,5 +1,5 @@
-import {ScaffoldArrayResponseInterceptor} from '@/scaffold/interceptors/scaffold-array-response.interceptor';
-import {ScaffoldObjectResponseInterceptor} from '@/scaffold/interceptors/scaffold-object-response.interceptor';
+import {ScaArrayResponseInterceptor} from '@/scaffold/interceptors/sca-array-response.interceptor';
+import {ScaObjectResponseInterceptor} from '@/scaffold/interceptors/sca-object-response.interceptor';
 import {
     applyDecorators,
     InternalServerErrorException,
@@ -18,11 +18,11 @@ function isOneObject<T>(object: T | [T]): object is T {
 export function ScaResponse<T extends object>(dto: Type<T> | [Type<T>]) {
     if (isOneElementArray(dto)) {
         return applyDecorators(
-            UseInterceptors(new ScaffoldArrayResponseInterceptor<T>(dto[0]))
+            UseInterceptors(new ScaArrayResponseInterceptor<T>(dto[0]))
         );
     } else if (isOneObject(dto)) {
         return applyDecorators(
-            UseInterceptors(new ScaffoldObjectResponseInterceptor<T>(dto))
+            UseInterceptors(new ScaObjectResponseInterceptor<T>(dto))
         );
     }
 

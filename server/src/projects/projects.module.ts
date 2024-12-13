@@ -3,6 +3,7 @@ import {ProjectEntity} from '@/entities/project.entity';
 import {AttributesController} from '@/projects/controllers/attributes.controller';
 import {EdgesController} from '@/projects/controllers/edges.controller';
 import {NodesController} from '@/projects/controllers/nodes.controller';
+import {ProjectsController} from '@/projects/controllers/projects.controller';
 import {WorkspacesController} from '@/projects/controllers/workspaces.controller';
 import {AttributeEntity} from '@/projects/entities/attribute.entity';
 import {EdgeEntity} from '@/projects/entities/edge.entity';
@@ -23,6 +24,7 @@ import {
     PROJECT_EXTENSION,
     ProjectsStorageService
 } from '@/projects/services/projects-storage.service';
+import {ProjectsService} from '@/projects/services/projects.service';
 import {WorkspacesService} from '@/projects/services/workspaces.service';
 import {UtilsModule} from '@/utils/utils.module';
 import {Module, Scope} from '@nestjs/common';
@@ -53,6 +55,7 @@ function repository<Entity extends ObjectLiteral>(
         UtilsModule
     ],
     controllers: [
+        ProjectsController,
         AttributesController,
         EdgesController,
         NodesController,
@@ -71,12 +74,14 @@ function repository<Entity extends ObjectLiteral>(
         repository(NODES_REPOSITORY, NodeEntity),
         repository(EDGES_REPOSITORY, EdgeEntity),
         repository(ATTRIBUTES_REPOSITORY, AttributeEntity),
+        ProjectsService,
         AttributesService,
         EdgesService,
         NodesService,
         WorkspacesService
     ],
     exports: [
+        ProjectsService,
         ProjectGuard,
         ProjectsStorageService,
         ProjectDatabasesService,

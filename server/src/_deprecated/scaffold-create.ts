@@ -1,7 +1,7 @@
 import {ScaffoldEntity} from '@/_deprecated/scaffold-entity.service';
 import {ScaffoldParam} from '@/_deprecated/scaffold-param';
 import {ScaResponse} from '@/scaffold/decorators/sca-response';
-import {ScaffoldEmptyDto} from '@/scaffold/dtos/scaffold-empty';
+import {ScaffoldEmptyDto} from '@/scaffold/dtos/sca-empty';
 import {scaValidationPipe} from '@/scaffold/pipes/sca-validation.pipe';
 import {
     applyDecorators,

@@ -1,10 +1,10 @@
 import {ScaResponseVoid} from '@/scaffold/decorators/sca-response-void';
-import {ScaffoldEntity} from '@/scaffold/models/scaffold.entity';
+import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {toHumanEntity} from '@/scaffold/utils/to-human.entity';
 import {applyDecorators, Delete, Type} from '@nestjs/common';
 import {ApiOperation} from '@nestjs/swagger';
 
-export function ScaRemove<T extends ScaffoldEntity>(dto: Type<T>) {
+export function ScaRemove<T extends ScaEntity>(dto: Type<T>) {
     const name = toHumanEntity(dto);
     const decorators: Array<MethodDecorator> = [
         Delete(':id'),

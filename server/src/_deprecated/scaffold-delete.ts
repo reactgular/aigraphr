@@ -1,6 +1,6 @@
 import {ScaffoldEntity} from '@/_deprecated/scaffold-entity.service';
 import {ScaffoldParam} from '@/_deprecated/scaffold-param';
-import {ScaffoldIdDto} from '@/scaffold/dtos/scaffold-id.dto';
+import {ScaIdDto} from '@/scaffold/dtos/sca-id.dto';
 import {scaValidationPipe} from '@/scaffold/pipes/sca-validation.pipe';
 import {
     applyDecorators,
@@ -19,7 +19,7 @@ const defaultParam = {
             name: 'id'
         })
     ],
-    param: [scaValidationPipe(ScaffoldIdDto)],
+    param: [scaValidationPipe(ScaIdDto)],
     query: [],
     body: []
 } satisfies ScaffoldParam;
@@ -57,7 +57,7 @@ export function ScaffoldDelete<TDto extends ScaffoldEntity>(
     return {Method, Param, Query, Body};
 }
 
-export type ScaffoldDeleteType<TParam extends ScaffoldIdDto = ScaffoldIdDto> = {
+export type ScaffoldDeleteType<TParam extends ScaIdDto = ScaIdDto> = {
     Param: TParam;
     Query: never;
     Body: never;

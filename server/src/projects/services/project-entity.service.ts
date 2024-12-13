@@ -1,5 +1,5 @@
 import {ProjectDto} from '@/entities/project.entity';
-import {ProjectsService} from '@/app/services/projects.service';
+import {ProjectsService} from '@/projects/services/projects.service';
 import {BadRequestException, Inject, Injectable, Scope} from '@nestjs/common';
 import {REQUEST} from '@nestjs/core';
 import {Request} from 'express';

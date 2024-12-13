@@ -4,11 +4,11 @@ import {scaPaginateMixin} from '@/scaffold/mixins/sca-paginate.mixin';
 import {scaRemoveMixin} from '@/scaffold/mixins/sca-remove.mixin';
 import {scaUpdateMixin} from '@/scaffold/mixins/sca-update.mixin';
 import {ScaConstructor, ScaEmptyBase} from '@/scaffold/mixins/sca.mixin';
-import {ScaffoldEntity} from '@/scaffold/models/scaffold.entity';
+import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {Type} from '@nestjs/common';
 
 export function scaCrudMixin<
-    TDo extends ScaffoldEntity,
+    TDo extends ScaEntity,
     TCreateDto extends object,
     TUpdateDto extends object,
     TBase extends ScaConstructor

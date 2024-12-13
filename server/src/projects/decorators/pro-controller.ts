@@ -3,8 +3,8 @@ import {ApiTags} from '@nestjs/swagger';
 
 export function ProController(route: string) {
     const decorators: Array<ClassDecorator> = [
-        ApiTags('Projects'),
-        Controller(`projects/:projectId/${route}`)
+        ApiTags('Editor'),
+        Controller(`editor/:projectId/${route}`)
     ];
     return applyDecorators(...decorators);
 }

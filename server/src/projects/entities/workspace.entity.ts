@@ -1,11 +1,11 @@
 import {IsProfileName} from '@/projects/decorators/is-profile-name.decorator';
-import {ScaffoldEntity} from '@/scaffold/models/scaffold.entity';
+import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {OmitType, PartialType} from '@nestjs/swagger';
 import {IsString} from 'class-validator';
 import {Column, Entity} from 'typeorm';
 
 @Entity({name: 'workspaces'})
-export class WorkspaceEntity extends ScaffoldEntity {
+export class WorkspaceEntity extends ScaEntity {
     // TODO: Just reusing this for now for testing
     @IsProfileName()
     @Column()

@@ -2,7 +2,7 @@ import {InternalServerErrorException, Type} from '@nestjs/common';
 import {instanceToPlain, plainToInstance} from 'class-transformer';
 import {validate} from 'class-validator';
 
-export abstract class ScaffoldResponseInterceptor<T extends object> {
+export abstract class ScaResponseInterceptor<T extends object> {
     protected constructor(protected readonly dto: Type<T>) {}
 
     protected isNotEmpty(data: unknown) {

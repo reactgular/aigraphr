@@ -1,11 +1,11 @@
 import {ScaGet, ScaGetResponse} from '@/scaffold/decorators/sca-get';
 import {ScaParamId} from '@/scaffold/decorators/sca-param-id';
 import {ScaConstructor, ScaEmptyBase} from '@/scaffold/mixins/sca.mixin';
-import {ScaffoldEntity} from '@/scaffold/models/scaffold.entity';
+import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {Type} from '@nestjs/common';
 
 export function scaGetMixin<
-    TDo extends ScaffoldEntity,
+    TDo extends ScaEntity,
     TBase extends ScaConstructor
 >(dto: Type<TDo>, Base: TBase = ScaEmptyBase as TBase) {
     class ScaGetClass extends Base {
