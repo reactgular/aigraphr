@@ -1,56 +1,54 @@
+import {ProController} from '@/projects/decorators/pro-controller';
 import {
     AttributeCreateDto,
     AttributeDto,
     AttributeUpdateDto
 } from '@/projects/entities/attribute.entity';
 import {AttributesService} from '@/projects/services/attributes.service';
-import {ScaResponse} from '@/scaffold/decorators/sca-response';
-import {Body, Controller, Delete, Get, Param, Post} from '@nestjs/common';
-import {ApiOperation, ApiTags} from '@nestjs/swagger';
+import {ScaBody} from '@/scaffold/decorators/sca-body';
+import {ScaCreate, ScaCreateResponse} from '@/scaffold/decorators/sca-create';
+import {ScaGet, ScaGetResponse} from '@/scaffold/decorators/sca-get';
+import {
+    ScaPaginate,
+    ScaPaginateResponse
+} from '@/scaffold/decorators/sca-paginate';
+import {ScaParamId} from '@/scaffold/decorators/sca-param-id';
+import {ScaRemove, ScaRemoveResponse} from '@/scaffold/decorators/sca-remove';
+import {ScaUpdate, ScaUpdateResponse} from '@/scaffold/decorators/sca-update';
 
-@ApiTags('Editor')
-@Controller('projects/:projectId/attributes')
+@ProController('attributes')
 export class AttributesController {
     public constructor(private readonly attributes: AttributesService) {
         //
     }
 
-    @Get()
-    @ApiOperation({summary: `List all attributes`})
-    @ScaResponse([AttributeDto])
-    public async index(): Promise<Array<AttributeDto>> {
+    @ScaPaginate(AttributeDto)
+    public async index(): ScaPaginateResponse<AttributeDto> {
         return await this.attributes.index();
     }
 
-    @Get(':id')
-    @ApiOperation({summary: `Get edge by ID`})
-    @ScaResponse(AttributeDto)
-    public async get(@Param('id') id: number): Promise<AttributeDto> {
+    @ScaGet(AttributeDto)
+    public async get(@ScaParamId() id: number): ScaGetResponse<AttributeDto> {
         return await this.attributes.get(id);
     }
 
-    @Post()
-    @ApiOperation({summary: `Create a new edge`})
-    @ScaResponse(AttributeDto)
+    @ScaCreate(AttributeDto)
     public async create(
-        @Body() data: AttributeCreateDto
-    ): Promise<AttributeDto> {
+        @ScaBody(AttributeCreateDto) data: AttributeCreateDto
+    ): ScaCreateResponse<AttributeDto> {
         return await this.attributes.create(data);
     }
 
-    @Post(':id')
-    @ApiOperation({summary: `Update a edge by ID`})
-    @ScaResponse(AttributeDto)
+    @ScaUpdate(AttributeDto)
     public async update(
-        @Param('id') id: number,
-        @Body() data: AttributeUpdateDto
-    ): Promise<AttributeDto> {
+        @ScaParamId() id: number,
+        @ScaBody(AttributeUpdateDto) data: AttributeUpdateDto
+    ): ScaUpdateResponse<AttributeDto> {
         return await this.attributes.update(id, data);
     }
 
-    @Delete(':id')
-    @ApiOperation({summary: `Delete a edge by ID`})
-    public async remove(@Param('id') id: number): Promise<void> {
-        return await this.attributes.remove(id);
+    @ScaRemove(AttributeDto)
+    public async remove(@ScaParamId() id: number): ScaRemoveResponse {
+        await this.attributes.remove(id);
     }
 }

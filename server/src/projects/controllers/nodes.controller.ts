@@ -1,54 +1,54 @@
+import {ProController} from '@/projects/decorators/pro-controller';
 import {
     NodeCreateDto,
     NodeDto,
     NodeUpdateDto
 } from '@/projects/entities/node.entity';
 import {NodesService} from '@/projects/services/nodes.service';
-import {ScaResponse} from '@/scaffold/decorators/sca-response';
-import {Body, Controller, Delete, Get, Param, Post} from '@nestjs/common';
-import {ApiOperation, ApiTags} from '@nestjs/swagger';
+import {ScaBody} from '@/scaffold/decorators/sca-body';
+import {ScaCreate, ScaCreateResponse} from '@/scaffold/decorators/sca-create';
+import {ScaGet, ScaGetResponse} from '@/scaffold/decorators/sca-get';
+import {
+    ScaPaginate,
+    ScaPaginateResponse
+} from '@/scaffold/decorators/sca-paginate';
+import {ScaParamId} from '@/scaffold/decorators/sca-param-id';
+import {ScaRemove, ScaRemoveResponse} from '@/scaffold/decorators/sca-remove';
+import {ScaUpdate, ScaUpdateResponse} from '@/scaffold/decorators/sca-update';
 
-@ApiTags('Editor')
-@Controller('projects/:projectId/nodes')
+@ProController('nodes')
 export class NodesController {
     public constructor(private readonly nodes: NodesService) {
         //
     }
 
-    @Get()
-    @ApiOperation({summary: `List all nodes`})
-    @ScaResponse([NodeDto])
-    public async index(): Promise<Array<NodeDto>> {
+    @ScaPaginate(NodeDto)
+    public async index(): ScaPaginateResponse<NodeDto> {
         return await this.nodes.index();
     }
 
-    @Get(':id')
-    @ApiOperation({summary: `Get node by ID`})
-    @ScaResponse(NodeDto)
-    public async get(@Param('id') id: number): Promise<NodeDto> {
+    @ScaGet(NodeDto)
+    public async get(@ScaParamId() id: number): ScaGetResponse<NodeDto> {
         return await this.nodes.get(id);
     }
 
-    @Post()
-    @ApiOperation({summary: `Create a new node`})
-    @ScaResponse(NodeDto)
-    public async create(@Body() data: NodeCreateDto): Promise<NodeDto> {
+    @ScaCreate(NodeDto)
+    public async create(
+        @ScaBody(NodeCreateDto) data: NodeCreateDto
+    ): ScaCreateResponse<NodeDto> {
         return await this.nodes.create(data);
     }
 
-    @Post(':id')
-    @ApiOperation({summary: `Update a node by ID`})
-    @ScaResponse(NodeDto)
+    @ScaUpdate(NodeDto)
     public async update(
-        @Param('id') id: number,
-        @Body() data: NodeUpdateDto
-    ): Promise<NodeDto> {
+        @ScaParamId() id: number,
+        @ScaBody(NodeUpdateDto) data: NodeUpdateDto
+    ): ScaUpdateResponse<NodeDto> {
         return await this.nodes.update(id, data);
     }
 
-    @Delete(':id')
-    @ApiOperation({summary: `Delete a node by ID`})
-    public async remove(@Param('id') id: number): Promise<void> {
+    @ScaRemove(NodeDto)
+    public async remove(@ScaParamId() id: number): ScaRemoveResponse {
         return await this.nodes.remove(id);
     }
 }

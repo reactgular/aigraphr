@@ -13,3 +13,5 @@ export function ScaGet<T extends ScaffoldEntity>(dto: Type<T>) {
     ];
     return applyDecorators(...decorators);
 }
+
+export type ScaGetResponse<T extends ScaffoldEntity> = Promise<T>;

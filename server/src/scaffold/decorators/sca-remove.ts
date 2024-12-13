@@ -13,3 +13,5 @@ export function ScaRemove<T extends ScaffoldEntity>(dto: Type<T>) {
     ];
     return applyDecorators(...decorators);
 }
+
+export type ScaRemoveResponse = Promise<void>;

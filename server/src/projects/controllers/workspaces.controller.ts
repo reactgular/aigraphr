@@ -1,56 +1,56 @@
+import {ProController} from '@/projects/decorators/pro-controller';
+import {NodeDto} from '@/projects/entities/node.entity';
 import {
     WorkspaceCreateDto,
     WorkspaceDto,
     WorkspaceUpdateDto
 } from '@/projects/entities/workspace.entity';
 import {WorkspacesService} from '@/projects/services/workspaces.service';
-import {ScaResponse} from '@/scaffold/decorators/sca-response';
-import {Body, Controller, Delete, Get, Param, Post} from '@nestjs/common';
-import {ApiOperation, ApiTags} from '@nestjs/swagger';
+import {ScaBody} from '@/scaffold/decorators/sca-body';
+import {ScaCreate, ScaCreateResponse} from '@/scaffold/decorators/sca-create';
+import {ScaGet, ScaGetResponse} from '@/scaffold/decorators/sca-get';
+import {
+    ScaPaginate,
+    ScaPaginateResponse
+} from '@/scaffold/decorators/sca-paginate';
+import {ScaParamId} from '@/scaffold/decorators/sca-param-id';
+import {ScaRemove, ScaRemoveResponse} from '@/scaffold/decorators/sca-remove';
+import {ScaUpdate, ScaUpdateResponse} from '@/scaffold/decorators/sca-update';
+import {Body} from '@nestjs/common';
 
-@ApiTags('Editor')
-@Controller('projects/:projectId/workspaces')
+@ProController('workspaces')
 export class WorkspacesController {
     public constructor(private readonly workspaces: WorkspacesService) {
         //
     }
 
-    @Get()
-    @ApiOperation({summary: `List all workspaces`})
-    @ScaResponse([WorkspaceDto])
-    public async index(): Promise<Array<WorkspaceDto>> {
+    @ScaPaginate(WorkspaceDto)
+    public async index(): ScaPaginateResponse<WorkspaceDto> {
         return await this.workspaces.index();
     }
 
-    @Get(':id')
-    @ApiOperation({summary: `Get workspace by ID`})
-    @ScaResponse(WorkspaceDto)
-    public async get(@Param('id') id: number): Promise<WorkspaceDto> {
+    @ScaGet(WorkspaceDto)
+    public async get(@ScaParamId() id: number): ScaGetResponse<WorkspaceDto> {
         return await this.workspaces.get(id);
     }
 
-    @Post()
-    @ApiOperation({summary: `Create a new workspace`})
-    @ScaResponse(WorkspaceDto)
+    @ScaCreate(WorkspaceDto)
     public async create(
         @Body() data: WorkspaceCreateDto
-    ): Promise<WorkspaceDto> {
+    ): ScaCreateResponse<WorkspaceDto> {
         return await this.workspaces.create(data);
     }
 
-    @Post(':id')
-    @ApiOperation({summary: `Update a workspace by ID`})
-    @ScaResponse(WorkspaceDto)
+    @ScaUpdate(WorkspaceDto)
     public async update(
-        @Param('id') id: number,
-        @Body() data: WorkspaceUpdateDto
-    ): Promise<WorkspaceDto> {
+        @ScaParamId() id: number,
+        @ScaBody(WorkspaceUpdateDto) data: WorkspaceUpdateDto
+    ): ScaUpdateResponse<WorkspaceDto> {
         return await this.workspaces.update(id, data);
     }
 
-    @Delete(':id')
-    @ApiOperation({summary: `Delete a workspace by ID`})
-    public async remove(@Param('id') id: number): Promise<void> {
+    @ScaRemove(NodeDto)
+    public async remove(@ScaParamId() id: number): ScaRemoveResponse {
         return await this.workspaces.remove(id);
     }
 }

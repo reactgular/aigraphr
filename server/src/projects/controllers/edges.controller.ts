@@ -1,3 +1,4 @@
+import {ProController} from '@/projects/decorators/pro-controller';
 import {
     EdgeCreateDto,
     EdgeDto,
@@ -5,51 +6,50 @@ import {
 } from '@/projects/entities/edge.entity';
 import {NodeDto} from '@/projects/entities/node.entity';
 import {EdgesService} from '@/projects/services/edges.service';
-import {ScaResponse} from '@/scaffold/decorators/sca-response';
-import {Body, Controller, Delete, Get, Param, Post} from '@nestjs/common';
-import {ApiOperation, ApiTags} from '@nestjs/swagger';
+import {ScaBody} from '@/scaffold/decorators/sca-body';
+import {ScaCreate, ScaCreateResponse} from '@/scaffold/decorators/sca-create';
+import {ScaGet, ScaGetResponse} from '@/scaffold/decorators/sca-get';
+import {
+    ScaPaginate,
+    ScaPaginateResponse
+} from '@/scaffold/decorators/sca-paginate';
+import {ScaParamId} from '@/scaffold/decorators/sca-param-id';
+import {ScaRemove, ScaRemoveResponse} from '@/scaffold/decorators/sca-remove';
+import {ScaUpdate, ScaUpdateResponse} from '@/scaffold/decorators/sca-update';
 
-@ApiTags('Editor')
-@Controller('projects/:projectId/edges')
+@ProController('edges')
 export class EdgesController {
     public constructor(private readonly edges: EdgesService) {
         //
     }
 
-    @Get()
-    @ApiOperation({summary: `List all edges`})
-    @ScaResponse([EdgeDto])
-    public async index(): Promise<Array<EdgeDto>> {
+    @ScaPaginate(EdgeDto)
+    public async index(): ScaPaginateResponse<EdgeDto> {
         return await this.edges.index();
     }
 
-    @Get(':id')
-    @ApiOperation({summary: `Get edge by ID`})
-    @ScaResponse(EdgeDto)
-    public async get(@Param('id') id: number): Promise<EdgeDto> {
+    @ScaGet(EdgeDto)
+    public async get(@ScaParamId() id: number): ScaGetResponse<EdgeDto> {
         return await this.edges.get(id);
     }
 
-    @Post()
-    @ApiOperation({summary: `Create a new edge`})
-    @ScaResponse(EdgeDto)
-    public async create(@Body() data: EdgeCreateDto): Promise<EdgeDto> {
+    @ScaCreate(EdgeDto)
+    public async create(
+        @ScaBody(EdgeCreateDto) data: EdgeCreateDto
+    ): ScaCreateResponse<EdgeDto> {
         return await this.edges.create(data);
     }
 
-    @Post(':id')
-    @ApiOperation({summary: `Update a edge by ID`})
-    @ScaResponse(EdgeDto)
+    @ScaUpdate(EdgeDto)
     public async update(
-        @Param('id') id: number,
-        @Body() data: EdgeUpdateDto
-    ): Promise<NodeDto> {
+        @ScaParamId() id: number,
+        @ScaBody(EdgeUpdateDto) data: EdgeUpdateDto
+    ): ScaUpdateResponse<NodeDto> {
         return await this.edges.update(id, data);
     }
 
-    @Delete(':id')
-    @ApiOperation({summary: `Delete a edge by ID`})
-    public async remove(@Param('id') id: number): Promise<void> {
+    @ScaRemove(EdgeDto)
+    public async remove(@ScaParamId() id: number): ScaRemoveResponse {
         return await this.edges.remove(id);
     }
 }

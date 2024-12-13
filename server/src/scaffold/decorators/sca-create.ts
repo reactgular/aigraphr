@@ -13,3 +13,5 @@ export function ScaCreate<T extends ScaffoldEntity>(dto: Type<T>) {
     ];
     return applyDecorators(...decorators);
 }
+
+export type ScaCreateResponse<T extends ScaffoldEntity> = Promise<T>;

@@ -13,3 +13,5 @@ export function ScaPaginate<T extends ScaffoldEntity>(dto: Type<T>) {
     ];
     return applyDecorators(...decorators);
 }
+
+export type ScaPaginateResponse<T extends ScaffoldEntity> = Promise<Array<T>>;
