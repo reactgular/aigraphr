@@ -5,7 +5,7 @@ import {ScaConstructor, ScaEmptyBase} from '@/scaffold/mixins/sca.mixin';
 import {ScaffoldEntity} from '@/scaffold/models/scaffold.entity';
 import {Type} from '@nestjs/common';
 
-export function ScaUpdateMixin<
+export function scaUpdateMixin<
     TDo extends ScaffoldEntity,
     TUpdateDto extends object,
     TBase extends ScaConstructor

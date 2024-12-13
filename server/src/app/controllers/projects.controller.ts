@@ -1,29 +1,19 @@
-import {ProjectDto, ProjectUpdateDto} from '@/entities/project.entity';
-import {ScaCreateMixin} from '@/scaffold/mixins/sca-create.mixin';
-import {ScaGetMixin} from '@/scaffold/mixins/sca-get.mixin';
-import {ScaPaginateMixin} from '@/scaffold/mixins/sca-paginate.mixin';
-import {ScaRemoveMixin} from '@/scaffold/mixins/sca-remove.mixin';
-import {ScaUpdateMixin} from '@/scaffold/mixins/sca-update.mixin';
+import {
+    ProjectCreateDto,
+    ProjectDto,
+    ProjectUpdateDto
+} from '@/entities/project.entity';
+import {scaCrudMixin} from '@/scaffold/mixins/sca-crud.mixin';
 import {Controller} from '@nestjs/common';
 import {ApiTags} from '@nestjs/swagger';
 import {ProjectsService} from '../services/projects.service';
 
 @ApiTags('Test')
 @Controller('projects')
-export class ProjectsController extends ScaPaginateMixin(
+export class ProjectsController extends scaCrudMixin(
     ProjectDto,
-    ScaGetMixin(
-        ProjectDto,
-        ScaCreateMixin(
-            ProjectDto,
-            ProjectUpdateDto,
-            ScaUpdateMixin(
-                ProjectDto,
-                ProjectUpdateDto,
-                ScaRemoveMixin(ProjectDto)
-            )
-        )
-    )
+    ProjectCreateDto,
+    ProjectUpdateDto
 ) {
     public constructor(private readonly projects: ProjectsService) {
         super();
