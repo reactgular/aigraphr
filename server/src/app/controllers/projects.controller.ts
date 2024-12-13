@@ -3,9 +3,15 @@ import {
     ProjectDto,
     ProjectUpdateDto
 } from '@/entities/project.entity';
-import {Response} from '@/scaffold/decorators/response';
-import {Body, Controller, Delete, Get, Param, Post} from '@nestjs/common';
-import {ApiOperation, ApiTags} from '@nestjs/swagger';
+import {ScaBody} from '@/scaffold/decorators/sca-body';
+import {ScaCreate} from '@/scaffold/decorators/sca-create';
+import {ScaGet} from '@/scaffold/decorators/sca-get';
+import {ScaPaginate} from '@/scaffold/decorators/sca-paginate';
+import {ScaParamId} from '@/scaffold/decorators/sca-param-id';
+import {ScaRemove} from '@/scaffold/decorators/sca-remove';
+import {ScaUpdate} from '@/scaffold/decorators/sca-update';
+import {Controller} from '@nestjs/common';
+import {ApiTags} from '@nestjs/swagger';
 import {ProjectsService} from '../services/projects.service';
 
 @ApiTags('App')
@@ -15,40 +21,33 @@ export class ProjectsController {
         //
     }
 
-    @Get()
-    @ApiOperation({summary: `List all projects`})
-    @Response([ProjectDto])
+    @ScaPaginate(ProjectDto)
     public async index(): Promise<Array<ProjectDto>> {
         return await this.projects.index();
     }
 
-    @Get(':id')
-    @ApiOperation({summary: `Get project by ID`})
-    @Response(ProjectDto)
-    public async get(@Param('id') id: number): Promise<ProjectDto> {
+    @ScaGet(ProjectDto)
+    public async get(@ScaParamId() id: number): Promise<ProjectDto> {
         return await this.projects.get(id);
     }
 
-    @Post()
-    @ApiOperation({summary: `Create a new project`})
-    @Response(ProjectDto)
-    public async create(@Body() data: ProjectCreateDto): Promise<ProjectDto> {
+    @ScaCreate(ProjectDto)
+    public async create(
+        @ScaBody(ProjectCreateDto) data: ProjectCreateDto
+    ): Promise<ProjectDto> {
         return await this.projects.create(data);
     }
 
-    @Post(':id')
-    @ApiOperation({summary: `Update a project by ID`})
-    @Response(ProjectDto)
+    @ScaUpdate(ProjectDto)
     public async update(
-        @Param('id') id: number,
-        @Body() data: ProjectUpdateDto
+        @ScaParamId() id: number,
+        @ScaBody(ProjectUpdateDto) data: ProjectUpdateDto
     ): Promise<ProjectDto> {
         return await this.projects.update(id, data);
     }
 
-    @Delete(':id')
-    @ApiOperation({summary: `Delete a project by ID`})
-    public async remove(@Param('id') id: number): Promise<void> {
-        return await this.projects.remove(id);
+    @ScaRemove(ProjectDto)
+    public async remove(@ScaParamId() id: number): Promise<void> {
+        await this.projects.remove(id);
     }
 }

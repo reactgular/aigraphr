@@ -1,6 +1,6 @@
 import {ScaffoldEntity} from '@/_deprecated/scaffold-entity.service';
 import {ScaffoldParam} from '@/_deprecated/scaffold-param';
-import {Response} from '@/scaffold/decorators/response';
+import {ScaResponse} from '@/scaffold/decorators/sca-response';
 import {ScaffoldEmptyDto} from '@/scaffold/dtos/scaffold-empty';
 import {scaffoldValidationPipe} from '@/scaffold/pipes/scaffold-validation.pipe';
 import {
@@ -34,7 +34,7 @@ export function ScaffoldCreate<
             ApiOperation({summary: `Create a new ${name}.`}),
             ApiBody({type: CreateDto}),
             ApiOkResponse({type: GetDto}),
-            Response(GetDto),
+            ScaResponse(GetDto),
             ...(params?.method ?? defaultParam.method)
         ];
         return applyDecorators(...decorators);

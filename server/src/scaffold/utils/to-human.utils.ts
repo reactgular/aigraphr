@@ -4,5 +4,5 @@ import {Type} from '@nestjs/common';
 export function toHumanUtils<Entity extends ScaffoldEntity>(
     entity: Type<Entity>
 ) {
-    return entity.name.replace(/Entity$/, '');
+    return entity.name.replace(/(Service|Controller|Entity|Dto)$/, '');
 }
