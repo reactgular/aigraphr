@@ -12,4 +12,12 @@ export class ProjectsService extends ScaCrudService<ProjectEntity> {
     ) {
         super(projects, ProjectEntity);
     }
+
+    public async get(id: number): Promise<ProjectEntity> {
+        return await this.repo.findOneByOrFail({id});
+    }
+
+    public async exists(id: number): Promise<boolean> {
+        return await this.repo.exists({where: {id}});
+    }
 }

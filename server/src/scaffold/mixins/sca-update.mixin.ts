@@ -1,3 +1,4 @@
+import {ScaCrudService} from '@/scaffold/crud/sca-crud.service';
 import {ScaBody} from '@/scaffold/decorators/sca-body';
 import {ScaParamId} from '@/scaffold/decorators/sca-param-id';
 import {ScaUpdate, ScaUpdateResponse} from '@/scaffold/decorators/sca-update';
@@ -14,13 +15,11 @@ export function scaUpdateMixin<
     updateDto: Type<TUpdateDto>,
     Base: TBase = ScaEmptyBase as TBase
 ) {
-    class ScaPaginateClass extends Base {
-        public constructor(...args: any[]) {
-            super(...args);
-        }
+    abstract class ScaPaginateClass extends Base {
+        abstract crud(): ScaCrudService<TDo>;
 
         @ScaUpdate(dto)
-        public async scaUpdate(
+        async scaUpdate(
             @ScaParamId() id: number,
             @ScaBody(updateDto) data: TUpdateDto
         ): ScaUpdateResponse<TDo> {

@@ -1,5 +1,7 @@
+import {ScaGetResponse} from '@/scaffold/decorators/sca-get';
+import {ScaPaginateResponse} from '@/scaffold/decorators/sca-paginate';
 import {toHumanUtils} from '@/scaffold/utils/to-human.utils';
-import {NotFoundException, Type} from '@nestjs/common';
+import {Logger, Type} from '@nestjs/common';
 import {Repository} from 'typeorm';
 
 export type ScaffoldEntity = {
@@ -12,58 +14,27 @@ export type ScaffoldEntity = {
 export abstract class ScaCrudService<Entity extends ScaffoldEntity> {
     private readonly name: string;
 
+    private readonly log: Logger;
+
     protected constructor(
         protected readonly repo: Repository<Entity>,
         protected readonly type: Type<Entity>
     ) {
         this.name = toHumanUtils(type.name);
+        this.log = new Logger(`ScaCrud::${this.name}`);
 
         // todo: look at this data later
         // @see https://github.com/woowabros/nestjs-library-crud/blob/main/src/lib/crud.service.ts
         // this.repo.metadata
     }
 
-    public async findAll(): Promise<Entity[]> {
+    public async scaGet(id: Entity['id']): ScaGetResponse<Entity> {
+        this.log.log(`Get:${id}`);
+        return await this.repo.findOneOrFail({where: {id}});
+    }
+
+    public async scaPaginate(): ScaPaginateResponse<Entity> {
+        this.log.log(`Paginate`);
         return await this.repo.find();
-    }
-
-    public async create(data: Omit<Partial<Entity>, 'id'>): Promise<Entity> {
-        const entity = this.repo.create({...data, id: undefined} as Entity);
-        return await this.repo.save(entity, {reload: true});
-    }
-
-    public async update(
-        id: Entity['id'],
-        data: Omit<Entity, 'id'>
-    ): Promise<Entity> {
-        const entity = this.repo.create({...data, id} as Entity);
-        return await this.repo.save(entity, {reload: true});
-    }
-
-    public async findOneOrThrow(id: Entity['id']): Promise<Entity> {
-        const one = await this.repo.findOneBy({id});
-        if (one) {
-            return one;
-        }
-        this.throwNotFound(id);
-    }
-
-    public async findOne(id: Entity['id']): Promise<Entity | null> {
-        return this.repo.findOneBy({id});
-    }
-
-    public async exists(id: number): Promise<boolean> {
-        return !!(await this.findOne(id));
-    }
-
-    public async remove(id: Entity['id']): Promise<void> {
-        if (!(await this.exists(id))) {
-            this.throwNotFound(id);
-        }
-        await this.repo.delete(id);
-    }
-
-    protected throwNotFound(id: Entity['id']): never {
-        throw new NotFoundException(`${this.name} with ID "${id}" not found`);
     }
 }

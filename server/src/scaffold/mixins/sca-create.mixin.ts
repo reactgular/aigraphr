@@ -1,3 +1,4 @@
+import {ScaCrudService} from '@/scaffold/crud/sca-crud.service';
 import {ScaBody} from '@/scaffold/decorators/sca-body';
 import {ScaCreate, ScaCreateResponse} from '@/scaffold/decorators/sca-create';
 import {ScaConstructor, ScaEmptyBase} from '@/scaffold/mixins/sca.mixin';
@@ -13,13 +14,11 @@ export function scaCreateMixin<
     createDto: Type<TCreateDto>,
     Base: TBase = ScaEmptyBase as TBase
 ) {
-    class ScaCreateClass extends Base {
-        public constructor(...args: any[]) {
-            super(...args);
-        }
+    abstract class ScaCreateClass extends Base {
+        abstract crud(): ScaCrudService<TDo>;
 
         @ScaCreate(dto)
-        public async scaCreate(
+        async scaCreate(
             @ScaBody(createDto) data: TCreateDto
         ): ScaCreateResponse<TDo> {
             // return await this.projects.create(data);
