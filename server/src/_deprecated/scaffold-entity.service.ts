@@ -1,4 +1,4 @@
-import {toHumanUtils} from '@/scaffold/utils/to-human.utils';
+import {toHumanEntity} from '@/scaffold/utils/to-human.entity';
 import {NotFoundException, Type} from '@nestjs/common';
 import {Repository} from 'typeorm';
 
@@ -26,7 +26,7 @@ export abstract class ScaffoldEntityService<Entity extends ScaffoldEntity> {
         protected readonly repo: Repository<Entity>,
         protected readonly type: Type<Entity>
     ) {
-        this.name = toHumanUtils(type);
+        this.name = toHumanEntity(type);
     }
 
     public async findAll(): Promise<Entity[]> {
