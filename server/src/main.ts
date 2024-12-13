@@ -1,6 +1,6 @@
 import {EnvConfig} from '@/configs/env.config';
 import {MainModule} from '@/main.module';
-import {scaffoldValidationPipe} from '@/scaffold/pipes/scaffold-validation.pipe';
+import {scaValidationPipe} from '@/scaffold/pipes/sca-validation.pipe';
 import {swaggerApiDocument} from '@/swagger/swagger-api-document';
 import {swaggerApiSave} from '@/swagger/swagger-api-save';
 import {swaggerApiSetup} from '@/swagger/swagger-api-setup';
@@ -35,7 +35,7 @@ async function bootstrap() {
 
     const app = await NestFactory.create(MainModule);
     app.enableCors();
-    app.useGlobalPipes(scaffoldValidationPipe());
+    app.useGlobalPipes(scaValidationPipe());
     app.enableShutdownHooks();
 
     const config = app.get(ConfigService<EnvConfig>);

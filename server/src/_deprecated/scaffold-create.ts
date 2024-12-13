@@ -2,7 +2,7 @@ import {ScaffoldEntity} from '@/_deprecated/scaffold-entity.service';
 import {ScaffoldParam} from '@/_deprecated/scaffold-param';
 import {ScaResponse} from '@/scaffold/decorators/sca-response';
 import {ScaffoldEmptyDto} from '@/scaffold/dtos/scaffold-empty';
-import {scaffoldValidationPipe} from '@/scaffold/pipes/scaffold-validation.pipe';
+import {scaValidationPipe} from '@/scaffold/pipes/sca-validation.pipe';
 import {
     applyDecorators,
     Body as CommonBody,
@@ -51,7 +51,7 @@ export function ScaffoldCreate<
     const Body = function (): ParameterDecorator {
         return CommonBody(
             ...(params?.body ?? defaultParam.body),
-            scaffoldValidationPipe(CreateDto)
+            scaValidationPipe(CreateDto)
         );
     };
 

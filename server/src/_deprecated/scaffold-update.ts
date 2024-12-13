@@ -2,7 +2,7 @@ import {ScaffoldEntity} from '@/_deprecated/scaffold-entity.service';
 import {ScaffoldParam} from '@/_deprecated/scaffold-param';
 import {ScaResponse} from '@/scaffold/decorators/sca-response';
 import {ScaffoldIdDto} from '@/scaffold/dtos/scaffold-id.dto';
-import {scaffoldValidationPipe} from '@/scaffold/pipes/scaffold-validation.pipe';
+import {scaValidationPipe} from '@/scaffold/pipes/sca-validation.pipe';
 import {
     applyDecorators,
     Body as CommonBody,
@@ -20,7 +20,7 @@ const defaultParam = {
             name: 'id'
         })
     ],
-    param: [scaffoldValidationPipe(ScaffoldIdDto)],
+    param: [scaValidationPipe(ScaffoldIdDto)],
     query: [],
     body: []
 } satisfies ScaffoldParam;
@@ -60,7 +60,7 @@ export function ScaffoldUpdate<
     const Body = function (): ParameterDecorator {
         return CommonBody(
             ...(params?.body ?? defaultParam.body),
-            scaffoldValidationPipe(UpdateDto)
+            scaValidationPipe(UpdateDto)
         );
     };
 

@@ -7,7 +7,7 @@ import {
     ProjectIdEntityIdDto
 } from '@/_deprecated/project-id-entity-id.dto';
 import {ScaffoldEntity} from '@/_deprecated/scaffold-entity.service';
-import {scaffoldValidationPipe} from '@/scaffold/pipes/scaffold-validation.pipe';
+import {scaValidationPipe} from '@/scaffold/pipes/sca-validation.pipe';
 import {ApiParam} from '@nestjs/swagger';
 
 /**
@@ -35,7 +35,7 @@ export function createProjectCrudController<
                     name: 'projectId'
                 })
             ],
-            param: [scaffoldValidationPipe(ProjectIdDto)]
+            param: [scaValidationPipe(ProjectIdDto)]
         },
         getParam: {
             method: [
@@ -48,7 +48,7 @@ export function createProjectCrudController<
                     name: 'projectId'
                 })
             ],
-            param: [scaffoldValidationPipe(ProjectIdEntityIdDto)]
+            param: [scaValidationPipe(ProjectIdEntityIdDto)]
         },
         createParam: {
             method: [
@@ -57,7 +57,7 @@ export function createProjectCrudController<
                     name: 'projectId'
                 })
             ],
-            param: [scaffoldValidationPipe(ProjectIdDto)]
+            param: [scaValidationPipe(ProjectIdDto)]
         },
         deleteParam: {
             method: [
@@ -70,7 +70,7 @@ export function createProjectCrudController<
                     name: 'projectId'
                 })
             ],
-            param: [scaffoldValidationPipe(ProjectIdEntityIdDto)]
+            param: [scaValidationPipe(ProjectIdEntityIdDto)]
         },
         updateParam: {
             method: [
@@ -83,7 +83,7 @@ export function createProjectCrudController<
                     name: 'projectId'
                 })
             ],
-            param: [scaffoldValidationPipe(ProjectIdEntityIdDto)]
+            param: [scaValidationPipe(ProjectIdEntityIdDto)]
         }
     });
 }
