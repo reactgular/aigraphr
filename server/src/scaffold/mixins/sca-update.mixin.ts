@@ -20,7 +20,7 @@ export function ScaUpdateMixin<
         }
 
         @ScaUpdate(dto)
-        public async update(
+        public async scaUpdate(
             @ScaParamId() id: number,
             @ScaBody(updateDto) data: TUpdateDto
         ): ScaUpdateResponse<TDo> {

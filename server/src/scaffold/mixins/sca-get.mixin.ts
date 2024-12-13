@@ -14,7 +14,7 @@ export function ScaGetMixin<
         }
 
         @ScaGet(dto)
-        public async get(@ScaParamId() id: number): ScaGetResponse<TDo> {
+        public async scaGet(@ScaParamId() id: number): ScaGetResponse<TDo> {
             // return await this.projects.get(id);
             return null as any;
         }

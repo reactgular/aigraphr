@@ -16,7 +16,7 @@ export function ScaPaginateMixin<
         }
 
         @ScaPaginate(dto)
-        public async index(): ScaPaginateResponse<TDo> {
+        public async scaPaginate(): ScaPaginateResponse<TDo> {
             // return await this.projects.index();
             return null as any;
         }

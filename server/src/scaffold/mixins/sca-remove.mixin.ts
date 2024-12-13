@@ -14,7 +14,7 @@ export function ScaRemoveMixin<
         }
 
         @ScaRemove(dto)
-        public async remove(@ScaParamId() id: number): ScaRemoveResponse {
+        public async scaRemove(@ScaParamId() id: number): ScaRemoveResponse {
             // await this.projects.remove(id);
         }
     }

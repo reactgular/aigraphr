@@ -19,7 +19,7 @@ export function ScaCreateMixin<
         }
 
         @ScaCreate(dto)
-        public async create(
+        public async scaCreate(
             @ScaBody(createDto) data: TCreateDto
         ): ScaCreateResponse<TDo> {
             // return await this.projects.create(data);
