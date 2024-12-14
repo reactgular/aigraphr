@@ -11,8 +11,12 @@ interface ScaUpdateMixinOptions<
     TUpdateDto extends object
 > {
     paramId?: string;
+
     dto: Type<TDo>;
+
     updateDto: Type<TUpdateDto>;
+
+    decorators?: () => Array<MethodDecorator>;
 }
 
 export function scaUpdateMixin<
@@ -20,13 +24,18 @@ export function scaUpdateMixin<
     TUpdateDto extends object,
     TBase extends ScaConstructor
 >(
-    {paramId = 'id', dto, updateDto}: ScaUpdateMixinOptions<TDo, TUpdateDto>,
+    {
+        paramId = 'id',
+        dto,
+        updateDto,
+        decorators
+    }: ScaUpdateMixinOptions<TDo, TUpdateDto>,
     Base: TBase = ScaEmptyBase as TBase
 ) {
     abstract class ScaPaginateClass extends Base {
         abstract crud(): ScaCrudService<TDo>;
 
-        @ScaUpdate(updateDto, dto, paramId)
+        @ScaUpdate({bodyDto: updateDto, responseDto: dto, paramId, decorators})
         async scaUpdate(
             @ScaParamId(paramId) id: number,
             @ScaBody(updateDto) data: TUpdateDto

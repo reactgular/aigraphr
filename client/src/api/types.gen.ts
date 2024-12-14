@@ -142,6 +142,9 @@ export type ProjectsScaCreateResponse =
 export type ProjectsScaRemoveData = {
     body?: never;
     path: {
+        /**
+         * The ID of a Project
+         */
         projectId: number;
     };
     query?: never;
@@ -168,6 +171,9 @@ export type ProjectsScaRemoveResponse =
 export type ProjectsScaGetData = {
     body?: never;
     path: {
+        /**
+         * The ID of a Project
+         */
         projectId: number;
     };
     query?: never;
@@ -194,6 +200,9 @@ export type ProjectsScaGetResponse =
 export type ProjectsScaUpdateData = {
     body: ProjectUpdateDto;
     path: {
+        /**
+         * The ID of a Project
+         */
         projectId: number;
     };
     query?: never;
@@ -217,473 +226,577 @@ export type ProjectsScaUpdateResponses = {
 export type ProjectsScaUpdateResponse =
     ProjectsScaUpdateResponses[keyof ProjectsScaUpdateResponses];
 
-export type AttributesIndexData = {
+export type AttributesScaPaginateData = {
     body?: never;
-    path?: never;
+    path: {
+        /**
+         * The ID of a project
+         */
+        projectId: number;
+    };
     query?: never;
     url: '/editor/{projectId}/attributes';
 };
 
-export type AttributesIndexResponses = {
+export type AttributesScaPaginateResponses = {
     /**
      * Return a list of Attribute
      */
     200: AttributeDto;
 };
 
-export type AttributesIndexResponse =
-    AttributesIndexResponses[keyof AttributesIndexResponses];
+export type AttributesScaPaginateResponse =
+    AttributesScaPaginateResponses[keyof AttributesScaPaginateResponses];
 
-export type AttributesCreateData = {
+export type AttributesScaCreateData = {
     body: AttributeCreateDto;
-    path?: never;
+    path: {
+        /**
+         * The ID of a project
+         */
+        projectId: number;
+    };
     query?: never;
     url: '/editor/{projectId}/attributes';
 };
 
-export type AttributesCreateResponses = {
-    200: {
-        [key: string]: unknown;
-    };
+export type AttributesScaCreateResponses = {
     /**
      * Return a new Attribute
      */
     201: AttributeDto;
 };
 
-export type AttributesCreateResponse =
-    AttributesCreateResponses[keyof AttributesCreateResponses];
+export type AttributesScaCreateResponse =
+    AttributesScaCreateResponses[keyof AttributesScaCreateResponses];
 
-export type AttributesRemoveData = {
+export type AttributesScaRemoveData = {
     body?: never;
     path: {
-        id: number;
+        /**
+         * The ID of a Attribute
+         */
+        attributeId: number;
+        /**
+         * The ID of a project
+         */
+        projectId: number;
     };
     query?: never;
-    url: '/editor/{projectId}/attributes/{id}';
+    url: '/editor/{projectId}/attributes/{attributeId}';
 };
 
-export type AttributesRemoveErrors = {
+export type AttributesScaRemoveErrors = {
     /**
-     * A Attribute with the specified id was not found
+     * A Attribute with the specified attributeId was not found
      */
     404: unknown;
 };
 
-export type AttributesRemoveResponses = {
-    200: {
-        [key: string]: unknown;
-    };
+export type AttributesScaRemoveResponses = {
     /**
      * The Attribute has been deleted
      */
     204: void;
 };
 
-export type AttributesRemoveResponse =
-    AttributesRemoveResponses[keyof AttributesRemoveResponses];
+export type AttributesScaRemoveResponse =
+    AttributesScaRemoveResponses[keyof AttributesScaRemoveResponses];
 
-export type AttributesGetData = {
+export type AttributesScaGetData = {
     body?: never;
     path: {
-        id: number;
+        /**
+         * The ID of a Attribute
+         */
+        attributeId: number;
+        /**
+         * The ID of a project
+         */
+        projectId: number;
     };
     query?: never;
-    url: '/editor/{projectId}/attributes/{id}';
+    url: '/editor/{projectId}/attributes/{attributeId}';
 };
 
-export type AttributesGetErrors = {
+export type AttributesScaGetErrors = {
     /**
-     * A Attribute with the specified id was not found
+     * A Attribute with the specified attributeId was not found
      */
     404: unknown;
 };
 
-export type AttributesGetResponses = {
+export type AttributesScaGetResponses = {
     /**
-     * Return a Attribute by id
+     * Return a Attribute by attributeId
      */
     200: AttributeDto;
 };
 
-export type AttributesGetResponse =
-    AttributesGetResponses[keyof AttributesGetResponses];
+export type AttributesScaGetResponse =
+    AttributesScaGetResponses[keyof AttributesScaGetResponses];
 
-export type AttributesUpdateData = {
+export type AttributesScaUpdateData = {
     body: AttributeUpdateDto;
     path: {
-        id: number;
+        /**
+         * The ID of a Attribute
+         */
+        attributeId: number;
+        /**
+         * The ID of a project
+         */
+        projectId: number;
     };
     query?: never;
-    url: '/editor/{projectId}/attributes/{id}';
+    url: '/editor/{projectId}/attributes/{attributeId}';
 };
 
-export type AttributesUpdateErrors = {
+export type AttributesScaUpdateErrors = {
     /**
-     * A Attribute with the specified id was not found
+     * A Attribute with the specified attributeId was not found
      */
     404: unknown;
 };
 
-export type AttributesUpdateResponses = {
+export type AttributesScaUpdateResponses = {
     /**
-     * Return a Attribute by id
+     * Return a Attribute by attributeId
      */
     200: AttributeDto;
 };
 
-export type AttributesUpdateResponse =
-    AttributesUpdateResponses[keyof AttributesUpdateResponses];
+export type AttributesScaUpdateResponse =
+    AttributesScaUpdateResponses[keyof AttributesScaUpdateResponses];
 
-export type EdgesIndexData = {
+export type EdgesScaPaginateData = {
     body?: never;
-    path?: never;
+    path: {
+        /**
+         * The ID of a project
+         */
+        projectId: number;
+    };
     query?: never;
     url: '/editor/{projectId}/edges';
 };
 
-export type EdgesIndexResponses = {
+export type EdgesScaPaginateResponses = {
     /**
      * Return a list of Edge
      */
     200: EdgeDto;
 };
 
-export type EdgesIndexResponse = EdgesIndexResponses[keyof EdgesIndexResponses];
+export type EdgesScaPaginateResponse =
+    EdgesScaPaginateResponses[keyof EdgesScaPaginateResponses];
 
-export type EdgesCreateData = {
+export type EdgesScaCreateData = {
     body: EdgeCreateDto;
-    path?: never;
+    path: {
+        /**
+         * The ID of a project
+         */
+        projectId: number;
+    };
     query?: never;
     url: '/editor/{projectId}/edges';
 };
 
-export type EdgesCreateResponses = {
-    200: {
-        [key: string]: unknown;
-    };
+export type EdgesScaCreateResponses = {
     /**
      * Return a new Edge
      */
     201: EdgeDto;
 };
 
-export type EdgesCreateResponse =
-    EdgesCreateResponses[keyof EdgesCreateResponses];
+export type EdgesScaCreateResponse =
+    EdgesScaCreateResponses[keyof EdgesScaCreateResponses];
 
-export type EdgesRemoveData = {
+export type EdgesScaRemoveData = {
     body?: never;
     path: {
-        id: number;
+        /**
+         * The ID of a Edge
+         */
+        edgeId: number;
+        /**
+         * The ID of a project
+         */
+        projectId: number;
     };
     query?: never;
-    url: '/editor/{projectId}/edges/{id}';
+    url: '/editor/{projectId}/edges/{edgeId}';
 };
 
-export type EdgesRemoveErrors = {
+export type EdgesScaRemoveErrors = {
     /**
-     * A Edge with the specified id was not found
+     * A Edge with the specified edgeId was not found
      */
     404: unknown;
 };
 
-export type EdgesRemoveResponses = {
-    200: {
-        [key: string]: unknown;
-    };
+export type EdgesScaRemoveResponses = {
     /**
      * The Edge has been deleted
      */
     204: void;
 };
 
-export type EdgesRemoveResponse =
-    EdgesRemoveResponses[keyof EdgesRemoveResponses];
+export type EdgesScaRemoveResponse =
+    EdgesScaRemoveResponses[keyof EdgesScaRemoveResponses];
 
-export type EdgesGetData = {
+export type EdgesScaGetData = {
     body?: never;
     path: {
-        id: number;
+        /**
+         * The ID of a Edge
+         */
+        edgeId: number;
+        /**
+         * The ID of a project
+         */
+        projectId: number;
     };
     query?: never;
-    url: '/editor/{projectId}/edges/{id}';
+    url: '/editor/{projectId}/edges/{edgeId}';
 };
 
-export type EdgesGetErrors = {
+export type EdgesScaGetErrors = {
     /**
-     * A Edge with the specified id was not found
+     * A Edge with the specified edgeId was not found
      */
     404: unknown;
 };
 
-export type EdgesGetResponses = {
+export type EdgesScaGetResponses = {
     /**
-     * Return a Edge by id
+     * Return a Edge by edgeId
      */
     200: EdgeDto;
 };
 
-export type EdgesGetResponse = EdgesGetResponses[keyof EdgesGetResponses];
+export type EdgesScaGetResponse =
+    EdgesScaGetResponses[keyof EdgesScaGetResponses];
 
-export type EdgesUpdateData = {
+export type EdgesScaUpdateData = {
     body: EdgeUpdateDto;
     path: {
-        id: number;
+        /**
+         * The ID of a Edge
+         */
+        edgeId: number;
+        /**
+         * The ID of a project
+         */
+        projectId: number;
     };
     query?: never;
-    url: '/editor/{projectId}/edges/{id}';
+    url: '/editor/{projectId}/edges/{edgeId}';
 };
 
-export type EdgesUpdateErrors = {
+export type EdgesScaUpdateErrors = {
     /**
-     * A Edge with the specified id was not found
+     * A Edge with the specified edgeId was not found
      */
     404: unknown;
 };
 
-export type EdgesUpdateResponses = {
+export type EdgesScaUpdateResponses = {
     /**
-     * Return a Edge by id
+     * Return a Edge by edgeId
      */
     200: EdgeDto;
 };
 
-export type EdgesUpdateResponse =
-    EdgesUpdateResponses[keyof EdgesUpdateResponses];
+export type EdgesScaUpdateResponse =
+    EdgesScaUpdateResponses[keyof EdgesScaUpdateResponses];
 
-export type NodesIndexData = {
+export type NodesScaPaginateData = {
     body?: never;
-    path?: never;
+    path: {
+        /**
+         * The ID of a project
+         */
+        projectId: number;
+    };
     query?: never;
     url: '/editor/{projectId}/nodes';
 };
 
-export type NodesIndexResponses = {
+export type NodesScaPaginateResponses = {
     /**
      * Return a list of Node
      */
     200: NodeDto;
 };
 
-export type NodesIndexResponse = NodesIndexResponses[keyof NodesIndexResponses];
+export type NodesScaPaginateResponse =
+    NodesScaPaginateResponses[keyof NodesScaPaginateResponses];
 
-export type NodesCreateData = {
+export type NodesScaCreateData = {
     body: NodeCreateDto;
-    path?: never;
+    path: {
+        /**
+         * The ID of a project
+         */
+        projectId: number;
+    };
     query?: never;
     url: '/editor/{projectId}/nodes';
 };
 
-export type NodesCreateResponses = {
-    200: {
-        [key: string]: unknown;
-    };
+export type NodesScaCreateResponses = {
     /**
      * Return a new Node
      */
     201: NodeDto;
 };
 
-export type NodesCreateResponse =
-    NodesCreateResponses[keyof NodesCreateResponses];
+export type NodesScaCreateResponse =
+    NodesScaCreateResponses[keyof NodesScaCreateResponses];
 
-export type NodesRemoveData = {
+export type NodesScaRemoveData = {
     body?: never;
     path: {
-        id: number;
+        /**
+         * The ID of a Node
+         */
+        nodeId: number;
+        /**
+         * The ID of a project
+         */
+        projectId: number;
     };
     query?: never;
-    url: '/editor/{projectId}/nodes/{id}';
+    url: '/editor/{projectId}/nodes/{nodeId}';
 };
 
-export type NodesRemoveErrors = {
+export type NodesScaRemoveErrors = {
     /**
-     * A Node with the specified id was not found
+     * A Node with the specified nodeId was not found
      */
     404: unknown;
 };
 
-export type NodesRemoveResponses = {
-    200: {
-        [key: string]: unknown;
-    };
+export type NodesScaRemoveResponses = {
     /**
      * The Node has been deleted
      */
     204: void;
 };
 
-export type NodesRemoveResponse =
-    NodesRemoveResponses[keyof NodesRemoveResponses];
+export type NodesScaRemoveResponse =
+    NodesScaRemoveResponses[keyof NodesScaRemoveResponses];
 
-export type NodesGetData = {
+export type NodesScaGetData = {
     body?: never;
     path: {
-        id: number;
+        /**
+         * The ID of a Node
+         */
+        nodeId: number;
+        /**
+         * The ID of a project
+         */
+        projectId: number;
     };
     query?: never;
-    url: '/editor/{projectId}/nodes/{id}';
+    url: '/editor/{projectId}/nodes/{nodeId}';
 };
 
-export type NodesGetErrors = {
+export type NodesScaGetErrors = {
     /**
-     * A Node with the specified id was not found
+     * A Node with the specified nodeId was not found
      */
     404: unknown;
 };
 
-export type NodesGetResponses = {
+export type NodesScaGetResponses = {
     /**
-     * Return a Node by id
+     * Return a Node by nodeId
      */
     200: NodeDto;
 };
 
-export type NodesGetResponse = NodesGetResponses[keyof NodesGetResponses];
+export type NodesScaGetResponse =
+    NodesScaGetResponses[keyof NodesScaGetResponses];
 
-export type NodesUpdateData = {
+export type NodesScaUpdateData = {
     body: NodeUpdateDto;
     path: {
-        id: number;
+        /**
+         * The ID of a Node
+         */
+        nodeId: number;
+        /**
+         * The ID of a project
+         */
+        projectId: number;
     };
     query?: never;
-    url: '/editor/{projectId}/nodes/{id}';
+    url: '/editor/{projectId}/nodes/{nodeId}';
 };
 
-export type NodesUpdateErrors = {
+export type NodesScaUpdateErrors = {
     /**
-     * A Node with the specified id was not found
+     * A Node with the specified nodeId was not found
      */
     404: unknown;
 };
 
-export type NodesUpdateResponses = {
+export type NodesScaUpdateResponses = {
     /**
-     * Return a Node by id
+     * Return a Node by nodeId
      */
     200: NodeDto;
 };
 
-export type NodesUpdateResponse =
-    NodesUpdateResponses[keyof NodesUpdateResponses];
+export type NodesScaUpdateResponse =
+    NodesScaUpdateResponses[keyof NodesScaUpdateResponses];
 
-export type WorkspacesIndexData = {
+export type WorkspacesScaPaginateData = {
     body?: never;
-    path?: never;
+    path: {
+        /**
+         * The ID of a project
+         */
+        projectId: number;
+    };
     query?: never;
     url: '/editor/{projectId}/workspaces';
 };
 
-export type WorkspacesIndexResponses = {
+export type WorkspacesScaPaginateResponses = {
     /**
      * Return a list of Workspace
      */
     200: WorkspaceDto;
 };
 
-export type WorkspacesIndexResponse =
-    WorkspacesIndexResponses[keyof WorkspacesIndexResponses];
+export type WorkspacesScaPaginateResponse =
+    WorkspacesScaPaginateResponses[keyof WorkspacesScaPaginateResponses];
 
-export type WorkspacesCreateData = {
+export type WorkspacesScaCreateData = {
     body: WorkspaceCreateDto;
-    path?: never;
+    path: {
+        /**
+         * The ID of a project
+         */
+        projectId: number;
+    };
     query?: never;
     url: '/editor/{projectId}/workspaces';
 };
 
-export type WorkspacesCreateResponses = {
-    200: {
-        [key: string]: unknown;
-    };
+export type WorkspacesScaCreateResponses = {
     /**
      * Return a new Workspace
      */
     201: WorkspaceDto;
 };
 
-export type WorkspacesCreateResponse =
-    WorkspacesCreateResponses[keyof WorkspacesCreateResponses];
+export type WorkspacesScaCreateResponse =
+    WorkspacesScaCreateResponses[keyof WorkspacesScaCreateResponses];
 
-export type WorkspacesRemoveData = {
+export type WorkspacesScaRemoveData = {
     body?: never;
     path: {
-        id: number;
+        /**
+         * The ID of a Workspace
+         */
+        workspaceId: number;
+        /**
+         * The ID of a project
+         */
+        projectId: number;
     };
     query?: never;
-    url: '/editor/{projectId}/workspaces/{id}';
+    url: '/editor/{projectId}/workspaces/{workspaceId}';
 };
 
-export type WorkspacesRemoveErrors = {
+export type WorkspacesScaRemoveErrors = {
     /**
-     * A Node with the specified id was not found
+     * A Workspace with the specified workspaceId was not found
      */
     404: unknown;
 };
 
-export type WorkspacesRemoveResponses = {
-    200: {
-        [key: string]: unknown;
-    };
+export type WorkspacesScaRemoveResponses = {
     /**
-     * The Node has been deleted
+     * The Workspace has been deleted
      */
     204: void;
 };
 
-export type WorkspacesRemoveResponse =
-    WorkspacesRemoveResponses[keyof WorkspacesRemoveResponses];
+export type WorkspacesScaRemoveResponse =
+    WorkspacesScaRemoveResponses[keyof WorkspacesScaRemoveResponses];
 
-export type WorkspacesGetData = {
+export type WorkspacesScaGetData = {
     body?: never;
     path: {
-        id: number;
+        /**
+         * The ID of a Workspace
+         */
+        workspaceId: number;
+        /**
+         * The ID of a project
+         */
+        projectId: number;
     };
     query?: never;
-    url: '/editor/{projectId}/workspaces/{id}';
+    url: '/editor/{projectId}/workspaces/{workspaceId}';
 };
 
-export type WorkspacesGetErrors = {
+export type WorkspacesScaGetErrors = {
     /**
-     * A Workspace with the specified id was not found
+     * A Workspace with the specified workspaceId was not found
      */
     404: unknown;
 };
 
-export type WorkspacesGetResponses = {
+export type WorkspacesScaGetResponses = {
     /**
-     * Return a Workspace by id
+     * Return a Workspace by workspaceId
      */
     200: WorkspaceDto;
 };
 
-export type WorkspacesGetResponse =
-    WorkspacesGetResponses[keyof WorkspacesGetResponses];
+export type WorkspacesScaGetResponse =
+    WorkspacesScaGetResponses[keyof WorkspacesScaGetResponses];
 
-export type WorkspacesUpdateData = {
+export type WorkspacesScaUpdateData = {
     body: WorkspaceUpdateDto;
     path: {
-        id: number;
+        /**
+         * The ID of a Workspace
+         */
+        workspaceId: number;
+        /**
+         * The ID of a project
+         */
+        projectId: number;
     };
     query?: never;
-    url: '/editor/{projectId}/workspaces/{id}';
+    url: '/editor/{projectId}/workspaces/{workspaceId}';
 };
 
-export type WorkspacesUpdateErrors = {
+export type WorkspacesScaUpdateErrors = {
     /**
-     * A Workspace with the specified id was not found
+     * A Workspace with the specified workspaceId was not found
      */
     404: unknown;
 };
 
-export type WorkspacesUpdateResponses = {
+export type WorkspacesScaUpdateResponses = {
     /**
-     * Return a Workspace by id
+     * Return a Workspace by workspaceId
      */
     200: WorkspaceDto;
 };
 
-export type WorkspacesUpdateResponse =
-    WorkspacesUpdateResponses[keyof WorkspacesUpdateResponses];
+export type WorkspacesScaUpdateResponse =
+    WorkspacesScaUpdateResponses[keyof WorkspacesScaUpdateResponses];
 
 export type SettingsGetData = {
     body?: never;

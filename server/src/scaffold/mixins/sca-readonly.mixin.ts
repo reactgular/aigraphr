@@ -6,15 +6,24 @@ import {Type} from '@nestjs/common';
 
 interface ScaReadOnlyMixinOptions<TDo extends ScaEntity> {
     paramId?: string;
+
     dto: Type<TDo>;
+
+    decorators?: (action: 'paginate' | 'get') => Array<MethodDecorator>;
 }
 
 export function scaReadOnlyMixin<
     TDo extends ScaEntity,
     TBase extends ScaConstructor
 >(
-    {paramId = 'id', dto}: ScaReadOnlyMixinOptions<TDo>,
+    {paramId = 'id', dto, decorators}: ScaReadOnlyMixinOptions<TDo>,
     Base: TBase = ScaEmptyBase as TBase
 ) {
-    return scaPaginateMixin({dto}, scaGetMixin({paramId, dto}, Base));
+    return scaPaginateMixin(
+        {dto, decorators: () => decorators?.('paginate') ?? []},
+        scaGetMixin(
+            {paramId, dto, decorators: () => decorators?.('get') ?? []},
+            Base
+        )
+    );
 }

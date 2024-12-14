@@ -9,16 +9,21 @@ import {Logger, Type} from '@nestjs/common';
 
 interface ScaPaginateMixinOptions<TDo extends ScaEntity> {
     dto: Type<TDo>;
+
+    decorators?: () => Array<MethodDecorator>;
 }
 
 export function scaPaginateMixin<
     TDo extends ScaEntity,
     TBase extends ScaConstructor
->({dto}: ScaPaginateMixinOptions<TDo>, Base: TBase = ScaEmptyBase as TBase) {
+>(
+    {dto, decorators}: ScaPaginateMixinOptions<TDo>,
+    Base: TBase = ScaEmptyBase as TBase
+) {
     abstract class ScaPaginateClass extends Base {
         abstract crud(): ScaCrudService<TDo>;
 
-        @ScaPaginate(dto)
+        @ScaPaginate({dto, decorators})
         async scaPaginate(): ScaPaginateResponse<TDo> {
             Logger.log('Paginate', 'ScaPaginateMixin');
             return await this.crud().scaPaginate();

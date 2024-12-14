@@ -7,20 +7,23 @@ import {Type} from '@nestjs/common';
 
 interface ScaRemoveMixinOptions<TDo extends ScaEntity> {
     paramId?: string;
+
     dto: Type<TDo>;
+
+    decorators?: () => Array<MethodDecorator>;
 }
 
 export function scaRemoveMixin<
     TDo extends ScaEntity,
     TBase extends ScaConstructor
 >(
-    {paramId = 'id', dto}: ScaRemoveMixinOptions<TDo>,
+    {paramId = 'id', dto, decorators}: ScaRemoveMixinOptions<TDo>,
     Base: TBase = ScaEmptyBase as TBase
 ) {
     abstract class ScaRemoveClass extends Base {
         abstract crud(): ScaCrudService<TDo>;
 
-        @ScaRemove(dto, paramId)
+        @ScaRemove({dto, paramId, decorators})
         async scaRemove(@ScaParamId(paramId) id: number): ScaRemoveResponse {
             // await this.projects.remove(id);
         }

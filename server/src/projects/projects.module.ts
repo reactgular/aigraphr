@@ -1,7 +1,5 @@
 import {AppModule} from '@/app/app.module';
 import {ProjectEntity} from '@/entities/project.entity';
-import {AttributesController} from '@/projects/controllers/attributes.controller';
-import {EdgesController} from '@/projects/controllers/edges.controller';
 import {NodesController} from '@/projects/controllers/nodes.controller';
 import {ProjectsController} from '@/projects/controllers/projects.controller';
 import {WorkspacesController} from '@/projects/controllers/workspaces.controller';
@@ -33,6 +31,8 @@ import {FactoryProvider} from '@nestjs/common/interfaces/modules/provider.interf
 import {TypeOrmModule} from '@nestjs/typeorm';
 import {EntityTarget} from 'typeorm/common/EntityTarget';
 import {ObjectLiteral} from 'typeorm/common/ObjectLiteral';
+import {AttributesController} from './controllers/attributes.controller';
+import {EdgesController} from './controllers/edges.controller';
 import {ProjectGuard} from './gaurds/project.guard';
 
 function repository<Entity extends ObjectLiteral>(

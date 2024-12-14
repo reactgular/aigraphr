@@ -7,17 +7,35 @@ import {
     ApiExtraModels,
     ApiNotFoundResponse,
     ApiOkResponse,
-    ApiOperation
+    ApiOperation,
+    ApiParam
 } from '@nestjs/swagger';
 
-export function ScaUpdate<TBody extends object, TResponse extends ScaEntity>(
-    bodyDto: Type<TBody>,
-    responseDto: Type<TResponse>,
-    paramId: string = 'id'
-) {
+interface ScaUpdateOptions<TBody extends object, TResponse extends ScaEntity> {
+    bodyDto: Type<TBody>;
+
+    responseDto: Type<TResponse>;
+
+    paramId?: string;
+
+    decorators?: () => Array<MethodDecorator>;
+}
+
+export function ScaUpdate<TBody extends object, TResponse extends ScaEntity>({
+    bodyDto,
+    responseDto,
+    paramId = 'id',
+    decorators: decoratorsFn
+}: ScaUpdateOptions<TBody, TResponse>) {
     const name = toHumanUtils(responseDto.name);
     const decorators: Array<MethodDecorator> = [
         Patch(`:${paramId}`),
+        ApiParam({
+            name: paramId,
+            type: Number,
+            required: true,
+            description: `The ID of a ${name}`
+        }),
         ApiOperation({summary: `Update a ${name} by ${paramId}`}),
         ApiBody({type: bodyDto}),
         ApiExtraModels(bodyDto, responseDto),
@@ -28,7 +46,8 @@ export function ScaUpdate<TBody extends object, TResponse extends ScaEntity>(
         ApiNotFoundResponse({
             description: `A ${name} with the specified ${paramId} was not found`
         }),
-        ScaValidateResponse(responseDto)
+        ScaValidateResponse(responseDto),
+        ...(decoratorsFn?.() ?? [])
     ];
     return applyDecorators(...decorators);
 }

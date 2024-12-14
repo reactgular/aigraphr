@@ -5,16 +5,32 @@ import {applyDecorators, Get, Type} from '@nestjs/common';
 import {
     ApiNotFoundResponse,
     ApiOkResponse,
-    ApiOperation
+    ApiOperation,
+    ApiParam
 } from '@nestjs/swagger';
 
-export function ScaGet<T extends ScaEntity>(
-    dto: Type<T>,
-    paramId: string = 'id'
-) {
+interface ScaGetOptions<T extends ScaEntity> {
+    dto: Type<T>;
+
+    paramId?: string;
+
+    decorators?: () => Array<MethodDecorator>;
+}
+
+export function ScaGet<T extends ScaEntity>({
+    dto,
+    paramId = 'id',
+    decorators: decoratorsFn
+}: ScaGetOptions<T>) {
     const name = toHumanUtils(dto.name);
     const decorators: Array<MethodDecorator> = [
         Get(`:${paramId}`),
+        ApiParam({
+            name: paramId,
+            type: Number,
+            required: true,
+            description: `The ID of a ${name}`
+        }),
         ApiOperation({summary: `Get ${name} by ${paramId}`}),
         ApiOkResponse({
             description: `Return a ${name} by ${paramId}`,
@@ -23,7 +39,8 @@ export function ScaGet<T extends ScaEntity>(
         ApiNotFoundResponse({
             description: `A ${name} with the specified ${paramId} was not found`
         }),
-        ScaValidateResponse(dto)
+        ScaValidateResponse(dto),
+        ...(decoratorsFn?.() ?? [])
     ];
     return applyDecorators(...decorators);
 }

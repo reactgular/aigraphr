@@ -12,46 +12,46 @@ import type {
     ProjectsScaGetResponse,
     ProjectsScaUpdateData,
     ProjectsScaUpdateResponse,
-    AttributesIndexData,
-    AttributesIndexResponse,
-    AttributesCreateData,
-    AttributesCreateResponse,
-    AttributesRemoveData,
-    AttributesRemoveResponse,
-    AttributesGetData,
-    AttributesGetResponse,
-    AttributesUpdateData,
-    AttributesUpdateResponse,
-    EdgesIndexData,
-    EdgesIndexResponse,
-    EdgesCreateData,
-    EdgesCreateResponse,
-    EdgesRemoveData,
-    EdgesRemoveResponse,
-    EdgesGetData,
-    EdgesGetResponse,
-    EdgesUpdateData,
-    EdgesUpdateResponse,
-    NodesIndexData,
-    NodesIndexResponse,
-    NodesCreateData,
-    NodesCreateResponse,
-    NodesRemoveData,
-    NodesRemoveResponse,
-    NodesGetData,
-    NodesGetResponse,
-    NodesUpdateData,
-    NodesUpdateResponse,
-    WorkspacesIndexData,
-    WorkspacesIndexResponse,
-    WorkspacesCreateData,
-    WorkspacesCreateResponse,
-    WorkspacesRemoveData,
-    WorkspacesRemoveResponse,
-    WorkspacesGetData,
-    WorkspacesGetResponse,
-    WorkspacesUpdateData,
-    WorkspacesUpdateResponse,
+    AttributesScaPaginateData,
+    AttributesScaPaginateResponse,
+    AttributesScaCreateData,
+    AttributesScaCreateResponse,
+    AttributesScaRemoveData,
+    AttributesScaRemoveResponse,
+    AttributesScaGetData,
+    AttributesScaGetResponse,
+    AttributesScaUpdateData,
+    AttributesScaUpdateResponse,
+    EdgesScaPaginateData,
+    EdgesScaPaginateResponse,
+    EdgesScaCreateData,
+    EdgesScaCreateResponse,
+    EdgesScaRemoveData,
+    EdgesScaRemoveResponse,
+    EdgesScaGetData,
+    EdgesScaGetResponse,
+    EdgesScaUpdateData,
+    EdgesScaUpdateResponse,
+    NodesScaPaginateData,
+    NodesScaPaginateResponse,
+    NodesScaCreateData,
+    NodesScaCreateResponse,
+    NodesScaRemoveData,
+    NodesScaRemoveResponse,
+    NodesScaGetData,
+    NodesScaGetResponse,
+    NodesScaUpdateData,
+    NodesScaUpdateResponse,
+    WorkspacesScaPaginateData,
+    WorkspacesScaPaginateResponse,
+    WorkspacesScaCreateData,
+    WorkspacesScaCreateResponse,
+    WorkspacesScaRemoveData,
+    WorkspacesScaRemoveResponse,
+    WorkspacesScaGetData,
+    WorkspacesScaGetResponse,
+    WorkspacesScaUpdateData,
+    WorkspacesScaUpdateResponse,
     SettingsGetData,
     SettingsGetResponse,
     SettingsUpdateData,
@@ -153,11 +153,11 @@ export const projectsScaUpdate = <ThrowOnError extends boolean = false>(
 /**
  * Paginate Attribute
  */
-export const attributesIndex = <ThrowOnError extends boolean = false>(
-    options?: Options<AttributesIndexData, ThrowOnError>
+export const attributesScaPaginate = <ThrowOnError extends boolean = false>(
+    options: Options<AttributesScaPaginateData, ThrowOnError>
 ) => {
     return (options?.client ?? client).get<
-        AttributesIndexResponse,
+        AttributesScaPaginateResponse,
         unknown,
         ThrowOnError
     >({
@@ -169,11 +169,11 @@ export const attributesIndex = <ThrowOnError extends boolean = false>(
 /**
  * Create a new Attribute
  */
-export const attributesCreate = <ThrowOnError extends boolean = false>(
-    options: Options<AttributesCreateData, ThrowOnError>
+export const attributesScaCreate = <ThrowOnError extends boolean = false>(
+    options: Options<AttributesScaCreateData, ThrowOnError>
 ) => {
     return (options?.client ?? client).post<
-        AttributesCreateResponse,
+        AttributesScaCreateResponse,
         unknown,
         ThrowOnError
     >({
@@ -187,45 +187,45 @@ export const attributesCreate = <ThrowOnError extends boolean = false>(
 };
 
 /**
- * Delete a Attribute by id
+ * Delete a Attribute by attributeId
  */
-export const attributesRemove = <ThrowOnError extends boolean = false>(
-    options: Options<AttributesRemoveData, ThrowOnError>
+export const attributesScaRemove = <ThrowOnError extends boolean = false>(
+    options: Options<AttributesScaRemoveData, ThrowOnError>
 ) => {
     return (options?.client ?? client).delete<
-        AttributesRemoveResponse,
+        AttributesScaRemoveResponse,
         unknown,
         ThrowOnError
     >({
         ...options,
-        url: '/editor/{projectId}/attributes/{id}'
+        url: '/editor/{projectId}/attributes/{attributeId}'
     });
 };
 
 /**
- * Get Attribute by id
+ * Get Attribute by attributeId
  */
-export const attributesGet = <ThrowOnError extends boolean = false>(
-    options: Options<AttributesGetData, ThrowOnError>
+export const attributesScaGet = <ThrowOnError extends boolean = false>(
+    options: Options<AttributesScaGetData, ThrowOnError>
 ) => {
     return (options?.client ?? client).get<
-        AttributesGetResponse,
+        AttributesScaGetResponse,
         unknown,
         ThrowOnError
     >({
         ...options,
-        url: '/editor/{projectId}/attributes/{id}'
+        url: '/editor/{projectId}/attributes/{attributeId}'
     });
 };
 
 /**
- * Update a Attribute by id
+ * Update a Attribute by attributeId
  */
-export const attributesUpdate = <ThrowOnError extends boolean = false>(
-    options: Options<AttributesUpdateData, ThrowOnError>
+export const attributesScaUpdate = <ThrowOnError extends boolean = false>(
+    options: Options<AttributesScaUpdateData, ThrowOnError>
 ) => {
     return (options?.client ?? client).patch<
-        AttributesUpdateResponse,
+        AttributesScaUpdateResponse,
         unknown,
         ThrowOnError
     >({
@@ -234,18 +234,18 @@ export const attributesUpdate = <ThrowOnError extends boolean = false>(
             'Content-Type': 'application/json',
             ...options?.headers
         },
-        url: '/editor/{projectId}/attributes/{id}'
+        url: '/editor/{projectId}/attributes/{attributeId}'
     });
 };
 
 /**
  * Paginate Edge
  */
-export const edgesIndex = <ThrowOnError extends boolean = false>(
-    options?: Options<EdgesIndexData, ThrowOnError>
+export const edgesScaPaginate = <ThrowOnError extends boolean = false>(
+    options: Options<EdgesScaPaginateData, ThrowOnError>
 ) => {
     return (options?.client ?? client).get<
-        EdgesIndexResponse,
+        EdgesScaPaginateResponse,
         unknown,
         ThrowOnError
     >({
@@ -257,11 +257,11 @@ export const edgesIndex = <ThrowOnError extends boolean = false>(
 /**
  * Create a new Edge
  */
-export const edgesCreate = <ThrowOnError extends boolean = false>(
-    options: Options<EdgesCreateData, ThrowOnError>
+export const edgesScaCreate = <ThrowOnError extends boolean = false>(
+    options: Options<EdgesScaCreateData, ThrowOnError>
 ) => {
     return (options?.client ?? client).post<
-        EdgesCreateResponse,
+        EdgesScaCreateResponse,
         unknown,
         ThrowOnError
     >({
@@ -275,45 +275,45 @@ export const edgesCreate = <ThrowOnError extends boolean = false>(
 };
 
 /**
- * Delete a Edge by id
+ * Delete a Edge by edgeId
  */
-export const edgesRemove = <ThrowOnError extends boolean = false>(
-    options: Options<EdgesRemoveData, ThrowOnError>
+export const edgesScaRemove = <ThrowOnError extends boolean = false>(
+    options: Options<EdgesScaRemoveData, ThrowOnError>
 ) => {
     return (options?.client ?? client).delete<
-        EdgesRemoveResponse,
+        EdgesScaRemoveResponse,
         unknown,
         ThrowOnError
     >({
         ...options,
-        url: '/editor/{projectId}/edges/{id}'
+        url: '/editor/{projectId}/edges/{edgeId}'
     });
 };
 
 /**
- * Get Edge by id
+ * Get Edge by edgeId
  */
-export const edgesGet = <ThrowOnError extends boolean = false>(
-    options: Options<EdgesGetData, ThrowOnError>
+export const edgesScaGet = <ThrowOnError extends boolean = false>(
+    options: Options<EdgesScaGetData, ThrowOnError>
 ) => {
     return (options?.client ?? client).get<
-        EdgesGetResponse,
+        EdgesScaGetResponse,
         unknown,
         ThrowOnError
     >({
         ...options,
-        url: '/editor/{projectId}/edges/{id}'
+        url: '/editor/{projectId}/edges/{edgeId}'
     });
 };
 
 /**
- * Update a Edge by id
+ * Update a Edge by edgeId
  */
-export const edgesUpdate = <ThrowOnError extends boolean = false>(
-    options: Options<EdgesUpdateData, ThrowOnError>
+export const edgesScaUpdate = <ThrowOnError extends boolean = false>(
+    options: Options<EdgesScaUpdateData, ThrowOnError>
 ) => {
     return (options?.client ?? client).patch<
-        EdgesUpdateResponse,
+        EdgesScaUpdateResponse,
         unknown,
         ThrowOnError
     >({
@@ -322,18 +322,18 @@ export const edgesUpdate = <ThrowOnError extends boolean = false>(
             'Content-Type': 'application/json',
             ...options?.headers
         },
-        url: '/editor/{projectId}/edges/{id}'
+        url: '/editor/{projectId}/edges/{edgeId}'
     });
 };
 
 /**
  * Paginate Node
  */
-export const nodesIndex = <ThrowOnError extends boolean = false>(
-    options?: Options<NodesIndexData, ThrowOnError>
+export const nodesScaPaginate = <ThrowOnError extends boolean = false>(
+    options: Options<NodesScaPaginateData, ThrowOnError>
 ) => {
     return (options?.client ?? client).get<
-        NodesIndexResponse,
+        NodesScaPaginateResponse,
         unknown,
         ThrowOnError
     >({
@@ -345,11 +345,11 @@ export const nodesIndex = <ThrowOnError extends boolean = false>(
 /**
  * Create a new Node
  */
-export const nodesCreate = <ThrowOnError extends boolean = false>(
-    options: Options<NodesCreateData, ThrowOnError>
+export const nodesScaCreate = <ThrowOnError extends boolean = false>(
+    options: Options<NodesScaCreateData, ThrowOnError>
 ) => {
     return (options?.client ?? client).post<
-        NodesCreateResponse,
+        NodesScaCreateResponse,
         unknown,
         ThrowOnError
     >({
@@ -363,45 +363,45 @@ export const nodesCreate = <ThrowOnError extends boolean = false>(
 };
 
 /**
- * Delete a Node by id
+ * Delete a Node by nodeId
  */
-export const nodesRemove = <ThrowOnError extends boolean = false>(
-    options: Options<NodesRemoveData, ThrowOnError>
+export const nodesScaRemove = <ThrowOnError extends boolean = false>(
+    options: Options<NodesScaRemoveData, ThrowOnError>
 ) => {
     return (options?.client ?? client).delete<
-        NodesRemoveResponse,
+        NodesScaRemoveResponse,
         unknown,
         ThrowOnError
     >({
         ...options,
-        url: '/editor/{projectId}/nodes/{id}'
+        url: '/editor/{projectId}/nodes/{nodeId}'
     });
 };
 
 /**
- * Get Node by id
+ * Get Node by nodeId
  */
-export const nodesGet = <ThrowOnError extends boolean = false>(
-    options: Options<NodesGetData, ThrowOnError>
+export const nodesScaGet = <ThrowOnError extends boolean = false>(
+    options: Options<NodesScaGetData, ThrowOnError>
 ) => {
     return (options?.client ?? client).get<
-        NodesGetResponse,
+        NodesScaGetResponse,
         unknown,
         ThrowOnError
     >({
         ...options,
-        url: '/editor/{projectId}/nodes/{id}'
+        url: '/editor/{projectId}/nodes/{nodeId}'
     });
 };
 
 /**
- * Update a Node by id
+ * Update a Node by nodeId
  */
-export const nodesUpdate = <ThrowOnError extends boolean = false>(
-    options: Options<NodesUpdateData, ThrowOnError>
+export const nodesScaUpdate = <ThrowOnError extends boolean = false>(
+    options: Options<NodesScaUpdateData, ThrowOnError>
 ) => {
     return (options?.client ?? client).patch<
-        NodesUpdateResponse,
+        NodesScaUpdateResponse,
         unknown,
         ThrowOnError
     >({
@@ -410,18 +410,18 @@ export const nodesUpdate = <ThrowOnError extends boolean = false>(
             'Content-Type': 'application/json',
             ...options?.headers
         },
-        url: '/editor/{projectId}/nodes/{id}'
+        url: '/editor/{projectId}/nodes/{nodeId}'
     });
 };
 
 /**
  * Paginate Workspace
  */
-export const workspacesIndex = <ThrowOnError extends boolean = false>(
-    options?: Options<WorkspacesIndexData, ThrowOnError>
+export const workspacesScaPaginate = <ThrowOnError extends boolean = false>(
+    options: Options<WorkspacesScaPaginateData, ThrowOnError>
 ) => {
     return (options?.client ?? client).get<
-        WorkspacesIndexResponse,
+        WorkspacesScaPaginateResponse,
         unknown,
         ThrowOnError
     >({
@@ -433,11 +433,11 @@ export const workspacesIndex = <ThrowOnError extends boolean = false>(
 /**
  * Create a new Workspace
  */
-export const workspacesCreate = <ThrowOnError extends boolean = false>(
-    options: Options<WorkspacesCreateData, ThrowOnError>
+export const workspacesScaCreate = <ThrowOnError extends boolean = false>(
+    options: Options<WorkspacesScaCreateData, ThrowOnError>
 ) => {
     return (options?.client ?? client).post<
-        WorkspacesCreateResponse,
+        WorkspacesScaCreateResponse,
         unknown,
         ThrowOnError
     >({
@@ -451,45 +451,45 @@ export const workspacesCreate = <ThrowOnError extends boolean = false>(
 };
 
 /**
- * Delete a Node by id
+ * Delete a Workspace by workspaceId
  */
-export const workspacesRemove = <ThrowOnError extends boolean = false>(
-    options: Options<WorkspacesRemoveData, ThrowOnError>
+export const workspacesScaRemove = <ThrowOnError extends boolean = false>(
+    options: Options<WorkspacesScaRemoveData, ThrowOnError>
 ) => {
     return (options?.client ?? client).delete<
-        WorkspacesRemoveResponse,
+        WorkspacesScaRemoveResponse,
         unknown,
         ThrowOnError
     >({
         ...options,
-        url: '/editor/{projectId}/workspaces/{id}'
+        url: '/editor/{projectId}/workspaces/{workspaceId}'
     });
 };
 
 /**
- * Get Workspace by id
+ * Get Workspace by workspaceId
  */
-export const workspacesGet = <ThrowOnError extends boolean = false>(
-    options: Options<WorkspacesGetData, ThrowOnError>
+export const workspacesScaGet = <ThrowOnError extends boolean = false>(
+    options: Options<WorkspacesScaGetData, ThrowOnError>
 ) => {
     return (options?.client ?? client).get<
-        WorkspacesGetResponse,
+        WorkspacesScaGetResponse,
         unknown,
         ThrowOnError
     >({
         ...options,
-        url: '/editor/{projectId}/workspaces/{id}'
+        url: '/editor/{projectId}/workspaces/{workspaceId}'
     });
 };
 
 /**
- * Update a Workspace by id
+ * Update a Workspace by workspaceId
  */
-export const workspacesUpdate = <ThrowOnError extends boolean = false>(
-    options: Options<WorkspacesUpdateData, ThrowOnError>
+export const workspacesScaUpdate = <ThrowOnError extends boolean = false>(
+    options: Options<WorkspacesScaUpdateData, ThrowOnError>
 ) => {
     return (options?.client ?? client).patch<
-        WorkspacesUpdateResponse,
+        WorkspacesScaUpdateResponse,
         unknown,
         ThrowOnError
     >({
@@ -498,7 +498,7 @@ export const workspacesUpdate = <ThrowOnError extends boolean = false>(
             'Content-Type': 'application/json',
             ...options?.headers
         },
-        url: '/editor/{projectId}/workspaces/{id}'
+        url: '/editor/{projectId}/workspaces/{workspaceId}'
     });
 };
 

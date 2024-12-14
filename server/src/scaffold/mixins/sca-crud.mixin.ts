@@ -7,15 +7,22 @@ import {ScaConstructor, ScaEmptyBase} from '@/scaffold/mixins/sca.mixin';
 import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {Type} from '@nestjs/common';
 
-interface ScaCrudMixinOptions<
+export interface ScaCrudMixinOptions<
     TDo extends ScaEntity,
     TCreateDto extends object,
     TUpdateDto extends object
 > {
     paramId?: string;
+
     dto: Type<TDo>;
+
     createDto: Type<TCreateDto>;
+
     updateDto: Type<TUpdateDto>;
+
+    decorators?: (
+        action: 'paginate' | 'get' | 'create' | 'update' | 'remove'
+    ) => Array<MethodDecorator>;
 }
 
 export function scaCrudMixin<
@@ -28,22 +35,40 @@ export function scaCrudMixin<
         paramId = 'id',
         dto,
         updateDto,
-        createDto
+        createDto,
+        decorators
     }: ScaCrudMixinOptions<TDo, TCreateDto, TUpdateDto>,
     Base: TBase = ScaEmptyBase as TBase
 ) {
     return scaPaginateMixin(
-        {dto},
+        {dto, decorators: () => decorators?.('paginate') ?? []},
         scaGetMixin(
-            {paramId, dto},
+            {
+                paramId,
+                dto,
+                decorators: () => decorators?.('get') ?? []
+            },
             scaCreateMixin(
                 {
                     dto,
-                    createDto
+                    createDto,
+                    decorators: () => decorators?.('create') ?? []
                 },
                 scaUpdateMixin(
-                    {paramId, dto, updateDto},
-                    scaRemoveMixin({paramId, dto}, Base)
+                    {
+                        paramId,
+                        dto,
+                        updateDto,
+                        decorators: () => decorators?.('update') ?? []
+                    },
+                    scaRemoveMixin(
+                        {
+                            paramId,
+                            dto,
+                            decorators: () => decorators?.('remove') ?? []
+                        },
+                        Base
+                    )
                 )
             )
         )

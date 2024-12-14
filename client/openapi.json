@@ -61,6 +61,7 @@
                         "name": "projectId",
                         "required": true,
                         "in": "path",
+                        "description": "The ID of a Project",
                         "schema": {
                             "type": "number"
                         }
@@ -93,6 +94,7 @@
                         "name": "projectId",
                         "required": true,
                         "in": "path",
+                        "description": "The ID of a Project",
                         "schema": {
                             "type": "number"
                         }
@@ -135,6 +137,7 @@
                         "name": "projectId",
                         "required": true,
                         "in": "path",
+                        "description": "The ID of a Project",
                         "schema": {
                             "type": "number"
                         }
@@ -156,8 +159,18 @@
         },
         "/editor/{projectId}/attributes": {
             "get": {
-                "operationId": "Attributes_index",
-                "parameters": [],
+                "operationId": "Attributes_scaPaginate",
+                "parameters": [
+                    {
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a project",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Return a list of Attribute",
@@ -176,8 +189,18 @@
                 ]
             },
             "post": {
-                "operationId": "Attributes_create",
-                "parameters": [],
+                "operationId": "Attributes_scaCreate",
+                "parameters": [
+                    {
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a project",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -189,16 +212,6 @@
                     }
                 },
                 "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
                     "201": {
                         "description": "Return a new Attribute",
                         "content": {
@@ -216,14 +229,24 @@
                 ]
             }
         },
-        "/editor/{projectId}/attributes/{id}": {
+        "/editor/{projectId}/attributes/{attributeId}": {
             "get": {
-                "operationId": "Attributes_get",
+                "operationId": "Attributes_scaGet",
                 "parameters": [
                     {
-                        "name": "id",
+                        "name": "attributeId",
                         "required": true,
                         "in": "path",
+                        "description": "The ID of a Attribute",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a project",
                         "schema": {
                             "type": "number"
                         }
@@ -231,7 +254,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Return a Attribute by id",
+                        "description": "Return a Attribute by attributeId",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -241,21 +264,31 @@
                         }
                     },
                     "404": {
-                        "description": "A Attribute with the specified id was not found"
+                        "description": "A Attribute with the specified attributeId was not found"
                     }
                 },
-                "summary": "Get Attribute by id",
+                "summary": "Get Attribute by attributeId",
                 "tags": [
                     "Editor"
                 ]
             },
             "patch": {
-                "operationId": "Attributes_update",
+                "operationId": "Attributes_scaUpdate",
                 "parameters": [
                     {
-                        "name": "id",
+                        "name": "attributeId",
                         "required": true,
                         "in": "path",
+                        "description": "The ID of a Attribute",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a project",
                         "schema": {
                             "type": "number"
                         }
@@ -273,7 +306,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Return a Attribute by id",
+                        "description": "Return a Attribute by attributeId",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -283,45 +316,45 @@
                         }
                     },
                     "404": {
-                        "description": "A Attribute with the specified id was not found"
+                        "description": "A Attribute with the specified attributeId was not found"
                     }
                 },
-                "summary": "Update a Attribute by id",
+                "summary": "Update a Attribute by attributeId",
                 "tags": [
                     "Editor"
                 ]
             },
             "delete": {
-                "operationId": "Attributes_remove",
+                "operationId": "Attributes_scaRemove",
                 "parameters": [
                     {
-                        "name": "id",
+                        "name": "attributeId",
                         "required": true,
                         "in": "path",
+                        "description": "The ID of a Attribute",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a project",
                         "schema": {
                             "type": "number"
                         }
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
                     "204": {
                         "description": "The Attribute has been deleted"
                     },
                     "404": {
-                        "description": "A Attribute with the specified id was not found"
+                        "description": "A Attribute with the specified attributeId was not found"
                     }
                 },
-                "summary": "Delete a Attribute by id",
+                "summary": "Delete a Attribute by attributeId",
                 "tags": [
                     "Editor"
                 ]
@@ -329,8 +362,18 @@
         },
         "/editor/{projectId}/edges": {
             "get": {
-                "operationId": "Edges_index",
-                "parameters": [],
+                "operationId": "Edges_scaPaginate",
+                "parameters": [
+                    {
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a project",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Return a list of Edge",
@@ -349,8 +392,18 @@
                 ]
             },
             "post": {
-                "operationId": "Edges_create",
-                "parameters": [],
+                "operationId": "Edges_scaCreate",
+                "parameters": [
+                    {
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a project",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -362,16 +415,6 @@
                     }
                 },
                 "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
                     "201": {
                         "description": "Return a new Edge",
                         "content": {
@@ -389,14 +432,24 @@
                 ]
             }
         },
-        "/editor/{projectId}/edges/{id}": {
+        "/editor/{projectId}/edges/{edgeId}": {
             "get": {
-                "operationId": "Edges_get",
+                "operationId": "Edges_scaGet",
                 "parameters": [
                     {
-                        "name": "id",
+                        "name": "edgeId",
                         "required": true,
                         "in": "path",
+                        "description": "The ID of a Edge",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a project",
                         "schema": {
                             "type": "number"
                         }
@@ -404,7 +457,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Return a Edge by id",
+                        "description": "Return a Edge by edgeId",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -414,21 +467,31 @@
                         }
                     },
                     "404": {
-                        "description": "A Edge with the specified id was not found"
+                        "description": "A Edge with the specified edgeId was not found"
                     }
                 },
-                "summary": "Get Edge by id",
+                "summary": "Get Edge by edgeId",
                 "tags": [
                     "Editor"
                 ]
             },
             "patch": {
-                "operationId": "Edges_update",
+                "operationId": "Edges_scaUpdate",
                 "parameters": [
                     {
-                        "name": "id",
+                        "name": "edgeId",
                         "required": true,
                         "in": "path",
+                        "description": "The ID of a Edge",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a project",
                         "schema": {
                             "type": "number"
                         }
@@ -446,7 +509,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Return a Edge by id",
+                        "description": "Return a Edge by edgeId",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -456,45 +519,45 @@
                         }
                     },
                     "404": {
-                        "description": "A Edge with the specified id was not found"
+                        "description": "A Edge with the specified edgeId was not found"
                     }
                 },
-                "summary": "Update a Edge by id",
+                "summary": "Update a Edge by edgeId",
                 "tags": [
                     "Editor"
                 ]
             },
             "delete": {
-                "operationId": "Edges_remove",
+                "operationId": "Edges_scaRemove",
                 "parameters": [
                     {
-                        "name": "id",
+                        "name": "edgeId",
                         "required": true,
                         "in": "path",
+                        "description": "The ID of a Edge",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a project",
                         "schema": {
                             "type": "number"
                         }
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
                     "204": {
                         "description": "The Edge has been deleted"
                     },
                     "404": {
-                        "description": "A Edge with the specified id was not found"
+                        "description": "A Edge with the specified edgeId was not found"
                     }
                 },
-                "summary": "Delete a Edge by id",
+                "summary": "Delete a Edge by edgeId",
                 "tags": [
                     "Editor"
                 ]
@@ -502,8 +565,18 @@
         },
         "/editor/{projectId}/nodes": {
             "get": {
-                "operationId": "Nodes_index",
-                "parameters": [],
+                "operationId": "Nodes_scaPaginate",
+                "parameters": [
+                    {
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a project",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Return a list of Node",
@@ -522,8 +595,18 @@
                 ]
             },
             "post": {
-                "operationId": "Nodes_create",
-                "parameters": [],
+                "operationId": "Nodes_scaCreate",
+                "parameters": [
+                    {
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a project",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -535,16 +618,6 @@
                     }
                 },
                 "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
                     "201": {
                         "description": "Return a new Node",
                         "content": {
@@ -562,14 +635,24 @@
                 ]
             }
         },
-        "/editor/{projectId}/nodes/{id}": {
+        "/editor/{projectId}/nodes/{nodeId}": {
             "get": {
-                "operationId": "Nodes_get",
+                "operationId": "Nodes_scaGet",
                 "parameters": [
                     {
-                        "name": "id",
+                        "name": "nodeId",
                         "required": true,
                         "in": "path",
+                        "description": "The ID of a Node",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a project",
                         "schema": {
                             "type": "number"
                         }
@@ -577,7 +660,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Return a Node by id",
+                        "description": "Return a Node by nodeId",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -587,21 +670,31 @@
                         }
                     },
                     "404": {
-                        "description": "A Node with the specified id was not found"
+                        "description": "A Node with the specified nodeId was not found"
                     }
                 },
-                "summary": "Get Node by id",
+                "summary": "Get Node by nodeId",
                 "tags": [
                     "Editor"
                 ]
             },
             "patch": {
-                "operationId": "Nodes_update",
+                "operationId": "Nodes_scaUpdate",
                 "parameters": [
                     {
-                        "name": "id",
+                        "name": "nodeId",
                         "required": true,
                         "in": "path",
+                        "description": "The ID of a Node",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a project",
                         "schema": {
                             "type": "number"
                         }
@@ -619,7 +712,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Return a Node by id",
+                        "description": "Return a Node by nodeId",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -629,45 +722,45 @@
                         }
                     },
                     "404": {
-                        "description": "A Node with the specified id was not found"
+                        "description": "A Node with the specified nodeId was not found"
                     }
                 },
-                "summary": "Update a Node by id",
+                "summary": "Update a Node by nodeId",
                 "tags": [
                     "Editor"
                 ]
             },
             "delete": {
-                "operationId": "Nodes_remove",
+                "operationId": "Nodes_scaRemove",
                 "parameters": [
                     {
-                        "name": "id",
+                        "name": "nodeId",
                         "required": true,
                         "in": "path",
+                        "description": "The ID of a Node",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a project",
                         "schema": {
                             "type": "number"
                         }
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
                     "204": {
                         "description": "The Node has been deleted"
                     },
                     "404": {
-                        "description": "A Node with the specified id was not found"
+                        "description": "A Node with the specified nodeId was not found"
                     }
                 },
-                "summary": "Delete a Node by id",
+                "summary": "Delete a Node by nodeId",
                 "tags": [
                     "Editor"
                 ]
@@ -675,8 +768,18 @@
         },
         "/editor/{projectId}/workspaces": {
             "get": {
-                "operationId": "Workspaces_index",
-                "parameters": [],
+                "operationId": "Workspaces_scaPaginate",
+                "parameters": [
+                    {
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a project",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Return a list of Workspace",
@@ -695,8 +798,18 @@
                 ]
             },
             "post": {
-                "operationId": "Workspaces_create",
-                "parameters": [],
+                "operationId": "Workspaces_scaCreate",
+                "parameters": [
+                    {
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a project",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -708,16 +821,6 @@
                     }
                 },
                 "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
                     "201": {
                         "description": "Return a new Workspace",
                         "content": {
@@ -735,14 +838,24 @@
                 ]
             }
         },
-        "/editor/{projectId}/workspaces/{id}": {
+        "/editor/{projectId}/workspaces/{workspaceId}": {
             "get": {
-                "operationId": "Workspaces_get",
+                "operationId": "Workspaces_scaGet",
                 "parameters": [
                     {
-                        "name": "id",
+                        "name": "workspaceId",
                         "required": true,
                         "in": "path",
+                        "description": "The ID of a Workspace",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a project",
                         "schema": {
                             "type": "number"
                         }
@@ -750,7 +863,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Return a Workspace by id",
+                        "description": "Return a Workspace by workspaceId",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -760,21 +873,31 @@
                         }
                     },
                     "404": {
-                        "description": "A Workspace with the specified id was not found"
+                        "description": "A Workspace with the specified workspaceId was not found"
                     }
                 },
-                "summary": "Get Workspace by id",
+                "summary": "Get Workspace by workspaceId",
                 "tags": [
                     "Editor"
                 ]
             },
             "patch": {
-                "operationId": "Workspaces_update",
+                "operationId": "Workspaces_scaUpdate",
                 "parameters": [
                     {
-                        "name": "id",
+                        "name": "workspaceId",
                         "required": true,
                         "in": "path",
+                        "description": "The ID of a Workspace",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a project",
                         "schema": {
                             "type": "number"
                         }
@@ -792,7 +915,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Return a Workspace by id",
+                        "description": "Return a Workspace by workspaceId",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -802,45 +925,45 @@
                         }
                     },
                     "404": {
-                        "description": "A Workspace with the specified id was not found"
+                        "description": "A Workspace with the specified workspaceId was not found"
                     }
                 },
-                "summary": "Update a Workspace by id",
+                "summary": "Update a Workspace by workspaceId",
                 "tags": [
                     "Editor"
                 ]
             },
             "delete": {
-                "operationId": "Workspaces_remove",
+                "operationId": "Workspaces_scaRemove",
                 "parameters": [
                     {
-                        "name": "id",
+                        "name": "workspaceId",
                         "required": true,
                         "in": "path",
+                        "description": "The ID of a Workspace",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a project",
                         "schema": {
                             "type": "number"
                         }
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
                     "204": {
-                        "description": "The Node has been deleted"
+                        "description": "The Workspace has been deleted"
                     },
                     "404": {
-                        "description": "A Node with the specified id was not found"
+                        "description": "A Workspace with the specified workspaceId was not found"
                     }
                 },
-                "summary": "Delete a Node by id",
+                "summary": "Delete a Workspace by workspaceId",
                 "tags": [
                     "Editor"
                 ]

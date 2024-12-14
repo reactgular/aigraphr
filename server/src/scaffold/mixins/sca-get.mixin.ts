@@ -9,19 +9,21 @@ interface ScaGetMixinOptions<TDo extends ScaEntity> {
     paramId?: string;
 
     dto: Type<TDo>;
+
+    decorators?: () => Array<MethodDecorator>;
 }
 
 export function scaGetMixin<
     TDo extends ScaEntity,
     TBase extends ScaConstructor
 >(
-    {paramId = 'id', dto}: ScaGetMixinOptions<TDo>,
+    {paramId = 'id', dto, decorators}: ScaGetMixinOptions<TDo>,
     Base: TBase = ScaEmptyBase as TBase
 ) {
     abstract class ScaGetClass extends Base {
         abstract crud(): ScaCrudService<TDo>;
 
-        @ScaGet(dto, paramId)
+        @ScaGet({dto, paramId, decorators})
         async scaGet(@ScaParamId(paramId) id: number): ScaGetResponse<TDo> {
             return await this.crud().scaGet(id);
         }

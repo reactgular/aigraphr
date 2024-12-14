@@ -9,10 +9,19 @@ import {
     ApiOperation
 } from '@nestjs/swagger';
 
-export function ScaCreate<TBody extends object, TResponse extends ScaEntity>(
-    bodyDto: Type<TBody>,
-    responseDto: Type<TResponse>
-) {
+interface ScaCreateOptions<TBody extends object, TResponse extends ScaEntity> {
+    bodyDto: Type<TBody>;
+
+    responseDto: Type<TResponse>;
+
+    decorators?: () => Array<MethodDecorator>;
+}
+
+export function ScaCreate<TBody extends object, TResponse extends ScaEntity>({
+    bodyDto,
+    responseDto,
+    decorators: decoratorsFn
+}: ScaCreateOptions<TBody, TResponse>) {
     const name = toHumanUtils(responseDto.name);
     const decorators: Array<MethodDecorator> = [
         Post(),
@@ -23,7 +32,8 @@ export function ScaCreate<TBody extends object, TResponse extends ScaEntity>(
             description: `Return a new ${name}`,
             type: responseDto
         }),
-        ScaValidateResponse(responseDto)
+        ScaValidateResponse(responseDto),
+        ...(decoratorsFn?.() ?? [])
     ];
     return applyDecorators(...decorators);
 }
