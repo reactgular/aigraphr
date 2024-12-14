@@ -1,4 +1,3 @@
-import {ProController} from '@/projects/decorators/pro-controller';
 import {
     WorkspaceCreateDto,
     WorkspaceDto,
@@ -6,8 +5,11 @@ import {
 } from '@/projects/entities/workspace.entity';
 import {projectCrudMixin} from '@/projects/mixins/project-crud.mixin';
 import {WorkspacesService} from '@/projects/services/workspaces.service';
+import {Controller} from '@nestjs/common';
+import {ApiTags} from '@nestjs/swagger';
 
-@ProController('workspaces')
+@ApiTags('Workspaces')
+@Controller(`projects/:projectId/workspaces`)
 export class WorkspacesController extends projectCrudMixin({
     paramId: 'workspaceId',
     dto: WorkspaceDto,

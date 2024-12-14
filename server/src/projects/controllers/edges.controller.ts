@@ -1,14 +1,16 @@
-import {ProController} from '@/projects/decorators/pro-controller';
 import {
     EdgeCreateDto,
     EdgeDto,
     EdgeUpdateDto
 } from '@/projects/entities/edge.entity';
-import {projectCrudMixin} from '@/projects/mixins/project-crud.mixin';
+import {workspaceCrudMixin} from '@/projects/mixins/workspace-crud.mixin';
 import {EdgesService} from '@/projects/services/edges.service';
+import {Controller} from '@nestjs/common';
+import {ApiTags} from '@nestjs/swagger';
 
-@ProController('edges')
-export class EdgesController extends projectCrudMixin({
+@ApiTags('Edges')
+@Controller(`projects/:projectId/workspaces/:workspaceId/edges`)
+export class EdgesController extends workspaceCrudMixin({
     paramId: 'edgeId',
     dto: EdgeDto,
     createDto: EdgeCreateDto,

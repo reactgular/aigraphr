@@ -15,14 +15,6 @@ import type {
     ProjectsScaGetData,
     ProjectsScaUpdateData,
     ProjectsScaUpdateResponse,
-    AttributesScaPaginateData,
-    AttributesScaCreateData,
-    AttributesScaCreateResponse,
-    AttributesScaRemoveData,
-    AttributesScaRemoveResponse,
-    AttributesScaGetData,
-    AttributesScaUpdateData,
-    AttributesScaUpdateResponse,
     EdgesScaPaginateData,
     EdgesScaCreateData,
     EdgesScaCreateResponse,
@@ -60,11 +52,6 @@ import {
     projectsScaRemove,
     projectsScaGet,
     projectsScaUpdate,
-    attributesScaPaginate,
-    attributesScaCreate,
-    attributesScaRemove,
-    attributesScaGet,
-    attributesScaUpdate,
     edgesScaPaginate,
     edgesScaCreate,
     edgesScaRemove,
@@ -230,129 +217,6 @@ export const projectsScaUpdateMutation = (
     > = {
         mutationFn: async (localOptions) => {
             const {data} = await projectsScaUpdate({
-                ...options,
-                ...localOptions,
-                throwOnError: true
-            });
-            return data;
-        }
-    };
-    return mutationOptions;
-};
-
-export const attributesScaPaginateQueryKey = (
-    options: Options<AttributesScaPaginateData>
-) => [createQueryKey('attributesScaPaginate', options)];
-
-export const attributesScaPaginateOptions = (
-    options: Options<AttributesScaPaginateData>
-) => {
-    return queryOptions({
-        queryFn: async ({queryKey, signal}) => {
-            const {data} = await attributesScaPaginate({
-                ...options,
-                ...queryKey[0],
-                signal,
-                throwOnError: true
-            });
-            return data;
-        },
-        queryKey: attributesScaPaginateQueryKey(options)
-    });
-};
-
-export const attributesScaCreateQueryKey = (
-    options: Options<AttributesScaCreateData>
-) => [createQueryKey('attributesScaCreate', options)];
-
-export const attributesScaCreateOptions = (
-    options: Options<AttributesScaCreateData>
-) => {
-    return queryOptions({
-        queryFn: async ({queryKey, signal}) => {
-            const {data} = await attributesScaCreate({
-                ...options,
-                ...queryKey[0],
-                signal,
-                throwOnError: true
-            });
-            return data;
-        },
-        queryKey: attributesScaCreateQueryKey(options)
-    });
-};
-
-export const attributesScaCreateMutation = (
-    options?: Partial<Options<AttributesScaCreateData>>
-) => {
-    const mutationOptions: UseMutationOptions<
-        AttributesScaCreateResponse,
-        DefaultError,
-        Options<AttributesScaCreateData>
-    > = {
-        mutationFn: async (localOptions) => {
-            const {data} = await attributesScaCreate({
-                ...options,
-                ...localOptions,
-                throwOnError: true
-            });
-            return data;
-        }
-    };
-    return mutationOptions;
-};
-
-export const attributesScaRemoveMutation = (
-    options?: Partial<Options<AttributesScaRemoveData>>
-) => {
-    const mutationOptions: UseMutationOptions<
-        AttributesScaRemoveResponse,
-        DefaultError,
-        Options<AttributesScaRemoveData>
-    > = {
-        mutationFn: async (localOptions) => {
-            const {data} = await attributesScaRemove({
-                ...options,
-                ...localOptions,
-                throwOnError: true
-            });
-            return data;
-        }
-    };
-    return mutationOptions;
-};
-
-export const attributesScaGetQueryKey = (
-    options: Options<AttributesScaGetData>
-) => [createQueryKey('attributesScaGet', options)];
-
-export const attributesScaGetOptions = (
-    options: Options<AttributesScaGetData>
-) => {
-    return queryOptions({
-        queryFn: async ({queryKey, signal}) => {
-            const {data} = await attributesScaGet({
-                ...options,
-                ...queryKey[0],
-                signal,
-                throwOnError: true
-            });
-            return data;
-        },
-        queryKey: attributesScaGetQueryKey(options)
-    });
-};
-
-export const attributesScaUpdateMutation = (
-    options?: Partial<Options<AttributesScaUpdateData>>
-) => {
-    const mutationOptions: UseMutationOptions<
-        AttributesScaUpdateResponse,
-        DefaultError,
-        Options<AttributesScaUpdateData>
-    > = {
-        mutationFn: async (localOptions) => {
-            const {data} = await attributesScaUpdate({
                 ...options,
                 ...localOptions,
                 throwOnError: true

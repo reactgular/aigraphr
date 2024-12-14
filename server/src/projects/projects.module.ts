@@ -13,7 +13,6 @@ import {
     NODES_REPOSITORY,
     WORKSPACES_REPOSITORY
 } from '@/projects/project-symbols';
-import {AttributesService} from '@/projects/services/attributes.service';
 import {EdgesService} from '@/projects/services/edges.service';
 import {NodesService} from '@/projects/services/nodes.service';
 import {ProjectDatabasesService} from '@/projects/services/project-databases.service';
@@ -31,7 +30,6 @@ import {FactoryProvider} from '@nestjs/common/interfaces/modules/provider.interf
 import {TypeOrmModule} from '@nestjs/typeorm';
 import {EntityTarget} from 'typeorm/common/EntityTarget';
 import {ObjectLiteral} from 'typeorm/common/ObjectLiteral';
-import {AttributesController} from './controllers/attributes.controller';
 import {EdgesController} from './controllers/edges.controller';
 import {ProjectGuard} from './gaurds/project.guard';
 
@@ -56,7 +54,6 @@ function repository<Entity extends ObjectLiteral>(
     ],
     controllers: [
         ProjectsController,
-        AttributesController,
         EdgesController,
         NodesController,
         WorkspacesController
@@ -75,7 +72,6 @@ function repository<Entity extends ObjectLiteral>(
         repository(EDGES_REPOSITORY, EdgeEntity),
         repository(ATTRIBUTES_REPOSITORY, AttributeEntity),
         ProjectsService,
-        AttributesService,
         EdgesService,
         NodesService,
         WorkspacesService

@@ -1,12 +1,10 @@
-import {
-    scaCrudMixin,
-    ScaCrudMixinOptions
-} from '@/scaffold/mixins/sca-crud.mixin';
+import {projectCrudMixin} from '@/projects/mixins/project-crud.mixin';
+import {ScaCrudMixinOptions} from '@/scaffold/mixins/sca-crud.mixin';
 import {ScaConstructor, ScaEmptyBase} from '@/scaffold/mixins/sca.mixin';
 import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {ApiParam} from '@nestjs/swagger';
 
-export function projectCrudMixin<
+export function workspaceCrudMixin<
     TDo extends ScaEntity,
     TCreateDto extends object,
     TUpdateDto extends object,
@@ -21,7 +19,7 @@ export function projectCrudMixin<
     }: ScaCrudMixinOptions<TDo, TCreateDto, TUpdateDto>,
     Base: TBase = ScaEmptyBase as TBase
 ) {
-    return scaCrudMixin(
+    return projectCrudMixin(
         {
             paramId,
             dto,
@@ -29,9 +27,9 @@ export function projectCrudMixin<
             updateDto,
             decorators: (action) => [
                 ApiParam({
-                    name: 'projectId',
+                    name: 'workspaceId',
                     type: Number,
-                    description: 'The ID of a project',
+                    description: 'The ID of a workspace',
                     required: true
                 }),
                 ...(decorators?.(action) ?? [])

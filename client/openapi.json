@@ -157,210 +157,7 @@
                 ]
             }
         },
-        "/editor/{projectId}/attributes": {
-            "get": {
-                "operationId": "Attributes_scaPaginate",
-                "parameters": [
-                    {
-                        "name": "projectId",
-                        "required": true,
-                        "in": "path",
-                        "description": "The ID of a project",
-                        "schema": {
-                            "type": "number"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Return a list of Attribute",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/AttributeDto"
-                                }
-                            }
-                        }
-                    }
-                },
-                "summary": "Paginate Attribute",
-                "tags": [
-                    "Editor"
-                ]
-            },
-            "post": {
-                "operationId": "Attributes_scaCreate",
-                "parameters": [
-                    {
-                        "name": "projectId",
-                        "required": true,
-                        "in": "path",
-                        "description": "The ID of a project",
-                        "schema": {
-                            "type": "number"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/AttributeCreateDto"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Return a new Attribute",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/AttributeDto"
-                                }
-                            }
-                        }
-                    }
-                },
-                "summary": "Create a new Attribute",
-                "tags": [
-                    "Editor"
-                ]
-            }
-        },
-        "/editor/{projectId}/attributes/{attributeId}": {
-            "get": {
-                "operationId": "Attributes_scaGet",
-                "parameters": [
-                    {
-                        "name": "attributeId",
-                        "required": true,
-                        "in": "path",
-                        "description": "The ID of a Attribute",
-                        "schema": {
-                            "type": "number"
-                        }
-                    },
-                    {
-                        "name": "projectId",
-                        "required": true,
-                        "in": "path",
-                        "description": "The ID of a project",
-                        "schema": {
-                            "type": "number"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Return a Attribute by attributeId",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/AttributeDto"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "A Attribute with the specified attributeId was not found"
-                    }
-                },
-                "summary": "Get Attribute by attributeId",
-                "tags": [
-                    "Editor"
-                ]
-            },
-            "patch": {
-                "operationId": "Attributes_scaUpdate",
-                "parameters": [
-                    {
-                        "name": "attributeId",
-                        "required": true,
-                        "in": "path",
-                        "description": "The ID of a Attribute",
-                        "schema": {
-                            "type": "number"
-                        }
-                    },
-                    {
-                        "name": "projectId",
-                        "required": true,
-                        "in": "path",
-                        "description": "The ID of a project",
-                        "schema": {
-                            "type": "number"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/AttributeUpdateDto"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Return a Attribute by attributeId",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/AttributeDto"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "A Attribute with the specified attributeId was not found"
-                    }
-                },
-                "summary": "Update a Attribute by attributeId",
-                "tags": [
-                    "Editor"
-                ]
-            },
-            "delete": {
-                "operationId": "Attributes_scaRemove",
-                "parameters": [
-                    {
-                        "name": "attributeId",
-                        "required": true,
-                        "in": "path",
-                        "description": "The ID of a Attribute",
-                        "schema": {
-                            "type": "number"
-                        }
-                    },
-                    {
-                        "name": "projectId",
-                        "required": true,
-                        "in": "path",
-                        "description": "The ID of a project",
-                        "schema": {
-                            "type": "number"
-                        }
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "The Attribute has been deleted"
-                    },
-                    "404": {
-                        "description": "A Attribute with the specified attributeId was not found"
-                    }
-                },
-                "summary": "Delete a Attribute by attributeId",
-                "tags": [
-                    "Editor"
-                ]
-            }
-        },
-        "/editor/{projectId}/edges": {
+        "/projects/{projectId}/workspaces/{workspaceId}/edges": {
             "get": {
                 "operationId": "Edges_scaPaginate",
                 "parameters": [
@@ -388,7 +185,7 @@
                 },
                 "summary": "Paginate Edge",
                 "tags": [
-                    "Editor"
+                    "Projects"
                 ]
             },
             "post": {
@@ -428,11 +225,11 @@
                 },
                 "summary": "Create a new Edge",
                 "tags": [
-                    "Editor"
+                    "Projects"
                 ]
             }
         },
-        "/editor/{projectId}/edges/{edgeId}": {
+        "/projects/{projectId}/workspaces/{workspaceId}/edges/{edgeId}": {
             "get": {
                 "operationId": "Edges_scaGet",
                 "parameters": [
@@ -472,7 +269,7 @@
                 },
                 "summary": "Get Edge by edgeId",
                 "tags": [
-                    "Editor"
+                    "Projects"
                 ]
             },
             "patch": {
@@ -524,7 +321,7 @@
                 },
                 "summary": "Update a Edge by edgeId",
                 "tags": [
-                    "Editor"
+                    "Projects"
                 ]
             },
             "delete": {
@@ -559,11 +356,11 @@
                 },
                 "summary": "Delete a Edge by edgeId",
                 "tags": [
-                    "Editor"
+                    "Projects"
                 ]
             }
         },
-        "/editor/{projectId}/nodes": {
+        "/projects/{projectId}/workspaces/{workspaceId}/nodes": {
             "get": {
                 "operationId": "Nodes_scaPaginate",
                 "parameters": [
@@ -591,7 +388,7 @@
                 },
                 "summary": "Paginate Node",
                 "tags": [
-                    "Editor"
+                    "Projects"
                 ]
             },
             "post": {
@@ -631,11 +428,11 @@
                 },
                 "summary": "Create a new Node",
                 "tags": [
-                    "Editor"
+                    "Projects"
                 ]
             }
         },
-        "/editor/{projectId}/nodes/{nodeId}": {
+        "/projects/{projectId}/workspaces/{workspaceId}/nodes/{nodeId}": {
             "get": {
                 "operationId": "Nodes_scaGet",
                 "parameters": [
@@ -675,7 +472,7 @@
                 },
                 "summary": "Get Node by nodeId",
                 "tags": [
-                    "Editor"
+                    "Projects"
                 ]
             },
             "patch": {
@@ -727,7 +524,7 @@
                 },
                 "summary": "Update a Node by nodeId",
                 "tags": [
-                    "Editor"
+                    "Projects"
                 ]
             },
             "delete": {
@@ -762,11 +559,11 @@
                 },
                 "summary": "Delete a Node by nodeId",
                 "tags": [
-                    "Editor"
+                    "Projects"
                 ]
             }
         },
-        "/editor/{projectId}/workspaces": {
+        "/projects/{projectId}/workspaces": {
             "get": {
                 "operationId": "Workspaces_scaPaginate",
                 "parameters": [
@@ -794,7 +591,7 @@
                 },
                 "summary": "Paginate Workspace",
                 "tags": [
-                    "Editor"
+                    "Projects"
                 ]
             },
             "post": {
@@ -834,11 +631,11 @@
                 },
                 "summary": "Create a new Workspace",
                 "tags": [
-                    "Editor"
+                    "Projects"
                 ]
             }
         },
-        "/editor/{projectId}/workspaces/{workspaceId}": {
+        "/projects/{projectId}/workspaces/{workspaceId}": {
             "get": {
                 "operationId": "Workspaces_scaGet",
                 "parameters": [
@@ -878,7 +675,7 @@
                 },
                 "summary": "Get Workspace by workspaceId",
                 "tags": [
-                    "Editor"
+                    "Projects"
                 ]
             },
             "patch": {
@@ -930,7 +727,7 @@
                 },
                 "summary": "Update a Workspace by workspaceId",
                 "tags": [
-                    "Editor"
+                    "Projects"
                 ]
             },
             "delete": {
@@ -965,7 +762,7 @@
                 },
                 "summary": "Delete a Workspace by workspaceId",
                 "tags": [
-                    "Editor"
+                    "Projects"
                 ]
             }
         },
@@ -1130,41 +927,6 @@
                         "type": "boolean",
                         "description": "The open status of the project"
                     },
-                    "test": {
-                        "type": "string"
-                    }
-                }
-            },
-            "AttributeDto": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "number",
-                        "example": 1234
-                    },
-                    "test": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "id",
-                    "test"
-                ]
-            },
-            "AttributeCreateDto": {
-                "type": "object",
-                "properties": {
-                    "test": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "test"
-                ]
-            },
-            "AttributeUpdateDto": {
-                "type": "object",
-                "properties": {
                     "test": {
                         "type": "string"
                     }

@@ -37,19 +37,6 @@ export type ProjectUpdateDto = {
     test?: string;
 };
 
-export type AttributeDto = {
-    id: number;
-    test: string;
-};
-
-export type AttributeCreateDto = {
-    test: string;
-};
-
-export type AttributeUpdateDto = {
-    test?: string;
-};
-
 export type EdgeDto = {
     id: number;
     test: string;
@@ -226,149 +213,6 @@ export type ProjectsScaUpdateResponses = {
 export type ProjectsScaUpdateResponse =
     ProjectsScaUpdateResponses[keyof ProjectsScaUpdateResponses];
 
-export type AttributesScaPaginateData = {
-    body?: never;
-    path: {
-        /**
-         * The ID of a project
-         */
-        projectId: number;
-    };
-    query?: never;
-    url: '/editor/{projectId}/attributes';
-};
-
-export type AttributesScaPaginateResponses = {
-    /**
-     * Return a list of Attribute
-     */
-    200: AttributeDto;
-};
-
-export type AttributesScaPaginateResponse =
-    AttributesScaPaginateResponses[keyof AttributesScaPaginateResponses];
-
-export type AttributesScaCreateData = {
-    body: AttributeCreateDto;
-    path: {
-        /**
-         * The ID of a project
-         */
-        projectId: number;
-    };
-    query?: never;
-    url: '/editor/{projectId}/attributes';
-};
-
-export type AttributesScaCreateResponses = {
-    /**
-     * Return a new Attribute
-     */
-    201: AttributeDto;
-};
-
-export type AttributesScaCreateResponse =
-    AttributesScaCreateResponses[keyof AttributesScaCreateResponses];
-
-export type AttributesScaRemoveData = {
-    body?: never;
-    path: {
-        /**
-         * The ID of a Attribute
-         */
-        attributeId: number;
-        /**
-         * The ID of a project
-         */
-        projectId: number;
-    };
-    query?: never;
-    url: '/editor/{projectId}/attributes/{attributeId}';
-};
-
-export type AttributesScaRemoveErrors = {
-    /**
-     * A Attribute with the specified attributeId was not found
-     */
-    404: unknown;
-};
-
-export type AttributesScaRemoveResponses = {
-    /**
-     * The Attribute has been deleted
-     */
-    204: void;
-};
-
-export type AttributesScaRemoveResponse =
-    AttributesScaRemoveResponses[keyof AttributesScaRemoveResponses];
-
-export type AttributesScaGetData = {
-    body?: never;
-    path: {
-        /**
-         * The ID of a Attribute
-         */
-        attributeId: number;
-        /**
-         * The ID of a project
-         */
-        projectId: number;
-    };
-    query?: never;
-    url: '/editor/{projectId}/attributes/{attributeId}';
-};
-
-export type AttributesScaGetErrors = {
-    /**
-     * A Attribute with the specified attributeId was not found
-     */
-    404: unknown;
-};
-
-export type AttributesScaGetResponses = {
-    /**
-     * Return a Attribute by attributeId
-     */
-    200: AttributeDto;
-};
-
-export type AttributesScaGetResponse =
-    AttributesScaGetResponses[keyof AttributesScaGetResponses];
-
-export type AttributesScaUpdateData = {
-    body: AttributeUpdateDto;
-    path: {
-        /**
-         * The ID of a Attribute
-         */
-        attributeId: number;
-        /**
-         * The ID of a project
-         */
-        projectId: number;
-    };
-    query?: never;
-    url: '/editor/{projectId}/attributes/{attributeId}';
-};
-
-export type AttributesScaUpdateErrors = {
-    /**
-     * A Attribute with the specified attributeId was not found
-     */
-    404: unknown;
-};
-
-export type AttributesScaUpdateResponses = {
-    /**
-     * Return a Attribute by attributeId
-     */
-    200: AttributeDto;
-};
-
-export type AttributesScaUpdateResponse =
-    AttributesScaUpdateResponses[keyof AttributesScaUpdateResponses];
-
 export type EdgesScaPaginateData = {
     body?: never;
     path: {
@@ -378,7 +222,7 @@ export type EdgesScaPaginateData = {
         projectId: number;
     };
     query?: never;
-    url: '/editor/{projectId}/edges';
+    url: '/projects/{projectId}/workspaces/{workspaceId}/edges';
 };
 
 export type EdgesScaPaginateResponses = {
@@ -400,7 +244,7 @@ export type EdgesScaCreateData = {
         projectId: number;
     };
     query?: never;
-    url: '/editor/{projectId}/edges';
+    url: '/projects/{projectId}/workspaces/{workspaceId}/edges';
 };
 
 export type EdgesScaCreateResponses = {
@@ -426,7 +270,7 @@ export type EdgesScaRemoveData = {
         projectId: number;
     };
     query?: never;
-    url: '/editor/{projectId}/edges/{edgeId}';
+    url: '/projects/{projectId}/workspaces/{workspaceId}/edges/{edgeId}';
 };
 
 export type EdgesScaRemoveErrors = {
@@ -459,7 +303,7 @@ export type EdgesScaGetData = {
         projectId: number;
     };
     query?: never;
-    url: '/editor/{projectId}/edges/{edgeId}';
+    url: '/projects/{projectId}/workspaces/{workspaceId}/edges/{edgeId}';
 };
 
 export type EdgesScaGetErrors = {
@@ -492,7 +336,7 @@ export type EdgesScaUpdateData = {
         projectId: number;
     };
     query?: never;
-    url: '/editor/{projectId}/edges/{edgeId}';
+    url: '/projects/{projectId}/workspaces/{workspaceId}/edges/{edgeId}';
 };
 
 export type EdgesScaUpdateErrors = {
@@ -521,7 +365,7 @@ export type NodesScaPaginateData = {
         projectId: number;
     };
     query?: never;
-    url: '/editor/{projectId}/nodes';
+    url: '/projects/{projectId}/workspaces/{workspaceId}/nodes';
 };
 
 export type NodesScaPaginateResponses = {
@@ -543,7 +387,7 @@ export type NodesScaCreateData = {
         projectId: number;
     };
     query?: never;
-    url: '/editor/{projectId}/nodes';
+    url: '/projects/{projectId}/workspaces/{workspaceId}/nodes';
 };
 
 export type NodesScaCreateResponses = {
@@ -569,7 +413,7 @@ export type NodesScaRemoveData = {
         projectId: number;
     };
     query?: never;
-    url: '/editor/{projectId}/nodes/{nodeId}';
+    url: '/projects/{projectId}/workspaces/{workspaceId}/nodes/{nodeId}';
 };
 
 export type NodesScaRemoveErrors = {
@@ -602,7 +446,7 @@ export type NodesScaGetData = {
         projectId: number;
     };
     query?: never;
-    url: '/editor/{projectId}/nodes/{nodeId}';
+    url: '/projects/{projectId}/workspaces/{workspaceId}/nodes/{nodeId}';
 };
 
 export type NodesScaGetErrors = {
@@ -635,7 +479,7 @@ export type NodesScaUpdateData = {
         projectId: number;
     };
     query?: never;
-    url: '/editor/{projectId}/nodes/{nodeId}';
+    url: '/projects/{projectId}/workspaces/{workspaceId}/nodes/{nodeId}';
 };
 
 export type NodesScaUpdateErrors = {
@@ -664,7 +508,7 @@ export type WorkspacesScaPaginateData = {
         projectId: number;
     };
     query?: never;
-    url: '/editor/{projectId}/workspaces';
+    url: '/projects/{projectId}/workspaces';
 };
 
 export type WorkspacesScaPaginateResponses = {
@@ -686,7 +530,7 @@ export type WorkspacesScaCreateData = {
         projectId: number;
     };
     query?: never;
-    url: '/editor/{projectId}/workspaces';
+    url: '/projects/{projectId}/workspaces';
 };
 
 export type WorkspacesScaCreateResponses = {
@@ -712,7 +556,7 @@ export type WorkspacesScaRemoveData = {
         projectId: number;
     };
     query?: never;
-    url: '/editor/{projectId}/workspaces/{workspaceId}';
+    url: '/projects/{projectId}/workspaces/{workspaceId}';
 };
 
 export type WorkspacesScaRemoveErrors = {
@@ -745,7 +589,7 @@ export type WorkspacesScaGetData = {
         projectId: number;
     };
     query?: never;
-    url: '/editor/{projectId}/workspaces/{workspaceId}';
+    url: '/projects/{projectId}/workspaces/{workspaceId}';
 };
 
 export type WorkspacesScaGetErrors = {
@@ -778,7 +622,7 @@ export type WorkspacesScaUpdateData = {
         projectId: number;
     };
     query?: never;
-    url: '/editor/{projectId}/workspaces/{workspaceId}';
+    url: '/projects/{projectId}/workspaces/{workspaceId}';
 };
 
 export type WorkspacesScaUpdateErrors = {

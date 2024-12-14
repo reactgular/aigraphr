@@ -12,16 +12,6 @@ import type {
     ProjectsScaGetResponse,
     ProjectsScaUpdateData,
     ProjectsScaUpdateResponse,
-    AttributesScaPaginateData,
-    AttributesScaPaginateResponse,
-    AttributesScaCreateData,
-    AttributesScaCreateResponse,
-    AttributesScaRemoveData,
-    AttributesScaRemoveResponse,
-    AttributesScaGetData,
-    AttributesScaGetResponse,
-    AttributesScaUpdateData,
-    AttributesScaUpdateResponse,
     EdgesScaPaginateData,
     EdgesScaPaginateResponse,
     EdgesScaCreateData,
@@ -151,94 +141,6 @@ export const projectsScaUpdate = <ThrowOnError extends boolean = false>(
 };
 
 /**
- * Paginate Attribute
- */
-export const attributesScaPaginate = <ThrowOnError extends boolean = false>(
-    options: Options<AttributesScaPaginateData, ThrowOnError>
-) => {
-    return (options?.client ?? client).get<
-        AttributesScaPaginateResponse,
-        unknown,
-        ThrowOnError
-    >({
-        ...options,
-        url: '/editor/{projectId}/attributes'
-    });
-};
-
-/**
- * Create a new Attribute
- */
-export const attributesScaCreate = <ThrowOnError extends boolean = false>(
-    options: Options<AttributesScaCreateData, ThrowOnError>
-) => {
-    return (options?.client ?? client).post<
-        AttributesScaCreateResponse,
-        unknown,
-        ThrowOnError
-    >({
-        ...options,
-        headers: {
-            'Content-Type': 'application/json',
-            ...options?.headers
-        },
-        url: '/editor/{projectId}/attributes'
-    });
-};
-
-/**
- * Delete a Attribute by attributeId
- */
-export const attributesScaRemove = <ThrowOnError extends boolean = false>(
-    options: Options<AttributesScaRemoveData, ThrowOnError>
-) => {
-    return (options?.client ?? client).delete<
-        AttributesScaRemoveResponse,
-        unknown,
-        ThrowOnError
-    >({
-        ...options,
-        url: '/editor/{projectId}/attributes/{attributeId}'
-    });
-};
-
-/**
- * Get Attribute by attributeId
- */
-export const attributesScaGet = <ThrowOnError extends boolean = false>(
-    options: Options<AttributesScaGetData, ThrowOnError>
-) => {
-    return (options?.client ?? client).get<
-        AttributesScaGetResponse,
-        unknown,
-        ThrowOnError
-    >({
-        ...options,
-        url: '/editor/{projectId}/attributes/{attributeId}'
-    });
-};
-
-/**
- * Update a Attribute by attributeId
- */
-export const attributesScaUpdate = <ThrowOnError extends boolean = false>(
-    options: Options<AttributesScaUpdateData, ThrowOnError>
-) => {
-    return (options?.client ?? client).patch<
-        AttributesScaUpdateResponse,
-        unknown,
-        ThrowOnError
-    >({
-        ...options,
-        headers: {
-            'Content-Type': 'application/json',
-            ...options?.headers
-        },
-        url: '/editor/{projectId}/attributes/{attributeId}'
-    });
-};
-
-/**
  * Paginate Edge
  */
 export const edgesScaPaginate = <ThrowOnError extends boolean = false>(
@@ -250,7 +152,7 @@ export const edgesScaPaginate = <ThrowOnError extends boolean = false>(
         ThrowOnError
     >({
         ...options,
-        url: '/editor/{projectId}/edges'
+        url: '/projects/{projectId}/workspaces/{workspaceId}/edges'
     });
 };
 
@@ -270,7 +172,7 @@ export const edgesScaCreate = <ThrowOnError extends boolean = false>(
             'Content-Type': 'application/json',
             ...options?.headers
         },
-        url: '/editor/{projectId}/edges'
+        url: '/projects/{projectId}/workspaces/{workspaceId}/edges'
     });
 };
 
@@ -286,7 +188,7 @@ export const edgesScaRemove = <ThrowOnError extends boolean = false>(
         ThrowOnError
     >({
         ...options,
-        url: '/editor/{projectId}/edges/{edgeId}'
+        url: '/projects/{projectId}/workspaces/{workspaceId}/edges/{edgeId}'
     });
 };
 
@@ -302,7 +204,7 @@ export const edgesScaGet = <ThrowOnError extends boolean = false>(
         ThrowOnError
     >({
         ...options,
-        url: '/editor/{projectId}/edges/{edgeId}'
+        url: '/projects/{projectId}/workspaces/{workspaceId}/edges/{edgeId}'
     });
 };
 
@@ -322,7 +224,7 @@ export const edgesScaUpdate = <ThrowOnError extends boolean = false>(
             'Content-Type': 'application/json',
             ...options?.headers
         },
-        url: '/editor/{projectId}/edges/{edgeId}'
+        url: '/projects/{projectId}/workspaces/{workspaceId}/edges/{edgeId}'
     });
 };
 
@@ -338,7 +240,7 @@ export const nodesScaPaginate = <ThrowOnError extends boolean = false>(
         ThrowOnError
     >({
         ...options,
-        url: '/editor/{projectId}/nodes'
+        url: '/projects/{projectId}/workspaces/{workspaceId}/nodes'
     });
 };
 
@@ -358,7 +260,7 @@ export const nodesScaCreate = <ThrowOnError extends boolean = false>(
             'Content-Type': 'application/json',
             ...options?.headers
         },
-        url: '/editor/{projectId}/nodes'
+        url: '/projects/{projectId}/workspaces/{workspaceId}/nodes'
     });
 };
 
@@ -374,7 +276,7 @@ export const nodesScaRemove = <ThrowOnError extends boolean = false>(
         ThrowOnError
     >({
         ...options,
-        url: '/editor/{projectId}/nodes/{nodeId}'
+        url: '/projects/{projectId}/workspaces/{workspaceId}/nodes/{nodeId}'
     });
 };
 
@@ -390,7 +292,7 @@ export const nodesScaGet = <ThrowOnError extends boolean = false>(
         ThrowOnError
     >({
         ...options,
-        url: '/editor/{projectId}/nodes/{nodeId}'
+        url: '/projects/{projectId}/workspaces/{workspaceId}/nodes/{nodeId}'
     });
 };
 
@@ -410,7 +312,7 @@ export const nodesScaUpdate = <ThrowOnError extends boolean = false>(
             'Content-Type': 'application/json',
             ...options?.headers
         },
-        url: '/editor/{projectId}/nodes/{nodeId}'
+        url: '/projects/{projectId}/workspaces/{workspaceId}/nodes/{nodeId}'
     });
 };
 
@@ -426,7 +328,7 @@ export const workspacesScaPaginate = <ThrowOnError extends boolean = false>(
         ThrowOnError
     >({
         ...options,
-        url: '/editor/{projectId}/workspaces'
+        url: '/projects/{projectId}/workspaces'
     });
 };
 
@@ -446,7 +348,7 @@ export const workspacesScaCreate = <ThrowOnError extends boolean = false>(
             'Content-Type': 'application/json',
             ...options?.headers
         },
-        url: '/editor/{projectId}/workspaces'
+        url: '/projects/{projectId}/workspaces'
     });
 };
 
@@ -462,7 +364,7 @@ export const workspacesScaRemove = <ThrowOnError extends boolean = false>(
         ThrowOnError
     >({
         ...options,
-        url: '/editor/{projectId}/workspaces/{workspaceId}'
+        url: '/projects/{projectId}/workspaces/{workspaceId}'
     });
 };
 
@@ -478,7 +380,7 @@ export const workspacesScaGet = <ThrowOnError extends boolean = false>(
         ThrowOnError
     >({
         ...options,
-        url: '/editor/{projectId}/workspaces/{workspaceId}'
+        url: '/projects/{projectId}/workspaces/{workspaceId}'
     });
 };
 
@@ -498,7 +400,7 @@ export const workspacesScaUpdate = <ThrowOnError extends boolean = false>(
             'Content-Type': 'application/json',
             ...options?.headers
         },
-        url: '/editor/{projectId}/workspaces/{workspaceId}'
+        url: '/projects/{projectId}/workspaces/{workspaceId}'
     });
 };
 
