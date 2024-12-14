@@ -1,15 +1,20 @@
 import {ScaResponse} from '@/scaffold/decorators/sca-response';
 import {ScaEntity} from '@/scaffold/models/sca.entity';
-import {toHumanEntity} from '@/scaffold/utils/to-human.entity';
+import {toHumanUtils} from '@/scaffold/utils/to-human.utils';
 import {applyDecorators, Post, Type} from '@nestjs/common';
-import {ApiOperation} from '@nestjs/swagger';
+import {ApiBody, ApiExtraModels, ApiOperation} from '@nestjs/swagger';
 
-export function ScaUpdate<T extends ScaEntity>(dto: Type<T>) {
-    const name = toHumanEntity(dto);
+export function ScaUpdate<TBody extends object, TResponse extends ScaEntity>(
+    bodyDto: Type<TBody>,
+    responseDto: Type<TResponse>
+) {
+    const name = toHumanUtils(responseDto.name);
     const decorators: Array<MethodDecorator> = [
         Post(':id'),
         ApiOperation({summary: `Update a ${name} by ID`}),
-        ScaResponse(dto)
+        ApiBody({type: bodyDto}),
+        ApiExtraModels(bodyDto, responseDto),
+        ScaResponse(responseDto)
     ];
     return applyDecorators(...decorators);
 }

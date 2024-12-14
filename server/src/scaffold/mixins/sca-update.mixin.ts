@@ -18,7 +18,7 @@ export function scaUpdateMixin<
     abstract class ScaPaginateClass extends Base {
         abstract crud(): ScaCrudService<TDo>;
 
-        @ScaUpdate(dto)
+        @ScaUpdate(updateDto, dto)
         async scaUpdate(
             @ScaParamId() id: number,
             @ScaBody(updateDto) data: TUpdateDto

@@ -32,14 +32,14 @@ export class AttributesController {
         return await this.attributes.get(id);
     }
 
-    @ScaCreate(AttributeDto)
+    @ScaCreate(AttributeCreateDto, AttributeDto)
     public async create(
         @ScaBody(AttributeCreateDto) data: AttributeCreateDto
     ): ScaCreateResponse<AttributeDto> {
         return await this.attributes.create(data);
     }
 
-    @ScaUpdate(AttributeDto)
+    @ScaUpdate(AttributeUpdateDto, AttributeDto)
     public async update(
         @ScaParamId() id: number,
         @ScaBody(AttributeUpdateDto) data: AttributeUpdateDto

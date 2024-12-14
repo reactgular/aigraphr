@@ -33,14 +33,14 @@ export class EdgesController {
         return await this.edges.get(id);
     }
 
-    @ScaCreate(EdgeDto)
+    @ScaCreate(EdgeCreateDto, EdgeDto)
     public async create(
         @ScaBody(EdgeCreateDto) data: EdgeCreateDto
     ): ScaCreateResponse<EdgeDto> {
         return await this.edges.create(data);
     }
 
-    @ScaUpdate(EdgeDto)
+    @ScaUpdate(EdgeUpdateDto, EdgeDto)
     public async update(
         @ScaParamId() id: number,
         @ScaBody(EdgeUpdateDto) data: EdgeUpdateDto

@@ -34,14 +34,14 @@ export class WorkspacesController {
         return await this.workspaces.get(id);
     }
 
-    @ScaCreate(WorkspaceDto)
+    @ScaCreate(WorkspaceCreateDto, WorkspaceDto)
     public async create(
         @Body() data: WorkspaceCreateDto
     ): ScaCreateResponse<WorkspaceDto> {
         return await this.workspaces.create(data);
     }
 
-    @ScaUpdate(WorkspaceDto)
+    @ScaUpdate(WorkspaceUpdateDto, WorkspaceDto)
     public async update(
         @ScaParamId() id: number,
         @ScaBody(WorkspaceUpdateDto) data: WorkspaceUpdateDto

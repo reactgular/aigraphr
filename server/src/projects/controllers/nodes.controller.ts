@@ -32,14 +32,14 @@ export class NodesController {
         return await this.nodes.get(id);
     }
 
-    @ScaCreate(NodeDto)
+    @ScaCreate(NodeCreateDto, NodeDto)
     public async create(
         @ScaBody(NodeCreateDto) data: NodeCreateDto
     ): ScaCreateResponse<NodeDto> {
         return await this.nodes.create(data);
     }
 
-    @ScaUpdate(NodeDto)
+    @ScaUpdate(NodeUpdateDto, NodeDto)
     public async update(
         @ScaParamId() id: number,
         @ScaBody(NodeUpdateDto) data: NodeUpdateDto
