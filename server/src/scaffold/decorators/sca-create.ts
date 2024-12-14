@@ -1,8 +1,13 @@
-import {ScaResponse} from '@/scaffold/decorators/sca-response';
+import {ScaValidateResponse} from '@/scaffold/decorators/sca-validate-response';
 import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {toHumanUtils} from '@/scaffold/utils/to-human.utils';
 import {applyDecorators, Post, Type} from '@nestjs/common';
-import {ApiBody, ApiExtraModels, ApiOperation} from '@nestjs/swagger';
+import {
+    ApiBody,
+    ApiCreatedResponse,
+    ApiExtraModels,
+    ApiOperation
+} from '@nestjs/swagger';
 
 export function ScaCreate<TBody extends object, TResponse extends ScaEntity>(
     bodyDto: Type<TBody>,
@@ -14,7 +19,11 @@ export function ScaCreate<TBody extends object, TResponse extends ScaEntity>(
         ApiOperation({summary: `Create a new ${name}`}),
         ApiBody({type: bodyDto}),
         ApiExtraModels(bodyDto, responseDto),
-        ScaResponse(responseDto)
+        ApiCreatedResponse({
+            description: `Return a new ${name}`,
+            type: responseDto
+        }),
+        ScaValidateResponse(responseDto)
     ];
     return applyDecorators(...decorators);
 }

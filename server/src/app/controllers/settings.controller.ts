@@ -1,7 +1,7 @@
 import {SettingsService} from '@/app/services/settings.service';
 import {SettingDto} from '@/entities/setting.entity';
 import {ScaBody} from '@/scaffold/decorators/sca-body';
-import {ScaResponse} from '@/scaffold/decorators/sca-response';
+import {ScaValidateResponse} from '@/scaffold/decorators/sca-validate-response';
 import {Controller, Get, Put} from '@nestjs/common';
 import {Patch} from '@nestjs/common/decorators/http/request-mapping.decorator';
 import {ApiOperation, ApiTags} from '@nestjs/swagger';
@@ -15,14 +15,14 @@ export class SettingsController {
 
     @Get()
     @ApiOperation({summary: `Get App settings`})
-    @ScaResponse(SettingDto)
+    @ScaValidateResponse(SettingDto)
     public async get(): Promise<SettingDto> {
         return await this.settings.get();
     }
 
     @Put()
     @ApiOperation({summary: `Replace App settings`})
-    @ScaResponse(SettingDto)
+    @ScaValidateResponse(SettingDto)
     public async replace(
         @ScaBody(SettingDto) data: SettingDto
     ): Promise<SettingDto> {
@@ -31,7 +31,7 @@ export class SettingsController {
 
     @Patch()
     @ApiOperation({summary: `Update App settings`})
-    @ScaResponse(SettingDto)
+    @ScaValidateResponse(SettingDto)
     public async update(
         @ScaBody(SettingDto) data: SettingDto
     ): Promise<SettingDto> {

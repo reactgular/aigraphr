@@ -1,6 +1,6 @@
 import {ScaffoldEntity} from '@/_deprecated/scaffold-entity.service';
 import {ScaffoldParam} from '@/_deprecated/scaffold-param';
-import {ScaResponse} from '@/scaffold/decorators/sca-response';
+import {ScaValidateResponse} from '@/scaffold/decorators/sca-validate-response';
 import {ScaIdDto} from '@/scaffold/dtos/sca-id.dto';
 import {scaValidationPipe} from '@/scaffold/pipes/sca-validation.pipe';
 import {
@@ -43,7 +43,7 @@ export function ScaffoldUpdate<
             ApiOperation({summary: `Updates a ${name}.`}),
             ApiBody({type: UpdateDto}),
             ApiOkResponse({type: GetDto}),
-            ScaResponse(GetDto),
+            ScaValidateResponse(GetDto),
             ...(params?.method ?? defaultParam.method)
         ];
         return applyDecorators(...decorators);

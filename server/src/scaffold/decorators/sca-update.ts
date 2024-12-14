@@ -1,8 +1,14 @@
-import {ScaResponse} from '@/scaffold/decorators/sca-response';
+import {ScaValidateResponse} from '@/scaffold/decorators/sca-validate-response';
 import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {toHumanUtils} from '@/scaffold/utils/to-human.utils';
-import {applyDecorators, Post, Type} from '@nestjs/common';
-import {ApiBody, ApiExtraModels, ApiOperation} from '@nestjs/swagger';
+import {applyDecorators, Patch, Type} from '@nestjs/common';
+import {
+    ApiBody,
+    ApiExtraModels,
+    ApiNotFoundResponse,
+    ApiOkResponse,
+    ApiOperation
+} from '@nestjs/swagger';
 
 export function ScaUpdate<TBody extends object, TResponse extends ScaEntity>(
     bodyDto: Type<TBody>,
@@ -10,11 +16,18 @@ export function ScaUpdate<TBody extends object, TResponse extends ScaEntity>(
 ) {
     const name = toHumanUtils(responseDto.name);
     const decorators: Array<MethodDecorator> = [
-        Post(':id'),
+        Patch(':id'),
         ApiOperation({summary: `Update a ${name} by ID`}),
         ApiBody({type: bodyDto}),
         ApiExtraModels(bodyDto, responseDto),
-        ScaResponse(responseDto)
+        ApiOkResponse({
+            description: `Return a ${name} by ID`,
+            type: responseDto
+        }),
+        ApiNotFoundResponse({
+            description: `A ${name} with the specified ID was not found`
+        }),
+        ScaValidateResponse(responseDto)
     ];
     return applyDecorators(...decorators);
 }

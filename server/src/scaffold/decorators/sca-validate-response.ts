@@ -15,7 +15,9 @@ function isOneObject<T>(object: T | [T]): object is T {
     return !Array.isArray(object);
 }
 
-export function ScaResponse<T extends object>(dto: Type<T> | [Type<T>]) {
+export function ScaValidateResponse<T extends object>(
+    dto: Type<T> | [Type<T>]
+) {
     if (isOneElementArray(dto)) {
         return applyDecorators(
             UseInterceptors(new ScaArrayResponseInterceptor<T>(dto[0]))
