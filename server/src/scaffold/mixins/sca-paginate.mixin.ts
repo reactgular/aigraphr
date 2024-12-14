@@ -7,10 +7,14 @@ import {ScaConstructor, ScaEmptyBase} from '@/scaffold/mixins/sca.mixin';
 import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {Logger, Type} from '@nestjs/common';
 
+interface ScaPaginateMixinOptions<TDo extends ScaEntity> {
+    dto: Type<TDo>;
+}
+
 export function scaPaginateMixin<
     TDo extends ScaEntity,
     TBase extends ScaConstructor
->(dto: Type<TDo>, Base: TBase = ScaEmptyBase as TBase) {
+>({dto}: ScaPaginateMixinOptions<TDo>, Base: TBase = ScaEmptyBase as TBase) {
     abstract class ScaPaginateClass extends Base {
         abstract crud(): ScaCrudService<TDo>;
 

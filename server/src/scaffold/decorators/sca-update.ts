@@ -12,20 +12,21 @@ import {
 
 export function ScaUpdate<TBody extends object, TResponse extends ScaEntity>(
     bodyDto: Type<TBody>,
-    responseDto: Type<TResponse>
+    responseDto: Type<TResponse>,
+    paramId: string = 'id'
 ) {
     const name = toHumanUtils(responseDto.name);
     const decorators: Array<MethodDecorator> = [
-        Patch(':id'),
-        ApiOperation({summary: `Update a ${name} by ID`}),
+        Patch(`:${paramId}`),
+        ApiOperation({summary: `Update a ${name} by ${paramId}`}),
         ApiBody({type: bodyDto}),
         ApiExtraModels(bodyDto, responseDto),
         ApiOkResponse({
-            description: `Return a ${name} by ID`,
+            description: `Return a ${name} by ${paramId}`,
             type: responseDto
         }),
         ApiNotFoundResponse({
-            description: `A ${name} with the specified ID was not found`
+            description: `A ${name} with the specified ${paramId} was not found`
         }),
         ScaValidateResponse(responseDto)
     ];

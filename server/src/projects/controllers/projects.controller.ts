@@ -12,11 +12,12 @@ import {ProjectsService} from '../services/projects.service';
 
 @ApiTags('Projects')
 @Controller('projects')
-export class ProjectsController extends scaCrudMixin(
-    ProjectDto,
-    ProjectCreateDto,
-    ProjectUpdateDto
-) {
+export class ProjectsController extends scaCrudMixin({
+    paramId: 'projectId',
+    dto: ProjectDto,
+    createDto: ProjectCreateDto,
+    updateDto: ProjectUpdateDto
+}) {
     public constructor(private readonly projects: ProjectsService) {
         super();
     }

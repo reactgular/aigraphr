@@ -7,25 +7,44 @@ import {ScaConstructor, ScaEmptyBase} from '@/scaffold/mixins/sca.mixin';
 import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {Type} from '@nestjs/common';
 
+interface ScaCrudMixinOptions<
+    TDo extends ScaEntity,
+    TCreateDto extends object,
+    TUpdateDto extends object
+> {
+    paramId?: string;
+    dto: Type<TDo>;
+    createDto: Type<TCreateDto>;
+    updateDto: Type<TUpdateDto>;
+}
+
 export function scaCrudMixin<
     TDo extends ScaEntity,
     TCreateDto extends object,
     TUpdateDto extends object,
     TBase extends ScaConstructor
 >(
-    dto: Type<TDo>,
-    createDto: Type<TCreateDto>,
-    updateDto: Type<TUpdateDto>,
+    {
+        paramId = 'id',
+        dto,
+        updateDto,
+        createDto
+    }: ScaCrudMixinOptions<TDo, TCreateDto, TUpdateDto>,
     Base: TBase = ScaEmptyBase as TBase
 ) {
     return scaPaginateMixin(
-        dto,
+        {dto},
         scaGetMixin(
-            dto,
+            {paramId, dto},
             scaCreateMixin(
-                dto,
-                createDto,
-                scaUpdateMixin(dto, updateDto, scaRemoveMixin(dto, Base))
+                {
+                    dto,
+                    createDto
+                },
+                scaUpdateMixin(
+                    {paramId, dto, updateDto},
+                    scaRemoveMixin({paramId, dto}, Base)
+                )
             )
         )
     );

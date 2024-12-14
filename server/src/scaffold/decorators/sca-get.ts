@@ -8,17 +8,20 @@ import {
     ApiOperation
 } from '@nestjs/swagger';
 
-export function ScaGet<T extends ScaEntity>(dto: Type<T>) {
+export function ScaGet<T extends ScaEntity>(
+    dto: Type<T>,
+    paramId: string = 'id'
+) {
     const name = toHumanUtils(dto.name);
     const decorators: Array<MethodDecorator> = [
-        Get(':id'),
-        ApiOperation({summary: `Get ${name} by ID`}),
+        Get(`:${paramId}`),
+        ApiOperation({summary: `Get ${name} by ${paramId}`}),
         ApiOkResponse({
-            description: `Return a ${name} by ID`,
+            description: `Return a ${name} by ${paramId}`,
             type: dto
         }),
         ApiNotFoundResponse({
-            description: `A ${name} with the specified ID was not found`
+            description: `A ${name} with the specified ${paramId} was not found`
         }),
         ScaValidateResponse(dto)
     ];

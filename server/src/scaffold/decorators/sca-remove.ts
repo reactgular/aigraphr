@@ -8,13 +8,16 @@ import {
     ApiOperation
 } from '@nestjs/swagger';
 
-export function ScaRemove<T extends ScaEntity>(dto: Type<T>) {
+export function ScaRemove<T extends ScaEntity>(
+    dto: Type<T>,
+    paramId: string = 'id'
+) {
     const name = toHumanUtils(dto.name);
     const decorators: Array<MethodDecorator> = [
-        Delete(':id'),
-        ApiOperation({summary: `Delete a ${name} by ID`}),
+        Delete(`:${paramId}`),
+        ApiOperation({summary: `Delete a ${name} by ${paramId}`}),
         ApiNotFoundResponse({
-            description: `A ${name} with the specified ID was not found`
+            description: `A ${name} with the specified ${paramId} was not found`
         }),
         ApiNoContentResponse({description: `The ${name} has been deleted`}),
         ScaResponseVoid()

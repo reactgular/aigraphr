@@ -5,13 +5,20 @@ import {ScaConstructor, ScaEmptyBase} from '@/scaffold/mixins/sca.mixin';
 import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {Type} from '@nestjs/common';
 
+interface ScaCreateMixinOptions<
+    TDo extends ScaEntity,
+    TCreateDto extends object
+> {
+    dto: Type<TDo>;
+    createDto: Type<TCreateDto>;
+}
+
 export function scaCreateMixin<
     TDo extends ScaEntity,
     TCreateDto extends object,
     TBase extends ScaConstructor
 >(
-    dto: Type<TDo>,
-    createDto: Type<TCreateDto>,
+    {dto, createDto}: ScaCreateMixinOptions<TDo, TCreateDto>,
     Base: TBase = ScaEmptyBase as TBase
 ) {
     abstract class ScaCreateClass extends Base {

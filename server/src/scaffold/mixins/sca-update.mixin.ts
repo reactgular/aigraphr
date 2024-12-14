@@ -6,21 +6,29 @@ import {ScaConstructor, ScaEmptyBase} from '@/scaffold/mixins/sca.mixin';
 import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {Type} from '@nestjs/common';
 
+interface ScaUpdateMixinOptions<
+    TDo extends ScaEntity,
+    TUpdateDto extends object
+> {
+    paramId?: string;
+    dto: Type<TDo>;
+    updateDto: Type<TUpdateDto>;
+}
+
 export function scaUpdateMixin<
     TDo extends ScaEntity,
     TUpdateDto extends object,
     TBase extends ScaConstructor
 >(
-    dto: Type<TDo>,
-    updateDto: Type<TUpdateDto>,
+    {paramId = 'id', dto, updateDto}: ScaUpdateMixinOptions<TDo, TUpdateDto>,
     Base: TBase = ScaEmptyBase as TBase
 ) {
     abstract class ScaPaginateClass extends Base {
         abstract crud(): ScaCrudService<TDo>;
 
-        @ScaUpdate(updateDto, dto)
+        @ScaUpdate(updateDto, dto, paramId)
         async scaUpdate(
-            @ScaParamId() id: number,
+            @ScaParamId(paramId) id: number,
             @ScaBody(updateDto) data: TUpdateDto
         ): ScaUpdateResponse<TDo> {
             // return await this.projects.update(id, data);

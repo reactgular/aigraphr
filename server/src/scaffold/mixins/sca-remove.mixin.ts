@@ -5,15 +5,23 @@ import {ScaConstructor, ScaEmptyBase} from '@/scaffold/mixins/sca.mixin';
 import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {Type} from '@nestjs/common';
 
+interface ScaRemoveMixinOptions<TDo extends ScaEntity> {
+    paramId?: string;
+    dto: Type<TDo>;
+}
+
 export function scaRemoveMixin<
     TDo extends ScaEntity,
     TBase extends ScaConstructor
->(dto: Type<TDo>, Base: TBase = ScaEmptyBase as TBase) {
+>(
+    {paramId = 'id', dto}: ScaRemoveMixinOptions<TDo>,
+    Base: TBase = ScaEmptyBase as TBase
+) {
     abstract class ScaRemoveClass extends Base {
         abstract crud(): ScaCrudService<TDo>;
 
-        @ScaRemove(dto)
-        async scaRemove(@ScaParamId() id: number): ScaRemoveResponse {
+        @ScaRemove(dto, paramId)
+        async scaRemove(@ScaParamId(paramId) id: number): ScaRemoveResponse {
             // await this.projects.remove(id);
         }
     }
