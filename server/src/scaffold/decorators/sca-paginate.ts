@@ -1,11 +1,11 @@
 import {ScaValidateResponse} from '@/scaffold/decorators/sca-validate-response';
 import {ScaEntity} from '@/scaffold/models/sca.entity';
-import {toHumanEntity} from '@/scaffold/utils/to-human.entity';
+import {toHumanUtils} from '@/scaffold/utils/to-human.utils';
 import {applyDecorators, Get, Type} from '@nestjs/common';
 import {ApiOkResponse, ApiOperation} from '@nestjs/swagger';
 
 export function ScaPaginate<T extends ScaEntity>(dto: Type<T>) {
-    const name = toHumanEntity(dto);
+    const name = toHumanUtils(dto.name);
     const decorators: Array<MethodDecorator> = [
         Get(),
         ApiOperation({summary: `Paginate ${name}`}),
