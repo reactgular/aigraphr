@@ -2,46 +2,74 @@
 
 import {createClient, createConfig, type Options} from '@hey-api/client-fetch';
 import type {
-    ProjectsIndexData,
-    ProjectsIndexResponse,
-    ProjectsCreateData,
-    ProjectsCreateResponse,
-    ProjectsRemoveData,
-    ProjectsGetData,
-    ProjectsGetResponse,
-    ProjectsUpdateData,
-    ProjectsUpdateResponse,
-    AppRemoveData,
-    AppRemoveResponse,
-    AppGetHelloData,
-    AppGetHelloResponse,
-    AppPatchData,
-    AppPatchResponse,
-    AppCreateData,
-    AppCreateResponse,
-    AppPutData,
-    AppPutResponse,
+    ProjectsScaPaginateData,
+    ProjectsScaPaginateResponse,
+    ProjectsScaCreateData,
+    ProjectsScaCreateResponse,
+    ProjectsScaRemoveData,
+    ProjectsScaRemoveResponse,
+    ProjectsScaGetData,
+    ProjectsScaGetResponse,
+    ProjectsScaUpdateData,
+    ProjectsScaUpdateResponse,
+    AttributesIndexData,
+    AttributesIndexResponse,
+    AttributesCreateData,
+    AttributesCreateResponse,
+    AttributesRemoveData,
+    AttributesRemoveResponse,
+    AttributesGetData,
+    AttributesGetResponse,
+    AttributesUpdateData,
+    AttributesUpdateResponse,
+    EdgesIndexData,
+    EdgesIndexResponse,
+    EdgesCreateData,
+    EdgesCreateResponse,
+    EdgesRemoveData,
+    EdgesRemoveResponse,
+    EdgesGetData,
+    EdgesGetResponse,
+    EdgesUpdateData,
+    EdgesUpdateResponse,
+    NodesIndexData,
+    NodesIndexResponse,
+    NodesCreateData,
+    NodesCreateResponse,
+    NodesRemoveData,
+    NodesRemoveResponse,
+    NodesGetData,
+    NodesGetResponse,
+    NodesUpdateData,
+    NodesUpdateResponse,
     WorkspacesIndexData,
     WorkspacesIndexResponse,
     WorkspacesCreateData,
     WorkspacesCreateResponse,
     WorkspacesRemoveData,
+    WorkspacesRemoveResponse,
     WorkspacesGetData,
     WorkspacesGetResponse,
     WorkspacesUpdateData,
-    WorkspacesUpdateResponse
+    WorkspacesUpdateResponse,
+    SettingsGetData,
+    SettingsGetResponse,
+    SettingsUpdateData,
+    SettingsUpdateResponse,
+    SettingsReplaceData,
+    SettingsReplaceResponse
 } from './types.gen';
 
 export const client = createClient(createConfig());
 
 /**
- * List all Project
+ * Paginate Project
  */
-export const projectsIndex = <ThrowOnError extends boolean = false>(
-    options?: Options<ProjectsIndexData, ThrowOnError>
+export const projectsScaPaginate = <ThrowOnError extends boolean = false>(
+    options?: Options<ProjectsScaPaginateData, ThrowOnError>
 ) => {
     return (options?.client ?? client).get<
-        ProjectsIndexResponse,
+        ProjectsScaPaginateResponse,
         unknown,
         ThrowOnError
     >({
@@ -51,13 +79,13 @@ export const projectsIndex = <ThrowOnError extends boolean = false>(
 };
 
 /**
- * Create a new ProjectCreate.
+ * Create a new Project
  */
-export const projectsCreate = <ThrowOnError extends boolean = false>(
-    options: Options<ProjectsCreateData, ThrowOnError>
+export const projectsScaCreate = <ThrowOnError extends boolean = false>(
+    options: Options<ProjectsScaCreateData, ThrowOnError>
 ) => {
     return (options?.client ?? client).post<
-        ProjectsCreateResponse,
+        ProjectsScaCreateResponse,
         unknown,
         ThrowOnError
     >({
@@ -71,120 +99,323 @@ export const projectsCreate = <ThrowOnError extends boolean = false>(
 };
 
 /**
- * Delete Project by ID
+ * Delete a Project by projectId
  */
-export const projectsRemove = <ThrowOnError extends boolean = false>(
-    options: Options<ProjectsRemoveData, ThrowOnError>
-) => {
-    return (options?.client ?? client).delete<unknown, unknown, ThrowOnError>({
-        ...options,
-        url: '/projects/{id}'
-    });
-};
-
-/**
- * Get Project by ID
- */
-export const projectsGet = <ThrowOnError extends boolean = false>(
-    options: Options<ProjectsGetData, ThrowOnError>
-) => {
-    return (options?.client ?? client).get<
-        ProjectsGetResponse,
-        unknown,
-        ThrowOnError
-    >({
-        ...options,
-        url: '/projects/{id}'
-    });
-};
-
-/**
- * Updates a ProjectUpdate.
- */
-export const projectsUpdate = <ThrowOnError extends boolean = false>(
-    options: Options<ProjectsUpdateData, ThrowOnError>
-) => {
-    return (options?.client ?? client).patch<
-        ProjectsUpdateResponse,
-        unknown,
-        ThrowOnError
-    >({
-        ...options,
-        headers: {
-            'Content-Type': 'application/json',
-            ...options?.headers
-        },
-        url: '/projects/{id}'
-    });
-};
-
-export const appRemove = <ThrowOnError extends boolean = false>(
-    options?: Options<AppRemoveData, ThrowOnError>
+export const projectsScaRemove = <ThrowOnError extends boolean = false>(
+    options: Options<ProjectsScaRemoveData, ThrowOnError>
 ) => {
     return (options?.client ?? client).delete<
-        AppRemoveResponse,
+        ProjectsScaRemoveResponse,
         unknown,
         ThrowOnError
     >({
         ...options,
-        url: '/'
-    });
-};
-
-export const appGetHello = <ThrowOnError extends boolean = false>(
-    options?: Options<AppGetHelloData, ThrowOnError>
-) => {
-    return (options?.client ?? client).get<
-        AppGetHelloResponse,
-        unknown,
-        ThrowOnError
-    >({
-        ...options,
-        url: '/'
-    });
-};
-
-export const appPatch = <ThrowOnError extends boolean = false>(
-    options?: Options<AppPatchData, ThrowOnError>
-) => {
-    return (options?.client ?? client).patch<
-        AppPatchResponse,
-        unknown,
-        ThrowOnError
-    >({
-        ...options,
-        url: '/'
-    });
-};
-
-export const appCreate = <ThrowOnError extends boolean = false>(
-    options?: Options<AppCreateData, ThrowOnError>
-) => {
-    return (options?.client ?? client).post<
-        AppCreateResponse,
-        unknown,
-        ThrowOnError
-    >({
-        ...options,
-        url: '/'
-    });
-};
-
-export const appPut = <ThrowOnError extends boolean = false>(
-    options?: Options<AppPutData, ThrowOnError>
-) => {
-    return (options?.client ?? client).put<
-        AppPutResponse,
-        unknown,
-        ThrowOnError
-    >({
-        ...options,
-        url: '/'
+        url: '/projects/{projectId}'
     });
 };
 
 /**
- * List all Workspace
+ * Get Project by projectId
+ */
+export const projectsScaGet = <ThrowOnError extends boolean = false>(
+    options: Options<ProjectsScaGetData, ThrowOnError>
+) => {
+    return (options?.client ?? client).get<
+        ProjectsScaGetResponse,
+        unknown,
+        ThrowOnError
+    >({
+        ...options,
+        url: '/projects/{projectId}'
+    });
+};
+
+/**
+ * Update a Project by projectId
+ */
+export const projectsScaUpdate = <ThrowOnError extends boolean = false>(
+    options: Options<ProjectsScaUpdateData, ThrowOnError>
+) => {
+    return (options?.client ?? client).patch<
+        ProjectsScaUpdateResponse,
+        unknown,
+        ThrowOnError
+    >({
+        ...options,
+        headers: {
+            'Content-Type': 'application/json',
+            ...options?.headers
+        },
+        url: '/projects/{projectId}'
+    });
+};
+
+/**
+ * Paginate Attribute
+ */
+export const attributesIndex = <ThrowOnError extends boolean = false>(
+    options?: Options<AttributesIndexData, ThrowOnError>
+) => {
+    return (options?.client ?? client).get<
+        AttributesIndexResponse,
+        unknown,
+        ThrowOnError
+    >({
+        ...options,
+        url: '/editor/{projectId}/attributes'
+    });
+};
+
+/**
+ * Create a new Attribute
+ */
+export const attributesCreate = <ThrowOnError extends boolean = false>(
+    options: Options<AttributesCreateData, ThrowOnError>
+) => {
+    return (options?.client ?? client).post<
+        AttributesCreateResponse,
+        unknown,
+        ThrowOnError
+    >({
+        ...options,
+        headers: {
+            'Content-Type': 'application/json',
+            ...options?.headers
+        },
+        url: '/editor/{projectId}/attributes'
+    });
+};
+
+/**
+ * Delete a Attribute by id
+ */
+export const attributesRemove = <ThrowOnError extends boolean = false>(
+    options: Options<AttributesRemoveData, ThrowOnError>
+) => {
+    return (options?.client ?? client).delete<
+        AttributesRemoveResponse,
+        unknown,
+        ThrowOnError
+    >({
+        ...options,
+        url: '/editor/{projectId}/attributes/{id}'
+    });
+};
+
+/**
+ * Get Attribute by id
+ */
+export const attributesGet = <ThrowOnError extends boolean = false>(
+    options: Options<AttributesGetData, ThrowOnError>
+) => {
+    return (options?.client ?? client).get<
+        AttributesGetResponse,
+        unknown,
+        ThrowOnError
+    >({
+        ...options,
+        url: '/editor/{projectId}/attributes/{id}'
+    });
+};
+
+/**
+ * Update a Attribute by id
+ */
+export const attributesUpdate = <ThrowOnError extends boolean = false>(
+    options: Options<AttributesUpdateData, ThrowOnError>
+) => {
+    return (options?.client ?? client).patch<
+        AttributesUpdateResponse,
+        unknown,
+        ThrowOnError
+    >({
+        ...options,
+        headers: {
+            'Content-Type': 'application/json',
+            ...options?.headers
+        },
+        url: '/editor/{projectId}/attributes/{id}'
+    });
+};
+
+/**
+ * Paginate Edge
+ */
+export const edgesIndex = <ThrowOnError extends boolean = false>(
+    options?: Options<EdgesIndexData, ThrowOnError>
+) => {
+    return (options?.client ?? client).get<
+        EdgesIndexResponse,
+        unknown,
+        ThrowOnError
+    >({
+        ...options,
+        url: '/editor/{projectId}/edges'
+    });
+};
+
+/**
+ * Create a new Edge
+ */
+export const edgesCreate = <ThrowOnError extends boolean = false>(
+    options: Options<EdgesCreateData, ThrowOnError>
+) => {
+    return (options?.client ?? client).post<
+        EdgesCreateResponse,
+        unknown,
+        ThrowOnError
+    >({
+        ...options,
+        headers: {
+            'Content-Type': 'application/json',
+            ...options?.headers
+        },
+        url: '/editor/{projectId}/edges'
+    });
+};
+
+/**
+ * Delete a Edge by id
+ */
+export const edgesRemove = <ThrowOnError extends boolean = false>(
+    options: Options<EdgesRemoveData, ThrowOnError>
+) => {
+    return (options?.client ?? client).delete<
+        EdgesRemoveResponse,
+        unknown,
+        ThrowOnError
+    >({
+        ...options,
+        url: '/editor/{projectId}/edges/{id}'
+    });
+};
+
+/**
+ * Get Edge by id
+ */
+export const edgesGet = <ThrowOnError extends boolean = false>(
+    options: Options<EdgesGetData, ThrowOnError>
+) => {
+    return (options?.client ?? client).get<
+        EdgesGetResponse,
+        unknown,
+        ThrowOnError
+    >({
+        ...options,
+        url: '/editor/{projectId}/edges/{id}'
+    });
+};
+
+/**
+ * Update a Edge by id
+ */
+export const edgesUpdate = <ThrowOnError extends boolean = false>(
+    options: Options<EdgesUpdateData, ThrowOnError>
+) => {
+    return (options?.client ?? client).patch<
+        EdgesUpdateResponse,
+        unknown,
+        ThrowOnError
+    >({
+        ...options,
+        headers: {
+            'Content-Type': 'application/json',
+            ...options?.headers
+        },
+        url: '/editor/{projectId}/edges/{id}'
+    });
+};
+
+/**
+ * Paginate Node
+ */
+export const nodesIndex = <ThrowOnError extends boolean = false>(
+    options?: Options<NodesIndexData, ThrowOnError>
+) => {
+    return (options?.client ?? client).get<
+        NodesIndexResponse,
+        unknown,
+        ThrowOnError
+    >({
+        ...options,
+        url: '/editor/{projectId}/nodes'
+    });
+};
+
+/**
+ * Create a new Node
+ */
+export const nodesCreate = <ThrowOnError extends boolean = false>(
+    options: Options<NodesCreateData, ThrowOnError>
+) => {
+    return (options?.client ?? client).post<
+        NodesCreateResponse,
+        unknown,
+        ThrowOnError
+    >({
+        ...options,
+        headers: {
+            'Content-Type': 'application/json',
+            ...options?.headers
+        },
+        url: '/editor/{projectId}/nodes'
+    });
+};
+
+/**
+ * Delete a Node by id
+ */
+export const nodesRemove = <ThrowOnError extends boolean = false>(
+    options: Options<NodesRemoveData, ThrowOnError>
+) => {
+    return (options?.client ?? client).delete<
+        NodesRemoveResponse,
+        unknown,
+        ThrowOnError
+    >({
+        ...options,
+        url: '/editor/{projectId}/nodes/{id}'
+    });
+};
+
+/**
+ * Get Node by id
+ */
+export const nodesGet = <ThrowOnError extends boolean = false>(
+    options: Options<NodesGetData, ThrowOnError>
+) => {
+    return (options?.client ?? client).get<
+        NodesGetResponse,
+        unknown,
+        ThrowOnError
+    >({
+        ...options,
+        url: '/editor/{projectId}/nodes/{id}'
+    });
+};
+
+/**
+ * Update a Node by id
+ */
+export const nodesUpdate = <ThrowOnError extends boolean = false>(
+    options: Options<NodesUpdateData, ThrowOnError>
+) => {
+    return (options?.client ?? client).patch<
+        NodesUpdateResponse,
+        unknown,
+        ThrowOnError
+    >({
+        ...options,
+        headers: {
+            'Content-Type': 'application/json',
+            ...options?.headers
+        },
+        url: '/editor/{projectId}/nodes/{id}'
+    });
+};
+
+/**
+ * Paginate Workspace
  */
 export const workspacesIndex = <ThrowOnError extends boolean = false>(
     options?: Options<WorkspacesIndexData, ThrowOnError>
@@ -195,12 +426,12 @@ export const workspacesIndex = <ThrowOnError extends boolean = false>(
         ThrowOnError
     >({
         ...options,
-        url: '/projects/{projectId}/workspaces'
+        url: '/editor/{projectId}/workspaces'
     });
 };
 
 /**
- * Create a new WorkspaceCreate.
+ * Create a new Workspace
  */
 export const workspacesCreate = <ThrowOnError extends boolean = false>(
     options: Options<WorkspacesCreateData, ThrowOnError>
@@ -215,24 +446,28 @@ export const workspacesCreate = <ThrowOnError extends boolean = false>(
             'Content-Type': 'application/json',
             ...options?.headers
         },
-        url: '/projects/{projectId}/workspaces'
+        url: '/editor/{projectId}/workspaces'
     });
 };
 
 /**
- * Delete Workspace by ID
+ * Delete a Node by id
  */
 export const workspacesRemove = <ThrowOnError extends boolean = false>(
     options: Options<WorkspacesRemoveData, ThrowOnError>
 ) => {
-    return (options?.client ?? client).delete<unknown, unknown, ThrowOnError>({
+    return (options?.client ?? client).delete<
+        WorkspacesRemoveResponse,
+        unknown,
+        ThrowOnError
+    >({
         ...options,
-        url: '/projects/{projectId}/workspaces/{id}'
+        url: '/editor/{projectId}/workspaces/{id}'
     });
 };
 
 /**
- * Get Workspace by ID
+ * Get Workspace by id
  */
 export const workspacesGet = <ThrowOnError extends boolean = false>(
     options: Options<WorkspacesGetData, ThrowOnError>
@@ -243,12 +478,12 @@ export const workspacesGet = <ThrowOnError extends boolean = false>(
         ThrowOnError
     >({
         ...options,
-        url: '/projects/{projectId}/workspaces/{id}'
+        url: '/editor/{projectId}/workspaces/{id}'
     });
 };
 
 /**
- * Updates a WorkspaceUpdate.
+ * Update a Workspace by id
  */
 export const workspacesUpdate = <ThrowOnError extends boolean = false>(
     options: Options<WorkspacesUpdateData, ThrowOnError>
@@ -263,6 +498,62 @@ export const workspacesUpdate = <ThrowOnError extends boolean = false>(
             'Content-Type': 'application/json',
             ...options?.headers
         },
-        url: '/projects/{projectId}/workspaces/{id}'
+        url: '/editor/{projectId}/workspaces/{id}'
+    });
+};
+
+/**
+ * Get App settings
+ */
+export const settingsGet = <ThrowOnError extends boolean = false>(
+    options?: Options<SettingsGetData, ThrowOnError>
+) => {
+    return (options?.client ?? client).get<
+        SettingsGetResponse,
+        unknown,
+        ThrowOnError
+    >({
+        ...options,
+        url: '/app/settings'
+    });
+};
+
+/**
+ * Update App settings
+ */
+export const settingsUpdate = <ThrowOnError extends boolean = false>(
+    options: Options<SettingsUpdateData, ThrowOnError>
+) => {
+    return (options?.client ?? client).patch<
+        SettingsUpdateResponse,
+        unknown,
+        ThrowOnError
+    >({
+        ...options,
+        headers: {
+            'Content-Type': 'application/json',
+            ...options?.headers
+        },
+        url: '/app/settings'
+    });
+};
+
+/**
+ * Replace App settings
+ */
+export const settingsReplace = <ThrowOnError extends boolean = false>(
+    options: Options<SettingsReplaceData, ThrowOnError>
+) => {
+    return (options?.client ?? client).put<
+        SettingsReplaceResponse,
+        unknown,
+        ThrowOnError
+    >({
+        ...options,
+        headers: {
+            'Content-Type': 'application/json',
+            ...options?.headers
+        },
+        url: '/app/settings'
     });
 };

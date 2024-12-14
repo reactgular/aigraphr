@@ -7,47 +7,82 @@ import {
     type DefaultError
 } from '@tanstack/react-query';
 import type {
-    ProjectsIndexData,
-    ProjectsCreateData,
-    ProjectsCreateResponse,
-    ProjectsRemoveData,
-    ProjectsGetData,
-    ProjectsUpdateData,
-    ProjectsUpdateResponse,
-    AppRemoveData,
-    AppRemoveResponse,
-    AppGetHelloData,
-    AppPatchData,
-    AppPatchResponse,
-    AppCreateData,
-    AppCreateResponse,
-    AppPutData,
-    AppPutResponse,
+    ProjectsScaPaginateData,
+    ProjectsScaCreateData,
+    ProjectsScaCreateResponse,
+    ProjectsScaRemoveData,
+    ProjectsScaRemoveResponse,
+    ProjectsScaGetData,
+    ProjectsScaUpdateData,
+    ProjectsScaUpdateResponse,
+    AttributesIndexData,
+    AttributesCreateData,
+    AttributesCreateResponse,
+    AttributesRemoveData,
+    AttributesRemoveResponse,
+    AttributesGetData,
+    AttributesUpdateData,
+    AttributesUpdateResponse,
+    EdgesIndexData,
+    EdgesCreateData,
+    EdgesCreateResponse,
+    EdgesRemoveData,
+    EdgesRemoveResponse,
+    EdgesGetData,
+    EdgesUpdateData,
+    EdgesUpdateResponse,
+    NodesIndexData,
+    NodesCreateData,
+    NodesCreateResponse,
+    NodesRemoveData,
+    NodesRemoveResponse,
+    NodesGetData,
+    NodesUpdateData,
+    NodesUpdateResponse,
     WorkspacesIndexData,
     WorkspacesCreateData,
     WorkspacesCreateResponse,
     WorkspacesRemoveData,
+    WorkspacesRemoveResponse,
     WorkspacesGetData,
     WorkspacesUpdateData,
-    WorkspacesUpdateResponse
+    WorkspacesUpdateResponse,
+    SettingsGetData,
+    SettingsUpdateData,
+    SettingsUpdateResponse,
+    SettingsReplaceData,
+    SettingsReplaceResponse
 } from '../types.gen';
 import {
     client,
-    projectsIndex,
-    projectsCreate,
-    projectsRemove,
-    projectsGet,
-    projectsUpdate,
-    appRemove,
-    appGetHello,
-    appPatch,
-    appCreate,
-    appPut,
+    projectsScaPaginate,
+    projectsScaCreate,
+    projectsScaRemove,
+    projectsScaGet,
+    projectsScaUpdate,
+    attributesIndex,
+    attributesCreate,
+    attributesRemove,
+    attributesGet,
+    attributesUpdate,
+    edgesIndex,
+    edgesCreate,
+    edgesRemove,
+    edgesGet,
+    edgesUpdate,
+    nodesIndex,
+    nodesCreate,
+    nodesRemove,
+    nodesGet,
+    nodesUpdate,
     workspacesIndex,
     workspacesCreate,
     workspacesRemove,
     workspacesGet,
-    workspacesUpdate
+    workspacesUpdate,
+    settingsGet,
+    settingsUpdate,
+    settingsReplace
 } from '../sdk.gen';
 
 type QueryKey<TOptions extends Options> = [
@@ -84,14 +119,217 @@ const createQueryKey = <TOptions extends Options>(
     return params;
 };
 
-export const projectsIndexQueryKey = (options?: Options<ProjectsIndexData>) => [
-    createQueryKey('projectsIndex', options)
+export const projectsScaPaginateQueryKey = (
+    options?: Options<ProjectsScaPaginateData>
+) => [createQueryKey('projectsScaPaginate', options)];
+
+export const projectsScaPaginateOptions = (
+    options?: Options<ProjectsScaPaginateData>
+) => {
+    return queryOptions({
+        queryFn: async ({queryKey, signal}) => {
+            const {data} = await projectsScaPaginate({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: projectsScaPaginateQueryKey(options)
+    });
+};
+
+export const projectsScaCreateQueryKey = (
+    options: Options<ProjectsScaCreateData>
+) => [createQueryKey('projectsScaCreate', options)];
+
+export const projectsScaCreateOptions = (
+    options: Options<ProjectsScaCreateData>
+) => {
+    return queryOptions({
+        queryFn: async ({queryKey, signal}) => {
+            const {data} = await projectsScaCreate({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: projectsScaCreateQueryKey(options)
+    });
+};
+
+export const projectsScaCreateMutation = (
+    options?: Partial<Options<ProjectsScaCreateData>>
+) => {
+    const mutationOptions: UseMutationOptions<
+        ProjectsScaCreateResponse,
+        DefaultError,
+        Options<ProjectsScaCreateData>
+    > = {
+        mutationFn: async (localOptions) => {
+            const {data} = await projectsScaCreate({
+                ...options,
+                ...localOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const projectsScaRemoveMutation = (
+    options?: Partial<Options<ProjectsScaRemoveData>>
+) => {
+    const mutationOptions: UseMutationOptions<
+        ProjectsScaRemoveResponse,
+        DefaultError,
+        Options<ProjectsScaRemoveData>
+    > = {
+        mutationFn: async (localOptions) => {
+            const {data} = await projectsScaRemove({
+                ...options,
+                ...localOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const projectsScaGetQueryKey = (
+    options: Options<ProjectsScaGetData>
+) => [createQueryKey('projectsScaGet', options)];
+
+export const projectsScaGetOptions = (options: Options<ProjectsScaGetData>) => {
+    return queryOptions({
+        queryFn: async ({queryKey, signal}) => {
+            const {data} = await projectsScaGet({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: projectsScaGetQueryKey(options)
+    });
+};
+
+export const projectsScaUpdateMutation = (
+    options?: Partial<Options<ProjectsScaUpdateData>>
+) => {
+    const mutationOptions: UseMutationOptions<
+        ProjectsScaUpdateResponse,
+        DefaultError,
+        Options<ProjectsScaUpdateData>
+    > = {
+        mutationFn: async (localOptions) => {
+            const {data} = await projectsScaUpdate({
+                ...options,
+                ...localOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const attributesIndexQueryKey = (
+    options?: Options<AttributesIndexData>
+) => [createQueryKey('attributesIndex', options)];
+
+export const attributesIndexOptions = (
+    options?: Options<AttributesIndexData>
+) => {
+    return queryOptions({
+        queryFn: async ({queryKey, signal}) => {
+            const {data} = await attributesIndex({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: attributesIndexQueryKey(options)
+    });
+};
+
+export const attributesCreateQueryKey = (
+    options: Options<AttributesCreateData>
+) => [createQueryKey('attributesCreate', options)];
+
+export const attributesCreateOptions = (
+    options: Options<AttributesCreateData>
+) => {
+    return queryOptions({
+        queryFn: async ({queryKey, signal}) => {
+            const {data} = await attributesCreate({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: attributesCreateQueryKey(options)
+    });
+};
+
+export const attributesCreateMutation = (
+    options?: Partial<Options<AttributesCreateData>>
+) => {
+    const mutationOptions: UseMutationOptions<
+        AttributesCreateResponse,
+        DefaultError,
+        Options<AttributesCreateData>
+    > = {
+        mutationFn: async (localOptions) => {
+            const {data} = await attributesCreate({
+                ...options,
+                ...localOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const attributesRemoveMutation = (
+    options?: Partial<Options<AttributesRemoveData>>
+) => {
+    const mutationOptions: UseMutationOptions<
+        AttributesRemoveResponse,
+        DefaultError,
+        Options<AttributesRemoveData>
+    > = {
+        mutationFn: async (localOptions) => {
+            const {data} = await attributesRemove({
+                ...options,
+                ...localOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const attributesGetQueryKey = (options: Options<AttributesGetData>) => [
+    createQueryKey('attributesGet', options)
 ];
 
-export const projectsIndexOptions = (options?: Options<ProjectsIndexData>) => {
+export const attributesGetOptions = (options: Options<AttributesGetData>) => {
     return queryOptions({
         queryFn: async ({queryKey, signal}) => {
-            const {data} = await projectsIndex({
+            const {data} = await attributesGet({
                 ...options,
                 ...queryKey[0],
                 signal,
@@ -99,39 +337,20 @@ export const projectsIndexOptions = (options?: Options<ProjectsIndexData>) => {
             });
             return data;
         },
-        queryKey: projectsIndexQueryKey(options)
+        queryKey: attributesGetQueryKey(options)
     });
 };
 
-export const projectsCreateQueryKey = (
-    options: Options<ProjectsCreateData>
-) => [createQueryKey('projectsCreate', options)];
-
-export const projectsCreateOptions = (options: Options<ProjectsCreateData>) => {
-    return queryOptions({
-        queryFn: async ({queryKey, signal}) => {
-            const {data} = await projectsCreate({
-                ...options,
-                ...queryKey[0],
-                signal,
-                throwOnError: true
-            });
-            return data;
-        },
-        queryKey: projectsCreateQueryKey(options)
-    });
-};
-
-export const projectsCreateMutation = (
-    options?: Partial<Options<ProjectsCreateData>>
+export const attributesUpdateMutation = (
+    options?: Partial<Options<AttributesUpdateData>>
 ) => {
     const mutationOptions: UseMutationOptions<
-        ProjectsCreateResponse,
+        AttributesUpdateResponse,
         DefaultError,
-        Options<ProjectsCreateData>
+        Options<AttributesUpdateData>
     > = {
         mutationFn: async (localOptions) => {
-            const {data} = await projectsCreate({
+            const {data} = await attributesUpdate({
                 ...options,
                 ...localOptions,
                 throwOnError: true
@@ -142,34 +361,14 @@ export const projectsCreateMutation = (
     return mutationOptions;
 };
 
-export const projectsRemoveMutation = (
-    options?: Partial<Options<ProjectsRemoveData>>
-) => {
-    const mutationOptions: UseMutationOptions<
-        unknown,
-        DefaultError,
-        Options<ProjectsRemoveData>
-    > = {
-        mutationFn: async (localOptions) => {
-            const {data} = await projectsRemove({
-                ...options,
-                ...localOptions,
-                throwOnError: true
-            });
-            return data;
-        }
-    };
-    return mutationOptions;
-};
-
-export const projectsGetQueryKey = (options: Options<ProjectsGetData>) => [
-    createQueryKey('projectsGet', options)
+export const edgesIndexQueryKey = (options?: Options<EdgesIndexData>) => [
+    createQueryKey('edgesIndex', options)
 ];
 
-export const projectsGetOptions = (options: Options<ProjectsGetData>) => {
+export const edgesIndexOptions = (options?: Options<EdgesIndexData>) => {
     return queryOptions({
         queryFn: async ({queryKey, signal}) => {
-            const {data} = await projectsGet({
+            const {data} = await edgesIndex({
                 ...options,
                 ...queryKey[0],
                 signal,
@@ -177,58 +376,18 @@ export const projectsGetOptions = (options: Options<ProjectsGetData>) => {
             });
             return data;
         },
-        queryKey: projectsGetQueryKey(options)
+        queryKey: edgesIndexQueryKey(options)
     });
 };
 
-export const projectsUpdateMutation = (
-    options?: Partial<Options<ProjectsUpdateData>>
-) => {
-    const mutationOptions: UseMutationOptions<
-        ProjectsUpdateResponse,
-        DefaultError,
-        Options<ProjectsUpdateData>
-    > = {
-        mutationFn: async (localOptions) => {
-            const {data} = await projectsUpdate({
-                ...options,
-                ...localOptions,
-                throwOnError: true
-            });
-            return data;
-        }
-    };
-    return mutationOptions;
-};
-
-export const appRemoveMutation = (
-    options?: Partial<Options<AppRemoveData>>
-) => {
-    const mutationOptions: UseMutationOptions<
-        AppRemoveResponse,
-        DefaultError,
-        Options<AppRemoveData>
-    > = {
-        mutationFn: async (localOptions) => {
-            const {data} = await appRemove({
-                ...options,
-                ...localOptions,
-                throwOnError: true
-            });
-            return data;
-        }
-    };
-    return mutationOptions;
-};
-
-export const appGetHelloQueryKey = (options?: Options<AppGetHelloData>) => [
-    createQueryKey('appGetHello', options)
+export const edgesCreateQueryKey = (options: Options<EdgesCreateData>) => [
+    createQueryKey('edgesCreate', options)
 ];
 
-export const appGetHelloOptions = (options?: Options<AppGetHelloData>) => {
+export const edgesCreateOptions = (options: Options<EdgesCreateData>) => {
     return queryOptions({
         queryFn: async ({queryKey, signal}) => {
-            const {data} = await appGetHello({
+            const {data} = await edgesCreate({
                 ...options,
                 ...queryKey[0],
                 signal,
@@ -236,57 +395,20 @@ export const appGetHelloOptions = (options?: Options<AppGetHelloData>) => {
             });
             return data;
         },
-        queryKey: appGetHelloQueryKey(options)
+        queryKey: edgesCreateQueryKey(options)
     });
 };
 
-export const appPatchMutation = (options?: Partial<Options<AppPatchData>>) => {
-    const mutationOptions: UseMutationOptions<
-        AppPatchResponse,
-        DefaultError,
-        Options<AppPatchData>
-    > = {
-        mutationFn: async (localOptions) => {
-            const {data} = await appPatch({
-                ...options,
-                ...localOptions,
-                throwOnError: true
-            });
-            return data;
-        }
-    };
-    return mutationOptions;
-};
-
-export const appCreateQueryKey = (options?: Options<AppCreateData>) => [
-    createQueryKey('appCreate', options)
-];
-
-export const appCreateOptions = (options?: Options<AppCreateData>) => {
-    return queryOptions({
-        queryFn: async ({queryKey, signal}) => {
-            const {data} = await appCreate({
-                ...options,
-                ...queryKey[0],
-                signal,
-                throwOnError: true
-            });
-            return data;
-        },
-        queryKey: appCreateQueryKey(options)
-    });
-};
-
-export const appCreateMutation = (
-    options?: Partial<Options<AppCreateData>>
+export const edgesCreateMutation = (
+    options?: Partial<Options<EdgesCreateData>>
 ) => {
     const mutationOptions: UseMutationOptions<
-        AppCreateResponse,
+        EdgesCreateResponse,
         DefaultError,
-        Options<AppCreateData>
+        Options<EdgesCreateData>
     > = {
         mutationFn: async (localOptions) => {
-            const {data} = await appCreate({
+            const {data} = await edgesCreate({
                 ...options,
                 ...localOptions,
                 throwOnError: true
@@ -297,14 +419,172 @@ export const appCreateMutation = (
     return mutationOptions;
 };
 
-export const appPutMutation = (options?: Partial<Options<AppPutData>>) => {
+export const edgesRemoveMutation = (
+    options?: Partial<Options<EdgesRemoveData>>
+) => {
     const mutationOptions: UseMutationOptions<
-        AppPutResponse,
+        EdgesRemoveResponse,
         DefaultError,
-        Options<AppPutData>
+        Options<EdgesRemoveData>
     > = {
         mutationFn: async (localOptions) => {
-            const {data} = await appPut({
+            const {data} = await edgesRemove({
+                ...options,
+                ...localOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const edgesGetQueryKey = (options: Options<EdgesGetData>) => [
+    createQueryKey('edgesGet', options)
+];
+
+export const edgesGetOptions = (options: Options<EdgesGetData>) => {
+    return queryOptions({
+        queryFn: async ({queryKey, signal}) => {
+            const {data} = await edgesGet({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: edgesGetQueryKey(options)
+    });
+};
+
+export const edgesUpdateMutation = (
+    options?: Partial<Options<EdgesUpdateData>>
+) => {
+    const mutationOptions: UseMutationOptions<
+        EdgesUpdateResponse,
+        DefaultError,
+        Options<EdgesUpdateData>
+    > = {
+        mutationFn: async (localOptions) => {
+            const {data} = await edgesUpdate({
+                ...options,
+                ...localOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const nodesIndexQueryKey = (options?: Options<NodesIndexData>) => [
+    createQueryKey('nodesIndex', options)
+];
+
+export const nodesIndexOptions = (options?: Options<NodesIndexData>) => {
+    return queryOptions({
+        queryFn: async ({queryKey, signal}) => {
+            const {data} = await nodesIndex({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: nodesIndexQueryKey(options)
+    });
+};
+
+export const nodesCreateQueryKey = (options: Options<NodesCreateData>) => [
+    createQueryKey('nodesCreate', options)
+];
+
+export const nodesCreateOptions = (options: Options<NodesCreateData>) => {
+    return queryOptions({
+        queryFn: async ({queryKey, signal}) => {
+            const {data} = await nodesCreate({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: nodesCreateQueryKey(options)
+    });
+};
+
+export const nodesCreateMutation = (
+    options?: Partial<Options<NodesCreateData>>
+) => {
+    const mutationOptions: UseMutationOptions<
+        NodesCreateResponse,
+        DefaultError,
+        Options<NodesCreateData>
+    > = {
+        mutationFn: async (localOptions) => {
+            const {data} = await nodesCreate({
+                ...options,
+                ...localOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const nodesRemoveMutation = (
+    options?: Partial<Options<NodesRemoveData>>
+) => {
+    const mutationOptions: UseMutationOptions<
+        NodesRemoveResponse,
+        DefaultError,
+        Options<NodesRemoveData>
+    > = {
+        mutationFn: async (localOptions) => {
+            const {data} = await nodesRemove({
+                ...options,
+                ...localOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const nodesGetQueryKey = (options: Options<NodesGetData>) => [
+    createQueryKey('nodesGet', options)
+];
+
+export const nodesGetOptions = (options: Options<NodesGetData>) => {
+    return queryOptions({
+        queryFn: async ({queryKey, signal}) => {
+            const {data} = await nodesGet({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: nodesGetQueryKey(options)
+    });
+};
+
+export const nodesUpdateMutation = (
+    options?: Partial<Options<NodesUpdateData>>
+) => {
+    const mutationOptions: UseMutationOptions<
+        NodesUpdateResponse,
+        DefaultError,
+        Options<NodesUpdateData>
+    > = {
+        mutationFn: async (localOptions) => {
+            const {data} = await nodesUpdate({
                 ...options,
                 ...localOptions,
                 throwOnError: true
@@ -381,7 +661,7 @@ export const workspacesRemoveMutation = (
     options?: Partial<Options<WorkspacesRemoveData>>
 ) => {
     const mutationOptions: UseMutationOptions<
-        unknown,
+        WorkspacesRemoveResponse,
         DefaultError,
         Options<WorkspacesRemoveData>
     > = {
@@ -426,6 +706,65 @@ export const workspacesUpdateMutation = (
     > = {
         mutationFn: async (localOptions) => {
             const {data} = await workspacesUpdate({
+                ...options,
+                ...localOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const settingsGetQueryKey = (options?: Options<SettingsGetData>) => [
+    createQueryKey('settingsGet', options)
+];
+
+export const settingsGetOptions = (options?: Options<SettingsGetData>) => {
+    return queryOptions({
+        queryFn: async ({queryKey, signal}) => {
+            const {data} = await settingsGet({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: settingsGetQueryKey(options)
+    });
+};
+
+export const settingsUpdateMutation = (
+    options?: Partial<Options<SettingsUpdateData>>
+) => {
+    const mutationOptions: UseMutationOptions<
+        SettingsUpdateResponse,
+        DefaultError,
+        Options<SettingsUpdateData>
+    > = {
+        mutationFn: async (localOptions) => {
+            const {data} = await settingsUpdate({
+                ...options,
+                ...localOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const settingsReplaceMutation = (
+    options?: Partial<Options<SettingsReplaceData>>
+) => {
+    const mutationOptions: UseMutationOptions<
+        SettingsReplaceResponse,
+        DefaultError,
+        Options<SettingsReplaceData>
+    > = {
+        mutationFn: async (localOptions) => {
+            const {data} = await settingsReplace({
                 ...options,
                 ...localOptions,
                 throwOnError: true

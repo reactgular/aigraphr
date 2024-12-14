@@ -2,8 +2,28 @@
     "openapi": "3.0.0",
     "paths": {
         "/projects": {
+            "get": {
+                "operationId": "Projects_scaPaginate",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Return a list of Project",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProjectDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Paginate Project",
+                "tags": [
+                    "Projects"
+                ]
+            },
             "post": {
-                "operationId": "Projects_create",
+                "operationId": "Projects_scaCreate",
                 "parameters": [],
                 "requestBody": {
                     "required": true,
@@ -16,8 +36,8 @@
                     }
                 },
                 "responses": {
-                    "200": {
-                        "description": "",
+                    "201": {
+                        "description": "Return a new Project",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -27,41 +47,50 @@
                         }
                     }
                 },
-                "summary": "Create a new ProjectCreate.",
-                "tags": [
-                    "Projects"
-                ]
-            },
-            "get": {
-                "operationId": "Projects_index",
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/ProjectDto"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "summary": "List all Project",
+                "summary": "Create a new Project",
                 "tags": [
                     "Projects"
                 ]
             }
         },
-        "/projects/{id}": {
-            "patch": {
-                "operationId": "Projects_update",
+        "/projects/{projectId}": {
+            "get": {
+                "operationId": "Projects_scaGet",
                 "parameters": [
                     {
-                        "name": "id",
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return a Project by projectId",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProjectDto"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "A Project with the specified projectId was not found"
+                    }
+                },
+                "summary": "Get Project by projectId",
+                "tags": [
+                    "Projects"
+                ]
+            },
+            "patch": {
+                "operationId": "Projects_scaUpdate",
+                "parameters": [
+                    {
+                        "name": "projectId",
                         "required": true,
                         "in": "path",
                         "schema": {
@@ -81,7 +110,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "Return a Project by projectId",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -89,18 +118,21 @@
                                 }
                             }
                         }
+                    },
+                    "404": {
+                        "description": "A Project with the specified projectId was not found"
                     }
                 },
-                "summary": "Updates a ProjectUpdate.",
+                "summary": "Update a Project by projectId",
                 "tags": [
                     "Projects"
                 ]
             },
             "delete": {
-                "operationId": "Projects_remove",
+                "operationId": "Projects_scaRemove",
                 "parameters": [
                     {
-                        "name": "id",
+                        "name": "projectId",
                         "required": true,
                         "in": "path",
                         "schema": {
@@ -109,146 +141,559 @@
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": ""
+                    "204": {
+                        "description": "The Project has been deleted"
                     },
                     "404": {
-                        "description": "Project not found"
+                        "description": "A Project with the specified projectId was not found"
                     }
                 },
-                "summary": "Delete Project by ID",
-                "tags": [
-                    "Projects"
-                ]
-            },
-            "get": {
-                "operationId": "Projects_get",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "required": true,
-                        "in": "path",
-                        "schema": {
-                            "type": "number"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ProjectDto"
-                                }
-                            }
-                        }
-                    }
-                },
-                "summary": "Get Project by ID",
+                "summary": "Delete a Project by projectId",
                 "tags": [
                     "Projects"
                 ]
             }
         },
-        "/": {
+        "/editor/{projectId}/attributes": {
             "get": {
-                "operationId": "App_getHello",
+                "operationId": "Attributes_index",
                 "parameters": [],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "Return a list of Attribute",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
+                                    "$ref": "#/components/schemas/AttributeDto"
                                 }
                             }
                         }
                     }
                 },
+                "summary": "Paginate Attribute",
                 "tags": [
-                    "App"
+                    "Editor"
                 ]
             },
             "post": {
-                "operationId": "App_create",
+                "operationId": "Attributes_create",
                 "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AttributeCreateDto"
+                            }
+                        }
+                    }
+                },
                 "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
                     "201": {
-                        "description": "",
+                        "description": "Return a new Attribute",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
+                                    "$ref": "#/components/schemas/AttributeDto"
                                 }
                             }
                         }
                     }
                 },
+                "summary": "Create a new Attribute",
                 "tags": [
-                    "App"
-                ]
-            },
-            "delete": {
-                "operationId": "App_remove",
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "App"
-                ]
-            },
-            "patch": {
-                "operationId": "App_patch",
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "App"
-                ]
-            },
-            "put": {
-                "operationId": "App_put",
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "App"
+                    "Editor"
                 ]
             }
         },
-        "/projects/{projectId}/workspaces": {
+        "/editor/{projectId}/attributes/{id}": {
+            "get": {
+                "operationId": "Attributes_get",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return a Attribute by id",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AttributeDto"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "A Attribute with the specified id was not found"
+                    }
+                },
+                "summary": "Get Attribute by id",
+                "tags": [
+                    "Editor"
+                ]
+            },
+            "patch": {
+                "operationId": "Attributes_update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AttributeUpdateDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Return a Attribute by id",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AttributeDto"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "A Attribute with the specified id was not found"
+                    }
+                },
+                "summary": "Update a Attribute by id",
+                "tags": [
+                    "Editor"
+                ]
+            },
+            "delete": {
+                "operationId": "Attributes_remove",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "204": {
+                        "description": "The Attribute has been deleted"
+                    },
+                    "404": {
+                        "description": "A Attribute with the specified id was not found"
+                    }
+                },
+                "summary": "Delete a Attribute by id",
+                "tags": [
+                    "Editor"
+                ]
+            }
+        },
+        "/editor/{projectId}/edges": {
+            "get": {
+                "operationId": "Edges_index",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Return a list of Edge",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EdgeDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Paginate Edge",
+                "tags": [
+                    "Editor"
+                ]
+            },
+            "post": {
+                "operationId": "Edges_create",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/EdgeCreateDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "Return a new Edge",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EdgeDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Create a new Edge",
+                "tags": [
+                    "Editor"
+                ]
+            }
+        },
+        "/editor/{projectId}/edges/{id}": {
+            "get": {
+                "operationId": "Edges_get",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return a Edge by id",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EdgeDto"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "A Edge with the specified id was not found"
+                    }
+                },
+                "summary": "Get Edge by id",
+                "tags": [
+                    "Editor"
+                ]
+            },
+            "patch": {
+                "operationId": "Edges_update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/EdgeUpdateDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Return a Edge by id",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EdgeDto"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "A Edge with the specified id was not found"
+                    }
+                },
+                "summary": "Update a Edge by id",
+                "tags": [
+                    "Editor"
+                ]
+            },
+            "delete": {
+                "operationId": "Edges_remove",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "204": {
+                        "description": "The Edge has been deleted"
+                    },
+                    "404": {
+                        "description": "A Edge with the specified id was not found"
+                    }
+                },
+                "summary": "Delete a Edge by id",
+                "tags": [
+                    "Editor"
+                ]
+            }
+        },
+        "/editor/{projectId}/nodes": {
+            "get": {
+                "operationId": "Nodes_index",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Return a list of Node",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NodeDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Paginate Node",
+                "tags": [
+                    "Editor"
+                ]
+            },
+            "post": {
+                "operationId": "Nodes_create",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/NodeCreateDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "Return a new Node",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NodeDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Create a new Node",
+                "tags": [
+                    "Editor"
+                ]
+            }
+        },
+        "/editor/{projectId}/nodes/{id}": {
+            "get": {
+                "operationId": "Nodes_get",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return a Node by id",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NodeDto"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "A Node with the specified id was not found"
+                    }
+                },
+                "summary": "Get Node by id",
+                "tags": [
+                    "Editor"
+                ]
+            },
+            "patch": {
+                "operationId": "Nodes_update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/NodeUpdateDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Return a Node by id",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NodeDto"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "A Node with the specified id was not found"
+                    }
+                },
+                "summary": "Update a Node by id",
+                "tags": [
+                    "Editor"
+                ]
+            },
+            "delete": {
+                "operationId": "Nodes_remove",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "204": {
+                        "description": "The Node has been deleted"
+                    },
+                    "404": {
+                        "description": "A Node with the specified id was not found"
+                    }
+                },
+                "summary": "Delete a Node by id",
+                "tags": [
+                    "Editor"
+                ]
+            }
+        },
+        "/editor/{projectId}/workspaces": {
+            "get": {
+                "operationId": "Workspaces_index",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Return a list of Workspace",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WorkspaceDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Paginate Workspace",
+                "tags": [
+                    "Editor"
+                ]
+            },
             "post": {
                 "operationId": "Workspaces_create",
                 "parameters": [],
@@ -268,42 +713,61 @@
                         "content": {
                             "application/json": {
                                 "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "Return a new Workspace",
+                        "content": {
+                            "application/json": {
+                                "schema": {
                                     "$ref": "#/components/schemas/WorkspaceDto"
                                 }
                             }
                         }
                     }
                 },
-                "summary": "Create a new WorkspaceCreate.",
+                "summary": "Create a new Workspace",
                 "tags": [
-                    "Workspaces"
-                ]
-            },
-            "get": {
-                "operationId": "Workspaces_index",
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/WorkspaceDto"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "summary": "List all Workspace",
-                "tags": [
-                    "Workspaces"
+                    "Editor"
                 ]
             }
         },
-        "/projects/{projectId}/workspaces/{id}": {
+        "/editor/{projectId}/workspaces/{id}": {
+            "get": {
+                "operationId": "Workspaces_get",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return a Workspace by id",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WorkspaceDto"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "A Workspace with the specified id was not found"
+                    }
+                },
+                "summary": "Get Workspace by id",
+                "tags": [
+                    "Editor"
+                ]
+            },
             "patch": {
                 "operationId": "Workspaces_update",
                 "parameters": [
@@ -328,7 +792,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "Return a Workspace by id",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -336,11 +800,14 @@
                                 }
                             }
                         }
+                    },
+                    "404": {
+                        "description": "A Workspace with the specified id was not found"
                     }
                 },
-                "summary": "Updates a WorkspaceUpdate.",
+                "summary": "Update a Workspace by id",
                 "tags": [
-                    "Workspaces"
+                    "Editor"
                 ]
             },
             "delete": {
@@ -357,44 +824,107 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "204": {
+                        "description": "The Node has been deleted"
                     },
                     "404": {
-                        "description": "Workspace not found"
+                        "description": "A Node with the specified id was not found"
                     }
                 },
-                "summary": "Delete Workspace by ID",
+                "summary": "Delete a Node by id",
                 "tags": [
-                    "Workspaces"
+                    "Editor"
                 ]
-            },
+            }
+        },
+        "/app/settings": {
             "get": {
-                "operationId": "Workspaces_get",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "required": true,
-                        "in": "path",
-                        "schema": {
-                            "type": "number"
-                        }
-                    }
-                ],
+                "operationId": "Settings_get",
+                "parameters": [],
                 "responses": {
                     "200": {
                         "description": "",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/WorkspaceDto"
+                                    "$ref": "#/components/schemas/SettingDto"
                                 }
                             }
                         }
                     }
                 },
-                "summary": "Get Workspace by ID",
+                "summary": "Get App settings",
                 "tags": [
-                    "Workspaces"
+                    "App"
+                ]
+            },
+            "put": {
+                "operationId": "Settings_replace",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SettingDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SettingDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Replace App settings",
+                "tags": [
+                    "App"
+                ]
+            },
+            "patch": {
+                "operationId": "Settings_update",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SettingDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SettingDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Update App settings",
+                "tags": [
+                    "App"
                 ]
             }
         }
@@ -416,23 +946,6 @@
             }
         },
         "schemas": {
-            "ProjectCreateDto": {
-                "type": "object",
-                "properties": {
-                    "name": {
-                        "type": "string",
-                        "description": "The name of the project (alphanumeric)",
-                        "example": "example-project"
-                    },
-                    "test": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "name",
-                    "test"
-                ]
-            },
             "ProjectDto": {
                 "type": "object",
                 "properties": {
@@ -460,6 +973,28 @@
                     "test"
                 ]
             },
+            "ProjectCreateDto": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the project (alphanumeric)",
+                        "example": "example-project"
+                    },
+                    "cloneId": {
+                        "type": "number",
+                        "description": "The ID of the project to clone",
+                        "example": 1234
+                    },
+                    "test": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name",
+                    "test"
+                ]
+            },
             "ProjectUpdateDto": {
                 "type": "object",
                 "properties": {
@@ -477,22 +1012,110 @@
                     }
                 }
             },
-            "WorkspaceCreateDto": {
+            "AttributeDto": {
                 "type": "object",
                 "properties": {
-                    "name": {
-                        "type": "string",
-                        "description": "The name of the project (alphanumeric)",
-                        "example": "example-project"
+                    "id": {
+                        "type": "number",
+                        "example": 1234
                     },
                     "test": {
                         "type": "string"
                     }
                 },
                 "required": [
-                    "name",
+                    "id",
                     "test"
                 ]
+            },
+            "AttributeCreateDto": {
+                "type": "object",
+                "properties": {
+                    "test": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "test"
+                ]
+            },
+            "AttributeUpdateDto": {
+                "type": "object",
+                "properties": {
+                    "test": {
+                        "type": "string"
+                    }
+                }
+            },
+            "EdgeDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number",
+                        "example": 1234
+                    },
+                    "test": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "test"
+                ]
+            },
+            "EdgeCreateDto": {
+                "type": "object",
+                "properties": {
+                    "test": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "test"
+                ]
+            },
+            "EdgeUpdateDto": {
+                "type": "object",
+                "properties": {
+                    "test": {
+                        "type": "string"
+                    }
+                }
+            },
+            "NodeDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number",
+                        "example": 1234
+                    },
+                    "test": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "test"
+                ]
+            },
+            "NodeCreateDto": {
+                "type": "object",
+                "properties": {
+                    "test": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "test"
+                ]
+            },
+            "NodeUpdateDto": {
+                "type": "object",
+                "properties": {
+                    "test": {
+                        "type": "string"
+                    }
+                }
             },
             "WorkspaceDto": {
                 "type": "object",
@@ -516,6 +1139,23 @@
                     "test"
                 ]
             },
+            "WorkspaceCreateDto": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the project (alphanumeric)",
+                        "example": "example-project"
+                    },
+                    "test": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name",
+                    "test"
+                ]
+            },
             "WorkspaceUpdateDto": {
                 "type": "object",
                 "properties": {
@@ -528,6 +1168,17 @@
                         "type": "string"
                     }
                 }
+            },
+            "SettingDto": {
+                "type": "object",
+                "properties": {
+                    "test": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "test"
+                ]
             }
         }
     }
