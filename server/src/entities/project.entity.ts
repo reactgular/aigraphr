@@ -1,7 +1,7 @@
 import {IsProfileName} from '@/projects/decorators/is-profile-name.decorator';
 import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {ApiProperty, OmitType, PartialType} from '@nestjs/swagger';
-import {IsBoolean, IsString} from 'class-validator';
+import {IsBoolean, IsNumber, IsOptional, IsString, Min} from 'class-validator';
 import {Column, Entity} from 'typeorm';
 
 @Entity({name: 'projects'})
@@ -28,7 +28,16 @@ export class ProjectDto extends OmitType(ProjectEntity, [] as const) {}
 export class ProjectCreateDto extends OmitType(ProjectDto, [
     'id',
     'open'
-] as const) {}
+] as const) {
+    @IsNumber()
+    @IsOptional()
+    @Min(1)
+    @ApiProperty({
+        description: 'The ID of the project to clone',
+        example: 1234
+    })
+    cloneId?: number;
+}
 
 export class ProjectUpdateDto extends PartialType(
     OmitType(ProjectDto, ['id'] as const)
