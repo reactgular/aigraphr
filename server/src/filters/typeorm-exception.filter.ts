@@ -1,3 +1,4 @@
+import {ExceptionFilterDto} from '@/filters/exception-filter.dto';
 import {
     ArgumentsHost,
     Catch,
@@ -18,28 +19,24 @@ export class TypeormExceptionFilter implements ExceptionFilter {
         const {httpAdapter} = this.httpAdapterHost;
         const ctx = host.switchToHttp();
 
-        const response: Record<
-            string,
-            string | Array<string> | number | undefined
-        > & {statusCode: number} = {
-            statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
-            message: 'Internal server error',
-            path: this.getPath(host)
-        };
+        const response = new ExceptionFilterDto();
+        response.statusCode = HttpStatus.INTERNAL_SERVER_ERROR;
+        response.message = 'Internal server error';
+        response.path = this.getPath(host);
 
         if (exception instanceof Error) {
-            response['message'] = exception.message;
-            response['stack'] = exception.stack
+            response.message = exception.message;
+            response.stack = exception.stack
                 ?.split('\n')
                 .map((line) => line.trim());
 
             if (exception instanceof TypeORMError) {
                 // TODO: Not all query failures are bad requests, we should handle this better.
                 if (exception instanceof QueryFailedError) {
-                    response['statusCode'] = HttpStatus.BAD_REQUEST;
+                    response.statusCode = HttpStatus.BAD_REQUEST;
                 }
             } else if (exception instanceof HttpException) {
-                response['statusCode'] = exception.getStatus();
+                response.statusCode = exception.getStatus();
             }
         }
 

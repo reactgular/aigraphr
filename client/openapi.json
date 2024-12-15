@@ -2,26 +2,6 @@
     "openapi": "3.0.0",
     "paths": {
         "/projects": {
-            "get": {
-                "operationId": "Projects_scaPaginate",
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": "Return a list of Project",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ProjectDto"
-                                }
-                            }
-                        }
-                    }
-                },
-                "summary": "Paginate Project",
-                "tags": [
-                    "Projects"
-                ]
-            },
             "post": {
                 "operationId": "Projects_scaCreate",
                 "parameters": [],
@@ -51,25 +31,13 @@
                 "tags": [
                     "Projects"
                 ]
-            }
-        },
-        "/projects/{projectId}": {
+            },
             "get": {
-                "operationId": "Projects_scaGet",
-                "parameters": [
-                    {
-                        "name": "projectId",
-                        "required": true,
-                        "in": "path",
-                        "description": "The ID of a Project",
-                        "schema": {
-                            "type": "number"
-                        }
-                    }
-                ],
+                "operationId": "Projects_scaPaginate",
+                "parameters": [],
                 "responses": {
                     "200": {
-                        "description": "Return a Project by projectId",
+                        "description": "Return a list of Project",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -77,16 +45,15 @@
                                 }
                             }
                         }
-                    },
-                    "404": {
-                        "description": "A Project with the specified projectId was not found"
                     }
                 },
-                "summary": "Get Project by projectId",
+                "summary": "Paginate Project",
                 "tags": [
                     "Projects"
                 ]
-            },
+            }
+        },
+        "/projects/{projectId}": {
             "patch": {
                 "operationId": "Projects_scaUpdate",
                 "parameters": [
@@ -155,11 +122,44 @@
                 "tags": [
                     "Projects"
                 ]
+            },
+            "get": {
+                "operationId": "Projects_scaGet",
+                "parameters": [
+                    {
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a Project",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return a Project by projectId",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProjectDto"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "A Project with the specified projectId was not found"
+                    }
+                },
+                "summary": "Get Project by projectId",
+                "tags": [
+                    "Projects"
+                ]
             }
         },
         "/projects/{projectId}/workspaces/{workspaceId}/edges": {
-            "get": {
-                "operationId": "Edges_scaPaginate",
+            "post": {
+                "operationId": "Edges_scaCreate",
                 "parameters": [
                     {
                         "name": "projectId",
@@ -169,33 +169,12 @@
                         "schema": {
                             "type": "number"
                         }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Return a list of Edge",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/EdgeDto"
-                                }
-                            }
-                        }
-                    }
-                },
-                "summary": "Paginate Edge",
-                "tags": [
-                    "Projects"
-                ]
-            },
-            "post": {
-                "operationId": "Edges_scaCreate",
-                "parameters": [
+                    },
                     {
-                        "name": "projectId",
+                        "name": "workspaceId",
                         "required": true,
                         "in": "path",
-                        "description": "The ID of a project",
+                        "description": "The ID of a workspace",
                         "schema": {
                             "type": "number"
                         }
@@ -225,23 +204,12 @@
                 },
                 "summary": "Create a new Edge",
                 "tags": [
-                    "Projects"
+                    "Edges"
                 ]
-            }
-        },
-        "/projects/{projectId}/workspaces/{workspaceId}/edges/{edgeId}": {
+            },
             "get": {
-                "operationId": "Edges_scaGet",
+                "operationId": "Edges_scaPaginate",
                 "parameters": [
-                    {
-                        "name": "edgeId",
-                        "required": true,
-                        "in": "path",
-                        "description": "The ID of a Edge",
-                        "schema": {
-                            "type": "number"
-                        }
-                    },
                     {
                         "name": "projectId",
                         "required": true,
@@ -250,11 +218,20 @@
                         "schema": {
                             "type": "number"
                         }
+                    },
+                    {
+                        "name": "workspaceId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a workspace",
+                        "schema": {
+                            "type": "number"
+                        }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Return a Edge by edgeId",
+                        "description": "Return a list of Edge",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -262,16 +239,15 @@
                                 }
                             }
                         }
-                    },
-                    "404": {
-                        "description": "A Edge with the specified edgeId was not found"
                     }
                 },
-                "summary": "Get Edge by edgeId",
+                "summary": "Paginate Edge",
                 "tags": [
-                    "Projects"
+                    "Edges"
                 ]
-            },
+            }
+        },
+        "/projects/{projectId}/workspaces/{workspaceId}/edges/{edgeId}": {
             "patch": {
                 "operationId": "Edges_scaUpdate",
                 "parameters": [
@@ -289,6 +265,15 @@
                         "required": true,
                         "in": "path",
                         "description": "The ID of a project",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "workspaceId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a workspace",
                         "schema": {
                             "type": "number"
                         }
@@ -321,7 +306,7 @@
                 },
                 "summary": "Update a Edge by edgeId",
                 "tags": [
-                    "Projects"
+                    "Edges"
                 ]
             },
             "delete": {
@@ -344,6 +329,15 @@
                         "schema": {
                             "type": "number"
                         }
+                    },
+                    {
+                        "name": "workspaceId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a workspace",
+                        "schema": {
+                            "type": "number"
+                        }
                     }
                 ],
                 "responses": {
@@ -356,13 +350,64 @@
                 },
                 "summary": "Delete a Edge by edgeId",
                 "tags": [
-                    "Projects"
+                    "Edges"
+                ]
+            },
+            "get": {
+                "operationId": "Edges_scaGet",
+                "parameters": [
+                    {
+                        "name": "edgeId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a Edge",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a project",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "workspaceId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a workspace",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return a Edge by edgeId",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EdgeDto"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "A Edge with the specified edgeId was not found"
+                    }
+                },
+                "summary": "Get Edge by edgeId",
+                "tags": [
+                    "Edges"
                 ]
             }
         },
         "/projects/{projectId}/workspaces/{workspaceId}/nodes": {
-            "get": {
-                "operationId": "Nodes_scaPaginate",
+            "post": {
+                "operationId": "Nodes_scaCreate",
                 "parameters": [
                     {
                         "name": "projectId",
@@ -372,33 +417,12 @@
                         "schema": {
                             "type": "number"
                         }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Return a list of Node",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/NodeDto"
-                                }
-                            }
-                        }
-                    }
-                },
-                "summary": "Paginate Node",
-                "tags": [
-                    "Projects"
-                ]
-            },
-            "post": {
-                "operationId": "Nodes_scaCreate",
-                "parameters": [
+                    },
                     {
-                        "name": "projectId",
+                        "name": "workspaceId",
                         "required": true,
                         "in": "path",
-                        "description": "The ID of a project",
+                        "description": "The ID of a workspace",
                         "schema": {
                             "type": "number"
                         }
@@ -428,23 +452,12 @@
                 },
                 "summary": "Create a new Node",
                 "tags": [
-                    "Projects"
+                    "Nodes"
                 ]
-            }
-        },
-        "/projects/{projectId}/workspaces/{workspaceId}/nodes/{nodeId}": {
+            },
             "get": {
-                "operationId": "Nodes_scaGet",
+                "operationId": "Nodes_scaPaginate",
                 "parameters": [
-                    {
-                        "name": "nodeId",
-                        "required": true,
-                        "in": "path",
-                        "description": "The ID of a Node",
-                        "schema": {
-                            "type": "number"
-                        }
-                    },
                     {
                         "name": "projectId",
                         "required": true,
@@ -453,11 +466,20 @@
                         "schema": {
                             "type": "number"
                         }
+                    },
+                    {
+                        "name": "workspaceId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a workspace",
+                        "schema": {
+                            "type": "number"
+                        }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Return a Node by nodeId",
+                        "description": "Return a list of Node",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -465,16 +487,15 @@
                                 }
                             }
                         }
-                    },
-                    "404": {
-                        "description": "A Node with the specified nodeId was not found"
                     }
                 },
-                "summary": "Get Node by nodeId",
+                "summary": "Paginate Node",
                 "tags": [
-                    "Projects"
+                    "Nodes"
                 ]
-            },
+            }
+        },
+        "/projects/{projectId}/workspaces/{workspaceId}/nodes/{nodeId}": {
             "patch": {
                 "operationId": "Nodes_scaUpdate",
                 "parameters": [
@@ -492,6 +513,15 @@
                         "required": true,
                         "in": "path",
                         "description": "The ID of a project",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "workspaceId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a workspace",
                         "schema": {
                             "type": "number"
                         }
@@ -524,7 +554,7 @@
                 },
                 "summary": "Update a Node by nodeId",
                 "tags": [
-                    "Projects"
+                    "Nodes"
                 ]
             },
             "delete": {
@@ -547,6 +577,15 @@
                         "schema": {
                             "type": "number"
                         }
+                    },
+                    {
+                        "name": "workspaceId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a workspace",
+                        "schema": {
+                            "type": "number"
+                        }
                     }
                 ],
                 "responses": {
@@ -559,14 +598,21 @@
                 },
                 "summary": "Delete a Node by nodeId",
                 "tags": [
-                    "Projects"
+                    "Nodes"
                 ]
-            }
-        },
-        "/projects/{projectId}/workspaces": {
+            },
             "get": {
-                "operationId": "Workspaces_scaPaginate",
+                "operationId": "Nodes_scaGet",
                 "parameters": [
+                    {
+                        "name": "nodeId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a Node",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
                     {
                         "name": "projectId",
                         "required": true,
@@ -575,25 +621,39 @@
                         "schema": {
                             "type": "number"
                         }
+                    },
+                    {
+                        "name": "workspaceId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a workspace",
+                        "schema": {
+                            "type": "number"
+                        }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Return a list of Workspace",
+                        "description": "Return a Node by nodeId",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/WorkspaceDto"
+                                    "$ref": "#/components/schemas/NodeDto"
                                 }
                             }
                         }
+                    },
+                    "404": {
+                        "description": "A Node with the specified nodeId was not found"
                     }
                 },
-                "summary": "Paginate Workspace",
+                "summary": "Get Node by nodeId",
                 "tags": [
-                    "Projects"
+                    "Nodes"
                 ]
-            },
+            }
+        },
+        "/projects/{projectId}/workspaces": {
             "post": {
                 "operationId": "Workspaces_scaCreate",
                 "parameters": [
@@ -631,23 +691,12 @@
                 },
                 "summary": "Create a new Workspace",
                 "tags": [
-                    "Projects"
+                    "Workspaces"
                 ]
-            }
-        },
-        "/projects/{projectId}/workspaces/{workspaceId}": {
+            },
             "get": {
-                "operationId": "Workspaces_scaGet",
+                "operationId": "Workspaces_scaPaginate",
                 "parameters": [
-                    {
-                        "name": "workspaceId",
-                        "required": true,
-                        "in": "path",
-                        "description": "The ID of a Workspace",
-                        "schema": {
-                            "type": "number"
-                        }
-                    },
                     {
                         "name": "projectId",
                         "required": true,
@@ -660,7 +709,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Return a Workspace by workspaceId",
+                        "description": "Return a list of Workspace",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -668,16 +717,15 @@
                                 }
                             }
                         }
-                    },
-                    "404": {
-                        "description": "A Workspace with the specified workspaceId was not found"
                     }
                 },
-                "summary": "Get Workspace by workspaceId",
+                "summary": "Paginate Workspace",
                 "tags": [
-                    "Projects"
+                    "Workspaces"
                 ]
-            },
+            }
+        },
+        "/projects/{projectId}/workspaces/{workspaceId}": {
             "patch": {
                 "operationId": "Workspaces_scaUpdate",
                 "parameters": [
@@ -727,7 +775,7 @@
                 },
                 "summary": "Update a Workspace by workspaceId",
                 "tags": [
-                    "Projects"
+                    "Workspaces"
                 ]
             },
             "delete": {
@@ -762,7 +810,49 @@
                 },
                 "summary": "Delete a Workspace by workspaceId",
                 "tags": [
-                    "Projects"
+                    "Workspaces"
+                ]
+            },
+            "get": {
+                "operationId": "Workspaces_scaGet",
+                "parameters": [
+                    {
+                        "name": "workspaceId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a Workspace",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a project",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return a Workspace by workspaceId",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WorkspaceDto"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "A Workspace with the specified workspaceId was not found"
+                    }
+                },
+                "summary": "Get Workspace by workspaceId",
+                "tags": [
+                    "Workspaces"
                 ]
             }
         },
@@ -866,6 +956,24 @@
             }
         },
         "schemas": {
+            "ProjectCreateDto": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the project (alphanumeric)",
+                        "example": "example-project"
+                    },
+                    "cloneId": {
+                        "type": "number",
+                        "description": "The ID of the project to clone",
+                        "example": 1234
+                    }
+                },
+                "required": [
+                    "name"
+                ]
+            },
             "ProjectDto": {
                 "type": "object",
                 "properties": {
@@ -881,38 +989,12 @@
                     "open": {
                         "type": "boolean",
                         "description": "The open status of the project"
-                    },
-                    "test": {
-                        "type": "string"
                     }
                 },
                 "required": [
                     "id",
                     "name",
-                    "open",
-                    "test"
-                ]
-            },
-            "ProjectCreateDto": {
-                "type": "object",
-                "properties": {
-                    "name": {
-                        "type": "string",
-                        "description": "The name of the project (alphanumeric)",
-                        "example": "example-project"
-                    },
-                    "cloneId": {
-                        "type": "number",
-                        "description": "The ID of the project to clone",
-                        "example": 1234
-                    },
-                    "test": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "name",
-                    "test"
+                    "open"
                 ]
             },
             "ProjectUpdateDto": {
@@ -926,11 +1008,19 @@
                     "open": {
                         "type": "boolean",
                         "description": "The open status of the project"
-                    },
+                    }
+                }
+            },
+            "EdgeCreateDto": {
+                "type": "object",
+                "properties": {
                     "test": {
                         "type": "string"
                     }
-                }
+                },
+                "required": [
+                    "test"
+                ]
             },
             "EdgeDto": {
                 "type": "object",
@@ -948,7 +1038,15 @@
                     "test"
                 ]
             },
-            "EdgeCreateDto": {
+            "EdgeUpdateDto": {
+                "type": "object",
+                "properties": {
+                    "test": {
+                        "type": "string"
+                    }
+                }
+            },
+            "NodeCreateDto": {
                 "type": "object",
                 "properties": {
                     "test": {
@@ -958,14 +1056,6 @@
                 "required": [
                     "test"
                 ]
-            },
-            "EdgeUpdateDto": {
-                "type": "object",
-                "properties": {
-                    "test": {
-                        "type": "string"
-                    }
-                }
             },
             "NodeDto": {
                 "type": "object",
@@ -983,17 +1073,6 @@
                     "test"
                 ]
             },
-            "NodeCreateDto": {
-                "type": "object",
-                "properties": {
-                    "test": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "test"
-                ]
-            },
             "NodeUpdateDto": {
                 "type": "object",
                 "properties": {
@@ -1001,6 +1080,23 @@
                         "type": "string"
                     }
                 }
+            },
+            "WorkspaceCreateDto": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the project (alphanumeric)",
+                        "example": "example-project"
+                    },
+                    "test": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name",
+                    "test"
+                ]
             },
             "WorkspaceDto": {
                 "type": "object",
@@ -1020,23 +1116,6 @@
                 },
                 "required": [
                     "id",
-                    "name",
-                    "test"
-                ]
-            },
-            "WorkspaceCreateDto": {
-                "type": "object",
-                "properties": {
-                    "name": {
-                        "type": "string",
-                        "description": "The name of the project (alphanumeric)",
-                        "example": "example-project"
-                    },
-                    "test": {
-                        "type": "string"
-                    }
-                },
-                "required": [
                     "name",
                     "test"
                 ]
@@ -1063,6 +1142,31 @@
                 },
                 "required": [
                     "test"
+                ]
+            },
+            "ExceptionFilterDto": {
+                "type": "object",
+                "properties": {
+                    "statusCode": {
+                        "type": "number"
+                    },
+                    "message": {
+                        "type": "string"
+                    },
+                    "path": {
+                        "type": "string"
+                    },
+                    "stack": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "required": [
+                    "statusCode",
+                    "message",
+                    "path"
                 ]
             }
         }

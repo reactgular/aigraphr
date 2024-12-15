@@ -1,3 +1,4 @@
+import {ScaExceptionFilter} from '@/scaffold/decorators/sca-exception-filter';
 import {ScaValidateResponse} from '@/scaffold/decorators/sca-validate-response';
 import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {toHumanUtils} from '@/scaffold/utils/to-human.utils';
@@ -32,6 +33,7 @@ export function ScaCreate<TBody extends object, TResponse extends ScaEntity>({
             description: `Return a new ${name}`,
             type: responseDto
         }),
+        ScaExceptionFilter(),
         ScaValidateResponse(responseDto),
         ...(decoratorsFn?.() ?? [])
     ];
