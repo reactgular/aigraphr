@@ -7,12 +7,7 @@ import {
 import {ProjectDataSourcesService} from '@/projects/services/project-data-sources.service';
 import {ProjectsStorageService} from '@/projects/services/projects-storage.service';
 import {ScaCrudService} from '@/scaffold/crud/sca-crud.service';
-import {
-    BadRequestException,
-    Injectable,
-    Logger,
-    NotImplementedException
-} from '@nestjs/common';
+import {BadRequestException, Injectable, Logger} from '@nestjs/common';
 import {InternalServerErrorException} from '@nestjs/common/exceptions/internal-server-error.exception';
 import {InjectRepository} from '@nestjs/typeorm';
 import {DeepPartial, Not, Repository} from 'typeorm';
@@ -123,13 +118,53 @@ export class ProjectsService extends ScaCrudService<
     public async remove(id: number): Promise<void> {
         this.log.log(`Remove:${id}`);
 
-        throw new NotImplementedException();
+        const project = await this.scaGet(id);
+
+        if (project.open) {
+            throw new BadRequestException(
+                `Cannot delete project ${id} because it is open`
+            );
+        }
+
+        await this.projects.delete(id);
+        const [success, cause] = await this.projectsStorage.projectRemove(
+            project.name
+        );
+
+        if (!success) {
+            const path = await this.projectsStorage.projectPath(project.name);
+            throw new InternalServerErrorException(
+                `Failed to remove project ${id} at ${path}`,
+                {cause}
+            );
+        }
     }
 
-    public async rename(id: number, name: string): Promise<void> {
-        this.log.log(`Rename:${id}:${name}`);
+    public async rename(id: number, newName: string): Promise<void> {
+        this.log.log(`Rename:${id}:${newName}`);
 
-        throw new NotImplementedException();
+        const project = await this.scaGet(id);
+
+        if (project.open) {
+            throw new BadRequestException(
+                `Cannot rename project ${id} because it is open`
+            );
+        }
+
+        const [success, cause] = await this.projectsStorage.projectRename(
+            project.name,
+            newName
+        );
+
+        if (success) {
+            await this.projects.update(id, {name: newName});
+        } else {
+            const path = await this.projectsStorage.projectPath(project.name);
+            throw new InternalServerErrorException(
+                `Failed to rename project ${id} at ${path}`,
+                {cause}
+            );
+        }
     }
 
     protected fromCreateDto(

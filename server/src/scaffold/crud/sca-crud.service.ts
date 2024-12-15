@@ -5,7 +5,7 @@ import {ScaEntity} from '@/scaffold/crud/sca-entity';
 import {ScaGetResponse} from '@/scaffold/decorators/sca-get';
 import {ScaPaginateResponse} from '@/scaffold/decorators/sca-paginate';
 import {toHumanUtils} from '@/scaffold/utils/to-human.utils';
-import {BadRequestException, Logger, Type} from '@nestjs/common';
+import {Logger, NotFoundException, Type} from '@nestjs/common';
 import {DeepPartial, Repository} from 'typeorm';
 import {ScaRemoveResponse} from '../decorators/sca-remove';
 
@@ -54,7 +54,7 @@ export abstract class ScaCrudService<
     public async scaMustExist(id: TEntity['id']): Promise<void | never> {
         this.scaLog.debug(`MustExist:${id}`);
         if (!(await this.scaExists(id))) {
-            throw new BadRequestException(
+            throw new NotFoundException(
                 `${this.name} with ID ${id} does not exist`
             );
         }

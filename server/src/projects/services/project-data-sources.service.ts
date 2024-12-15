@@ -53,7 +53,7 @@ export class ProjectDataSourcesService implements OnApplicationShutdown {
         }
 
         if (strict) {
-            const path = await this.projectsStorage.projectDatabase(name);
+            const path = await this.projectsStorage.projectPath(name);
             const exists = await this.projectsStorage.projectExists(name);
 
             if (!exists) {
@@ -65,7 +65,7 @@ export class ProjectDataSourcesService implements OnApplicationShutdown {
 
         const dataSource = new DataSource({
             type: 'sqlite',
-            database: await this.projectsStorage.projectDatabase(name),
+            database: await this.projectsStorage.projectPath(name),
             entities: [`${__dirname}/../entities/*.entity{.ts,.js}`],
             subscribers: [`${__dirname}/../subscribers/*.subscriber{.ts,.js}`],
             migrationsRun: true,

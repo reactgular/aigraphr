@@ -1,4 +1,3 @@
-import {ScaResponseVoid} from '@/scaffold/decorators/sca-response-void';
 import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {toHumanUtils} from '@/scaffold/utils/to-human.utils';
 import {applyDecorators, Delete, Type} from '@nestjs/common';
@@ -34,7 +33,6 @@ export function ScaRemove<T extends ScaEntity>({
             description: `A ${name} with the specified ${paramId} was not found`
         }),
         ApiNoContentResponse({description: `The ${name} has been deleted`}),
-        ScaResponseVoid(),
         ...(decoratorsFn?.() ?? [])
     ];
     return applyDecorators(...decorators);
