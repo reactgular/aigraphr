@@ -16,7 +16,7 @@ import {
 import {EdgesService} from '@/projects/services/edges.service';
 import {NodesService} from '@/projects/services/nodes.service';
 import {ProjectDatabasesService} from '@/projects/services/project-databases.service';
-import {ProjectEntityService} from '@/projects/services/project-entity.service';
+import {ProjectParamService} from '@/projects/services/project-param.service';
 import {
     PROJECT_EXTENSION,
     ProjectsStorageService
@@ -67,7 +67,7 @@ function repository<Entity extends ObjectLiteral>(
         },
         ProjectsStorageService,
         ProjectDatabasesService,
-        ProjectEntityService,
+        ProjectParamService,
         repository(WORKSPACES_REPOSITORY, WorkspaceEntity),
         repository(NODES_REPOSITORY, NodeEntity),
         repository(EDGES_REPOSITORY, EdgeEntity),
@@ -84,7 +84,7 @@ function repository<Entity extends ObjectLiteral>(
         ProjectGuard,
         ProjectsStorageService,
         ProjectDatabasesService,
-        ProjectEntityService,
+        ProjectParamService,
         WORKSPACES_REPOSITORY
     ]
 })

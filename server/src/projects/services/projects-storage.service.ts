@@ -1,5 +1,4 @@
 import {EnvConfig} from '@/configs/env.config';
-import {ProjectEntity} from '@/entities/project.entity';
 import {Injectable, Logger} from '@nestjs/common';
 import {ConfigService} from '@nestjs/config';
 import {promises as fs} from 'fs';
@@ -13,7 +12,26 @@ export class ProjectsStorageService {
 
     public constructor(private config: ConfigService<EnvConfig>) {}
 
-    public async path(): Promise<string> {
+    public async aigraphrDatabase(): Promise<string> {
+        return path.join(await this.projectPath(), 'aigraphr.sqlite');
+    }
+
+    public async projectDatabase(name: string): Promise<string> {
+        return path.join(await this.projectPath(), `${name}.sqlite`);
+    }
+
+    public async projectExists(name: string): Promise<boolean> {
+        const path = await this.projectDatabase(name);
+        try {
+            await fs.access(path);
+            return true;
+        } catch (error) {
+            this.log.warn(`Project path does not exist: ${path}`, error);
+            return false;
+        }
+    }
+
+    public async projectPath(): Promise<string> {
         const storagePath = path.resolve(this.config.get('PROJECTS_FOLDER')!);
         try {
             await fs.access(storagePath);
@@ -27,20 +45,5 @@ export class ProjectsStorageService {
             }
         }
         return storagePath;
-    }
-
-    public async database(): Promise<string> {
-        return path.join(await this.path(), 'aigraphr.sqlite');
-    }
-
-    /**
-     * @deprecated update this to remove ProjectEntity dependency
-     */
-    public async project(project: ProjectEntity): Promise<string> {
-        // TODO: including the ID until I can make name unique
-        return path.join(
-            await this.path(),
-            `${project.name}-${project.id}.sqlite`
-        );
     }
 }

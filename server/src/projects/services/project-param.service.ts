@@ -11,7 +11,7 @@ function isNumeric(value: string): boolean {
 @Injectable({
     scope: Scope.REQUEST
 })
-export class ProjectEntityService {
+export class ProjectParamService {
     public constructor(
         @Inject(REQUEST)
         private readonly request: Request<{

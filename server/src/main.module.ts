@@ -23,7 +23,7 @@ import {TypeOrmModuleOptions} from '@nestjs/typeorm/dist/interfaces/typeorm-opti
             useFactory: async (projectsStorage: ProjectsStorageService) =>
                 ({
                     type: 'sqlite',
-                    database: await projectsStorage.database(),
+                    database: await projectsStorage.aigraphrDatabase(),
                     entities: [`${__dirname}/entities/*.entity{.ts,.js}`],
                     subscribers: [
                         `${__dirname}/subscribers/*.subscriber{.ts,.js}`

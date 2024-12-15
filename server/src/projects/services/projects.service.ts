@@ -20,6 +20,8 @@ export class ProjectsService extends ScaCrudService<ProjectEntity> {
     public async create(name: string): Promise<number> {
         this.log.log(`Create:${name}`);
 
+        // TODO: create the SQlite database file first before saving the project
+
         const entity = this.projects.create({name});
         const saved = await this.projects.save(entity);
 
