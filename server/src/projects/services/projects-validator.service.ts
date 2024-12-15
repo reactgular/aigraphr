@@ -78,6 +78,8 @@ export class ProjectsValidatorService extends ScaValidatorService<
                     );
                 }
             }
+        } else if (!data.name && typeof data.open === 'undefined') {
+            invalidator.invalid('name', 'Must provide name or open status');
         }
     }
 }

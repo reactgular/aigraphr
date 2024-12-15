@@ -74,12 +74,7 @@ export class ProjectsController extends scaReadOnlyMixin(
             data
         );
         if (validator.isValid()) {
-            if (data.name && typeof data.open === 'boolean') {
-                // TODO: move to scaUpdateValidate
-                throw new BadRequestException(
-                    'Cannot change name and open status at the same time'
-                );
-            } else if (data.name) {
+            if (data.name) {
                 await this.projects.rename(id, data.name);
             } else if (typeof data.open === 'boolean') {
                 if (data.open) {
@@ -87,9 +82,6 @@ export class ProjectsController extends scaReadOnlyMixin(
                 } else {
                     await this.projects.close(id);
                 }
-            } else {
-                // TODO: move to scaUpdateValidate
-                throw new BadRequestException('No changes provided');
             }
             return this.projects.scaGet(id);
         }

@@ -7,13 +7,18 @@ import {
     HttpStatus
 } from '@nestjs/common';
 import {HttpAdapterHost} from '@nestjs/core';
-import {QueryFailedError, TypeORMError} from 'typeorm';
+import {EntityNotFoundError, QueryFailedError, TypeORMError} from 'typeorm';
 
-function toCause(value: unknown): object | undefined {
+function toJson(value: unknown): object | undefined {
     try {
-        return value === undefined || value === null
-            ? undefined
-            : JSON.parse(JSON.stringify(value));
+        const obj =
+            value === undefined || value === null
+                ? undefined
+                : JSON.parse(JSON.stringify(value));
+        if (typeof obj !== 'object') {
+            return undefined;
+        }
+        return obj;
     } catch {
         return undefined;
     }
@@ -40,19 +45,20 @@ export class ScaExceptionFilter implements ExceptionFilter {
                 ?.split('\n')
                 .map((line) => line.trim());
 
-            // TODO: need to handle 404 not found errors from TypeORM
             if (exception instanceof TypeORMError) {
-                // TODO: Not all query failures are bad requests, we should handle this better.
                 if (exception instanceof QueryFailedError) {
-                    if (response.message.includes('UNIQUE constraint failed')) {
+                    if (response.message.includes('constraint failed')) {
                         response.statusCode = HttpStatus.CONFLICT;
                     } else {
                         response.statusCode = HttpStatus.BAD_REQUEST;
                     }
+                } else if (exception instanceof EntityNotFoundError) {
+                    response.statusCode = HttpStatus.NOT_FOUND;
+                    response.cause = toJson(exception.criteria);
                 }
             } else if (exception instanceof HttpException) {
                 response.statusCode = exception.getStatus();
-                response.cause = toCause(exception.cause);
+                response.cause = toJson(exception.cause);
             }
         }
 
