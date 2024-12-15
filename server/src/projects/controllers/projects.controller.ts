@@ -9,9 +9,8 @@ import {ScaCreate, ScaCreateResponse} from '@/scaffold/decorators/sca-create';
 import {ScaParamId} from '@/scaffold/decorators/sca-param-id';
 import {ScaRemove, ScaRemoveResponse} from '@/scaffold/decorators/sca-remove';
 import {ScaUpdate, ScaUpdateResponse} from '@/scaffold/decorators/sca-update';
-import {scaCreateValidatorMixin} from '@/scaffold/mixins/sca-create-validator.mixin';
 import {scaReadOnlyMixin} from '@/scaffold/mixins/sca-readonly.mixin';
-import {scaUpdateValidatorMixin} from '@/scaffold/mixins/sca-update-validator.mixin';
+import {scaValidatorMixin} from '@/scaffold/mixins/sca-validator.mixin';
 import {BadRequestException, Controller} from '@nestjs/common';
 import {ApiTags} from '@nestjs/swagger';
 import {ProjectsService} from '../services/projects.service';
@@ -25,15 +24,11 @@ export class ProjectsController extends scaReadOnlyMixin(
         paramId,
         dto: ProjectDto
     },
-    scaCreateValidatorMixin(
-        {
-            createDto: ProjectCreateDto
-        },
-        scaUpdateValidatorMixin({
-            paramId,
-            updateDto: ProjectUpdateDto
-        })
-    )
+    scaValidatorMixin({
+        paramId,
+        createDto: ProjectCreateDto,
+        updateDto: ProjectUpdateDto
+    })
 ) {
     public constructor(
         private readonly projects: ProjectsService,
