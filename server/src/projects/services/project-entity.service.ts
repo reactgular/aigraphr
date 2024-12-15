@@ -1,4 +1,4 @@
-import {ProjectDto} from '@/entities/project.entity';
+import {ProjectEntity} from '@/entities/project.entity';
 import {ProjectsService} from '@/projects/services/projects.service';
 import {BadRequestException, Inject, Injectable, Scope} from '@nestjs/common';
 import {REQUEST} from '@nestjs/core';
@@ -25,10 +25,10 @@ export class ProjectEntityService {
         return param && isNumeric(param) ? parseInt(param, 10) : null;
     }
 
-    public async getProjectOrThrow(): Promise<ProjectDto> {
+    public async getProjectOrThrow(): Promise<ProjectEntity> {
         const projectId = this.getProjectId();
         if (projectId) {
-            return await this.projects.get(projectId);
+            return await this.projects.scaGet(projectId);
         }
         throw new BadRequestException('Project ID is required');
     }

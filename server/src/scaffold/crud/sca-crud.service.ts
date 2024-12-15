@@ -1,7 +1,7 @@
 import {ScaGetResponse} from '@/scaffold/decorators/sca-get';
 import {ScaPaginateResponse} from '@/scaffold/decorators/sca-paginate';
 import {toHumanUtils} from '@/scaffold/utils/to-human.utils';
-import {Logger, Type} from '@nestjs/common';
+import {BadRequestException, Logger, Type} from '@nestjs/common';
 import {DeepPartial, Repository} from 'typeorm';
 
 export type ScaffoldEntity = {
@@ -14,14 +14,14 @@ export type ScaffoldEntity = {
 export abstract class ScaCrudService<Entity extends ScaffoldEntity> {
     private readonly name: string;
 
-    private readonly log: Logger;
+    private readonly scaLog: Logger;
 
     protected constructor(
         protected readonly repo: Repository<Entity>,
         protected readonly type: Type<Entity>
     ) {
         this.name = toHumanUtils(type.name);
-        this.log = new Logger(`ScaCrud::${this.name}`);
+        this.scaLog = new Logger(`ScaCrud::${this.name}`);
 
         // todo: look at this data later
         // @see https://github.com/woowabros/nestjs-library-crud/blob/main/src/lib/crud.service.ts
@@ -30,19 +30,32 @@ export abstract class ScaCrudService<Entity extends ScaffoldEntity> {
 
     public async scaCreate(data: DeepPartial<Entity>): Promise<Entity> {
         const entity = this.repo.create(data);
-        this.log.debug(`Create:${JSON.stringify(entity)}`);
+        this.scaLog.debug(`Create:${JSON.stringify(entity)}`);
         const saved = await this.repo.save(entity);
-        this.log.debug(`Created:${JSON.stringify(saved)}`);
+        this.scaLog.debug(`Created:${JSON.stringify(saved)}`);
         return await this.scaGet(saved.id);
     }
 
+    public async scaMustExist(id: Entity['id']): Promise<void | never> {
+        this.scaLog.debug(`MustExist:${id}`);
+        if (!(await this.scaExists(id))) {
+            throw new BadRequestException(
+                `${this.name} with ID ${id} does not exist`
+            );
+        }
+    }
+
+    public async scaExists(id: Entity['id']): Promise<boolean> {
+        return await this.repo.exists({where: {id}});
+    }
+
     public async scaGet(id: Entity['id']): ScaGetResponse<Entity> {
-        this.log.debug(`Get:${id}`);
+        this.scaLog.debug(`Get:${id}`);
         return await this.repo.findOneOrFail({where: {id}});
     }
 
     public async scaPaginate(): ScaPaginateResponse<Entity> {
-        this.log.debug(`Paginate`);
+        this.scaLog.debug(`Paginate`);
         return await this.repo.find();
     }
 }
