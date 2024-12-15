@@ -5,8 +5,15 @@ import {
     ProjectUpdateDto
 } from '@/entities/project.entity';
 import {ProjectDataSourcesService} from '@/projects/services/project-data-sources.service';
+import {ProjectsStorageService} from '@/projects/services/projects-storage.service';
 import {ScaCrudService} from '@/scaffold/crud/sca-crud.service';
-import {Injectable, Logger, NotImplementedException} from '@nestjs/common';
+import {
+    BadRequestException,
+    Injectable,
+    Logger,
+    NotImplementedException
+} from '@nestjs/common';
+import {InternalServerErrorException} from '@nestjs/common/exceptions/internal-server-error.exception';
 import {InjectRepository} from '@nestjs/typeorm';
 import {DeepPartial, Not, Repository} from 'typeorm';
 
@@ -22,17 +29,44 @@ export class ProjectsService extends ScaCrudService<
     public constructor(
         @InjectRepository(ProjectEntity)
         private readonly projects: Repository<ProjectEntity>,
-        private readonly projectDataSources: ProjectDataSourcesService
+        private readonly projectDataSources: ProjectDataSourcesService,
+        private readonly projectsStorage: ProjectsStorageService
     ) {
         super(projects, ProjectEntity);
 
         this.log = new Logger('Projects');
     }
 
-    public async clone(id: number, name: string): Promise<number> {
-        this.log.log(`Clone:${id}:${name}`);
+    public async clone(id: number, destName: string): Promise<number> {
+        this.log.log(`Clone:${id}:${destName}`);
 
-        throw new NotImplementedException();
+        const project = await this.scaGet(id);
+
+        if (project.open) {
+            throw new BadRequestException(
+                `Cannot clone project ${id} because it is open`
+            );
+        } else if (await this.existsByName(destName)) {
+            throw new BadRequestException(
+                `Project with name ${destName} already exists`
+            );
+        }
+
+        const [success, cause] = await this.projectsStorage.projectCopy(
+            project.name,
+            destName
+        );
+
+        if (success) {
+            const entity = this.projects.create({name: destName});
+            const saved = await this.projects.save(entity);
+            return saved.id;
+        } else {
+            throw new InternalServerErrorException(
+                `Failed to clone project ${id}`,
+                {cause}
+            );
+        }
     }
 
     public async close(id: number): Promise<void> {
