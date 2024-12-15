@@ -29,17 +29,20 @@ export abstract class ScaCrudService<Entity extends ScaffoldEntity> {
     }
 
     public async scaCreate(data: DeepPartial<Entity>): Promise<Entity> {
-        const entity = await this.repo.save(this.repo.create(data));
-        return await this.scaGet(entity.id);
+        const entity = this.repo.create(data);
+        this.log.debug(`Create:${JSON.stringify(entity)}`);
+        const saved = await this.repo.save(entity);
+        this.log.debug(`Created:${JSON.stringify(saved)}`);
+        return await this.scaGet(saved.id);
     }
 
     public async scaGet(id: Entity['id']): ScaGetResponse<Entity> {
-        this.log.log(`Get:${id}`);
+        this.log.debug(`Get:${id}`);
         return await this.repo.findOneOrFail({where: {id}});
     }
 
     public async scaPaginate(): ScaPaginateResponse<Entity> {
-        this.log.log(`Paginate`);
+        this.log.debug(`Paginate`);
         return await this.repo.find();
     }
 }
