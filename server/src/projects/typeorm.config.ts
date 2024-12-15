@@ -6,7 +6,7 @@ dotenv.config();
 
 const dataSource = new DataSource({
     type: 'sqlite',
-    database: process.env.PROJECTS_FOLDER + '/aigraphr.sqlite',
+    database: process.env.PROJECTS_FOLDER + '/_project_migration.sqlite',
     entities: [`${__dirname}/entities/*.entity{.ts,.js}`],
     subscribers: [`${__dirname}/entities/subscribers/*.subscriber{.ts,.js}`],
     migrationsRun: false,

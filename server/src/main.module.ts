@@ -26,10 +26,10 @@ import {TypeOrmModuleOptions} from '@nestjs/typeorm/dist/interfaces/typeorm-opti
                     database: await projectsStorage.aigraphrDatabase(),
                     entities: [`${__dirname}/entities/*.entity{.ts,.js}`],
                     subscribers: [
-                        `${__dirname}/subscribers/*.subscriber{.ts,.js}`
+                        `${__dirname}/entities/subscribers/*.subscriber{.ts,.js}`
                     ],
                     migrationsRun: true,
-                    migrations: [`${__dirname}/migrations/*{.ts,.js}`]
+                    migrations: [`${__dirname}/entities/migrations/*{.ts,.js}`]
                 }) satisfies TypeOrmModuleOptions,
             inject: [ProjectsStorageService]
         }),

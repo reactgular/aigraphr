@@ -21,10 +21,14 @@
         "test:e2e": "jest --config ./test/jest-e2e.json",
         "test:watch": "jest --watch",
         "typeorm": "typeorm",
-        "migration:generate": "npm run build && typeorm migration:generate -d dist/typeorm.config.js src/migrations/update && npm run format",
+        "migration:generate": "npm run build && typeorm migration:generate -d dist/typeorm.config.js src/entities/migrations/update && npm run format",
         "migration:run": "npm run build && typeorm migration:run -d dist/typeorm.config.js",
         "migration:create": "npm run build && typeorm migration:create -d dist/typeorm.config.js",
-        "migration:show": "npm run build && typeorm migration:show -d dist/typeorm.config.js"
+        "migration:show": "npm run build && typeorm migration:show -d dist/typeorm.config.js",
+        "project:migration:generate": "npm run build && typeorm migration:generate -d dist/projects/typeorm.config.js src/projects/entities/migrations/update && npm run format",
+        "project:migration:run": "npm run build && typeorm migration:run -d dist/projects/typeorm.config.js",
+        "project:migration:create": "npm run build && typeorm migration:create -d dist/projects/typeorm.config.js",
+        "project:migration:show": "npm run build && typeorm migration:show -d dist/projects/typeorm.config.js"
     },
     "jest": {
         "collectCoverageFrom": [

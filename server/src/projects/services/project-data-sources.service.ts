@@ -67,9 +67,12 @@ export class ProjectDataSourcesService implements OnApplicationShutdown {
             type: 'sqlite',
             database: await this.projectsStorage.projectPath(name),
             entities: [`${__dirname}/../entities/*.entity{.ts,.js}`],
-            subscribers: [`${__dirname}/../subscribers/*.subscriber{.ts,.js}`],
-            migrationsRun: true,
-            migrations: [`${__dirname}/../migrations/*{.ts,.js}`]
+            subscribers: [
+                `${__dirname}/../entities/subscribers/*.subscriber{.ts,.js}`
+            ],
+            // they are run below
+            migrationsRun: false,
+            migrations: [`${__dirname}/../entities/migrations/*{.ts,.js}`]
         });
 
         await dataSource.initialize();
