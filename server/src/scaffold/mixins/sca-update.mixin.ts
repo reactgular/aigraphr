@@ -5,6 +5,7 @@ import {ScaUpdate, ScaUpdateResponse} from '@/scaffold/decorators/sca-update';
 import {ScaConstructor, ScaEmptyBase} from '@/scaffold/mixins/sca.mixin';
 import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {Type} from '@nestjs/common';
+import {DeepPartial} from 'typeorm';
 
 interface ScaUpdateMixinOptions<
     TDo extends ScaEntity,
@@ -21,7 +22,7 @@ interface ScaUpdateMixinOptions<
 
 export function scaUpdateMixin<
     TDo extends ScaEntity,
-    TUpdateDto extends object,
+    TUpdateDto extends DeepPartial<TDo>,
     TBase extends ScaConstructor
 >(
     {

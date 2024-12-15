@@ -5,11 +5,12 @@ import {
 import {ScaConstructor, ScaEmptyBase} from '@/scaffold/mixins/sca.mixin';
 import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {ApiParam} from '@nestjs/swagger';
+import {DeepPartial} from 'typeorm';
 
 export function projectCrudMixin<
     TDo extends ScaEntity,
-    TCreateDto extends object,
-    TUpdateDto extends object,
+    TCreateDto extends DeepPartial<TDo>,
+    TUpdateDto extends DeepPartial<TDo>,
     TBase extends ScaConstructor
 >(
     {

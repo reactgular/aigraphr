@@ -4,6 +4,7 @@ import {ScaCreate, ScaCreateResponse} from '@/scaffold/decorators/sca-create';
 import {ScaConstructor, ScaEmptyBase} from '@/scaffold/mixins/sca.mixin';
 import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {Type} from '@nestjs/common';
+import {DeepPartial} from 'typeorm';
 
 interface ScaCreateMixinOptions<
     TDo extends ScaEntity,
@@ -18,7 +19,7 @@ interface ScaCreateMixinOptions<
 
 export function scaCreateMixin<
     TDo extends ScaEntity,
-    TCreateDto extends object,
+    TCreateDto extends DeepPartial<TDo>,
     TBase extends ScaConstructor
 >(
     {dto, createDto, decorators}: ScaCreateMixinOptions<TDo, TCreateDto>,
@@ -31,8 +32,7 @@ export function scaCreateMixin<
         async scaCreate(
             @ScaBody(createDto) data: TCreateDto
         ): ScaCreateResponse<TDo> {
-            // return await this.projects.create(data);
-            return null as any;
+            return await this.crud().scaCreate(data);
         }
     }
 

@@ -1,19 +1,15 @@
 import {IsProfileName} from '@/projects/decorators/is-profile-name.decorator';
 import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {ApiProperty, OmitType, PartialType} from '@nestjs/swagger';
-import {IsBoolean, IsNumber, IsOptional, IsString, Min} from 'class-validator';
-import {Column, Entity} from 'typeorm';
+import {IsBoolean, IsNumber, IsOptional, Min} from 'class-validator';
+import {Column, Entity, Unique} from 'typeorm';
 
 @Entity({name: 'projects'})
+@Unique(['name'])
 export class ProjectEntity extends ScaEntity {
-    // TODO: this needs a unique index constraint
     @IsProfileName()
     @Column()
     name: string;
-
-    @IsString()
-    @Column()
-    test: string;
 
     @IsBoolean()
     @ApiProperty({

@@ -8,6 +8,7 @@ import {scaUpdateMixin} from '@/scaffold/mixins/sca-update.mixin';
 import {ScaConstructor, ScaEmptyBase} from '@/scaffold/mixins/sca.mixin';
 import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {Type} from '@nestjs/common';
+import {DeepPartial} from 'typeorm';
 
 export type CrudDecoratorActions =
     | 'create'
@@ -33,8 +34,8 @@ export interface ScaCrudMixinOptions<
 
 export function scaCrudMixin<
     TDo extends ScaEntity,
-    TCreateDto extends object,
-    TUpdateDto extends object,
+    TCreateDto extends DeepPartial<TDo>,
+    TUpdateDto extends DeepPartial<TDo>,
     TBase extends ScaConstructor
 >(
     {
