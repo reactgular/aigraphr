@@ -1,5 +1,5 @@
-import {ExceptionFilterDto} from '@/filters/exception-filter.dto';
 import {ScaValidateResponse} from '@/scaffold/decorators/sca-validate-response';
+import {ScaExceptionFilterDto} from '@/scaffold/dtos/sca-exception-filter.dto';
 import {ScaValidationResponseDto} from '@/scaffold/dtos/sca-validation.dto';
 import {toHumanUtils} from '@/scaffold/utils/to-human.utils';
 import {applyDecorators, HttpCode, Post, Type} from '@nestjs/common';
@@ -33,13 +33,13 @@ export function ScaCreateValidate<TBody extends object>({
             description: `Validation results of ${name}`
         }),
         ApiBadRequestResponse({
-            type: ExceptionFilterDto,
+            type: ScaExceptionFilterDto,
             description: 'Invalid request body',
             example: {
                 statusCode: 400,
                 message: 'property should not be empty',
                 path: '/api/v1/users'
-            } satisfies ExceptionFilterDto
+            } satisfies ScaExceptionFilterDto
         }),
         ScaValidateResponse(ScaValidationResponseDto),
         ...(decoratorsFn?.() ?? [])

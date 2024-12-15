@@ -1,6 +1,6 @@
 import {EnvConfig} from '@/configs/env.config';
-import {TypeormExceptionFilter} from '@/filters/typeorm-exception.filter';
 import {MainModule} from '@/main.module';
+import {ScaExceptionFilter} from '@/scaffold/filters/sca-exception.filter';
 import {scaValidationPipe} from '@/scaffold/pipes/sca-validation.pipe';
 import {swaggerApiDocument} from '@/swagger/swagger-api-document';
 import {swaggerApiSave} from '@/swagger/swagger-api-save';
@@ -37,7 +37,7 @@ async function bootstrap() {
     const app = await NestFactory.create(MainModule);
     app.enableCors();
     app.useGlobalPipes(scaValidationPipe());
-    app.useGlobalFilters(new TypeormExceptionFilter(app.get(HttpAdapterHost)));
+    app.useGlobalFilters(new ScaExceptionFilter(app.get(HttpAdapterHost)));
     app.enableShutdownHooks();
     app.setGlobalPrefix('api');
 

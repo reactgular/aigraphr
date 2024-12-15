@@ -1,4 +1,4 @@
-import {ExceptionFilterDto} from '@/filters/exception-filter.dto';
+import {ScaExceptionFilterDto} from '@/scaffold/dtos/sca-exception-filter.dto';
 import {
     ArgumentsHost,
     Catch,
@@ -9,8 +9,18 @@ import {
 import {HttpAdapterHost} from '@nestjs/core';
 import {QueryFailedError, TypeORMError} from 'typeorm';
 
+function toCause(value: unknown): object | undefined {
+    try {
+        return value === undefined || value === null
+            ? undefined
+            : JSON.parse(JSON.stringify(value));
+    } catch {
+        return undefined;
+    }
+}
+
 @Catch()
-export class TypeormExceptionFilter implements ExceptionFilter {
+export class ScaExceptionFilter implements ExceptionFilter {
     public constructor(private readonly httpAdapterHost: HttpAdapterHost) {}
 
     public catch(exception: unknown, host: ArgumentsHost): void {
@@ -19,7 +29,7 @@ export class TypeormExceptionFilter implements ExceptionFilter {
         const {httpAdapter} = this.httpAdapterHost;
         const ctx = host.switchToHttp();
 
-        const response = new ExceptionFilterDto();
+        const response = new ScaExceptionFilterDto();
         response.statusCode = HttpStatus.INTERNAL_SERVER_ERROR;
         response.message = 'Internal server error';
         response.path = this.getPath(host);
@@ -42,7 +52,7 @@ export class TypeormExceptionFilter implements ExceptionFilter {
                 }
             } else if (exception instanceof HttpException) {
                 response.statusCode = exception.getStatus();
-                response.cause = JSON.parse(JSON.stringify(exception.cause));
+                response.cause = toCause(exception.cause);
             }
         }
 
