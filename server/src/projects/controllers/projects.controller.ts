@@ -20,11 +20,7 @@ import {
 } from '@/scaffold/decorators/sca-update-validate';
 import {ScaInvalidator} from '@/scaffold/dtos/sca-invalidator';
 import {scaReadOnlyMixin} from '@/scaffold/mixins/sca-readonly.mixin';
-import {
-    BadRequestException,
-    Controller,
-    NotImplementedException
-} from '@nestjs/common';
+import {BadRequestException, Controller} from '@nestjs/common';
 import {ApiTags} from '@nestjs/swagger';
 import {ProjectsService} from '../services/projects.service';
 
@@ -68,12 +64,12 @@ export class ProjectsController extends scaReadOnlyMixin({
 
         if (typeof data.cloneId === 'number') {
             if (!(await this.projects.scaExists(data.cloneId))) {
-                invalidator.addError('cloneId', 'Project does not exist');
+                invalidator.notFound('cloneId', 'Project does not exist');
             }
         }
 
         if (await this.projects.existsByName(data.name)) {
-            invalidator.addError(
+            invalidator.notUnique(
                 'name',
                 'Project with the same name already exists'
             );
@@ -120,7 +116,25 @@ export class ProjectsController extends scaReadOnlyMixin({
         @ScaParamId(paramId) id: number,
         @ScaBody(ProjectUpdateDto) data: ProjectUpdateDto
     ): ScaUpdateValidateResponse {
-        throw new NotImplementedException();
+        const project = await this.projects.scaGet(id);
+
+        const invalidator = new ScaInvalidator();
+
+        if (data.name && data.name !== project.name) {
+            if (data.name.length < 3) {
+                invalidator.invalid(
+                    'name',
+                    'Name must be at least 3 characters long'
+                );
+            } else if (await this.projects.existsByName(data.name)) {
+                invalidator.notUnique(
+                    'name',
+                    'Project with the same name already exists'
+                );
+            }
+        }
+
+        return invalidator.response();
     }
 
     @ScaRemove({dto: ProjectDto, paramId})

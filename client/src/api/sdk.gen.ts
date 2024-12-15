@@ -175,12 +175,12 @@ export const projectsUpdate = <ThrowOnError extends boolean = false>(
 };
 
 /**
- * Validates updating a Project by projectId
+ * Validates updating a ProjectUpdate by projectId
  */
 export const projectsUpdateValidate = <ThrowOnError extends boolean = false>(
     options: Options<ProjectsUpdateValidateData, ThrowOnError>
 ) => {
-    return (options?.client ?? client).post<
+    return (options?.client ?? client).patch<
         ProjectsUpdateValidateResponse,
         ProjectsUpdateValidateError,
         ThrowOnError
@@ -190,7 +190,7 @@ export const projectsUpdateValidate = <ThrowOnError extends boolean = false>(
             'Content-Type': 'application/json',
             ...options?.headers
         },
-        url: '/api/projects/validates/{projectId}'
+        url: '/api/projects/{projectId}/validates'
     });
 };
 

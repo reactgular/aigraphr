@@ -282,27 +282,6 @@ export const projectsUpdateMutation = (
     return mutationOptions;
 };
 
-export const projectsUpdateValidateQueryKey = (
-    options: Options<ProjectsUpdateValidateData>
-) => [createQueryKey('projectsUpdateValidate', options)];
-
-export const projectsUpdateValidateOptions = (
-    options: Options<ProjectsUpdateValidateData>
-) => {
-    return queryOptions({
-        queryFn: async ({queryKey, signal}) => {
-            const {data} = await projectsUpdateValidate({
-                ...options,
-                ...queryKey[0],
-                signal,
-                throwOnError: true
-            });
-            return data;
-        },
-        queryKey: projectsUpdateValidateQueryKey(options)
-    });
-};
-
 export const projectsUpdateValidateMutation = (
     options?: Partial<Options<ProjectsUpdateValidateData>>
 ) => {

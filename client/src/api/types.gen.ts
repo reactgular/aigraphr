@@ -30,11 +30,34 @@ export type ExceptionFilterDto = {
     stack?: Array<string>;
 };
 
+export type ScaFieldValidationDto = {
+    /**
+     * The name of the field being validated.
+     */
+    name: string;
+    /**
+     * The code of the validation.
+     */
+    code: 'not_found' | 'not_unique' | 'format' | 'value' | 'invalid';
+    /**
+     * A message providing additional details about the validation.
+     */
+    message: string;
+};
+
 export type ScaValidationResponseDto = {
+    /**
+     * Whether the validation was successful.
+     */
+    valid: boolean;
+    /**
+     * The list of fields that failed validation.
+     */
+    fields: Array<string>;
     /**
      * Validation results for each field.
      */
-    validations: {
+    invalidations: {
         [key: string]: ScaFieldValidationDto;
     };
 };
@@ -105,17 +128,6 @@ export type SettingDto = {
     test: string;
 };
 
-export type ScaFieldValidationDto = {
-    /**
-     * Indicates whether the field value is valid.
-     */
-    isValid: boolean;
-    /**
-     * A message providing additional details about the validation.
-     */
-    message: string;
-};
-
 export type ProjectsScaPaginateData = {
     body?: never;
     path?: never;
@@ -145,15 +157,20 @@ export type ProjectsCreateErrors = {
      * TypeORM related errors
      */
     400: ExceptionFilterDto;
+    /**
+     * TypeORM related constraint errors
+     */
+    409: ExceptionFilterDto;
 };
 
 export type ProjectsCreateError =
     ProjectsCreateErrors[keyof ProjectsCreateErrors];
 
 export type ProjectsCreateResponses = {
-    200: {
-        [key: string]: unknown;
-    };
+    /**
+     * Bug, can't disable 200 response from custom decorator
+     */
+    200: unknown;
     /**
      * Return a new Project
      */
@@ -172,7 +189,7 @@ export type ProjectsCreateValidateData = {
 
 export type ProjectsCreateValidateErrors = {
     /**
-     * TypeORM related errors
+     * Invalid request body
      */
     400: ExceptionFilterDto;
 };
@@ -184,7 +201,7 @@ export type ProjectsCreateValidateResponses = {
     /**
      * Validation results of ProjectCreate
      */
-    200: Array<ScaValidationResponseDto>;
+    200: ScaValidationResponseDto;
 };
 
 export type ProjectsCreateValidateResponse =
@@ -272,6 +289,10 @@ export type ProjectsUpdateErrors = {
      * A Project with the specified projectId was not found
      */
     404: unknown;
+    /**
+     * TypeORM related constraint errors
+     */
+    409: ExceptionFilterDto;
 };
 
 export type ProjectsUpdateError =
@@ -291,21 +312,21 @@ export type ProjectsUpdateValidateData = {
     body: ProjectUpdateDto;
     path: {
         /**
-         * The ID of a Project
+         * The ID of a ProjectUpdate
          */
         projectId: number;
     };
     query?: never;
-    url: '/api/projects/validates/{projectId}';
+    url: '/api/projects/{projectId}/validates';
 };
 
 export type ProjectsUpdateValidateErrors = {
     /**
-     * TypeORM related errors
+     * Invalid request body
      */
     400: ExceptionFilterDto;
     /**
-     * A Project with the specified projectId was not found
+     * A ProjectUpdate with the specified projectId was not found
      */
     404: unknown;
 };
@@ -315,9 +336,9 @@ export type ProjectsUpdateValidateError =
 
 export type ProjectsUpdateValidateResponses = {
     /**
-     * Return a Project by projectId
+     * Validation results of ProjectUpdate
      */
-    200: ProjectDto;
+    200: ScaValidationResponseDto;
 };
 
 export type ProjectsUpdateValidateResponse =
@@ -370,12 +391,20 @@ export type EdgesScaCreateErrors = {
      * TypeORM related errors
      */
     400: ExceptionFilterDto;
+    /**
+     * TypeORM related constraint errors
+     */
+    409: ExceptionFilterDto;
 };
 
 export type EdgesScaCreateError =
     EdgesScaCreateErrors[keyof EdgesScaCreateErrors];
 
 export type EdgesScaCreateResponses = {
+    /**
+     * Bug, can't disable 200 response from custom decorator
+     */
+    200: unknown;
     /**
      * Return a new Edge
      */
@@ -488,6 +517,10 @@ export type EdgesScaUpdateErrors = {
      * A Edge with the specified edgeId was not found
      */
     404: unknown;
+    /**
+     * TypeORM related constraint errors
+     */
+    409: ExceptionFilterDto;
 };
 
 export type EdgesScaUpdateError =
@@ -550,12 +583,20 @@ export type NodesScaCreateErrors = {
      * TypeORM related errors
      */
     400: ExceptionFilterDto;
+    /**
+     * TypeORM related constraint errors
+     */
+    409: ExceptionFilterDto;
 };
 
 export type NodesScaCreateError =
     NodesScaCreateErrors[keyof NodesScaCreateErrors];
 
 export type NodesScaCreateResponses = {
+    /**
+     * Bug, can't disable 200 response from custom decorator
+     */
+    200: unknown;
     /**
      * Return a new Node
      */
@@ -668,6 +709,10 @@ export type NodesScaUpdateErrors = {
      * A Node with the specified nodeId was not found
      */
     404: unknown;
+    /**
+     * TypeORM related constraint errors
+     */
+    409: ExceptionFilterDto;
 };
 
 export type NodesScaUpdateError =
@@ -722,12 +767,20 @@ export type WorkspacesScaCreateErrors = {
      * TypeORM related errors
      */
     400: ExceptionFilterDto;
+    /**
+     * TypeORM related constraint errors
+     */
+    409: ExceptionFilterDto;
 };
 
 export type WorkspacesScaCreateError =
     WorkspacesScaCreateErrors[keyof WorkspacesScaCreateErrors];
 
 export type WorkspacesScaCreateResponses = {
+    /**
+     * Bug, can't disable 200 response from custom decorator
+     */
+    200: unknown;
     /**
      * Return a new Workspace
      */
@@ -828,6 +881,10 @@ export type WorkspacesScaUpdateErrors = {
      * A Workspace with the specified workspaceId was not found
      */
     404: unknown;
+    /**
+     * TypeORM related constraint errors
+     */
+    409: ExceptionFilterDto;
 };
 
 export type WorkspacesScaUpdateError =

@@ -17,14 +17,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object"
-                                }
-                            }
-                        }
+                        "description": "Bug, can't disable 200 response from custom decorator"
                     },
                     "201": {
                         "description": "Return a new Project",
@@ -46,6 +39,21 @@
                                 "example": {
                                     "statusCode": 400,
                                     "message": "property should not be empty",
+                                    "path": "/api/v1/users"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "TypeORM related constraint errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExceptionFilterDto"
+                                },
+                                "example": {
+                                    "statusCode": 409,
+                                    "message": "duplicate key value violates unique constraint",
                                     "path": "/api/v1/users"
                                 }
                             }
@@ -98,16 +106,13 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/ScaValidationResponseDto"
-                                    }
+                                    "$ref": "#/components/schemas/ScaValidationResponseDto"
                                 }
                             }
                         }
                     },
                     "400": {
-                        "description": "TypeORM related errors",
+                        "description": "Invalid request body",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -180,6 +185,21 @@
                     },
                     "404": {
                         "description": "A Project with the specified projectId was not found"
+                    },
+                    "409": {
+                        "description": "TypeORM related constraint errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExceptionFilterDto"
+                                },
+                                "example": {
+                                    "statusCode": 409,
+                                    "message": "duplicate key value violates unique constraint",
+                                    "path": "/api/v1/users"
+                                }
+                            }
+                        }
                     }
                 },
                 "summary": "Update a Project by projectId",
@@ -257,15 +277,15 @@
                 ]
             }
         },
-        "/api/projects/validates/{projectId}": {
-            "post": {
+        "/api/projects/{projectId}/validates": {
+            "patch": {
                 "operationId": "Projects_updateValidate",
                 "parameters": [
                     {
                         "name": "projectId",
                         "required": true,
                         "in": "path",
-                        "description": "The ID of a Project",
+                        "description": "The ID of a ProjectUpdate",
                         "schema": {
                             "type": "number"
                         }
@@ -283,17 +303,17 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Return a Project by projectId",
+                        "description": "Validation results of ProjectUpdate",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ProjectDto"
+                                    "$ref": "#/components/schemas/ScaValidationResponseDto"
                                 }
                             }
                         }
                     },
                     "400": {
-                        "description": "TypeORM related errors",
+                        "description": "Invalid request body",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -308,10 +328,10 @@
                         }
                     },
                     "404": {
-                        "description": "A Project with the specified projectId was not found"
+                        "description": "A ProjectUpdate with the specified projectId was not found"
                     }
                 },
-                "summary": "Validates updating a Project by projectId",
+                "summary": "Validates updating a ProjectUpdate by projectId",
                 "tags": [
                     "Projects"
                 ]
@@ -351,6 +371,9 @@
                     }
                 },
                 "responses": {
+                    "200": {
+                        "description": "Bug, can't disable 200 response from custom decorator"
+                    },
                     "201": {
                         "description": "Return a new Edge",
                         "content": {
@@ -371,6 +394,21 @@
                                 "example": {
                                     "statusCode": 400,
                                     "message": "property should not be empty",
+                                    "path": "/api/v1/users"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "TypeORM related constraint errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExceptionFilterDto"
+                                },
+                                "example": {
+                                    "statusCode": 409,
+                                    "message": "duplicate key value violates unique constraint",
                                     "path": "/api/v1/users"
                                 }
                             }
@@ -492,6 +530,21 @@
                     },
                     "404": {
                         "description": "A Edge with the specified edgeId was not found"
+                    },
+                    "409": {
+                        "description": "TypeORM related constraint errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExceptionFilterDto"
+                                },
+                                "example": {
+                                    "statusCode": 409,
+                                    "message": "duplicate key value violates unique constraint",
+                                    "path": "/api/v1/users"
+                                }
+                            }
+                        }
                     }
                 },
                 "summary": "Update a Edge by edgeId",
@@ -629,6 +682,9 @@
                     }
                 },
                 "responses": {
+                    "200": {
+                        "description": "Bug, can't disable 200 response from custom decorator"
+                    },
                     "201": {
                         "description": "Return a new Node",
                         "content": {
@@ -649,6 +705,21 @@
                                 "example": {
                                     "statusCode": 400,
                                     "message": "property should not be empty",
+                                    "path": "/api/v1/users"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "TypeORM related constraint errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExceptionFilterDto"
+                                },
+                                "example": {
+                                    "statusCode": 409,
+                                    "message": "duplicate key value violates unique constraint",
                                     "path": "/api/v1/users"
                                 }
                             }
@@ -770,6 +841,21 @@
                     },
                     "404": {
                         "description": "A Node with the specified nodeId was not found"
+                    },
+                    "409": {
+                        "description": "TypeORM related constraint errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExceptionFilterDto"
+                                },
+                                "example": {
+                                    "statusCode": 409,
+                                    "message": "duplicate key value violates unique constraint",
+                                    "path": "/api/v1/users"
+                                }
+                            }
+                        }
                     }
                 },
                 "summary": "Update a Node by nodeId",
@@ -898,6 +984,9 @@
                     }
                 },
                 "responses": {
+                    "200": {
+                        "description": "Bug, can't disable 200 response from custom decorator"
+                    },
                     "201": {
                         "description": "Return a new Workspace",
                         "content": {
@@ -918,6 +1007,21 @@
                                 "example": {
                                     "statusCode": 400,
                                     "message": "property should not be empty",
+                                    "path": "/api/v1/users"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "TypeORM related constraint errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExceptionFilterDto"
+                                },
+                                "example": {
+                                    "statusCode": 409,
+                                    "message": "duplicate key value violates unique constraint",
                                     "path": "/api/v1/users"
                                 }
                             }
@@ -1021,6 +1125,21 @@
                     },
                     "404": {
                         "description": "A Workspace with the specified workspaceId was not found"
+                    },
+                    "409": {
+                        "description": "TypeORM related constraint errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExceptionFilterDto"
+                                },
+                                "example": {
+                                    "statusCode": 409,
+                                    "message": "duplicate key value violates unique constraint",
+                                    "path": "/api/v1/users"
+                                }
+                            }
+                        }
                     }
                 },
                 "summary": "Update a Workspace by workspaceId",
@@ -1272,20 +1391,67 @@
                     "path"
                 ]
             },
+            "ScaFieldValidationDto": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the field being validated."
+                    },
+                    "code": {
+                        "enum": [
+                            "not_found",
+                            "not_unique",
+                            "format",
+                            "value",
+                            "invalid"
+                        ],
+                        "type": "string",
+                        "description": "The code of the validation.",
+                        "example": "format"
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "A message providing additional details about the validation.",
+                        "example": "The email is not valid."
+                    }
+                },
+                "required": [
+                    "name",
+                    "code",
+                    "message"
+                ]
+            },
             "ScaValidationResponseDto": {
                 "type": "object",
                 "properties": {
-                    "validations": {
+                    "valid": {
+                        "type": "boolean",
+                        "description": "Whether the validation was successful.",
+                        "example": false
+                    },
+                    "fields": {
+                        "type": "array",
+                        "description": "The list of fields that failed validation.",
+                        "example": [
+                            "name",
+                            "email"
+                        ],
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "invalidations": {
                         "type": "object",
                         "description": "Validation results for each field.",
                         "example": {
                             "name": {
-                                "isValid": false,
+                                "name": "name",
                                 "message": "The name is already taken."
                             },
                             "email": {
-                                "isValid": true,
-                                "message": "The email is available."
+                                "name": "email",
+                                "message": "The email is not valid."
                             }
                         },
                         "additionalProperties": {
@@ -1295,7 +1461,9 @@
                     }
                 },
                 "required": [
-                    "validations"
+                    "valid",
+                    "fields",
+                    "invalidations"
                 ]
             },
             "ProjectUpdateDto": {
@@ -1443,25 +1611,6 @@
                 },
                 "required": [
                     "test"
-                ]
-            },
-            "ScaFieldValidationDto": {
-                "type": "object",
-                "properties": {
-                    "isValid": {
-                        "type": "boolean",
-                        "description": "Indicates whether the field value is valid.",
-                        "example": true
-                    },
-                    "message": {
-                        "type": "string",
-                        "description": "A message providing additional details about the validation.",
-                        "example": "The email is available."
-                    }
-                },
-                "required": [
-                    "isValid",
-                    "message"
                 ]
             }
         }

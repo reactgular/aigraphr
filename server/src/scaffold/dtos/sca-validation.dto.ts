@@ -1,10 +1,25 @@
 import {ApiExtraModels, ApiProperty, getSchemaPath} from '@nestjs/swagger';
 
+export enum ScaFieldValidationCode {
+    NOT_FOUND = 'not_found',
+    NOT_UNIQUE = 'not_unique',
+    FORMAT = 'format',
+    VALUE = 'value',
+    INVALID = 'invalid'
+}
+
 export class ScaFieldValidationDto {
     @ApiProperty({
         description: 'The name of the field being validated.'
     })
     name: string;
+
+    @ApiProperty({
+        description: 'The code of the validation.',
+        example: ScaFieldValidationCode.FORMAT,
+        enum: ScaFieldValidationCode
+    })
+    code: ScaFieldValidationCode;
 
     @ApiProperty({
         description:
