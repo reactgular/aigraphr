@@ -56,6 +56,7 @@ export class ProjectsController extends scaReadOnlyMixin(
         return this.projects;
     }
 
+    // TODO: we could use ScaCrudService if it has a beforeRemove() handler
     @ScaRemove({dto: ProjectDto, paramId})
     public async remove(@ScaParamId(paramId) id: number): ScaRemoveResponse {
         await this.projects.scaMustExist(id);

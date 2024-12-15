@@ -19,7 +19,12 @@ export class ProjectDataSourcesService implements OnApplicationShutdown {
         if (!dataSource) {
             return;
         }
-        await dataSource.destroy();
+
+        try {
+            await dataSource.destroy();
+        } finally {
+            delete this.connections[name];
+        }
     }
 
     public async closeAll() {

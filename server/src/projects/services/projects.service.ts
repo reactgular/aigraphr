@@ -37,8 +37,7 @@ export class ProjectsService extends ScaCrudService<
 
     public async close(id: number): Promise<void> {
         this.log.log(`Close:${id}`);
-
-        throw new NotImplementedException();
+        await this.projectDataSources.close(await this.getName(id));
     }
 
     public async create(name: string): Promise<number> {
@@ -84,8 +83,7 @@ export class ProjectsService extends ScaCrudService<
 
     public async open(id: number): Promise<void> {
         this.log.log(`Open:${id}`);
-
-        throw new NotImplementedException();
+        await this.projectDataSources.open(await this.getName(id), true);
     }
 
     public async remove(id: number): Promise<void> {
