@@ -2,7 +2,7 @@ import {ExceptionFilterDto} from '@/filters/exception-filter.dto';
 import {ScaValidationResponseDto} from '@/scaffold/dtos/sca-validation.dto';
 import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {toHumanUtils} from '@/scaffold/utils/to-human.utils';
-import {applyDecorators, Post, Type} from '@nestjs/common';
+import {applyDecorators, Patch, Type} from '@nestjs/common';
 import {
     ApiBadRequestResponse,
     ApiBody,
@@ -28,7 +28,7 @@ export function ScaUpdateValidate<TBody extends object>({
 }: ScaUpdateValidateOptions<TBody>) {
     const name = toHumanUtils(bodyDto.name);
     const decorators: Array<MethodDecorator> = [
-        Post(`validates/:${paramId}`),
+        Patch(`:${paramId}/validates`),
         ApiParam({
             name: paramId,
             type: Number,

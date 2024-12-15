@@ -23,7 +23,7 @@ export function ScaCreateValidate<TBody extends object>({
 }: ScaCreateValidateOptions<TBody>) {
     const name = toHumanUtils(bodyDto.name);
     const decorators: Array<MethodDecorator> = [
-        Post('/validates'),
+        Post('validates'),
         ApiOperation({summary: `Validates creation of a ${name}`}),
         ApiBody({type: bodyDto}),
         ApiExtraModels(bodyDto, ScaValidationResponseDto),
