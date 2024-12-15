@@ -7,7 +7,7 @@
     "author": "",
     "scripts": {
         "build": "nest build",
-        "dev": "nest start --watch",
+        "dev": "nest start --debug --watch",
         "format": "eslint . --fix",
         "lint": "eslint .",
         "openapi": "nest start -- --openapi=../client/openapi.json",
