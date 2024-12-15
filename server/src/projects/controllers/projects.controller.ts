@@ -1,26 +1,17 @@
 import {
     ProjectCreateDto,
     ProjectDto,
-    ProjectEntity,
     ProjectUpdateDto
 } from '@/entities/project.entity';
 import {ProjectsValidatorService} from '@/projects/services/projects-validator.service';
-import {ScaCrudService} from '@/scaffold/crud/sca-crud.service';
 import {ScaBody} from '@/scaffold/decorators/sca-body';
 import {ScaCreate, ScaCreateResponse} from '@/scaffold/decorators/sca-create';
-import {
-    ScaCreateValidate,
-    ScaCreateValidateResponse
-} from '@/scaffold/decorators/sca-create-validate';
 import {ScaParamId} from '@/scaffold/decorators/sca-param-id';
 import {ScaRemove, ScaRemoveResponse} from '@/scaffold/decorators/sca-remove';
 import {ScaUpdate, ScaUpdateResponse} from '@/scaffold/decorators/sca-update';
-import {
-    ScaUpdateValidate,
-    ScaUpdateValidateResponse
-} from '@/scaffold/decorators/sca-update-validate';
-import {ScaInvalidator} from '@/scaffold/dtos/sca-invalidator';
+import {scaCreateValidatorMixin} from '@/scaffold/mixins/sca-create-validator.mixin';
 import {scaReadOnlyMixin} from '@/scaffold/mixins/sca-readonly.mixin';
+import {scaUpdateValidatorMixin} from '@/scaffold/mixins/sca-update-validator.mixin';
 import {BadRequestException, Controller} from '@nestjs/common';
 import {ApiTags} from '@nestjs/swagger';
 import {ProjectsService} from '../services/projects.service';
@@ -29,10 +20,21 @@ const paramId = 'projectId';
 
 @ApiTags('Projects')
 @Controller('projects')
-export class ProjectsController extends scaReadOnlyMixin({
-    paramId,
-    dto: ProjectDto
-}) {
+export class ProjectsController extends scaReadOnlyMixin(
+    {
+        paramId,
+        dto: ProjectDto
+    },
+    scaCreateValidatorMixin(
+        {
+            createDto: ProjectCreateDto
+        },
+        scaUpdateValidatorMixin({
+            paramId,
+            updateDto: ProjectUpdateDto
+        })
+    )
+) {
     public constructor(
         private readonly projects: ProjectsService,
         private readonly projectsValidator: ProjectsValidatorService
@@ -40,8 +42,12 @@ export class ProjectsController extends scaReadOnlyMixin({
         super();
     }
 
-    public crud(): ScaCrudService<ProjectEntity> {
+    public crud() {
         return this.projects;
+    }
+
+    public validator() {
+        return this.projectsValidator;
     }
 
     @ScaCreate({bodyDto: ProjectCreateDto, responseDto: ProjectDto})
@@ -57,15 +63,6 @@ export class ProjectsController extends scaReadOnlyMixin({
             return await this.projects.scaGet(projectId);
         }
         throw validator.badRequest();
-    }
-
-    @ScaCreateValidate({bodyDto: ProjectCreateDto})
-    public async createValidate(
-        @ScaBody(ProjectCreateDto) data: ProjectCreateDto
-    ): ScaCreateValidateResponse {
-        const invalidator = new ScaInvalidator<ProjectCreateDto>();
-        await this.projectsValidator.onCreateValidate(invalidator, data);
-        return invalidator.response();
     }
 
     @ScaUpdate({
@@ -102,19 +99,6 @@ export class ProjectsController extends scaReadOnlyMixin({
             return this.projects.scaGet(id);
         }
         throw validator.badRequest();
-    }
-
-    @ScaUpdateValidate({
-        bodyDto: ProjectUpdateDto,
-        paramId
-    })
-    public async updateValidate(
-        @ScaParamId(paramId) id: number,
-        @ScaBody(ProjectUpdateDto) data: ProjectUpdateDto
-    ): ScaUpdateValidateResponse {
-        const invalidator = new ScaInvalidator<ProjectUpdateDto>();
-        await this.projectsValidator.onUpdateValidate(invalidator, id, data);
-        return invalidator.response();
     }
 
     @ScaRemove({dto: ProjectDto, paramId})
