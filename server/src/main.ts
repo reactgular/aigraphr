@@ -39,6 +39,7 @@ async function bootstrap() {
     app.useGlobalPipes(scaValidationPipe());
     app.useGlobalFilters(new TypeormExceptionFilter(app.get(HttpAdapterHost)));
     app.enableShutdownHooks();
+    app.setGlobalPrefix('api');
 
     const config = app.get(ConfigService<EnvConfig>);
     log.log(`🔧 PROJECTS_FOLDER: ${config.get('PROJECTS_FOLDER')}`);
