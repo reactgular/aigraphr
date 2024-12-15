@@ -1,12 +1,22 @@
-import {ProjectEntity} from '@/entities/project.entity';
+import {
+    ProjectCreateDto,
+    ProjectDto,
+    ProjectEntity,
+    ProjectUpdateDto
+} from '@/entities/project.entity';
 import {ProjectDataSourcesService} from '@/projects/services/project-data-sources.service';
 import {ScaCrudService} from '@/scaffold/crud/sca-crud.service';
 import {Injectable, Logger, NotImplementedException} from '@nestjs/common';
 import {InjectRepository} from '@nestjs/typeorm';
-import {Not, Repository} from 'typeorm';
+import {DeepPartial, Not, Repository} from 'typeorm';
 
 @Injectable()
-export class ProjectsService extends ScaCrudService<ProjectEntity> {
+export class ProjectsService extends ScaCrudService<
+    ProjectEntity,
+    ProjectDto,
+    ProjectCreateDto,
+    ProjectUpdateDto
+> {
     private readonly log: Logger;
 
     public constructor(
@@ -36,7 +46,7 @@ export class ProjectsService extends ScaCrudService<ProjectEntity> {
 
         await this.projectDataSources.open(name, false);
 
-        const entity = this.projects.create({name, open: true});
+        const entity = this.projects.create({name});
         const saved = await this.projects.save(entity);
 
         this.log.log(`Created:${JSON.stringify(saved)}`);
@@ -63,19 +73,13 @@ export class ProjectsService extends ScaCrudService<ProjectEntity> {
         return name;
     }
 
-    /**
-     * Note: this method returns true if the project does not exist.
-     */
     public async isClosed(id: number): Promise<boolean> {
         return !(await this.isOpened(id));
     }
 
-    /**
-     * Note: this method returns false if the project does not exist.
-     */
     public async isOpened(id: number): Promise<boolean> {
-        const count = await this.projects.count({where: {id, open: true}});
-        return count === 1;
+        const name = await this.getName(id);
+        return this.projectDataSources.isOpen(name);
     }
 
     public async open(id: number): Promise<void> {
@@ -94,5 +98,30 @@ export class ProjectsService extends ScaCrudService<ProjectEntity> {
         this.log.log(`Rename:${id}:${name}`);
 
         throw new NotImplementedException();
+    }
+
+    protected fromCreateDto(
+        createDto: ProjectCreateDto
+    ): Omit<ProjectEntity, 'id'> {
+        return {
+            name: createDto.name
+        };
+    }
+
+    protected fromUpdateDto(
+        id: number,
+        updateDto: ProjectUpdateDto
+    ): DeepPartial<ProjectEntity> {
+        return {
+            id,
+            ...(updateDto.name && {name: updateDto.name})
+        };
+    }
+
+    protected toDto(entity: ProjectEntity): ProjectDto {
+        return {
+            ...entity,
+            open: this.projectDataSources.isOpen(entity.name)
+        };
     }
 }

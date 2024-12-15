@@ -1,4 +1,4 @@
-import {ScaCrudService} from '@/scaffold/crud/sca-crud.service';
+import {ScaCrudRemove} from '@/scaffold/crud/sca-crud-remove';
 import {ScaParamId} from '@/scaffold/decorators/sca-param-id';
 import {ScaRemove, ScaRemoveResponse} from '@/scaffold/decorators/sca-remove';
 import {ScaConstructor, ScaEmptyBase} from '@/scaffold/mixins/sca.mixin';
@@ -19,11 +19,11 @@ export function scaRemoveMixin<
     Base: TBase = ScaEmptyBase as TBase
 ) {
     abstract class ScaRemoveClass extends Base {
-        abstract crud(): ScaCrudService<TDo>;
+        abstract crud(): ScaCrudRemove;
 
         @ScaRemove({dto, paramId, decorators})
         async scaRemove(@ScaParamId(paramId) id: number): ScaRemoveResponse {
-            // await this.projects.remove(id);
+            await this.crud().scaRemove(id);
         }
     }
 

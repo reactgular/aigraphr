@@ -1,4 +1,4 @@
-import {ScaffoldEntity} from '@/scaffold/crud/sca-crud.service';
+import {ScaEntity} from '@/scaffold/crud/sca-entity';
 import {toHumanUtils} from '@/scaffold/utils/to-human.utils';
 import {ScaInvalidator} from '@/scaffold/validators/sca-invalidator';
 import {ScaInvalidatorBuilder} from '@/scaffold/validators/sca-invalidator-builder';
@@ -7,7 +7,7 @@ import {ScaValidatorHandler} from '@/scaffold/validators/sca-validator-handler';
 import {Logger, Type} from '@nestjs/common';
 
 export abstract class ScaValidatorService<
-    Entity extends ScaffoldEntity,
+    Entity extends ScaEntity,
     TCreateDto extends object = never,
     TUpdateDto extends object = never
 > implements ScaValidatorHandler<TCreateDto, TUpdateDto>

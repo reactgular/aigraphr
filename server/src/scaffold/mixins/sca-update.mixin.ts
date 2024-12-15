@@ -1,4 +1,4 @@
-import {ScaCrudService} from '@/scaffold/crud/sca-crud.service';
+import {ScaCrudUpdate} from '@/scaffold/crud/sca-crud-update';
 import {ScaBody} from '@/scaffold/decorators/sca-body';
 import {ScaParamId} from '@/scaffold/decorators/sca-param-id';
 import {ScaUpdate, ScaUpdateResponse} from '@/scaffold/decorators/sca-update';
@@ -31,15 +31,14 @@ export function scaUpdateMixin<
     Base: TBase = ScaEmptyBase as TBase
 ) {
     abstract class ScaPaginateClass extends Base {
-        abstract crud(): ScaCrudService<TDo>;
+        abstract crud(): ScaCrudUpdate<TDo, TUpdateDto>;
 
         @ScaUpdate({bodyDto: updateDto, responseDto: dto, paramId, decorators})
         async scaUpdate(
             @ScaParamId(paramId) id: number,
             @ScaBody(updateDto) data: TUpdateDto
         ): ScaUpdateResponse<TDo> {
-            // return await this.projects.update(id, data);
-            return null as any;
+            return await this.crud().scaUpdate(id, data);
         }
     }
 

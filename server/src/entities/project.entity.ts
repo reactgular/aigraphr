@@ -10,16 +10,15 @@ export class ProjectEntity extends ScaEntity {
     @IsProfileName()
     @Column()
     name: string;
+}
 
+export class ProjectDto extends OmitType(ProjectEntity, [] as const) {
     @IsBoolean()
     @ApiProperty({
         description: 'The open status of the project'
     })
-    @Column({default: false})
     open: boolean;
 }
-
-export class ProjectDto extends OmitType(ProjectEntity, [] as const) {}
 
 export class ProjectCreateDto extends OmitType(ProjectDto, [
     'id',

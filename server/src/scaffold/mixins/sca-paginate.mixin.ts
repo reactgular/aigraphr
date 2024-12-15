@@ -1,4 +1,4 @@
-import {ScaCrudService} from '@/scaffold/crud/sca-crud.service';
+import {ScaCrudRead} from '@/scaffold/crud/sca-crud-read';
 import {
     ScaPaginate,
     ScaPaginateResponse
@@ -20,7 +20,7 @@ export function scaPaginateMixin<
     Base: TBase = ScaEmptyBase as TBase
 ) {
     abstract class ScaPaginateClass extends Base {
-        abstract crud(): ScaCrudService<TDo>;
+        abstract crud(): ScaCrudRead<TDo>;
 
         @ScaPaginate({dto, decorators})
         async scaPaginate(): ScaPaginateResponse<TDo> {

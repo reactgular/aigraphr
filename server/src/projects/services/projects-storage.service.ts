@@ -17,7 +17,7 @@ export class ProjectsStorageService {
     }
 
     public async projectDatabase(name: string): Promise<string> {
-        return path.join(await this.projectPath(), `${name}.sqlite`);
+        return path.join(await this.projectPath(), `${name}.aigraphr`);
     }
 
     public async projectExists(name: string): Promise<boolean> {

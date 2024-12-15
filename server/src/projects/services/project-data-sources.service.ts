@@ -28,6 +28,10 @@ export class ProjectDataSourcesService implements OnApplicationShutdown {
         }
     }
 
+    public isOpen(name: string): boolean {
+        return !!this.connections[name];
+    }
+
     public async onApplicationShutdown() {
         return await this.closeAll();
     }

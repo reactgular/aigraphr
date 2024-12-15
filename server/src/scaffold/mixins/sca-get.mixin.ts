@@ -1,4 +1,4 @@
-import {ScaCrudService} from '@/scaffold/crud/sca-crud.service';
+import {ScaCrudRead} from '@/scaffold/crud/sca-crud-read';
 import {ScaGet, ScaGetResponse} from '@/scaffold/decorators/sca-get';
 import {ScaParamId} from '@/scaffold/decorators/sca-param-id';
 import {ScaConstructor, ScaEmptyBase} from '@/scaffold/mixins/sca.mixin';
@@ -19,7 +19,7 @@ export function scaGetMixin<
     Base: TBase = ScaEmptyBase as TBase
 ) {
     abstract class ScaGetClass extends Base {
-        abstract crud(): ScaCrudService<TDo>;
+        abstract crud(): ScaCrudRead<TDo>;
 
         @ScaGet({dto, paramId, decorators})
         async scaGet(@ScaParamId(paramId) id: number): ScaGetResponse<TDo> {

@@ -1,4 +1,4 @@
-import {ScaCrudService} from '@/scaffold/crud/sca-crud.service';
+import {ScaCrudCreate} from '@/scaffold/crud/sca-crud-create';
 import {ScaBody} from '@/scaffold/decorators/sca-body';
 import {ScaCreate, ScaCreateResponse} from '@/scaffold/decorators/sca-create';
 import {ScaConstructor, ScaEmptyBase} from '@/scaffold/mixins/sca.mixin';
@@ -24,7 +24,7 @@ export function scaCreateMixin<
     Base: TBase = ScaEmptyBase as TBase
 ) {
     abstract class ScaCreateClass extends Base {
-        abstract crud(): ScaCrudService<TDo>;
+        abstract crud(): ScaCrudCreate<TDo, TCreateDto>;
 
         @ScaCreate({bodyDto: createDto, responseDto: dto, decorators})
         async scaCreate(
