@@ -17,6 +17,12 @@ export class ScaFieldValidationDto {
 @ApiExtraModels(ScaFieldValidationDto)
 export class ScaValidationResponseDto {
     @ApiProperty({
+        description: 'Whether the validation was successful.',
+        example: false
+    })
+    valid: boolean;
+
+    @ApiProperty({
         description: 'The list of fields that failed validation.',
         example: ['name', 'email'],
         type: 'array',

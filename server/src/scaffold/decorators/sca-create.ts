@@ -2,7 +2,7 @@ import {ScaExceptionFilter} from '@/scaffold/decorators/sca-exception-filter';
 import {ScaValidateResponse} from '@/scaffold/decorators/sca-validate-response';
 import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {toHumanUtils} from '@/scaffold/utils/to-human.utils';
-import {applyDecorators, Post, Type} from '@nestjs/common';
+import {applyDecorators, HttpCode, Post, Type} from '@nestjs/common';
 import {
     ApiBody,
     ApiCreatedResponse,
@@ -27,6 +27,7 @@ export function ScaCreate<TBody extends object, TResponse extends ScaEntity>({
     const name = toHumanUtils(responseDto.name);
     const decorators: Array<MethodDecorator> = [
         Post(),
+        HttpCode(201),
         ApiOperation({summary: `Create a new ${name}`}),
         ApiBody({type: bodyDto}),
         ApiExtraModels(bodyDto, responseDto),

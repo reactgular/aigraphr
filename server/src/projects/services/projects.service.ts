@@ -73,10 +73,7 @@ export class ProjectsService extends ScaCrudService<ProjectEntity> {
         throw new NotImplementedException();
     }
 
-    /**
-     * @deprecated use scaExists instead
-     */
-    public async exists(id: number): Promise<boolean> {
-        return await this.projects.exists({where: {id}});
+    public async existsByName(name: string) {
+        return (await this.projects.count({where: {name}})) > 0;
     }
 }

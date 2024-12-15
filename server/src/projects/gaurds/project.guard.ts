@@ -29,7 +29,7 @@ export class ProjectGuard implements CanActivate {
 
         if (param && isNumeric(param)) {
             const projectId = parseInt(param, 10);
-            return await this.projects.exists(projectId);
+            return await this.projects.scaExists(projectId);
         }
 
         this.log.warn('Project ID is not a number');

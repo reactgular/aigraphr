@@ -1,6 +1,5 @@
 import {ExceptionFilterDto} from '@/filters/exception-filter.dto';
 import {ScaValidationResponseDto} from '@/scaffold/dtos/sca-validation.dto';
-import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {toHumanUtils} from '@/scaffold/utils/to-human.utils';
 import {applyDecorators, Patch, Type} from '@nestjs/common';
 import {
@@ -59,4 +58,4 @@ export function ScaUpdateValidate<TBody extends object>({
     return applyDecorators(...decorators);
 }
 
-export type ScaUpdateValidateResponse<T extends ScaEntity> = Promise<T>;
+export type ScaUpdateValidateResponse = Promise<ScaValidationResponseDto>;

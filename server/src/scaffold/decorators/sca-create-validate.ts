@@ -2,7 +2,7 @@ import {ExceptionFilterDto} from '@/filters/exception-filter.dto';
 import {ScaValidateResponse} from '@/scaffold/decorators/sca-validate-response';
 import {ScaValidationResponseDto} from '@/scaffold/dtos/sca-validation.dto';
 import {toHumanUtils} from '@/scaffold/utils/to-human.utils';
-import {applyDecorators, Post, Type} from '@nestjs/common';
+import {applyDecorators, HttpCode, Post, Type} from '@nestjs/common';
 import {
     ApiBadRequestResponse,
     ApiBody,
@@ -24,6 +24,7 @@ export function ScaCreateValidate<TBody extends object>({
     const name = toHumanUtils(bodyDto.name);
     const decorators: Array<MethodDecorator> = [
         Post('validates'),
+        HttpCode(200),
         ApiOperation({summary: `Validates creation of a ${name}`}),
         ApiBody({type: bodyDto}),
         ApiExtraModels(bodyDto, ScaValidationResponseDto),
@@ -46,6 +47,4 @@ export function ScaCreateValidate<TBody extends object>({
     return applyDecorators(...decorators);
 }
 
-export type ScaCreateValidateResponse = Promise<
-    Array<ScaValidationResponseDto>
->;
+export type ScaCreateValidateResponse = Promise<ScaValidationResponseDto>;

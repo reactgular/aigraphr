@@ -14,7 +14,11 @@ import {
 import {ScaParamId} from '@/scaffold/decorators/sca-param-id';
 import {ScaRemove, ScaRemoveResponse} from '@/scaffold/decorators/sca-remove';
 import {ScaUpdate, ScaUpdateResponse} from '@/scaffold/decorators/sca-update';
-import {ScaUpdateValidate} from '@/scaffold/decorators/sca-update-validate';
+import {
+    ScaUpdateValidate,
+    ScaUpdateValidateResponse
+} from '@/scaffold/decorators/sca-update-validate';
+import {ScaInvalidator} from '@/scaffold/dtos/sca-invalidator';
 import {scaReadOnlyMixin} from '@/scaffold/mixins/sca-readonly.mixin';
 import {
     BadRequestException,
@@ -60,7 +64,22 @@ export class ProjectsController extends scaReadOnlyMixin({
     public async createValidate(
         @ScaBody(ProjectCreateDto) data: ProjectCreateDto
     ): ScaCreateValidateResponse {
-        throw new NotImplementedException();
+        const invalidator = new ScaInvalidator();
+
+        if (typeof data.cloneId === 'number') {
+            if (!(await this.projects.scaExists(data.cloneId))) {
+                invalidator.addError('cloneId', 'Project does not exist');
+            }
+        }
+
+        if (await this.projects.existsByName(data.name)) {
+            invalidator.addError(
+                'name',
+                'Project with the same name already exists'
+            );
+        }
+
+        return invalidator.response();
     }
 
     @ScaUpdate({
@@ -100,7 +119,7 @@ export class ProjectsController extends scaReadOnlyMixin({
     public async updateValidate(
         @ScaParamId(paramId) id: number,
         @ScaBody(ProjectUpdateDto) data: ProjectUpdateDto
-    ): ScaUpdateResponse<ProjectDto> {
+    ): ScaUpdateValidateResponse {
         throw new NotImplementedException();
     }
 
