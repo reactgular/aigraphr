@@ -8,9 +8,8 @@ import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {Logger, Type} from '@nestjs/common';
 
 interface ScaPaginateMixinOptions<TDo extends ScaEntity> {
-    dto: Type<TDo>;
-
     decorators?: () => Array<MethodDecorator>;
+    dto: Type<TDo>;
 }
 
 export function scaPaginateMixin<

@@ -11,33 +11,25 @@ export enum ScaFieldValidationCode {
 
 export class ScaFieldValidationDto {
     @ApiProperty({
-        description: 'The name of the field being validated.'
-    })
-    name: string;
-
-    @ApiProperty({
         description: 'The code of the validation.',
         example: ScaFieldValidationCode.FORMAT,
         enum: ScaFieldValidationCode
     })
     code: ScaFieldValidationCode;
-
     @ApiProperty({
         description:
             'A message providing additional details about the validation.',
         example: 'The email is not valid.'
     })
     message: string;
+    @ApiProperty({
+        description: 'The name of the field being validated.'
+    })
+    name: string;
 }
 
 @ApiExtraModels(ScaFieldValidationDto)
 export class ScaValidationResponseDto {
-    @ApiProperty({
-        description: 'Whether the validation was successful.',
-        example: false
-    })
-    valid: boolean;
-
     @ApiProperty({
         description: 'The list of fields that failed validation.',
         example: ['name', 'email'],
@@ -47,7 +39,6 @@ export class ScaValidationResponseDto {
         }
     })
     fields: string[];
-
     @ApiProperty({
         description: 'Validation results for each field.',
         example: {
@@ -67,4 +58,9 @@ export class ScaValidationResponseDto {
         }
     })
     invalidations: Record<string, ScaFieldValidationDto>;
+    @ApiProperty({
+        description: 'Whether the validation was successful.',
+        example: false
+    })
+    valid: boolean;
 }

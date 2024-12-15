@@ -7,23 +7,23 @@ import {AigTypeShape} from '../types/AigTypeBase';
 export class AigOutputCtx<TInputShape extends AigTypeShape> {
     public constructor(private inputObject: TInputShape) {}
 
+    public boolean() {
+        return new AigInputBoolean();
+    }
+
     public inputType(inputKey: keyof TInputShape) {
         return new AigInputUserType();
-    }
-
-    public userType() {
-        return new AigInputUserType();
-    }
-
-    public string() {
-        return new AigInputString();
     }
 
     public number() {
         return new AigInputNumber();
     }
 
-    public boolean() {
-        return new AigInputBoolean();
+    public string() {
+        return new AigInputString();
+    }
+
+    public userType() {
+        return new AigInputUserType();
     }
 }

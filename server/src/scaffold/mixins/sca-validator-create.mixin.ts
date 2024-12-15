@@ -22,8 +22,6 @@ export function scaValidatorCreateMixin<
     Base: TBase = ScaEmptyBase as TBase
 ) {
     abstract class ScaCreateClass extends Base {
-        abstract validator(): ScaValidatorHandler<TCreateDto, never>;
-
         @ScaCreateValidate({bodyDto: createDto, decorators})
         async scaCreateValidate(
             @ScaBody(createDto) data: TCreateDto
@@ -32,6 +30,8 @@ export function scaValidatorCreateMixin<
             await this.validator().onCreateValidate(builder, data);
             return builder.result().response();
         }
+
+        abstract validator(): ScaValidatorHandler<TCreateDto, never>;
     }
 
     return ScaCreateClass;

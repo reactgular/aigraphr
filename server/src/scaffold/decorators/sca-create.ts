@@ -13,10 +13,8 @@ import {
 
 interface ScaCreateOptions<TBody extends object, TResponse extends ScaEntity> {
     bodyDto: Type<TBody>;
-
-    responseDto: Type<TResponse>;
-
     decorators?: () => Array<MethodDecorator>;
+    responseDto: Type<TResponse>;
 }
 
 export function ScaCreate<TBody extends object, TResponse extends ScaEntity>({

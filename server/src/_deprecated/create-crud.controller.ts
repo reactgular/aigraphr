@@ -17,13 +17,13 @@ import {ScaffoldUpdate, ScaffoldUpdateType} from './scaffold-update';
  * @deprecated
  */
 export interface ScaffoldCrudOptions<TDto extends ScaffoldDto> {
-    getDto: Type<TDto>;
     createDto: Type<Partial<TDto>>;
-    updateDto: Type<Partial<TDto>>;
-    indexParam?: ScaffoldParam;
-    getParam?: ScaffoldParam;
     createParam?: ScaffoldParam;
     deleteParam?: ScaffoldParam;
+    getDto: Type<TDto>;
+    getParam?: ScaffoldParam;
+    indexParam?: ScaffoldParam;
+    updateDto: Type<Partial<TDto>>;
     updateParam?: ScaffoldParam;
 }
 
@@ -83,15 +83,6 @@ export function createCrudController<
             return this.scaffoldCrud.create(params, query, body);
         }
 
-        @Update.Method()
-        public async update(
-            @Update.Param() params: Update['Param'],
-            @Update.Query() query: Update['Query'],
-            @Update.Body() body: Update['Body']
-        ): Update['Response'] {
-            return this.scaffoldCrud.update(params, query, body);
-        }
-
         @Delete.Method()
         public async remove(
             @Delete.Param() params: Delete['Param'],
@@ -99,6 +90,15 @@ export function createCrudController<
             @Delete.Body() body: Delete['Body']
         ): Delete['Response'] {
             return this.scaffoldCrud.remove(params, query, body);
+        }
+
+        @Update.Method()
+        public async update(
+            @Update.Param() params: Update['Param'],
+            @Update.Query() query: Update['Query'],
+            @Update.Body() body: Update['Body']
+        ): Update['Response'] {
+            return this.scaffoldCrud.update(params, query, body);
         }
     }
 

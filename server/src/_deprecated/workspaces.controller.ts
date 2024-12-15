@@ -1,4 +1,6 @@
-import {createProjectCrudController} from '@/_deprecated/create-project-crud.controller';
+import {
+    createProjectCrudController
+} from '@/_deprecated/create-project-crud.controller';
 import {ScaffoldCrudService} from '@/_deprecated/scaffold-crud.service';
 import {WorkspacesService} from '@/_deprecated/workspaces.service';
 import {

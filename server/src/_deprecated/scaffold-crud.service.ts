@@ -28,24 +28,6 @@ export class ScaffoldCrudService<
         >
     ) {}
 
-    public async index(
-        params: ScaffoldIndexType<TGetDto>['Param'],
-        query: ScaffoldIndexType<TGetDto>['Query'],
-        body: ScaffoldIndexType<TGetDto>['Body']
-    ): ScaffoldIndexType<TGetDto>['Response'] {
-        const entities = await this.scaffoldEntity.findAll();
-        return entities.map(this.scaffoldDto.toGetDto);
-    }
-
-    public async get(
-        params: ScaffoldGetType<TGetDto>['Param'],
-        query: ScaffoldGetType<TGetDto>['Query'],
-        body: ScaffoldGetType<TGetDto>['Body']
-    ): ScaffoldGetType<TGetDto>['Response'] {
-        const entity = await this.scaffoldEntity.findOneOrThrow(params.id);
-        return this.scaffoldDto.toGetDto(entity);
-    }
-
     public async create(
         params: ScaffoldCreateType<TCreateDto, TGetDto>['Param'],
         query: ScaffoldCreateType<TCreateDto, TGetDto>['Query'],
@@ -57,6 +39,32 @@ export class ScaffoldCrudService<
         return this.scaffoldDto.toGetDto(entity);
     }
 
+    public async get(
+        params: ScaffoldGetType<TGetDto>['Param'],
+        query: ScaffoldGetType<TGetDto>['Query'],
+        body: ScaffoldGetType<TGetDto>['Body']
+    ): ScaffoldGetType<TGetDto>['Response'] {
+        const entity = await this.scaffoldEntity.findOneOrThrow(params.id);
+        return this.scaffoldDto.toGetDto(entity);
+    }
+
+    public async index(
+        params: ScaffoldIndexType<TGetDto>['Param'],
+        query: ScaffoldIndexType<TGetDto>['Query'],
+        body: ScaffoldIndexType<TGetDto>['Body']
+    ): ScaffoldIndexType<TGetDto>['Response'] {
+        const entities = await this.scaffoldEntity.findAll();
+        return entities.map(this.scaffoldDto.toGetDto);
+    }
+
+    public async remove(
+        params: ScaffoldDeleteType['Param'],
+        query: ScaffoldDeleteType['Query'],
+        body: ScaffoldDeleteType['Body']
+    ): ScaffoldDeleteType['Response'] {
+        await this.scaffoldEntity.remove(params.id);
+    }
+
     public async update(
         params: ScaffoldUpdateType<TUpdateDto, TGetDto>['Param'],
         query: ScaffoldUpdateType<TUpdateDto, TGetDto>['Query'],
@@ -66,13 +74,5 @@ export class ScaffoldCrudService<
         return this.scaffoldDto.toGetDto(
             await this.scaffoldEntity.findOneOrThrow(params.id)
         );
-    }
-
-    public async remove(
-        params: ScaffoldDeleteType['Param'],
-        query: ScaffoldDeleteType['Query'],
-        body: ScaffoldDeleteType['Body']
-    ): ScaffoldDeleteType['Response'] {
-        await this.scaffoldEntity.remove(params.id);
     }
 }

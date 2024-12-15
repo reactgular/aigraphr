@@ -33,15 +33,15 @@ export class WorkspacesService
         super(workspaces, WorkspaceEntity);
     }
 
-    public toGetDto(entity: WorkspaceEntity): WorkspaceDto {
-        return entity;
-    }
-
     public fromCreateDto(create: WorkspaceCreateDto): Partial<WorkspaceEntity> {
         return create;
     }
 
     public fromUpdateDto(update: WorkspaceUpdateDto): Partial<WorkspaceEntity> {
         return update;
+    }
+
+    public toGetDto(entity: WorkspaceEntity): WorkspaceDto {
+        return entity;
     }
 }

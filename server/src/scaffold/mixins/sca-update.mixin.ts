@@ -11,13 +11,10 @@ interface ScaUpdateMixinOptions<
     TDo extends ScaEntity,
     TUpdateDto extends object
 > {
-    paramId?: string;
-
-    dto: Type<TDo>;
-
-    updateDto: Type<TUpdateDto>;
-
     decorators?: () => Array<MethodDecorator>;
+    dto: Type<TDo>;
+    paramId?: string;
+    updateDto: Type<TUpdateDto>;
 }
 
 export function scaUpdateMixin<

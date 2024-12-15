@@ -17,6 +17,18 @@ export class ProjectsService extends ScaCrudService<ProjectEntity> {
         this.log = new Logger('Projects');
     }
 
+    public async clone(id: number, name: string): Promise<number> {
+        this.log.log(`Clone:${id}:${name}`);
+
+        throw new NotImplementedException();
+    }
+
+    public async close(id: number): Promise<void> {
+        this.log.log(`Close:${id}`);
+
+        throw new NotImplementedException();
+    }
+
     public async create(name: string): Promise<number> {
         this.log.log(`Create:${name}`);
 
@@ -28,51 +40,6 @@ export class ProjectsService extends ScaCrudService<ProjectEntity> {
         this.log.log(`Created:${JSON.stringify(saved)}`);
 
         return saved.id;
-    }
-
-    public async clone(id: number, name: string): Promise<number> {
-        this.log.log(`Clone:${id}:${name}`);
-
-        throw new NotImplementedException();
-    }
-
-    public async rename(id: number, name: string): Promise<void> {
-        this.log.log(`Rename:${id}:${name}`);
-
-        throw new NotImplementedException();
-    }
-
-    public async open(id: number): Promise<void> {
-        this.log.log(`Open:${id}`);
-
-        throw new NotImplementedException();
-    }
-
-    public async remove(id: number): Promise<void> {
-        this.log.log(`Remove:${id}`);
-
-        throw new NotImplementedException();
-    }
-
-    /**
-     * Note: this method returns false if the project does not exist.
-     */
-    public async isOpened(id: number): Promise<boolean> {
-        const count = await this.projects.count({where: {id, open: true}});
-        return count === 1;
-    }
-
-    /**
-     * Note: this method returns true if the project does not exist.
-     */
-    public async isClosed(id: number): Promise<boolean> {
-        return !(await this.isOpened(id));
-    }
-
-    public async close(id: number): Promise<void> {
-        this.log.log(`Close:${id}`);
-
-        throw new NotImplementedException();
     }
 
     public async existsByName(name: string, ignoreId?: number) {
@@ -92,5 +59,38 @@ export class ProjectsService extends ScaCrudService<ProjectEntity> {
             select: {name: true}
         });
         return name;
+    }
+
+    /**
+     * Note: this method returns true if the project does not exist.
+     */
+    public async isClosed(id: number): Promise<boolean> {
+        return !(await this.isOpened(id));
+    }
+
+    /**
+     * Note: this method returns false if the project does not exist.
+     */
+    public async isOpened(id: number): Promise<boolean> {
+        const count = await this.projects.count({where: {id, open: true}});
+        return count === 1;
+    }
+
+    public async open(id: number): Promise<void> {
+        this.log.log(`Open:${id}`);
+
+        throw new NotImplementedException();
+    }
+
+    public async remove(id: number): Promise<void> {
+        this.log.log(`Remove:${id}`);
+
+        throw new NotImplementedException();
+    }
+
+    public async rename(id: number, name: string): Promise<void> {
+        this.log.log(`Rename:${id}:${name}`);
+
+        throw new NotImplementedException();
     }
 }

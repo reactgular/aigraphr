@@ -11,6 +11,26 @@ export class ScaInvalidatorBuilder<TDto extends object>
 {
     private readonly invalidations: Array<ScaFieldValidationDto> = [];
 
+    public badValue(name: keyof TDto, message?: string): void {
+        this.add(
+            name,
+            ScaFieldValidationCode.BAD_VALUE,
+            message ?? 'Invalid value'
+        );
+    }
+
+    public format(name: keyof TDto, message?: string): void {
+        this.add(
+            name,
+            ScaFieldValidationCode.FORMAT,
+            message ?? 'Invalid format'
+        );
+    }
+
+    public invalid(name: keyof TDto, message?: string): void {
+        this.add(name, ScaFieldValidationCode.INVALID, message ?? 'Invalid');
+    }
+
     public notFound(name: keyof TDto, message?: string): void {
         this.add(
             name,
@@ -27,32 +47,20 @@ export class ScaInvalidatorBuilder<TDto extends object>
         );
     }
 
-    public format(name: keyof TDto, message?: string): void {
-        this.add(
-            name,
-            ScaFieldValidationCode.FORMAT,
-            message ?? 'Invalid format'
-        );
-    }
-
-    public badValue(name: keyof TDto, message?: string): void {
-        this.add(
-            name,
-            ScaFieldValidationCode.BAD_VALUE,
-            message ?? 'Invalid value'
-        );
-    }
-
-    public invalid(name: keyof TDto, message?: string): void {
-        this.add(name, ScaFieldValidationCode.INVALID, message ?? 'Invalid');
-    }
-
     public required(name: keyof TDto, message?: string): void {
         this.add(name, ScaFieldValidationCode.REQUIRED, message ?? 'Required');
     }
 
     public result(): ScaInvalidatorResult {
         return new ScaInvalidatorResult(this.response());
+    }
+
+    private add(
+        name: keyof TDto,
+        code: ScaFieldValidationCode,
+        message: string
+    ): void {
+        this.invalidations.push({name: name as string, code, message});
     }
 
     /**
@@ -71,13 +79,5 @@ export class ScaInvalidatorBuilder<TDto extends object>
                 {} as Record<string, ScaFieldValidationDto>
             )
         };
-    }
-
-    private add(
-        name: keyof TDto,
-        code: ScaFieldValidationCode,
-        message: string
-    ): void {
-        this.invalidations.push({name: name as string, code, message});
     }
 }

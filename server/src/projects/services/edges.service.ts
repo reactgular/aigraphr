@@ -16,27 +16,27 @@ export class EdgesService {
         private readonly edges: Repository<EdgeEntity>
     ) {}
 
-    public async exists(id: number): Promise<boolean> {
-        return await this.edges.exists({where: {id}});
+    public async create(data: EdgeCreateDto): Promise<EdgeDto> {
+        return {} as NodeDto;
     }
 
-    public async index(): Promise<Array<EdgeDto>> {
-        return await this.edges.find();
+    public async exists(id: number): Promise<boolean> {
+        return await this.edges.exists({where: {id}});
     }
 
     public async get(id: number): Promise<EdgeDto> {
         return {} as NodeDto;
     }
 
-    public async create(data: EdgeCreateDto): Promise<EdgeDto> {
-        return {} as NodeDto;
-    }
-
-    public async update(id: number, data: EdgeUpdateDto): Promise<EdgeDto> {
-        return {} as NodeDto;
+    public async index(): Promise<Array<EdgeDto>> {
+        return await this.edges.find();
     }
 
     public async remove(id: number): Promise<void> {
         return;
+    }
+
+    public async update(id: number, data: EdgeUpdateDto): Promise<EdgeDto> {
+        return {} as NodeDto;
     }
 }

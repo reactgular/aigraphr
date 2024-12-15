@@ -14,12 +14,9 @@ import {
 
 interface ScaUpdateOptions<TBody extends object, TResponse extends ScaEntity> {
     bodyDto: Type<TBody>;
-
-    responseDto: Type<TResponse>;
-
-    paramId?: string;
-
     decorators?: () => Array<MethodDecorator>;
+    paramId?: string;
+    responseDto: Type<TResponse>;
 }
 
 export function ScaUpdate<TBody extends object, TResponse extends ScaEntity>({

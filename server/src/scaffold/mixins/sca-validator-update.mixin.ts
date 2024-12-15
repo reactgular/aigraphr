@@ -10,11 +10,9 @@ import {ScaValidatorHandler} from '@/scaffold/validators/sca-validator-handler';
 import {Type} from '@nestjs/common';
 
 interface ScaValidatorUpdateMixinOptions<TUpdateDto extends object> {
-    paramId?: string;
-
-    updateDto: Type<TUpdateDto>;
-
     decorators?: () => Array<MethodDecorator>;
+    paramId?: string;
+    updateDto: Type<TUpdateDto>;
 }
 
 export function scaValidatorUpdateMixin<
@@ -29,8 +27,6 @@ export function scaValidatorUpdateMixin<
     Base: TBase = ScaEmptyBase as TBase
 ) {
     abstract class ScaPaginateClass extends Base {
-        abstract validator(): ScaValidatorHandler<never, TUpdateDto>;
-
         @ScaUpdateValidate({bodyDto: updateDto, paramId, decorators})
         async scaUpdateValidate(
             @ScaParamId(paramId) id: number,
@@ -40,6 +36,8 @@ export function scaValidatorUpdateMixin<
             await this.validator().onUpdateValidate(builder, id, data);
             return builder.result().response();
         }
+
+        abstract validator(): ScaValidatorHandler<never, TUpdateDto>;
     }
 
     return ScaPaginateClass;

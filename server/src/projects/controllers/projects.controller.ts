@@ -37,14 +37,6 @@ export class ProjectsController extends scaReadOnlyMixin(
         super();
     }
 
-    public crud() {
-        return this.projects;
-    }
-
-    public validator() {
-        return this.projectsValidator;
-    }
-
     @ScaCreate({bodyDto: ProjectCreateDto, responseDto: ProjectDto})
     public async create(
         @ScaBody(ProjectCreateDto) data: ProjectCreateDto
@@ -58,6 +50,21 @@ export class ProjectsController extends scaReadOnlyMixin(
             return await this.projects.scaGet(projectId);
         }
         throw result.exception();
+    }
+
+    public crud() {
+        return this.projects;
+    }
+
+    @ScaRemove({dto: ProjectDto, paramId})
+    public async remove(@ScaParamId(paramId) id: number): ScaRemoveResponse {
+        await this.projects.scaMustExist(id);
+
+        if (await this.projects.isOpened(id)) {
+            throw new BadRequestException('Cannot delete an open project');
+        }
+
+        await this.projects.remove(id);
     }
 
     @ScaUpdate({
@@ -85,14 +92,7 @@ export class ProjectsController extends scaReadOnlyMixin(
         throw result.exception();
     }
 
-    @ScaRemove({dto: ProjectDto, paramId})
-    public async remove(@ScaParamId(paramId) id: number): ScaRemoveResponse {
-        await this.projects.scaMustExist(id);
-
-        if (await this.projects.isOpened(id)) {
-            throw new BadRequestException('Cannot delete an open project');
-        }
-
-        await this.projects.remove(id);
+    public validator() {
+        return this.projectsValidator;
     }
 }

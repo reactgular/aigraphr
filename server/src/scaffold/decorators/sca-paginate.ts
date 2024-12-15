@@ -5,9 +5,8 @@ import {applyDecorators, Get, Type} from '@nestjs/common';
 import {ApiOkResponse, ApiOperation} from '@nestjs/swagger';
 
 interface ScaPaginateOptions<T extends ScaEntity> {
-    dto: Type<T>;
-
     decorators?: () => Array<MethodDecorator>;
+    dto: Type<T>;
 }
 
 export function ScaPaginate<T extends ScaEntity>({

@@ -29,21 +29,21 @@ export abstract class ScaffoldEntityService<Entity extends ScaffoldEntity> {
         this.name = toHumanUtils(type.name);
     }
 
-    public async findAll(): Promise<Entity[]> {
-        return await this.repo.find();
-    }
-
     public async create(data: Omit<Partial<Entity>, 'id'>): Promise<Entity> {
         const entity = this.repo.create({...data, id: undefined} as Entity);
         return await this.repo.save(entity, {reload: true});
     }
 
-    public async update(
-        id: Entity['id'],
-        data: Omit<Entity, 'id'>
-    ): Promise<Entity> {
-        const entity = this.repo.create({...data, id} as Entity);
-        return await this.repo.save(entity, {reload: true});
+    public async exists(id: number): Promise<boolean> {
+        return !!(await this.findOne(id));
+    }
+
+    public async findAll(): Promise<Entity[]> {
+        return await this.repo.find();
+    }
+
+    public async findOne(id: Entity['id']): Promise<Entity | null> {
+        return this.repo.findOneBy({id});
     }
 
     public async findOneOrThrow(id: Entity['id']): Promise<Entity> {
@@ -54,19 +54,19 @@ export abstract class ScaffoldEntityService<Entity extends ScaffoldEntity> {
         this.throwNotFound(id);
     }
 
-    public async findOne(id: Entity['id']): Promise<Entity | null> {
-        return this.repo.findOneBy({id});
-    }
-
-    public async exists(id: number): Promise<boolean> {
-        return !!(await this.findOne(id));
-    }
-
     public async remove(id: Entity['id']): Promise<void> {
         if (!(await this.exists(id))) {
             this.throwNotFound(id);
         }
         await this.repo.delete(id);
+    }
+
+    public async update(
+        id: Entity['id'],
+        data: Omit<Entity, 'id'>
+    ): Promise<Entity> {
+        const entity = this.repo.create({...data, id} as Entity);
+        return await this.repo.save(entity, {reload: true});
     }
 
     protected throwNotFound(id: Entity['id']): never {

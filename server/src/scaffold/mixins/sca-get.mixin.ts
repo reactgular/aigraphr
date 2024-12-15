@@ -6,11 +6,9 @@ import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {Type} from '@nestjs/common';
 
 interface ScaGetMixinOptions<TDo extends ScaEntity> {
-    paramId?: string;
-
-    dto: Type<TDo>;
-
     decorators?: () => Array<MethodDecorator>;
+    dto: Type<TDo>;
+    paramId?: string;
 }
 
 export function scaGetMixin<

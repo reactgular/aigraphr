@@ -46,7 +46,6 @@ export class IsValidDto {
 }
 
 export class ProjectCreateValidateDto {
-    name: IsValidDto;
-
     cloneId: IsValidDto;
+    name: IsValidDto;
 }

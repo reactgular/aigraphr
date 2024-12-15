@@ -14,8 +14,8 @@ import {Type} from '@nestjs/common';
  */
 export interface ScaffoldReadOptions<TDto extends ScaffoldDto> {
     getDto: Type<TDto>;
-    indexParam?: ScaffoldParam;
     getParam?: ScaffoldParam;
+    indexParam?: ScaffoldParam;
 }
 
 /**
@@ -40,15 +40,6 @@ export function createReadController<
             >
         ) {}
 
-        @Index.Method()
-        public async index(
-            @Index.Param() params: Index['Param'],
-            @Index.Query() query: Index['Query'],
-            @Index.Body() body: Index['Body']
-        ): Index['Response'] {
-            return this.scaffoldCrud.index(params, query, body);
-        }
-
         @Get.Method()
         public async get(
             @Get.Param() params: Get['Param'],
@@ -56,6 +47,15 @@ export function createReadController<
             @Get.Body() body: Get['Body']
         ): Get['Response'] {
             return this.scaffoldCrud.get(params, query, body);
+        }
+
+        @Index.Method()
+        public async index(
+            @Index.Param() params: Index['Param'],
+            @Index.Query() query: Index['Query'],
+            @Index.Body() body: Index['Body']
+        ): Index['Response'] {
+            return this.scaffoldCrud.index(params, query, body);
         }
     }
 

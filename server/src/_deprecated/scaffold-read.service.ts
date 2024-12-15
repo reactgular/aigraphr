@@ -18,15 +18,6 @@ export class ScaffoldReadService<
         public readonly scaffoldDto: ScaffoldReadDtoService<TEntity, TGetDto>
     ) {}
 
-    public async index(
-        params: ScaffoldIndexType<TGetDto>['Param'],
-        query: ScaffoldIndexType<TGetDto>['Query'],
-        body: ScaffoldIndexType<TGetDto>['Body']
-    ): ScaffoldIndexType<TGetDto>['Response'] {
-        const entities = await this.scaffoldEntity.findAll();
-        return entities.map(this.scaffoldDto.toGetDto);
-    }
-
     public async get(
         params: ScaffoldGetType<TGetDto>['Param'],
         query: ScaffoldGetType<TGetDto>['Query'],
@@ -34,5 +25,14 @@ export class ScaffoldReadService<
     ): ScaffoldGetType<TGetDto>['Response'] {
         const entity = await this.scaffoldEntity.findOneOrThrow(params.id);
         return this.scaffoldDto.toGetDto(entity);
+    }
+
+    public async index(
+        params: ScaffoldIndexType<TGetDto>['Param'],
+        query: ScaffoldIndexType<TGetDto>['Query'],
+        body: ScaffoldIndexType<TGetDto>['Body']
+    ): ScaffoldIndexType<TGetDto>['Response'] {
+        const entities = await this.scaffoldEntity.findAll();
+        return entities.map(this.scaffoldDto.toGetDto);
     }
 }

@@ -10,11 +10,9 @@ interface ScaCreateMixinOptions<
     TDo extends ScaEntity,
     TCreateDto extends object
 > {
-    dto: Type<TDo>;
-
     createDto: Type<TCreateDto>;
-
     decorators?: () => Array<MethodDecorator>;
+    dto: Type<TDo>;
 }
 
 export function scaCreateMixin<

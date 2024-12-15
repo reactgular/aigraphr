@@ -10,11 +10,9 @@ import {
 } from '@nestjs/swagger';
 
 interface ScaGetOptions<T extends ScaEntity> {
-    dto: Type<T>;
-
-    paramId?: string;
-
     decorators?: () => Array<MethodDecorator>;
+    dto: Type<T>;
+    paramId?: string;
 }
 
 export function ScaGet<T extends ScaEntity>({

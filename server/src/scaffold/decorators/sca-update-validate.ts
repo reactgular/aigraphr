@@ -14,10 +14,8 @@ import {
 
 interface ScaUpdateValidateOptions<TBody extends object> {
     bodyDto: Type<TBody>;
-
-    paramId?: string;
-
     decorators?: () => Array<MethodDecorator>;
+    paramId?: string;
 }
 
 export function ScaUpdateValidate<TBody extends object>({

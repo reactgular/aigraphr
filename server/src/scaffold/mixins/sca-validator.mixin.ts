@@ -9,13 +9,10 @@ export interface ScaValidatorMixinOptions<
     TCreateDto extends object,
     TUpdateDto extends object
 > {
-    paramId?: string;
-
     createDto: Type<TCreateDto>;
-
-    updateDto: Type<TUpdateDto>;
-
     decorators?: (action: ValidatorDecoratorActions) => Array<MethodDecorator>;
+    paramId?: string;
+    updateDto: Type<TUpdateDto>;
 }
 
 export function scaValidatorMixin<

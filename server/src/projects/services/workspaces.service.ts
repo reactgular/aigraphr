@@ -15,20 +15,24 @@ export class WorkspacesService {
         private readonly workspaces: Repository<WorkspaceEntity>
     ) {}
 
-    public async exists(id: number): Promise<boolean> {
-        return await this.workspaces.exists({where: {id}});
+    public async create(data: WorkspaceCreateDto): Promise<WorkspaceDto> {
+        return {} as WorkspaceDto;
     }
 
-    public async index(): Promise<Array<WorkspaceDto>> {
-        return await this.workspaces.find();
+    public async exists(id: number): Promise<boolean> {
+        return await this.workspaces.exists({where: {id}});
     }
 
     public async get(id: number): Promise<WorkspaceDto> {
         return {} as WorkspaceDto;
     }
 
-    public async create(data: WorkspaceCreateDto): Promise<WorkspaceDto> {
-        return {} as WorkspaceDto;
+    public async index(): Promise<Array<WorkspaceDto>> {
+        return await this.workspaces.find();
+    }
+
+    public async remove(id: number): Promise<void> {
+        return;
     }
 
     public async update(
@@ -36,9 +40,5 @@ export class WorkspacesService {
         data: WorkspaceUpdateDto
     ): Promise<WorkspaceDto> {
         return {} as WorkspaceDto;
-    }
-
-    public async remove(id: number): Promise<void> {
-        return;
     }
 }

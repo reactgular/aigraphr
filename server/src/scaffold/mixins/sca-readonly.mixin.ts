@@ -7,11 +7,9 @@ import {Type} from '@nestjs/common';
 export type ReadOnlyDecoratorActions = 'paginate' | 'get';
 
 interface ScaReadOnlyMixinOptions<TDo extends ScaEntity> {
-    paramId?: string;
-
-    dto: Type<TDo>;
-
     decorators?: (action: ReadOnlyDecoratorActions) => Array<MethodDecorator>;
+    dto: Type<TDo>;
+    paramId?: string;
 }
 
 export function scaReadOnlyMixin<

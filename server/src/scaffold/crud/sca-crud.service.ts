@@ -36,15 +36,6 @@ export abstract class ScaCrudService<Entity extends ScaffoldEntity> {
         return await this.scaGet(saved.id);
     }
 
-    public async scaMustExist(id: Entity['id']): Promise<void | never> {
-        this.scaLog.debug(`MustExist:${id}`);
-        if (!(await this.scaExists(id))) {
-            throw new BadRequestException(
-                `${this.name} with ID ${id} does not exist`
-            );
-        }
-    }
-
     public async scaExists(id: Entity['id']): Promise<boolean> {
         return await this.repo.exists({where: {id}});
     }
@@ -52,6 +43,15 @@ export abstract class ScaCrudService<Entity extends ScaffoldEntity> {
     public async scaGet(id: Entity['id']): ScaGetResponse<Entity> {
         this.scaLog.debug(`Get:${id}`);
         return await this.repo.findOneOrFail({where: {id}});
+    }
+
+    public async scaMustExist(id: Entity['id']): Promise<void | never> {
+        this.scaLog.debug(`MustExist:${id}`);
+        if (!(await this.scaExists(id))) {
+            throw new BadRequestException(
+                `${this.name} with ID ${id} does not exist`
+            );
+        }
     }
 
     public async scaPaginate(): ScaPaginateResponse<Entity> {

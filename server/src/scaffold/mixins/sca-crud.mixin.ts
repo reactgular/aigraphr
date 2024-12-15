@@ -21,15 +21,11 @@ export interface ScaCrudMixinOptions<
     TCreateDto extends object,
     TUpdateDto extends object
 > {
-    paramId?: string;
-
-    dto: Type<TDo>;
-
     createDto: Type<TCreateDto>;
-
-    updateDto: Type<TUpdateDto>;
-
     decorators?: (action: CrudDecoratorActions) => Array<MethodDecorator>;
+    dto: Type<TDo>;
+    paramId?: string;
+    updateDto: Type<TUpdateDto>;
 }
 
 export function scaCrudMixin<

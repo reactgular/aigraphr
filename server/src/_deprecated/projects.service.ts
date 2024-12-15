@@ -33,15 +33,15 @@ export class ProjectsService
         super(projects, ProjectEntity);
     }
 
-    public toGetDto(entity: ProjectEntity): ProjectDto {
-        return entity;
-    }
-
     public fromCreateDto(create: ProjectCreateDto): Partial<ProjectEntity> {
         return create;
     }
 
     public fromUpdateDto(update: ProjectUpdateDto): Partial<ProjectEntity> {
         return update;
+    }
+
+    public toGetDto(entity: ProjectEntity): ProjectDto {
+        return entity;
     }
 }
