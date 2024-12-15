@@ -26,7 +26,7 @@ export function scaCreateMixin<
     Base: TBase = ScaEmptyBase as TBase
 ) {
     abstract class ScaCreateClass extends Base {
-        abstract crud(): ScaCrudService<TDo>;
+        abstract crud(): ScaCrudService<TDo, TCreateDto>;
 
         @ScaCreate({bodyDto: createDto, responseDto: dto, decorators})
         async scaCreate(

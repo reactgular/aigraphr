@@ -34,7 +34,7 @@ export function scaUpdateMixin<
     Base: TBase = ScaEmptyBase as TBase
 ) {
     abstract class ScaPaginateClass extends Base {
-        abstract crud(): ScaCrudService<TDo>;
+        abstract crud(): ScaCrudService<TDo, never, TUpdateDto>;
 
         @ScaUpdate({bodyDto: updateDto, responseDto: dto, paramId, decorators})
         async scaUpdate(

@@ -30,6 +30,7 @@ export class TypeormExceptionFilter implements ExceptionFilter {
                 ?.split('\n')
                 .map((line) => line.trim());
 
+            // TODO: need to handle 404 not found errors from TypeORM
             if (exception instanceof TypeORMError) {
                 // TODO: Not all query failures are bad requests, we should handle this better.
                 if (exception instanceof QueryFailedError) {
@@ -41,6 +42,7 @@ export class TypeormExceptionFilter implements ExceptionFilter {
                 }
             } else if (exception instanceof HttpException) {
                 response.statusCode = exception.getStatus();
+                response.cause = JSON.parse(JSON.stringify(exception.cause));
             }
         }
 

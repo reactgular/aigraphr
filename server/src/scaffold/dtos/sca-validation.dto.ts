@@ -4,7 +4,7 @@ export enum ScaFieldValidationCode {
     NOT_FOUND = 'not_found',
     NOT_UNIQUE = 'not_unique',
     FORMAT = 'format',
-    VALUE = 'value',
+    BAD_VALUE = 'bad_value',
     INVALID = 'invalid'
 }
 

@@ -36,7 +36,11 @@ export class ProjectsController extends scaReadOnlyMixin({
         super();
     }
 
-    public crud(): ScaCrudService<ProjectEntity> {
+    public crud(): ScaCrudService<
+        ProjectEntity,
+        ProjectCreateDto,
+        ProjectUpdateDto
+    > {
         return this.projects;
     }
 
@@ -44,37 +48,23 @@ export class ProjectsController extends scaReadOnlyMixin({
     public async create(
         @ScaBody(ProjectCreateDto) data: ProjectCreateDto
     ): ScaCreateResponse<ProjectDto> {
-        if (typeof data.cloneId === 'number') {
-            await this.projects.scaMustExist(data.cloneId);
+        const validator = await this.projects.scaCreateValidate(data);
+        if (validator.isValid()) {
+            const projectId =
+                typeof data.cloneId === 'number'
+                    ? await this.projects.clone(data.cloneId, data.name)
+                    : await this.projects.create(data.name);
+            return await this.projects.scaGet(projectId);
         }
-
-        const projectId =
-            typeof data.cloneId === 'number'
-                ? await this.projects.clone(data.cloneId, data.name)
-                : await this.projects.create(data.name);
-
-        return await this.projects.scaGet(projectId);
+        throw validator.badRequest();
     }
 
     @ScaCreateValidate({bodyDto: ProjectCreateDto})
     public async createValidate(
         @ScaBody(ProjectCreateDto) data: ProjectCreateDto
     ): ScaCreateValidateResponse {
-        const invalidator = new ScaInvalidator();
-
-        if (typeof data.cloneId === 'number') {
-            if (!(await this.projects.scaExists(data.cloneId))) {
-                invalidator.notFound('cloneId', 'Project does not exist');
-            }
-        }
-
-        if (await this.projects.existsByName(data.name)) {
-            invalidator.notUnique(
-                'name',
-                'Project with the same name already exists'
-            );
-        }
-
+        const invalidator = new ScaInvalidator<ProjectCreateDto>();
+        await this.projects.onCreateValidate(invalidator, data);
         return invalidator.response();
     }
 
@@ -87,25 +77,28 @@ export class ProjectsController extends scaReadOnlyMixin({
         @ScaParamId(paramId) id: number,
         @ScaBody(ProjectUpdateDto) data: ProjectUpdateDto
     ): ScaUpdateResponse<ProjectDto> {
-        await this.projects.scaMustExist(id);
-
-        if (data.name && typeof data.open === 'boolean') {
-            throw new BadRequestException(
-                'Cannot change name and open status at the same time'
-            );
-        } else if (data.name) {
-            await this.projects.rename(id, data.name);
-        } else if (typeof data.open === 'boolean') {
-            if (data.open) {
-                await this.projects.open(id);
+        const validator = await this.projects.scaUpdateValidate(id, data);
+        if (validator.isValid()) {
+            if (data.name && typeof data.open === 'boolean') {
+                // TODO: move to scaUpdateValidate
+                throw new BadRequestException(
+                    'Cannot change name and open status at the same time'
+                );
+            } else if (data.name) {
+                await this.projects.rename(id, data.name);
+            } else if (typeof data.open === 'boolean') {
+                if (data.open) {
+                    await this.projects.open(id);
+                } else {
+                    await this.projects.close(id);
+                }
             } else {
-                await this.projects.close(id);
+                // TODO: move to scaUpdateValidate
+                throw new BadRequestException('No changes provided');
             }
-        } else {
-            throw new BadRequestException('No changes provided');
+            return this.projects.scaGet(id);
         }
-
-        return this.projects.scaGet(id);
+        throw validator.badRequest();
     }
 
     @ScaUpdateValidate({
@@ -116,24 +109,8 @@ export class ProjectsController extends scaReadOnlyMixin({
         @ScaParamId(paramId) id: number,
         @ScaBody(ProjectUpdateDto) data: ProjectUpdateDto
     ): ScaUpdateValidateResponse {
-        const project = await this.projects.scaGet(id);
-
-        const invalidator = new ScaInvalidator();
-
-        if (data.name && data.name !== project.name) {
-            if (data.name.length < 3) {
-                invalidator.invalid(
-                    'name',
-                    'Name must be at least 3 characters long'
-                );
-            } else if (await this.projects.existsByName(data.name)) {
-                invalidator.notUnique(
-                    'name',
-                    'Project with the same name already exists'
-                );
-            }
-        }
-
+        const invalidator = new ScaInvalidator<ProjectUpdateDto>();
+        await this.projects.onUpdateValidate(invalidator, id, data);
         return invalidator.response();
     }
 
