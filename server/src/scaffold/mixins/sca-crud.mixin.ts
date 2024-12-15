@@ -1,11 +1,19 @@
 import {scaCreateMixin} from '@/scaffold/mixins/sca-create.mixin';
-import {scaGetMixin} from '@/scaffold/mixins/sca-get.mixin';
-import {scaPaginateMixin} from '@/scaffold/mixins/sca-paginate.mixin';
+import {
+    ReadOnlyDecoratorActions,
+    scaReadOnlyMixin
+} from '@/scaffold/mixins/sca-readonly.mixin';
 import {scaRemoveMixin} from '@/scaffold/mixins/sca-remove.mixin';
 import {scaUpdateMixin} from '@/scaffold/mixins/sca-update.mixin';
 import {ScaConstructor, ScaEmptyBase} from '@/scaffold/mixins/sca.mixin';
 import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {Type} from '@nestjs/common';
+
+export type CrudDecoratorActions =
+    | 'create'
+    | 'update'
+    | 'remove'
+    | ReadOnlyDecoratorActions;
 
 export interface ScaCrudMixinOptions<
     TDo extends ScaEntity,
@@ -20,9 +28,7 @@ export interface ScaCrudMixinOptions<
 
     updateDto: Type<TUpdateDto>;
 
-    decorators?: (
-        action: 'paginate' | 'get' | 'create' | 'update' | 'remove'
-    ) => Array<MethodDecorator>;
+    decorators?: (action: CrudDecoratorActions) => Array<MethodDecorator>;
 }
 
 export function scaCrudMixin<
@@ -40,35 +46,32 @@ export function scaCrudMixin<
     }: ScaCrudMixinOptions<TDo, TCreateDto, TUpdateDto>,
     Base: TBase = ScaEmptyBase as TBase
 ) {
-    return scaPaginateMixin(
-        {dto, decorators: () => decorators?.('paginate') ?? []},
-        scaGetMixin(
+    return scaCreateMixin(
+        {
+            dto,
+            createDto,
+            decorators: () => decorators?.('create') ?? []
+        },
+        scaUpdateMixin(
             {
                 paramId,
                 dto,
-                decorators: () => decorators?.('get') ?? []
+                updateDto,
+                decorators: () => decorators?.('update') ?? []
             },
-            scaCreateMixin(
+            scaRemoveMixin(
                 {
+                    paramId,
                     dto,
-                    createDto,
-                    decorators: () => decorators?.('create') ?? []
+                    decorators: () => decorators?.('remove') ?? []
                 },
-                scaUpdateMixin(
+                scaReadOnlyMixin(
                     {
                         paramId,
                         dto,
-                        updateDto,
-                        decorators: () => decorators?.('update') ?? []
+                        decorators: (action) => decorators?.(action) ?? []
                     },
-                    scaRemoveMixin(
-                        {
-                            paramId,
-                            dto,
-                            decorators: () => decorators?.('remove') ?? []
-                        },
-                        Base
-                    )
+                    Base
                 )
             )
         )

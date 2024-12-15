@@ -4,12 +4,14 @@ import {ScaConstructor, ScaEmptyBase} from '@/scaffold/mixins/sca.mixin';
 import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {Type} from '@nestjs/common';
 
+export type ReadOnlyDecoratorActions = 'paginate' | 'get';
+
 interface ScaReadOnlyMixinOptions<TDo extends ScaEntity> {
     paramId?: string;
 
     dto: Type<TDo>;
 
-    decorators?: (action: 'paginate' | 'get') => Array<MethodDecorator>;
+    decorators?: (action: ReadOnlyDecoratorActions) => Array<MethodDecorator>;
 }
 
 export function scaReadOnlyMixin<
