@@ -4,43 +4,57 @@ import {createClient, createConfig, type Options} from '@hey-api/client-fetch';
 import type {
     ProjectsScaPaginateData,
     ProjectsScaPaginateResponse,
-    ProjectsScaCreateData,
-    ProjectsScaCreateResponse,
-    ProjectsScaRemoveData,
-    ProjectsScaRemoveResponse,
+    ProjectsCreateData,
+    ProjectsCreateError,
+    ProjectsCreateResponse,
+    ProjectsCreateValidateData,
+    ProjectsCreateValidateError,
+    ProjectsCreateValidateResponse,
+    ProjectsRemoveData,
+    ProjectsRemoveResponse,
     ProjectsScaGetData,
     ProjectsScaGetResponse,
-    ProjectsScaUpdateData,
-    ProjectsScaUpdateResponse,
+    ProjectsUpdateData,
+    ProjectsUpdateError,
+    ProjectsUpdateResponse,
+    ProjectsUpdateValidateData,
+    ProjectsUpdateValidateError,
+    ProjectsUpdateValidateResponse,
     EdgesScaPaginateData,
     EdgesScaPaginateResponse,
     EdgesScaCreateData,
+    EdgesScaCreateError,
     EdgesScaCreateResponse,
     EdgesScaRemoveData,
     EdgesScaRemoveResponse,
     EdgesScaGetData,
     EdgesScaGetResponse,
     EdgesScaUpdateData,
+    EdgesScaUpdateError,
     EdgesScaUpdateResponse,
     NodesScaPaginateData,
     NodesScaPaginateResponse,
     NodesScaCreateData,
+    NodesScaCreateError,
     NodesScaCreateResponse,
     NodesScaRemoveData,
     NodesScaRemoveResponse,
     NodesScaGetData,
     NodesScaGetResponse,
     NodesScaUpdateData,
+    NodesScaUpdateError,
     NodesScaUpdateResponse,
     WorkspacesScaPaginateData,
     WorkspacesScaPaginateResponse,
     WorkspacesScaCreateData,
+    WorkspacesScaCreateError,
     WorkspacesScaCreateResponse,
     WorkspacesScaRemoveData,
     WorkspacesScaRemoveResponse,
     WorkspacesScaGetData,
     WorkspacesScaGetResponse,
     WorkspacesScaUpdateData,
+    WorkspacesScaUpdateError,
     WorkspacesScaUpdateResponse,
     SettingsGetData,
     SettingsGetResponse,
@@ -64,19 +78,19 @@ export const projectsScaPaginate = <ThrowOnError extends boolean = false>(
         ThrowOnError
     >({
         ...options,
-        url: '/projects'
+        url: '/api/projects'
     });
 };
 
 /**
  * Create a new Project
  */
-export const projectsScaCreate = <ThrowOnError extends boolean = false>(
-    options: Options<ProjectsScaCreateData, ThrowOnError>
+export const projectsCreate = <ThrowOnError extends boolean = false>(
+    options: Options<ProjectsCreateData, ThrowOnError>
 ) => {
     return (options?.client ?? client).post<
-        ProjectsScaCreateResponse,
-        unknown,
+        ProjectsCreateResponse,
+        ProjectsCreateError,
         ThrowOnError
     >({
         ...options,
@@ -84,23 +98,43 @@ export const projectsScaCreate = <ThrowOnError extends boolean = false>(
             'Content-Type': 'application/json',
             ...options?.headers
         },
-        url: '/projects'
+        url: '/api/projects'
+    });
+};
+
+/**
+ * Validates creation of a ProjectCreate
+ */
+export const projectsCreateValidate = <ThrowOnError extends boolean = false>(
+    options: Options<ProjectsCreateValidateData, ThrowOnError>
+) => {
+    return (options?.client ?? client).post<
+        ProjectsCreateValidateResponse,
+        ProjectsCreateValidateError,
+        ThrowOnError
+    >({
+        ...options,
+        headers: {
+            'Content-Type': 'application/json',
+            ...options?.headers
+        },
+        url: '/api/projects/validates'
     });
 };
 
 /**
  * Delete a Project by projectId
  */
-export const projectsScaRemove = <ThrowOnError extends boolean = false>(
-    options: Options<ProjectsScaRemoveData, ThrowOnError>
+export const projectsRemove = <ThrowOnError extends boolean = false>(
+    options: Options<ProjectsRemoveData, ThrowOnError>
 ) => {
     return (options?.client ?? client).delete<
-        ProjectsScaRemoveResponse,
+        ProjectsRemoveResponse,
         unknown,
         ThrowOnError
     >({
         ...options,
-        url: '/projects/{projectId}'
+        url: '/api/projects/{projectId}'
     });
 };
 
@@ -116,19 +150,19 @@ export const projectsScaGet = <ThrowOnError extends boolean = false>(
         ThrowOnError
     >({
         ...options,
-        url: '/projects/{projectId}'
+        url: '/api/projects/{projectId}'
     });
 };
 
 /**
  * Update a Project by projectId
  */
-export const projectsScaUpdate = <ThrowOnError extends boolean = false>(
-    options: Options<ProjectsScaUpdateData, ThrowOnError>
+export const projectsUpdate = <ThrowOnError extends boolean = false>(
+    options: Options<ProjectsUpdateData, ThrowOnError>
 ) => {
     return (options?.client ?? client).patch<
-        ProjectsScaUpdateResponse,
-        unknown,
+        ProjectsUpdateResponse,
+        ProjectsUpdateError,
         ThrowOnError
     >({
         ...options,
@@ -136,7 +170,27 @@ export const projectsScaUpdate = <ThrowOnError extends boolean = false>(
             'Content-Type': 'application/json',
             ...options?.headers
         },
-        url: '/projects/{projectId}'
+        url: '/api/projects/{projectId}'
+    });
+};
+
+/**
+ * Validates updating a Project by projectId
+ */
+export const projectsUpdateValidate = <ThrowOnError extends boolean = false>(
+    options: Options<ProjectsUpdateValidateData, ThrowOnError>
+) => {
+    return (options?.client ?? client).post<
+        ProjectsUpdateValidateResponse,
+        ProjectsUpdateValidateError,
+        ThrowOnError
+    >({
+        ...options,
+        headers: {
+            'Content-Type': 'application/json',
+            ...options?.headers
+        },
+        url: '/api/projects/validates/{projectId}'
     });
 };
 
@@ -152,7 +206,7 @@ export const edgesScaPaginate = <ThrowOnError extends boolean = false>(
         ThrowOnError
     >({
         ...options,
-        url: '/projects/{projectId}/workspaces/{workspaceId}/edges'
+        url: '/api/projects/{projectId}/workspaces/{workspaceId}/edges'
     });
 };
 
@@ -164,7 +218,7 @@ export const edgesScaCreate = <ThrowOnError extends boolean = false>(
 ) => {
     return (options?.client ?? client).post<
         EdgesScaCreateResponse,
-        unknown,
+        EdgesScaCreateError,
         ThrowOnError
     >({
         ...options,
@@ -172,7 +226,7 @@ export const edgesScaCreate = <ThrowOnError extends boolean = false>(
             'Content-Type': 'application/json',
             ...options?.headers
         },
-        url: '/projects/{projectId}/workspaces/{workspaceId}/edges'
+        url: '/api/projects/{projectId}/workspaces/{workspaceId}/edges'
     });
 };
 
@@ -188,7 +242,7 @@ export const edgesScaRemove = <ThrowOnError extends boolean = false>(
         ThrowOnError
     >({
         ...options,
-        url: '/projects/{projectId}/workspaces/{workspaceId}/edges/{edgeId}'
+        url: '/api/projects/{projectId}/workspaces/{workspaceId}/edges/{edgeId}'
     });
 };
 
@@ -204,7 +258,7 @@ export const edgesScaGet = <ThrowOnError extends boolean = false>(
         ThrowOnError
     >({
         ...options,
-        url: '/projects/{projectId}/workspaces/{workspaceId}/edges/{edgeId}'
+        url: '/api/projects/{projectId}/workspaces/{workspaceId}/edges/{edgeId}'
     });
 };
 
@@ -216,7 +270,7 @@ export const edgesScaUpdate = <ThrowOnError extends boolean = false>(
 ) => {
     return (options?.client ?? client).patch<
         EdgesScaUpdateResponse,
-        unknown,
+        EdgesScaUpdateError,
         ThrowOnError
     >({
         ...options,
@@ -224,7 +278,7 @@ export const edgesScaUpdate = <ThrowOnError extends boolean = false>(
             'Content-Type': 'application/json',
             ...options?.headers
         },
-        url: '/projects/{projectId}/workspaces/{workspaceId}/edges/{edgeId}'
+        url: '/api/projects/{projectId}/workspaces/{workspaceId}/edges/{edgeId}'
     });
 };
 
@@ -240,7 +294,7 @@ export const nodesScaPaginate = <ThrowOnError extends boolean = false>(
         ThrowOnError
     >({
         ...options,
-        url: '/projects/{projectId}/workspaces/{workspaceId}/nodes'
+        url: '/api/projects/{projectId}/workspaces/{workspaceId}/nodes'
     });
 };
 
@@ -252,7 +306,7 @@ export const nodesScaCreate = <ThrowOnError extends boolean = false>(
 ) => {
     return (options?.client ?? client).post<
         NodesScaCreateResponse,
-        unknown,
+        NodesScaCreateError,
         ThrowOnError
     >({
         ...options,
@@ -260,7 +314,7 @@ export const nodesScaCreate = <ThrowOnError extends boolean = false>(
             'Content-Type': 'application/json',
             ...options?.headers
         },
-        url: '/projects/{projectId}/workspaces/{workspaceId}/nodes'
+        url: '/api/projects/{projectId}/workspaces/{workspaceId}/nodes'
     });
 };
 
@@ -276,7 +330,7 @@ export const nodesScaRemove = <ThrowOnError extends boolean = false>(
         ThrowOnError
     >({
         ...options,
-        url: '/projects/{projectId}/workspaces/{workspaceId}/nodes/{nodeId}'
+        url: '/api/projects/{projectId}/workspaces/{workspaceId}/nodes/{nodeId}'
     });
 };
 
@@ -292,7 +346,7 @@ export const nodesScaGet = <ThrowOnError extends boolean = false>(
         ThrowOnError
     >({
         ...options,
-        url: '/projects/{projectId}/workspaces/{workspaceId}/nodes/{nodeId}'
+        url: '/api/projects/{projectId}/workspaces/{workspaceId}/nodes/{nodeId}'
     });
 };
 
@@ -304,7 +358,7 @@ export const nodesScaUpdate = <ThrowOnError extends boolean = false>(
 ) => {
     return (options?.client ?? client).patch<
         NodesScaUpdateResponse,
-        unknown,
+        NodesScaUpdateError,
         ThrowOnError
     >({
         ...options,
@@ -312,7 +366,7 @@ export const nodesScaUpdate = <ThrowOnError extends boolean = false>(
             'Content-Type': 'application/json',
             ...options?.headers
         },
-        url: '/projects/{projectId}/workspaces/{workspaceId}/nodes/{nodeId}'
+        url: '/api/projects/{projectId}/workspaces/{workspaceId}/nodes/{nodeId}'
     });
 };
 
@@ -328,7 +382,7 @@ export const workspacesScaPaginate = <ThrowOnError extends boolean = false>(
         ThrowOnError
     >({
         ...options,
-        url: '/projects/{projectId}/workspaces'
+        url: '/api/projects/{projectId}/workspaces'
     });
 };
 
@@ -340,7 +394,7 @@ export const workspacesScaCreate = <ThrowOnError extends boolean = false>(
 ) => {
     return (options?.client ?? client).post<
         WorkspacesScaCreateResponse,
-        unknown,
+        WorkspacesScaCreateError,
         ThrowOnError
     >({
         ...options,
@@ -348,7 +402,7 @@ export const workspacesScaCreate = <ThrowOnError extends boolean = false>(
             'Content-Type': 'application/json',
             ...options?.headers
         },
-        url: '/projects/{projectId}/workspaces'
+        url: '/api/projects/{projectId}/workspaces'
     });
 };
 
@@ -364,7 +418,7 @@ export const workspacesScaRemove = <ThrowOnError extends boolean = false>(
         ThrowOnError
     >({
         ...options,
-        url: '/projects/{projectId}/workspaces/{workspaceId}'
+        url: '/api/projects/{projectId}/workspaces/{workspaceId}'
     });
 };
 
@@ -380,7 +434,7 @@ export const workspacesScaGet = <ThrowOnError extends boolean = false>(
         ThrowOnError
     >({
         ...options,
-        url: '/projects/{projectId}/workspaces/{workspaceId}'
+        url: '/api/projects/{projectId}/workspaces/{workspaceId}'
     });
 };
 
@@ -392,7 +446,7 @@ export const workspacesScaUpdate = <ThrowOnError extends boolean = false>(
 ) => {
     return (options?.client ?? client).patch<
         WorkspacesScaUpdateResponse,
-        unknown,
+        WorkspacesScaUpdateError,
         ThrowOnError
     >({
         ...options,
@@ -400,7 +454,7 @@ export const workspacesScaUpdate = <ThrowOnError extends boolean = false>(
             'Content-Type': 'application/json',
             ...options?.headers
         },
-        url: '/projects/{projectId}/workspaces/{workspaceId}'
+        url: '/api/projects/{projectId}/workspaces/{workspaceId}'
     });
 };
 
@@ -416,7 +470,7 @@ export const settingsGet = <ThrowOnError extends boolean = false>(
         ThrowOnError
     >({
         ...options,
-        url: '/app/settings'
+        url: '/api/app/settings'
     });
 };
 
@@ -436,7 +490,7 @@ export const settingsUpdate = <ThrowOnError extends boolean = false>(
             'Content-Type': 'application/json',
             ...options?.headers
         },
-        url: '/app/settings'
+        url: '/api/app/settings'
     });
 };
 
@@ -456,6 +510,6 @@ export const settingsReplace = <ThrowOnError extends boolean = false>(
             'Content-Type': 'application/json',
             ...options?.headers
         },
-        url: '/app/settings'
+        url: '/api/app/settings'
     });
 };

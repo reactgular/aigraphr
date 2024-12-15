@@ -1,9 +1,9 @@
 {
     "openapi": "3.0.0",
     "paths": {
-        "/projects": {
+        "/api/projects": {
             "post": {
-                "operationId": "Projects_scaCreate",
+                "operationId": "Projects_create",
                 "parameters": [],
                 "requestBody": {
                     "required": true,
@@ -16,12 +16,37 @@
                     }
                 },
                 "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
                     "201": {
                         "description": "Return a new Project",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/ProjectDto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "TypeORM related errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExceptionFilterDto"
+                                },
+                                "example": {
+                                    "statusCode": 400,
+                                    "message": "property should not be empty",
+                                    "path": "/api/v1/users"
                                 }
                             }
                         }
@@ -53,9 +78,59 @@
                 ]
             }
         },
-        "/projects/{projectId}": {
+        "/api/projects/validates": {
+            "post": {
+                "operationId": "Projects_createValidate",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProjectCreateDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Validation results of ProjectCreate",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ScaValidationResponseDto"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "TypeORM related errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExceptionFilterDto"
+                                },
+                                "example": {
+                                    "statusCode": 400,
+                                    "message": "property should not be empty",
+                                    "path": "/api/v1/users"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Validates creation of a ProjectCreate",
+                "tags": [
+                    "Projects"
+                ]
+            }
+        },
+        "/api/projects/{projectId}": {
             "patch": {
-                "operationId": "Projects_scaUpdate",
+                "operationId": "Projects_update",
                 "parameters": [
                     {
                         "name": "projectId",
@@ -88,6 +163,21 @@
                             }
                         }
                     },
+                    "400": {
+                        "description": "TypeORM related errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExceptionFilterDto"
+                                },
+                                "example": {
+                                    "statusCode": 400,
+                                    "message": "property should not be empty",
+                                    "path": "/api/v1/users"
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "A Project with the specified projectId was not found"
                     }
@@ -98,7 +188,7 @@
                 ]
             },
             "delete": {
-                "operationId": "Projects_scaRemove",
+                "operationId": "Projects_remove",
                 "parameters": [
                     {
                         "name": "projectId",
@@ -111,6 +201,16 @@
                     }
                 ],
                 "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
                     "204": {
                         "description": "The Project has been deleted"
                     },
@@ -157,7 +257,67 @@
                 ]
             }
         },
-        "/projects/{projectId}/workspaces/{workspaceId}/edges": {
+        "/api/projects/validates/{projectId}": {
+            "post": {
+                "operationId": "Projects_updateValidate",
+                "parameters": [
+                    {
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a Project",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProjectUpdateDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Return a Project by projectId",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProjectDto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "TypeORM related errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExceptionFilterDto"
+                                },
+                                "example": {
+                                    "statusCode": 400,
+                                    "message": "property should not be empty",
+                                    "path": "/api/v1/users"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "A Project with the specified projectId was not found"
+                    }
+                },
+                "summary": "Validates updating a Project by projectId",
+                "tags": [
+                    "Projects"
+                ]
+            }
+        },
+        "/api/projects/{projectId}/workspaces/{workspaceId}/edges": {
             "post": {
                 "operationId": "Edges_scaCreate",
                 "parameters": [
@@ -197,6 +357,21 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/EdgeDto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "TypeORM related errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExceptionFilterDto"
+                                },
+                                "example": {
+                                    "statusCode": 400,
+                                    "message": "property should not be empty",
+                                    "path": "/api/v1/users"
                                 }
                             }
                         }
@@ -247,7 +422,7 @@
                 ]
             }
         },
-        "/projects/{projectId}/workspaces/{workspaceId}/edges/{edgeId}": {
+        "/api/projects/{projectId}/workspaces/{workspaceId}/edges/{edgeId}": {
             "patch": {
                 "operationId": "Edges_scaUpdate",
                 "parameters": [
@@ -296,6 +471,21 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/EdgeDto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "TypeORM related errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExceptionFilterDto"
+                                },
+                                "example": {
+                                    "statusCode": 400,
+                                    "message": "property should not be empty",
+                                    "path": "/api/v1/users"
                                 }
                             }
                         }
@@ -405,7 +595,7 @@
                 ]
             }
         },
-        "/projects/{projectId}/workspaces/{workspaceId}/nodes": {
+        "/api/projects/{projectId}/workspaces/{workspaceId}/nodes": {
             "post": {
                 "operationId": "Nodes_scaCreate",
                 "parameters": [
@@ -445,6 +635,21 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/NodeDto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "TypeORM related errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExceptionFilterDto"
+                                },
+                                "example": {
+                                    "statusCode": 400,
+                                    "message": "property should not be empty",
+                                    "path": "/api/v1/users"
                                 }
                             }
                         }
@@ -495,7 +700,7 @@
                 ]
             }
         },
-        "/projects/{projectId}/workspaces/{workspaceId}/nodes/{nodeId}": {
+        "/api/projects/{projectId}/workspaces/{workspaceId}/nodes/{nodeId}": {
             "patch": {
                 "operationId": "Nodes_scaUpdate",
                 "parameters": [
@@ -544,6 +749,21 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/NodeDto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "TypeORM related errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExceptionFilterDto"
+                                },
+                                "example": {
+                                    "statusCode": 400,
+                                    "message": "property should not be empty",
+                                    "path": "/api/v1/users"
                                 }
                             }
                         }
@@ -653,7 +873,7 @@
                 ]
             }
         },
-        "/projects/{projectId}/workspaces": {
+        "/api/projects/{projectId}/workspaces": {
             "post": {
                 "operationId": "Workspaces_scaCreate",
                 "parameters": [
@@ -684,6 +904,21 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/WorkspaceDto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "TypeORM related errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExceptionFilterDto"
+                                },
+                                "example": {
+                                    "statusCode": 400,
+                                    "message": "property should not be empty",
+                                    "path": "/api/v1/users"
                                 }
                             }
                         }
@@ -725,7 +960,7 @@
                 ]
             }
         },
-        "/projects/{projectId}/workspaces/{workspaceId}": {
+        "/api/projects/{projectId}/workspaces/{workspaceId}": {
             "patch": {
                 "operationId": "Workspaces_scaUpdate",
                 "parameters": [
@@ -765,6 +1000,21 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/WorkspaceDto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "TypeORM related errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExceptionFilterDto"
+                                },
+                                "example": {
+                                    "statusCode": 400,
+                                    "message": "property should not be empty",
+                                    "path": "/api/v1/users"
                                 }
                             }
                         }
@@ -856,7 +1106,7 @@
                 ]
             }
         },
-        "/app/settings": {
+        "/api/app/settings": {
             "get": {
                 "operationId": "Settings_get",
                 "parameters": [],
@@ -995,6 +1245,57 @@
                     "id",
                     "name",
                     "open"
+                ]
+            },
+            "ExceptionFilterDto": {
+                "type": "object",
+                "properties": {
+                    "statusCode": {
+                        "type": "number"
+                    },
+                    "message": {
+                        "type": "string"
+                    },
+                    "path": {
+                        "type": "string"
+                    },
+                    "stack": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "required": [
+                    "statusCode",
+                    "message",
+                    "path"
+                ]
+            },
+            "ScaValidationResponseDto": {
+                "type": "object",
+                "properties": {
+                    "validations": {
+                        "type": "object",
+                        "description": "Validation results for each field.",
+                        "example": {
+                            "name": {
+                                "isValid": false,
+                                "message": "The name is already taken."
+                            },
+                            "email": {
+                                "isValid": true,
+                                "message": "The email is available."
+                            }
+                        },
+                        "additionalProperties": {
+                            "type": "object",
+                            "$ref": "#/components/schemas/ScaFieldValidationDto"
+                        }
+                    }
+                },
+                "required": [
+                    "validations"
                 ]
             },
             "ProjectUpdateDto": {
@@ -1144,29 +1445,23 @@
                     "test"
                 ]
             },
-            "ExceptionFilterDto": {
+            "ScaFieldValidationDto": {
                 "type": "object",
                 "properties": {
-                    "statusCode": {
-                        "type": "number"
+                    "isValid": {
+                        "type": "boolean",
+                        "description": "Indicates whether the field value is valid.",
+                        "example": true
                     },
                     "message": {
-                        "type": "string"
-                    },
-                    "path": {
-                        "type": "string"
-                    },
-                    "stack": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
+                        "type": "string",
+                        "description": "A message providing additional details about the validation.",
+                        "example": "The email is available."
                     }
                 },
                 "required": [
-                    "statusCode",
-                    "message",
-                    "path"
+                    "isValid",
+                    "message"
                 ]
             }
         }

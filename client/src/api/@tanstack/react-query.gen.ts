@@ -8,36 +8,50 @@ import {
 } from '@tanstack/react-query';
 import type {
     ProjectsScaPaginateData,
-    ProjectsScaCreateData,
-    ProjectsScaCreateResponse,
-    ProjectsScaRemoveData,
-    ProjectsScaRemoveResponse,
+    ProjectsCreateData,
+    ProjectsCreateError,
+    ProjectsCreateResponse,
+    ProjectsCreateValidateData,
+    ProjectsCreateValidateError,
+    ProjectsCreateValidateResponse,
+    ProjectsRemoveData,
+    ProjectsRemoveResponse,
     ProjectsScaGetData,
-    ProjectsScaUpdateData,
-    ProjectsScaUpdateResponse,
+    ProjectsUpdateData,
+    ProjectsUpdateError,
+    ProjectsUpdateResponse,
+    ProjectsUpdateValidateData,
+    ProjectsUpdateValidateError,
+    ProjectsUpdateValidateResponse,
     EdgesScaPaginateData,
     EdgesScaCreateData,
+    EdgesScaCreateError,
     EdgesScaCreateResponse,
     EdgesScaRemoveData,
     EdgesScaRemoveResponse,
     EdgesScaGetData,
     EdgesScaUpdateData,
+    EdgesScaUpdateError,
     EdgesScaUpdateResponse,
     NodesScaPaginateData,
     NodesScaCreateData,
+    NodesScaCreateError,
     NodesScaCreateResponse,
     NodesScaRemoveData,
     NodesScaRemoveResponse,
     NodesScaGetData,
     NodesScaUpdateData,
+    NodesScaUpdateError,
     NodesScaUpdateResponse,
     WorkspacesScaPaginateData,
     WorkspacesScaCreateData,
+    WorkspacesScaCreateError,
     WorkspacesScaCreateResponse,
     WorkspacesScaRemoveData,
     WorkspacesScaRemoveResponse,
     WorkspacesScaGetData,
     WorkspacesScaUpdateData,
+    WorkspacesScaUpdateError,
     WorkspacesScaUpdateResponse,
     SettingsGetData,
     SettingsUpdateData,
@@ -48,10 +62,12 @@ import type {
 import {
     client,
     projectsScaPaginate,
-    projectsScaCreate,
-    projectsScaRemove,
+    projectsCreate,
+    projectsCreateValidate,
+    projectsRemove,
     projectsScaGet,
-    projectsScaUpdate,
+    projectsUpdate,
+    projectsUpdateValidate,
     edgesScaPaginate,
     edgesScaCreate,
     edgesScaRemove,
@@ -127,16 +143,14 @@ export const projectsScaPaginateOptions = (
     });
 };
 
-export const projectsScaCreateQueryKey = (
-    options: Options<ProjectsScaCreateData>
-) => [createQueryKey('projectsScaCreate', options)];
+export const projectsCreateQueryKey = (
+    options: Options<ProjectsCreateData>
+) => [createQueryKey('projectsCreate', options)];
 
-export const projectsScaCreateOptions = (
-    options: Options<ProjectsScaCreateData>
-) => {
+export const projectsCreateOptions = (options: Options<ProjectsCreateData>) => {
     return queryOptions({
         queryFn: async ({queryKey, signal}) => {
-            const {data} = await projectsScaCreate({
+            const {data} = await projectsCreate({
                 ...options,
                 ...queryKey[0],
                 signal,
@@ -144,20 +158,20 @@ export const projectsScaCreateOptions = (
             });
             return data;
         },
-        queryKey: projectsScaCreateQueryKey(options)
+        queryKey: projectsCreateQueryKey(options)
     });
 };
 
-export const projectsScaCreateMutation = (
-    options?: Partial<Options<ProjectsScaCreateData>>
+export const projectsCreateMutation = (
+    options?: Partial<Options<ProjectsCreateData>>
 ) => {
     const mutationOptions: UseMutationOptions<
-        ProjectsScaCreateResponse,
-        DefaultError,
-        Options<ProjectsScaCreateData>
+        ProjectsCreateResponse,
+        ProjectsCreateError,
+        Options<ProjectsCreateData>
     > = {
         mutationFn: async (localOptions) => {
-            const {data} = await projectsScaCreate({
+            const {data} = await projectsCreate({
                 ...options,
                 ...localOptions,
                 throwOnError: true
@@ -168,16 +182,57 @@ export const projectsScaCreateMutation = (
     return mutationOptions;
 };
 
-export const projectsScaRemoveMutation = (
-    options?: Partial<Options<ProjectsScaRemoveData>>
+export const projectsCreateValidateQueryKey = (
+    options: Options<ProjectsCreateValidateData>
+) => [createQueryKey('projectsCreateValidate', options)];
+
+export const projectsCreateValidateOptions = (
+    options: Options<ProjectsCreateValidateData>
+) => {
+    return queryOptions({
+        queryFn: async ({queryKey, signal}) => {
+            const {data} = await projectsCreateValidate({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: projectsCreateValidateQueryKey(options)
+    });
+};
+
+export const projectsCreateValidateMutation = (
+    options?: Partial<Options<ProjectsCreateValidateData>>
 ) => {
     const mutationOptions: UseMutationOptions<
-        ProjectsScaRemoveResponse,
-        DefaultError,
-        Options<ProjectsScaRemoveData>
+        ProjectsCreateValidateResponse,
+        ProjectsCreateValidateError,
+        Options<ProjectsCreateValidateData>
     > = {
         mutationFn: async (localOptions) => {
-            const {data} = await projectsScaRemove({
+            const {data} = await projectsCreateValidate({
+                ...options,
+                ...localOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const projectsRemoveMutation = (
+    options?: Partial<Options<ProjectsRemoveData>>
+) => {
+    const mutationOptions: UseMutationOptions<
+        ProjectsRemoveResponse,
+        DefaultError,
+        Options<ProjectsRemoveData>
+    > = {
+        mutationFn: async (localOptions) => {
+            const {data} = await projectsRemove({
                 ...options,
                 ...localOptions,
                 throwOnError: true
@@ -207,16 +262,57 @@ export const projectsScaGetOptions = (options: Options<ProjectsScaGetData>) => {
     });
 };
 
-export const projectsScaUpdateMutation = (
-    options?: Partial<Options<ProjectsScaUpdateData>>
+export const projectsUpdateMutation = (
+    options?: Partial<Options<ProjectsUpdateData>>
 ) => {
     const mutationOptions: UseMutationOptions<
-        ProjectsScaUpdateResponse,
-        DefaultError,
-        Options<ProjectsScaUpdateData>
+        ProjectsUpdateResponse,
+        ProjectsUpdateError,
+        Options<ProjectsUpdateData>
     > = {
         mutationFn: async (localOptions) => {
-            const {data} = await projectsScaUpdate({
+            const {data} = await projectsUpdate({
+                ...options,
+                ...localOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const projectsUpdateValidateQueryKey = (
+    options: Options<ProjectsUpdateValidateData>
+) => [createQueryKey('projectsUpdateValidate', options)];
+
+export const projectsUpdateValidateOptions = (
+    options: Options<ProjectsUpdateValidateData>
+) => {
+    return queryOptions({
+        queryFn: async ({queryKey, signal}) => {
+            const {data} = await projectsUpdateValidate({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: projectsUpdateValidateQueryKey(options)
+    });
+};
+
+export const projectsUpdateValidateMutation = (
+    options?: Partial<Options<ProjectsUpdateValidateData>>
+) => {
+    const mutationOptions: UseMutationOptions<
+        ProjectsUpdateValidateResponse,
+        ProjectsUpdateValidateError,
+        Options<ProjectsUpdateValidateData>
+    > = {
+        mutationFn: async (localOptions) => {
+            const {data} = await projectsUpdateValidate({
                 ...options,
                 ...localOptions,
                 throwOnError: true
@@ -272,7 +368,7 @@ export const edgesScaCreateMutation = (
 ) => {
     const mutationOptions: UseMutationOptions<
         EdgesScaCreateResponse,
-        DefaultError,
+        EdgesScaCreateError,
         Options<EdgesScaCreateData>
     > = {
         mutationFn: async (localOptions) => {
@@ -331,7 +427,7 @@ export const edgesScaUpdateMutation = (
 ) => {
     const mutationOptions: UseMutationOptions<
         EdgesScaUpdateResponse,
-        DefaultError,
+        EdgesScaUpdateError,
         Options<EdgesScaUpdateData>
     > = {
         mutationFn: async (localOptions) => {
@@ -391,7 +487,7 @@ export const nodesScaCreateMutation = (
 ) => {
     const mutationOptions: UseMutationOptions<
         NodesScaCreateResponse,
-        DefaultError,
+        NodesScaCreateError,
         Options<NodesScaCreateData>
     > = {
         mutationFn: async (localOptions) => {
@@ -450,7 +546,7 @@ export const nodesScaUpdateMutation = (
 ) => {
     const mutationOptions: UseMutationOptions<
         NodesScaUpdateResponse,
-        DefaultError,
+        NodesScaUpdateError,
         Options<NodesScaUpdateData>
     > = {
         mutationFn: async (localOptions) => {
@@ -512,7 +608,7 @@ export const workspacesScaCreateMutation = (
 ) => {
     const mutationOptions: UseMutationOptions<
         WorkspacesScaCreateResponse,
-        DefaultError,
+        WorkspacesScaCreateError,
         Options<WorkspacesScaCreateData>
     > = {
         mutationFn: async (localOptions) => {
@@ -573,7 +669,7 @@ export const workspacesScaUpdateMutation = (
 ) => {
     const mutationOptions: UseMutationOptions<
         WorkspacesScaUpdateResponse,
-        DefaultError,
+        WorkspacesScaUpdateError,
         Options<WorkspacesScaUpdateData>
     > = {
         mutationFn: async (localOptions) => {

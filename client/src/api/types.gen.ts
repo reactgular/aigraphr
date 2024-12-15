@@ -23,6 +23,22 @@ export type ProjectDto = {
     open: boolean;
 };
 
+export type ExceptionFilterDto = {
+    statusCode: number;
+    message: string;
+    path: string;
+    stack?: Array<string>;
+};
+
+export type ScaValidationResponseDto = {
+    /**
+     * Validation results for each field.
+     */
+    validations: {
+        [key: string]: ScaFieldValidationDto;
+    };
+};
+
 export type ProjectUpdateDto = {
     /**
      * The name of the project (alphanumeric)
@@ -89,18 +105,22 @@ export type SettingDto = {
     test: string;
 };
 
-export type ExceptionFilterDto = {
-    statusCode: number;
+export type ScaFieldValidationDto = {
+    /**
+     * Indicates whether the field value is valid.
+     */
+    isValid: boolean;
+    /**
+     * A message providing additional details about the validation.
+     */
     message: string;
-    path: string;
-    stack?: Array<string>;
 };
 
 export type ProjectsScaPaginateData = {
     body?: never;
     path?: never;
     query?: never;
-    url: '/projects';
+    url: '/api/projects';
 };
 
 export type ProjectsScaPaginateResponses = {
@@ -113,24 +133,64 @@ export type ProjectsScaPaginateResponses = {
 export type ProjectsScaPaginateResponse =
     ProjectsScaPaginateResponses[keyof ProjectsScaPaginateResponses];
 
-export type ProjectsScaCreateData = {
+export type ProjectsCreateData = {
     body: ProjectCreateDto;
     path?: never;
     query?: never;
-    url: '/projects';
+    url: '/api/projects';
 };
 
-export type ProjectsScaCreateResponses = {
+export type ProjectsCreateErrors = {
+    /**
+     * TypeORM related errors
+     */
+    400: ExceptionFilterDto;
+};
+
+export type ProjectsCreateError =
+    ProjectsCreateErrors[keyof ProjectsCreateErrors];
+
+export type ProjectsCreateResponses = {
+    200: {
+        [key: string]: unknown;
+    };
     /**
      * Return a new Project
      */
     201: ProjectDto;
 };
 
-export type ProjectsScaCreateResponse =
-    ProjectsScaCreateResponses[keyof ProjectsScaCreateResponses];
+export type ProjectsCreateResponse =
+    ProjectsCreateResponses[keyof ProjectsCreateResponses];
 
-export type ProjectsScaRemoveData = {
+export type ProjectsCreateValidateData = {
+    body: ProjectCreateDto;
+    path?: never;
+    query?: never;
+    url: '/api/projects/validates';
+};
+
+export type ProjectsCreateValidateErrors = {
+    /**
+     * TypeORM related errors
+     */
+    400: ExceptionFilterDto;
+};
+
+export type ProjectsCreateValidateError =
+    ProjectsCreateValidateErrors[keyof ProjectsCreateValidateErrors];
+
+export type ProjectsCreateValidateResponses = {
+    /**
+     * Validation results of ProjectCreate
+     */
+    200: Array<ScaValidationResponseDto>;
+};
+
+export type ProjectsCreateValidateResponse =
+    ProjectsCreateValidateResponses[keyof ProjectsCreateValidateResponses];
+
+export type ProjectsRemoveData = {
     body?: never;
     path: {
         /**
@@ -139,25 +199,28 @@ export type ProjectsScaRemoveData = {
         projectId: number;
     };
     query?: never;
-    url: '/projects/{projectId}';
+    url: '/api/projects/{projectId}';
 };
 
-export type ProjectsScaRemoveErrors = {
+export type ProjectsRemoveErrors = {
     /**
      * A Project with the specified projectId was not found
      */
     404: unknown;
 };
 
-export type ProjectsScaRemoveResponses = {
+export type ProjectsRemoveResponses = {
+    200: {
+        [key: string]: unknown;
+    };
     /**
      * The Project has been deleted
      */
     204: void;
 };
 
-export type ProjectsScaRemoveResponse =
-    ProjectsScaRemoveResponses[keyof ProjectsScaRemoveResponses];
+export type ProjectsRemoveResponse =
+    ProjectsRemoveResponses[keyof ProjectsRemoveResponses];
 
 export type ProjectsScaGetData = {
     body?: never;
@@ -168,7 +231,7 @@ export type ProjectsScaGetData = {
         projectId: number;
     };
     query?: never;
-    url: '/projects/{projectId}';
+    url: '/api/projects/{projectId}';
 };
 
 export type ProjectsScaGetErrors = {
@@ -188,7 +251,7 @@ export type ProjectsScaGetResponses = {
 export type ProjectsScaGetResponse =
     ProjectsScaGetResponses[keyof ProjectsScaGetResponses];
 
-export type ProjectsScaUpdateData = {
+export type ProjectsUpdateData = {
     body: ProjectUpdateDto;
     path: {
         /**
@@ -197,25 +260,68 @@ export type ProjectsScaUpdateData = {
         projectId: number;
     };
     query?: never;
-    url: '/projects/{projectId}';
+    url: '/api/projects/{projectId}';
 };
 
-export type ProjectsScaUpdateErrors = {
+export type ProjectsUpdateErrors = {
+    /**
+     * TypeORM related errors
+     */
+    400: ExceptionFilterDto;
     /**
      * A Project with the specified projectId was not found
      */
     404: unknown;
 };
 
-export type ProjectsScaUpdateResponses = {
+export type ProjectsUpdateError =
+    ProjectsUpdateErrors[keyof ProjectsUpdateErrors];
+
+export type ProjectsUpdateResponses = {
     /**
      * Return a Project by projectId
      */
     200: ProjectDto;
 };
 
-export type ProjectsScaUpdateResponse =
-    ProjectsScaUpdateResponses[keyof ProjectsScaUpdateResponses];
+export type ProjectsUpdateResponse =
+    ProjectsUpdateResponses[keyof ProjectsUpdateResponses];
+
+export type ProjectsUpdateValidateData = {
+    body: ProjectUpdateDto;
+    path: {
+        /**
+         * The ID of a Project
+         */
+        projectId: number;
+    };
+    query?: never;
+    url: '/api/projects/validates/{projectId}';
+};
+
+export type ProjectsUpdateValidateErrors = {
+    /**
+     * TypeORM related errors
+     */
+    400: ExceptionFilterDto;
+    /**
+     * A Project with the specified projectId was not found
+     */
+    404: unknown;
+};
+
+export type ProjectsUpdateValidateError =
+    ProjectsUpdateValidateErrors[keyof ProjectsUpdateValidateErrors];
+
+export type ProjectsUpdateValidateResponses = {
+    /**
+     * Return a Project by projectId
+     */
+    200: ProjectDto;
+};
+
+export type ProjectsUpdateValidateResponse =
+    ProjectsUpdateValidateResponses[keyof ProjectsUpdateValidateResponses];
 
 export type EdgesScaPaginateData = {
     body?: never;
@@ -230,7 +336,7 @@ export type EdgesScaPaginateData = {
         workspaceId: number;
     };
     query?: never;
-    url: '/projects/{projectId}/workspaces/{workspaceId}/edges';
+    url: '/api/projects/{projectId}/workspaces/{workspaceId}/edges';
 };
 
 export type EdgesScaPaginateResponses = {
@@ -256,8 +362,18 @@ export type EdgesScaCreateData = {
         workspaceId: number;
     };
     query?: never;
-    url: '/projects/{projectId}/workspaces/{workspaceId}/edges';
+    url: '/api/projects/{projectId}/workspaces/{workspaceId}/edges';
 };
+
+export type EdgesScaCreateErrors = {
+    /**
+     * TypeORM related errors
+     */
+    400: ExceptionFilterDto;
+};
+
+export type EdgesScaCreateError =
+    EdgesScaCreateErrors[keyof EdgesScaCreateErrors];
 
 export type EdgesScaCreateResponses = {
     /**
@@ -286,7 +402,7 @@ export type EdgesScaRemoveData = {
         workspaceId: number;
     };
     query?: never;
-    url: '/projects/{projectId}/workspaces/{workspaceId}/edges/{edgeId}';
+    url: '/api/projects/{projectId}/workspaces/{workspaceId}/edges/{edgeId}';
 };
 
 export type EdgesScaRemoveErrors = {
@@ -323,7 +439,7 @@ export type EdgesScaGetData = {
         workspaceId: number;
     };
     query?: never;
-    url: '/projects/{projectId}/workspaces/{workspaceId}/edges/{edgeId}';
+    url: '/api/projects/{projectId}/workspaces/{workspaceId}/edges/{edgeId}';
 };
 
 export type EdgesScaGetErrors = {
@@ -360,15 +476,22 @@ export type EdgesScaUpdateData = {
         workspaceId: number;
     };
     query?: never;
-    url: '/projects/{projectId}/workspaces/{workspaceId}/edges/{edgeId}';
+    url: '/api/projects/{projectId}/workspaces/{workspaceId}/edges/{edgeId}';
 };
 
 export type EdgesScaUpdateErrors = {
+    /**
+     * TypeORM related errors
+     */
+    400: ExceptionFilterDto;
     /**
      * A Edge with the specified edgeId was not found
      */
     404: unknown;
 };
+
+export type EdgesScaUpdateError =
+    EdgesScaUpdateErrors[keyof EdgesScaUpdateErrors];
 
 export type EdgesScaUpdateResponses = {
     /**
@@ -393,7 +516,7 @@ export type NodesScaPaginateData = {
         workspaceId: number;
     };
     query?: never;
-    url: '/projects/{projectId}/workspaces/{workspaceId}/nodes';
+    url: '/api/projects/{projectId}/workspaces/{workspaceId}/nodes';
 };
 
 export type NodesScaPaginateResponses = {
@@ -419,8 +542,18 @@ export type NodesScaCreateData = {
         workspaceId: number;
     };
     query?: never;
-    url: '/projects/{projectId}/workspaces/{workspaceId}/nodes';
+    url: '/api/projects/{projectId}/workspaces/{workspaceId}/nodes';
 };
+
+export type NodesScaCreateErrors = {
+    /**
+     * TypeORM related errors
+     */
+    400: ExceptionFilterDto;
+};
+
+export type NodesScaCreateError =
+    NodesScaCreateErrors[keyof NodesScaCreateErrors];
 
 export type NodesScaCreateResponses = {
     /**
@@ -449,7 +582,7 @@ export type NodesScaRemoveData = {
         workspaceId: number;
     };
     query?: never;
-    url: '/projects/{projectId}/workspaces/{workspaceId}/nodes/{nodeId}';
+    url: '/api/projects/{projectId}/workspaces/{workspaceId}/nodes/{nodeId}';
 };
 
 export type NodesScaRemoveErrors = {
@@ -486,7 +619,7 @@ export type NodesScaGetData = {
         workspaceId: number;
     };
     query?: never;
-    url: '/projects/{projectId}/workspaces/{workspaceId}/nodes/{nodeId}';
+    url: '/api/projects/{projectId}/workspaces/{workspaceId}/nodes/{nodeId}';
 };
 
 export type NodesScaGetErrors = {
@@ -523,15 +656,22 @@ export type NodesScaUpdateData = {
         workspaceId: number;
     };
     query?: never;
-    url: '/projects/{projectId}/workspaces/{workspaceId}/nodes/{nodeId}';
+    url: '/api/projects/{projectId}/workspaces/{workspaceId}/nodes/{nodeId}';
 };
 
 export type NodesScaUpdateErrors = {
+    /**
+     * TypeORM related errors
+     */
+    400: ExceptionFilterDto;
     /**
      * A Node with the specified nodeId was not found
      */
     404: unknown;
 };
+
+export type NodesScaUpdateError =
+    NodesScaUpdateErrors[keyof NodesScaUpdateErrors];
 
 export type NodesScaUpdateResponses = {
     /**
@@ -552,7 +692,7 @@ export type WorkspacesScaPaginateData = {
         projectId: number;
     };
     query?: never;
-    url: '/projects/{projectId}/workspaces';
+    url: '/api/projects/{projectId}/workspaces';
 };
 
 export type WorkspacesScaPaginateResponses = {
@@ -574,8 +714,18 @@ export type WorkspacesScaCreateData = {
         projectId: number;
     };
     query?: never;
-    url: '/projects/{projectId}/workspaces';
+    url: '/api/projects/{projectId}/workspaces';
 };
+
+export type WorkspacesScaCreateErrors = {
+    /**
+     * TypeORM related errors
+     */
+    400: ExceptionFilterDto;
+};
+
+export type WorkspacesScaCreateError =
+    WorkspacesScaCreateErrors[keyof WorkspacesScaCreateErrors];
 
 export type WorkspacesScaCreateResponses = {
     /**
@@ -600,7 +750,7 @@ export type WorkspacesScaRemoveData = {
         projectId: number;
     };
     query?: never;
-    url: '/projects/{projectId}/workspaces/{workspaceId}';
+    url: '/api/projects/{projectId}/workspaces/{workspaceId}';
 };
 
 export type WorkspacesScaRemoveErrors = {
@@ -633,7 +783,7 @@ export type WorkspacesScaGetData = {
         projectId: number;
     };
     query?: never;
-    url: '/projects/{projectId}/workspaces/{workspaceId}';
+    url: '/api/projects/{projectId}/workspaces/{workspaceId}';
 };
 
 export type WorkspacesScaGetErrors = {
@@ -666,15 +816,22 @@ export type WorkspacesScaUpdateData = {
         projectId: number;
     };
     query?: never;
-    url: '/projects/{projectId}/workspaces/{workspaceId}';
+    url: '/api/projects/{projectId}/workspaces/{workspaceId}';
 };
 
 export type WorkspacesScaUpdateErrors = {
+    /**
+     * TypeORM related errors
+     */
+    400: ExceptionFilterDto;
     /**
      * A Workspace with the specified workspaceId was not found
      */
     404: unknown;
 };
+
+export type WorkspacesScaUpdateError =
+    WorkspacesScaUpdateErrors[keyof WorkspacesScaUpdateErrors];
 
 export type WorkspacesScaUpdateResponses = {
     /**
@@ -690,7 +847,7 @@ export type SettingsGetData = {
     body?: never;
     path?: never;
     query?: never;
-    url: '/app/settings';
+    url: '/api/app/settings';
 };
 
 export type SettingsGetResponses = {
@@ -704,7 +861,7 @@ export type SettingsUpdateData = {
     body: SettingDto;
     path?: never;
     query?: never;
-    url: '/app/settings';
+    url: '/api/app/settings';
 };
 
 export type SettingsUpdateResponses = {
@@ -718,7 +875,7 @@ export type SettingsReplaceData = {
     body: SettingDto;
     path?: never;
     query?: never;
-    url: '/app/settings';
+    url: '/api/app/settings';
 };
 
 export type SettingsReplaceResponses = {

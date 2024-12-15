@@ -7,11 +7,20 @@ import {
 import {ScaCrudService} from '@/scaffold/crud/sca-crud.service';
 import {ScaBody} from '@/scaffold/decorators/sca-body';
 import {ScaCreate, ScaCreateResponse} from '@/scaffold/decorators/sca-create';
+import {
+    ScaCreateValidate,
+    ScaCreateValidateResponse
+} from '@/scaffold/decorators/sca-create-validate';
 import {ScaParamId} from '@/scaffold/decorators/sca-param-id';
 import {ScaRemove, ScaRemoveResponse} from '@/scaffold/decorators/sca-remove';
 import {ScaUpdate, ScaUpdateResponse} from '@/scaffold/decorators/sca-update';
+import {ScaUpdateValidate} from '@/scaffold/decorators/sca-update-validate';
 import {scaReadOnlyMixin} from '@/scaffold/mixins/sca-readonly.mixin';
-import {BadRequestException, Controller, Post} from '@nestjs/common';
+import {
+    BadRequestException,
+    Controller,
+    NotImplementedException
+} from '@nestjs/common';
 import {ApiTags} from '@nestjs/swagger';
 import {ProjectsService} from '../services/projects.service';
 
@@ -31,8 +40,6 @@ export class ProjectsController extends scaReadOnlyMixin({
         return this.projects;
     }
 
-    // @bug - if not applied here, then something adds response 200 automatically, but we only want 201
-    @Post()
     @ScaCreate({bodyDto: ProjectCreateDto, responseDto: ProjectDto})
     public async create(
         @ScaBody(ProjectCreateDto) data: ProjectCreateDto
@@ -47,6 +54,13 @@ export class ProjectsController extends scaReadOnlyMixin({
                 : await this.projects.create(data.name);
 
         return await this.projects.scaGet(projectId);
+    }
+
+    @ScaCreateValidate({bodyDto: ProjectCreateDto})
+    public async createValidate(
+        @ScaBody(ProjectCreateDto) data: ProjectCreateDto
+    ): ScaCreateValidateResponse {
+        throw new NotImplementedException();
     }
 
     @ScaUpdate({
@@ -77,6 +91,18 @@ export class ProjectsController extends scaReadOnlyMixin({
         }
 
         return this.projects.scaGet(id);
+    }
+
+    @ScaUpdateValidate({
+        bodyDto: ProjectUpdateDto,
+        responseDto: ProjectDto,
+        paramId
+    })
+    public async updateValidate(
+        @ScaParamId(paramId) id: number,
+        @ScaBody(ProjectUpdateDto) data: ProjectUpdateDto
+    ): ScaUpdateResponse<ProjectDto> {
+        throw new NotImplementedException();
     }
 
     @ScaRemove({dto: ProjectDto, paramId})

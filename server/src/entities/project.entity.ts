@@ -38,3 +38,15 @@ export class ProjectCreateDto extends OmitType(ProjectDto, [
 export class ProjectUpdateDto extends PartialType(
     OmitType(ProjectDto, ['id'] as const)
 ) {}
+
+export class IsValidDto {
+    isValid: boolean;
+
+    message: string;
+}
+
+export class ProjectCreateValidateDto {
+    name: IsValidDto;
+
+    cloneId: IsValidDto;
+}

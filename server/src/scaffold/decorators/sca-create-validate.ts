@@ -1,0 +1,42 @@
+import {ScaExceptionFilter} from '@/scaffold/decorators/sca-exception-filter';
+import {ScaValidateResponse} from '@/scaffold/decorators/sca-validate-response';
+import {ScaValidationResponseDto} from '@/scaffold/dtos/sca-validation.dto';
+import {toHumanUtils} from '@/scaffold/utils/to-human.utils';
+import {applyDecorators, Post, Type} from '@nestjs/common';
+import {
+    ApiBody,
+    ApiExtraModels,
+    ApiOkResponse,
+    ApiOperation
+} from '@nestjs/swagger';
+
+interface ScaCreateValidateOptions<TBody extends object> {
+    bodyDto: Type<TBody>;
+
+    decorators?: () => Array<MethodDecorator>;
+}
+
+export function ScaCreateValidate<TBody extends object>({
+    bodyDto,
+    decorators: decoratorsFn
+}: ScaCreateValidateOptions<TBody>) {
+    const name = toHumanUtils(bodyDto.name);
+    const decorators: Array<MethodDecorator> = [
+        Post('/validates'),
+        ApiOperation({summary: `Validates creation of a ${name}`}),
+        ApiBody({type: bodyDto}),
+        ApiExtraModels(bodyDto, ScaValidationResponseDto),
+        ScaExceptionFilter(),
+        ApiOkResponse({
+            type: ScaValidationResponseDto,
+            description: `Validation results of ${name}`
+        }),
+        ScaValidateResponse(ScaValidationResponseDto),
+        ...(decoratorsFn?.() ?? [])
+    ];
+    return applyDecorators(...decorators);
+}
+
+export type ScaCreateValidateResponse = Promise<
+    Array<ScaValidationResponseDto>
+>;
