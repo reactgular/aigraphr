@@ -7,7 +7,7 @@ import {ScaValidatorHandler} from '@/scaffold/validators/sca-validator-handler';
 import {Logger, Type} from '@nestjs/common';
 
 export abstract class ScaValidatorService<
-    Entity extends ScaEntity,
+    TEntity extends ScaEntity,
     TCreateDto extends object = never,
     TUpdateDto extends object = never
 > implements ScaValidatorHandler<TCreateDto, TUpdateDto>
@@ -16,30 +16,21 @@ export abstract class ScaValidatorService<
 
     private readonly scaLog: Logger;
 
-    protected constructor(protected readonly type: Type<Entity>) {
+    protected constructor(protected readonly type: Type<TEntity>) {
         this.name = toHumanUtils(type.name);
         this.scaLog = new Logger(`ScaValidator::${this.name}`);
     }
 
-    public async onCreateValidate(
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    public abstract onCreateValidate(
         invalidator: ScaInvalidator<TCreateDto>,
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         data: TCreateDto
-    ): Promise<void> {
-        // do nothing
-    }
+    ): Promise<void>;
 
-    public async onUpdateValidate(
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    public abstract onUpdateValidate(
         invalidator: ScaInvalidator<TUpdateDto>,
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         id: number,
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         data: TUpdateDto
-    ): Promise<void> {
-        // do nothing
-    }
+    ): Promise<void>;
 
     public async scaCreateValidate(
         data: TCreateDto

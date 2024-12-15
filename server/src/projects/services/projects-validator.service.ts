@@ -1,6 +1,6 @@
 import {
     ProjectCreateDto,
-    ProjectDto,
+    ProjectEntity,
     ProjectUpdateDto
 } from '@/entities/project.entity';
 import {ProjectsService} from '@/projects/services/projects.service';
@@ -10,12 +10,12 @@ import {Injectable} from '@nestjs/common';
 
 @Injectable()
 export class ProjectsValidatorService extends ScaValidatorService<
-    ProjectDto,
+    ProjectEntity,
     ProjectCreateDto,
     ProjectUpdateDto
 > {
     public constructor(private readonly projects: ProjectsService) {
-        super(ProjectDto);
+        super(ProjectEntity);
     }
 
     public async onCreateValidate(
