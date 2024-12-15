@@ -23,11 +23,40 @@ export type ProjectDto = {
     open: boolean;
 };
 
-export type ExceptionFilterDto = {
+export type ScaExceptionFilterDto = {
+    /**
+     * The HTTP status code of the error.
+     */
     statusCode: number;
+    /**
+     * Extra information about the error.
+     */
+    cause?: {
+        [key: string]: unknown;
+    };
+    /**
+     * The error message.
+     */
     message: string;
+    /**
+     * The path of the request that caused the error.
+     */
     path: string;
+    /**
+     * The stack trace of the error.
+     */
     stack?: Array<string>;
+};
+
+export type ProjectUpdateDto = {
+    /**
+     * The name of the project (alphanumeric)
+     */
+    name?: string;
+    /**
+     * The open status of the project
+     */
+    open?: boolean;
 };
 
 export type ScaFieldValidationDto = {
@@ -38,7 +67,13 @@ export type ScaFieldValidationDto = {
     /**
      * The code of the validation.
      */
-    code: 'not_found' | 'not_unique' | 'format' | 'value' | 'invalid';
+    code:
+        | 'not_found'
+        | 'not_unique'
+        | 'format'
+        | 'bad_value'
+        | 'invalid'
+        | 'required';
     /**
      * A message providing additional details about the validation.
      */
@@ -60,17 +95,6 @@ export type ScaValidationResponseDto = {
     invalidations: {
         [key: string]: ScaFieldValidationDto;
     };
-};
-
-export type ProjectUpdateDto = {
-    /**
-     * The name of the project (alphanumeric)
-     */
-    name?: string;
-    /**
-     * The open status of the project
-     */
-    open?: boolean;
 };
 
 export type EdgeCreateDto = {
@@ -156,11 +180,11 @@ export type ProjectsCreateErrors = {
     /**
      * TypeORM related errors
      */
-    400: ExceptionFilterDto;
+    400: ScaExceptionFilterDto;
     /**
      * TypeORM related constraint errors
      */
-    409: ExceptionFilterDto;
+    409: ScaExceptionFilterDto;
 };
 
 export type ProjectsCreateError =
@@ -179,33 +203,6 @@ export type ProjectsCreateResponses = {
 
 export type ProjectsCreateResponse =
     ProjectsCreateResponses[keyof ProjectsCreateResponses];
-
-export type ProjectsCreateValidateData = {
-    body: ProjectCreateDto;
-    path?: never;
-    query?: never;
-    url: '/api/projects/validates';
-};
-
-export type ProjectsCreateValidateErrors = {
-    /**
-     * Invalid request body
-     */
-    400: ExceptionFilterDto;
-};
-
-export type ProjectsCreateValidateError =
-    ProjectsCreateValidateErrors[keyof ProjectsCreateValidateErrors];
-
-export type ProjectsCreateValidateResponses = {
-    /**
-     * Validation results of ProjectCreate
-     */
-    200: ScaValidationResponseDto;
-};
-
-export type ProjectsCreateValidateResponse =
-    ProjectsCreateValidateResponses[keyof ProjectsCreateValidateResponses];
 
 export type ProjectsRemoveData = {
     body?: never;
@@ -284,7 +281,7 @@ export type ProjectsUpdateErrors = {
     /**
      * TypeORM related errors
      */
-    400: ExceptionFilterDto;
+    400: ScaExceptionFilterDto;
     /**
      * A Project with the specified projectId was not found
      */
@@ -292,7 +289,7 @@ export type ProjectsUpdateErrors = {
     /**
      * TypeORM related constraint errors
      */
-    409: ExceptionFilterDto;
+    409: ScaExceptionFilterDto;
 };
 
 export type ProjectsUpdateError =
@@ -308,7 +305,34 @@ export type ProjectsUpdateResponses = {
 export type ProjectsUpdateResponse =
     ProjectsUpdateResponses[keyof ProjectsUpdateResponses];
 
-export type ProjectsUpdateValidateData = {
+export type ProjectsScaCreateValidateData = {
+    body: ProjectCreateDto;
+    path?: never;
+    query?: never;
+    url: '/api/projects/validates';
+};
+
+export type ProjectsScaCreateValidateErrors = {
+    /**
+     * Invalid request body
+     */
+    400: ScaExceptionFilterDto;
+};
+
+export type ProjectsScaCreateValidateError =
+    ProjectsScaCreateValidateErrors[keyof ProjectsScaCreateValidateErrors];
+
+export type ProjectsScaCreateValidateResponses = {
+    /**
+     * Validation results of ProjectCreate
+     */
+    200: ScaValidationResponseDto;
+};
+
+export type ProjectsScaCreateValidateResponse =
+    ProjectsScaCreateValidateResponses[keyof ProjectsScaCreateValidateResponses];
+
+export type ProjectsScaUpdateValidateData = {
     body: ProjectUpdateDto;
     path: {
         /**
@@ -320,29 +344,29 @@ export type ProjectsUpdateValidateData = {
     url: '/api/projects/{projectId}/validates';
 };
 
-export type ProjectsUpdateValidateErrors = {
+export type ProjectsScaUpdateValidateErrors = {
     /**
      * Invalid request body
      */
-    400: ExceptionFilterDto;
+    400: ScaExceptionFilterDto;
     /**
      * A ProjectUpdate with the specified projectId was not found
      */
     404: unknown;
 };
 
-export type ProjectsUpdateValidateError =
-    ProjectsUpdateValidateErrors[keyof ProjectsUpdateValidateErrors];
+export type ProjectsScaUpdateValidateError =
+    ProjectsScaUpdateValidateErrors[keyof ProjectsScaUpdateValidateErrors];
 
-export type ProjectsUpdateValidateResponses = {
+export type ProjectsScaUpdateValidateResponses = {
     /**
      * Validation results of ProjectUpdate
      */
     200: ScaValidationResponseDto;
 };
 
-export type ProjectsUpdateValidateResponse =
-    ProjectsUpdateValidateResponses[keyof ProjectsUpdateValidateResponses];
+export type ProjectsScaUpdateValidateResponse =
+    ProjectsScaUpdateValidateResponses[keyof ProjectsScaUpdateValidateResponses];
 
 export type EdgesScaPaginateData = {
     body?: never;
@@ -390,11 +414,11 @@ export type EdgesScaCreateErrors = {
     /**
      * TypeORM related errors
      */
-    400: ExceptionFilterDto;
+    400: ScaExceptionFilterDto;
     /**
      * TypeORM related constraint errors
      */
-    409: ExceptionFilterDto;
+    409: ScaExceptionFilterDto;
 };
 
 export type EdgesScaCreateError =
@@ -512,7 +536,7 @@ export type EdgesScaUpdateErrors = {
     /**
      * TypeORM related errors
      */
-    400: ExceptionFilterDto;
+    400: ScaExceptionFilterDto;
     /**
      * A Edge with the specified edgeId was not found
      */
@@ -520,7 +544,7 @@ export type EdgesScaUpdateErrors = {
     /**
      * TypeORM related constraint errors
      */
-    409: ExceptionFilterDto;
+    409: ScaExceptionFilterDto;
 };
 
 export type EdgesScaUpdateError =
@@ -582,11 +606,11 @@ export type NodesScaCreateErrors = {
     /**
      * TypeORM related errors
      */
-    400: ExceptionFilterDto;
+    400: ScaExceptionFilterDto;
     /**
      * TypeORM related constraint errors
      */
-    409: ExceptionFilterDto;
+    409: ScaExceptionFilterDto;
 };
 
 export type NodesScaCreateError =
@@ -704,7 +728,7 @@ export type NodesScaUpdateErrors = {
     /**
      * TypeORM related errors
      */
-    400: ExceptionFilterDto;
+    400: ScaExceptionFilterDto;
     /**
      * A Node with the specified nodeId was not found
      */
@@ -712,7 +736,7 @@ export type NodesScaUpdateErrors = {
     /**
      * TypeORM related constraint errors
      */
-    409: ExceptionFilterDto;
+    409: ScaExceptionFilterDto;
 };
 
 export type NodesScaUpdateError =
@@ -766,11 +790,11 @@ export type WorkspacesScaCreateErrors = {
     /**
      * TypeORM related errors
      */
-    400: ExceptionFilterDto;
+    400: ScaExceptionFilterDto;
     /**
      * TypeORM related constraint errors
      */
-    409: ExceptionFilterDto;
+    409: ScaExceptionFilterDto;
 };
 
 export type WorkspacesScaCreateError =
@@ -876,7 +900,7 @@ export type WorkspacesScaUpdateErrors = {
     /**
      * TypeORM related errors
      */
-    400: ExceptionFilterDto;
+    400: ScaExceptionFilterDto;
     /**
      * A Workspace with the specified workspaceId was not found
      */
@@ -884,7 +908,7 @@ export type WorkspacesScaUpdateErrors = {
     /**
      * TypeORM related constraint errors
      */
-    409: ExceptionFilterDto;
+    409: ScaExceptionFilterDto;
 };
 
 export type WorkspacesScaUpdateError =

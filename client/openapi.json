@@ -34,7 +34,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ExceptionFilterDto"
+                                    "$ref": "#/components/schemas/ScaExceptionFilterDto"
                                 },
                                 "example": {
                                     "statusCode": 400,
@@ -49,7 +49,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ExceptionFilterDto"
+                                    "$ref": "#/components/schemas/ScaExceptionFilterDto"
                                 },
                                 "example": {
                                     "statusCode": 409,
@@ -81,53 +81,6 @@
                     }
                 },
                 "summary": "Paginate Project",
-                "tags": [
-                    "Projects"
-                ]
-            }
-        },
-        "/api/projects/validates": {
-            "post": {
-                "operationId": "Projects_createValidate",
-                "parameters": [],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/ProjectCreateDto"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Validation results of ProjectCreate",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ScaValidationResponseDto"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid request body",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ExceptionFilterDto"
-                                },
-                                "example": {
-                                    "statusCode": 400,
-                                    "message": "property should not be empty",
-                                    "path": "/api/v1/users"
-                                }
-                            }
-                        }
-                    }
-                },
-                "summary": "Validates creation of a ProjectCreate",
                 "tags": [
                     "Projects"
                 ]
@@ -173,7 +126,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ExceptionFilterDto"
+                                    "$ref": "#/components/schemas/ScaExceptionFilterDto"
                                 },
                                 "example": {
                                     "statusCode": 400,
@@ -191,7 +144,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ExceptionFilterDto"
+                                    "$ref": "#/components/schemas/ScaExceptionFilterDto"
                                 },
                                 "example": {
                                     "statusCode": 409,
@@ -277,9 +230,56 @@
                 ]
             }
         },
+        "/api/projects/validates": {
+            "post": {
+                "operationId": "Projects_scaCreateValidate",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProjectCreateDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Validation results of ProjectCreate",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScaValidationResponseDto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request body",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScaExceptionFilterDto"
+                                },
+                                "example": {
+                                    "statusCode": 400,
+                                    "message": "property should not be empty",
+                                    "path": "/api/v1/users"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Validates creation of a ProjectCreate",
+                "tags": [
+                    "Projects"
+                ]
+            }
+        },
         "/api/projects/{projectId}/validates": {
             "patch": {
-                "operationId": "Projects_updateValidate",
+                "operationId": "Projects_scaUpdateValidate",
                 "parameters": [
                     {
                         "name": "projectId",
@@ -317,7 +317,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ExceptionFilterDto"
+                                    "$ref": "#/components/schemas/ScaExceptionFilterDto"
                                 },
                                 "example": {
                                     "statusCode": 400,
@@ -389,7 +389,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ExceptionFilterDto"
+                                    "$ref": "#/components/schemas/ScaExceptionFilterDto"
                                 },
                                 "example": {
                                     "statusCode": 400,
@@ -404,7 +404,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ExceptionFilterDto"
+                                    "$ref": "#/components/schemas/ScaExceptionFilterDto"
                                 },
                                 "example": {
                                     "statusCode": 409,
@@ -518,7 +518,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ExceptionFilterDto"
+                                    "$ref": "#/components/schemas/ScaExceptionFilterDto"
                                 },
                                 "example": {
                                     "statusCode": 400,
@@ -536,7 +536,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ExceptionFilterDto"
+                                    "$ref": "#/components/schemas/ScaExceptionFilterDto"
                                 },
                                 "example": {
                                     "statusCode": 409,
@@ -700,7 +700,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ExceptionFilterDto"
+                                    "$ref": "#/components/schemas/ScaExceptionFilterDto"
                                 },
                                 "example": {
                                     "statusCode": 400,
@@ -715,7 +715,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ExceptionFilterDto"
+                                    "$ref": "#/components/schemas/ScaExceptionFilterDto"
                                 },
                                 "example": {
                                     "statusCode": 409,
@@ -829,7 +829,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ExceptionFilterDto"
+                                    "$ref": "#/components/schemas/ScaExceptionFilterDto"
                                 },
                                 "example": {
                                     "statusCode": 400,
@@ -847,7 +847,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ExceptionFilterDto"
+                                    "$ref": "#/components/schemas/ScaExceptionFilterDto"
                                 },
                                 "example": {
                                     "statusCode": 409,
@@ -1002,7 +1002,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ExceptionFilterDto"
+                                    "$ref": "#/components/schemas/ScaExceptionFilterDto"
                                 },
                                 "example": {
                                     "statusCode": 400,
@@ -1017,7 +1017,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ExceptionFilterDto"
+                                    "$ref": "#/components/schemas/ScaExceptionFilterDto"
                                 },
                                 "example": {
                                     "statusCode": 409,
@@ -1113,7 +1113,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ExceptionFilterDto"
+                                    "$ref": "#/components/schemas/ScaExceptionFilterDto"
                                 },
                                 "example": {
                                     "statusCode": 400,
@@ -1131,7 +1131,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ExceptionFilterDto"
+                                    "$ref": "#/components/schemas/ScaExceptionFilterDto"
                                 },
                                 "example": {
                                     "statusCode": 409,
@@ -1366,19 +1366,34 @@
                     "open"
                 ]
             },
-            "ExceptionFilterDto": {
+            "ScaExceptionFilterDto": {
                 "type": "object",
                 "properties": {
                     "statusCode": {
-                        "type": "number"
+                        "type": "number",
+                        "description": "The HTTP status code of the error.",
+                        "example": 400
+                    },
+                    "cause": {
+                        "type": "object",
+                        "description": "Extra information about the error."
                     },
                     "message": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The error message.",
+                        "example": "Bad Request"
                     },
                     "path": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The path of the request that caused the error.",
+                        "example": "/api/v1/users"
                     },
                     "stack": {
+                        "description": "The stack trace of the error.",
+                        "example": [
+                            "Error: Bad Request",
+                            "    at ..."
+                        ],
                         "type": "array",
                         "items": {
                             "type": "string"
@@ -1390,6 +1405,20 @@
                     "message",
                     "path"
                 ]
+            },
+            "ProjectUpdateDto": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the project (alphanumeric)",
+                        "example": "example-project"
+                    },
+                    "open": {
+                        "type": "boolean",
+                        "description": "The open status of the project"
+                    }
+                }
             },
             "ScaFieldValidationDto": {
                 "type": "object",
@@ -1403,8 +1432,9 @@
                             "not_found",
                             "not_unique",
                             "format",
-                            "value",
-                            "invalid"
+                            "bad_value",
+                            "invalid",
+                            "required"
                         ],
                         "type": "string",
                         "description": "The code of the validation.",
@@ -1465,20 +1495,6 @@
                     "fields",
                     "invalidations"
                 ]
-            },
-            "ProjectUpdateDto": {
-                "type": "object",
-                "properties": {
-                    "name": {
-                        "type": "string",
-                        "description": "The name of the project (alphanumeric)",
-                        "example": "example-project"
-                    },
-                    "open": {
-                        "type": "boolean",
-                        "description": "The open status of the project"
-                    }
-                }
             },
             "EdgeCreateDto": {
                 "type": "object",

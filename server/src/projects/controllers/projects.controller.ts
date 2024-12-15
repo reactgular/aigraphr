@@ -49,15 +49,15 @@ export class ProjectsController extends scaReadOnlyMixin(
     public async create(
         @ScaBody(ProjectCreateDto) data: ProjectCreateDto
     ): ScaCreateResponse<ProjectDto> {
-        const validator = await this.projectsValidator.scaCreateValidate(data);
-        if (validator.isValid()) {
+        const result = await this.projectsValidator.scaCreateValidate(data);
+        if (result.isValid()) {
             const projectId =
                 typeof data.cloneId === 'number'
                     ? await this.projects.clone(data.cloneId, data.name)
                     : await this.projects.create(data.name);
             return await this.projects.scaGet(projectId);
         }
-        throw validator.badRequest();
+        throw result.exception();
     }
 
     @ScaUpdate({
@@ -69,11 +69,8 @@ export class ProjectsController extends scaReadOnlyMixin(
         @ScaParamId(paramId) id: number,
         @ScaBody(ProjectUpdateDto) data: ProjectUpdateDto
     ): ScaUpdateResponse<ProjectDto> {
-        const validator = await this.projectsValidator.scaUpdateValidate(
-            id,
-            data
-        );
-        if (validator.isValid()) {
+        const result = await this.projectsValidator.scaUpdateValidate(id, data);
+        if (result.isValid()) {
             if (data.name) {
                 await this.projects.rename(id, data.name);
             } else if (typeof data.open === 'boolean') {
@@ -85,7 +82,7 @@ export class ProjectsController extends scaReadOnlyMixin(
             }
             return this.projects.scaGet(id);
         }
-        throw validator.badRequest();
+        throw result.exception();
     }
 
     @ScaRemove({dto: ProjectDto, paramId})

@@ -7,9 +7,6 @@ import type {
     ProjectsCreateData,
     ProjectsCreateError,
     ProjectsCreateResponse,
-    ProjectsCreateValidateData,
-    ProjectsCreateValidateError,
-    ProjectsCreateValidateResponse,
     ProjectsRemoveData,
     ProjectsRemoveResponse,
     ProjectsScaGetData,
@@ -17,9 +14,12 @@ import type {
     ProjectsUpdateData,
     ProjectsUpdateError,
     ProjectsUpdateResponse,
-    ProjectsUpdateValidateData,
-    ProjectsUpdateValidateError,
-    ProjectsUpdateValidateResponse,
+    ProjectsScaCreateValidateData,
+    ProjectsScaCreateValidateError,
+    ProjectsScaCreateValidateResponse,
+    ProjectsScaUpdateValidateData,
+    ProjectsScaUpdateValidateError,
+    ProjectsScaUpdateValidateResponse,
     EdgesScaPaginateData,
     EdgesScaPaginateResponse,
     EdgesScaCreateData,
@@ -103,26 +103,6 @@ export const projectsCreate = <ThrowOnError extends boolean = false>(
 };
 
 /**
- * Validates creation of a ProjectCreate
- */
-export const projectsCreateValidate = <ThrowOnError extends boolean = false>(
-    options: Options<ProjectsCreateValidateData, ThrowOnError>
-) => {
-    return (options?.client ?? client).post<
-        ProjectsCreateValidateResponse,
-        ProjectsCreateValidateError,
-        ThrowOnError
-    >({
-        ...options,
-        headers: {
-            'Content-Type': 'application/json',
-            ...options?.headers
-        },
-        url: '/api/projects/validates'
-    });
-};
-
-/**
  * Delete a Project by projectId
  */
 export const projectsRemove = <ThrowOnError extends boolean = false>(
@@ -175,14 +155,34 @@ export const projectsUpdate = <ThrowOnError extends boolean = false>(
 };
 
 /**
+ * Validates creation of a ProjectCreate
+ */
+export const projectsScaCreateValidate = <ThrowOnError extends boolean = false>(
+    options: Options<ProjectsScaCreateValidateData, ThrowOnError>
+) => {
+    return (options?.client ?? client).post<
+        ProjectsScaCreateValidateResponse,
+        ProjectsScaCreateValidateError,
+        ThrowOnError
+    >({
+        ...options,
+        headers: {
+            'Content-Type': 'application/json',
+            ...options?.headers
+        },
+        url: '/api/projects/validates'
+    });
+};
+
+/**
  * Validates updating a ProjectUpdate by projectId
  */
-export const projectsUpdateValidate = <ThrowOnError extends boolean = false>(
-    options: Options<ProjectsUpdateValidateData, ThrowOnError>
+export const projectsScaUpdateValidate = <ThrowOnError extends boolean = false>(
+    options: Options<ProjectsScaUpdateValidateData, ThrowOnError>
 ) => {
     return (options?.client ?? client).patch<
-        ProjectsUpdateValidateResponse,
-        ProjectsUpdateValidateError,
+        ProjectsScaUpdateValidateResponse,
+        ProjectsScaUpdateValidateError,
         ThrowOnError
     >({
         ...options,

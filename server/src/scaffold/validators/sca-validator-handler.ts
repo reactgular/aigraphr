@@ -1,6 +1,6 @@
 import {ScaInvalidator} from '@/scaffold/validators/sca-invalidator';
 
-export interface ScaValidator<
+export interface ScaValidatorHandler<
     TCreateDto extends object,
     TUpdateDto extends object
 > {

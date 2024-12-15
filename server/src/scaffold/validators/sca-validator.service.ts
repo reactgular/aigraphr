@@ -1,14 +1,16 @@
 import {ScaffoldEntity} from '@/scaffold/crud/sca-crud.service';
 import {toHumanUtils} from '@/scaffold/utils/to-human.utils';
 import {ScaInvalidator} from '@/scaffold/validators/sca-invalidator';
-import {ScaValidator} from '@/scaffold/validators/sca-validator';
+import {ScaInvalidatorBuilder} from '@/scaffold/validators/sca-invalidator-builder';
+import {ScaInvalidatorResult} from '@/scaffold/validators/sca-invalidator-result';
+import {ScaValidatorHandler} from '@/scaffold/validators/sca-validator-handler';
 import {Logger, Type} from '@nestjs/common';
 
 export abstract class ScaValidatorService<
     Entity extends ScaffoldEntity,
     TCreateDto extends object = never,
     TUpdateDto extends object = never
-> implements ScaValidator<TCreateDto, TUpdateDto>
+> implements ScaValidatorHandler<TCreateDto, TUpdateDto>
 {
     private readonly name: string;
 
@@ -41,24 +43,24 @@ export abstract class ScaValidatorService<
 
     public async scaCreateValidate(
         data: TCreateDto
-    ): Promise<ScaInvalidator<TCreateDto>> {
-        const invalidator = new ScaInvalidator<TCreateDto>();
+    ): Promise<ScaInvalidatorResult> {
+        const invalidator = new ScaInvalidatorBuilder<TCreateDto>();
 
         this.scaLog.debug(`CreateValidate:${JSON.stringify(data)}`);
         await this.onCreateValidate(invalidator, data);
 
-        return invalidator;
+        return invalidator.result();
     }
 
     public async scaUpdateValidate(
         id: number,
         data: TUpdateDto
-    ): Promise<ScaInvalidator<TUpdateDto>> {
-        const invalidator = new ScaInvalidator<TUpdateDto>();
+    ): Promise<ScaInvalidatorResult> {
+        const invalidator = new ScaInvalidatorBuilder<TUpdateDto>();
 
         this.scaLog.debug(`UpdateValidate:${JSON.stringify(data)}`);
         await this.onUpdateValidate(invalidator, id, data);
 
-        return invalidator;
+        return invalidator.result();
     }
 }

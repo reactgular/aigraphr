@@ -1,10 +1,9 @@
-import {scaCreateValidatorMixin} from '@/scaffold/mixins/sca-create-validator.mixin';
-import {scaUpdateValidatorMixin} from '@/scaffold/mixins/sca-update-validator.mixin';
+import {scaValidatorCreateMixin} from '@/scaffold/mixins/sca-validator-create.mixin';
+import {scaValidatorUpdateMixin} from '@/scaffold/mixins/sca-validator-update.mixin';
 import {ScaConstructor, ScaEmptyBase} from '@/scaffold/mixins/sca.mixin';
-import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {Type} from '@nestjs/common';
 
-export type ValidatorDecoratorActions = 'createValidate' | 'updateValidate';
+export type ValidatorDecoratorActions = 'validateCreate' | 'validateUpdate';
 
 export interface ScaValidatorMixinOptions<
     TCreateDto extends object,
@@ -20,7 +19,6 @@ export interface ScaValidatorMixinOptions<
 }
 
 export function scaValidatorMixin<
-    TDo extends ScaEntity,
     TCreateDto extends object,
     TUpdateDto extends object,
     TBase extends ScaConstructor
@@ -33,16 +31,16 @@ export function scaValidatorMixin<
     }: ScaValidatorMixinOptions<TCreateDto, TUpdateDto>,
     Base: TBase = ScaEmptyBase as TBase
 ) {
-    return scaCreateValidatorMixin(
+    return scaValidatorCreateMixin(
         {
             createDto,
-            decorators: () => decorators?.('createValidate') ?? []
+            decorators: () => decorators?.('validateCreate') ?? []
         },
-        scaUpdateValidatorMixin(
+        scaValidatorUpdateMixin(
             {
                 paramId,
                 updateDto,
-                decorators: () => decorators?.('updateValidate') ?? []
+                decorators: () => decorators?.('validateUpdate') ?? []
             },
             Base
         )

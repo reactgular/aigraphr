@@ -11,18 +11,18 @@ import type {
     ProjectsCreateData,
     ProjectsCreateError,
     ProjectsCreateResponse,
-    ProjectsCreateValidateData,
-    ProjectsCreateValidateError,
-    ProjectsCreateValidateResponse,
     ProjectsRemoveData,
     ProjectsRemoveResponse,
     ProjectsScaGetData,
     ProjectsUpdateData,
     ProjectsUpdateError,
     ProjectsUpdateResponse,
-    ProjectsUpdateValidateData,
-    ProjectsUpdateValidateError,
-    ProjectsUpdateValidateResponse,
+    ProjectsScaCreateValidateData,
+    ProjectsScaCreateValidateError,
+    ProjectsScaCreateValidateResponse,
+    ProjectsScaUpdateValidateData,
+    ProjectsScaUpdateValidateError,
+    ProjectsScaUpdateValidateResponse,
     EdgesScaPaginateData,
     EdgesScaCreateData,
     EdgesScaCreateError,
@@ -63,11 +63,11 @@ import {
     client,
     projectsScaPaginate,
     projectsCreate,
-    projectsCreateValidate,
     projectsRemove,
     projectsScaGet,
     projectsUpdate,
-    projectsUpdateValidate,
+    projectsScaCreateValidate,
+    projectsScaUpdateValidate,
     edgesScaPaginate,
     edgesScaCreate,
     edgesScaRemove,
@@ -182,47 +182,6 @@ export const projectsCreateMutation = (
     return mutationOptions;
 };
 
-export const projectsCreateValidateQueryKey = (
-    options: Options<ProjectsCreateValidateData>
-) => [createQueryKey('projectsCreateValidate', options)];
-
-export const projectsCreateValidateOptions = (
-    options: Options<ProjectsCreateValidateData>
-) => {
-    return queryOptions({
-        queryFn: async ({queryKey, signal}) => {
-            const {data} = await projectsCreateValidate({
-                ...options,
-                ...queryKey[0],
-                signal,
-                throwOnError: true
-            });
-            return data;
-        },
-        queryKey: projectsCreateValidateQueryKey(options)
-    });
-};
-
-export const projectsCreateValidateMutation = (
-    options?: Partial<Options<ProjectsCreateValidateData>>
-) => {
-    const mutationOptions: UseMutationOptions<
-        ProjectsCreateValidateResponse,
-        ProjectsCreateValidateError,
-        Options<ProjectsCreateValidateData>
-    > = {
-        mutationFn: async (localOptions) => {
-            const {data} = await projectsCreateValidate({
-                ...options,
-                ...localOptions,
-                throwOnError: true
-            });
-            return data;
-        }
-    };
-    return mutationOptions;
-};
-
 export const projectsRemoveMutation = (
     options?: Partial<Options<ProjectsRemoveData>>
 ) => {
@@ -282,16 +241,57 @@ export const projectsUpdateMutation = (
     return mutationOptions;
 };
 
-export const projectsUpdateValidateMutation = (
-    options?: Partial<Options<ProjectsUpdateValidateData>>
+export const projectsScaCreateValidateQueryKey = (
+    options: Options<ProjectsScaCreateValidateData>
+) => [createQueryKey('projectsScaCreateValidate', options)];
+
+export const projectsScaCreateValidateOptions = (
+    options: Options<ProjectsScaCreateValidateData>
+) => {
+    return queryOptions({
+        queryFn: async ({queryKey, signal}) => {
+            const {data} = await projectsScaCreateValidate({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: projectsScaCreateValidateQueryKey(options)
+    });
+};
+
+export const projectsScaCreateValidateMutation = (
+    options?: Partial<Options<ProjectsScaCreateValidateData>>
 ) => {
     const mutationOptions: UseMutationOptions<
-        ProjectsUpdateValidateResponse,
-        ProjectsUpdateValidateError,
-        Options<ProjectsUpdateValidateData>
+        ProjectsScaCreateValidateResponse,
+        ProjectsScaCreateValidateError,
+        Options<ProjectsScaCreateValidateData>
     > = {
         mutationFn: async (localOptions) => {
-            const {data} = await projectsUpdateValidate({
+            const {data} = await projectsScaCreateValidate({
+                ...options,
+                ...localOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const projectsScaUpdateValidateMutation = (
+    options?: Partial<Options<ProjectsScaUpdateValidateData>>
+) => {
+    const mutationOptions: UseMutationOptions<
+        ProjectsScaUpdateValidateResponse,
+        ProjectsScaUpdateValidateError,
+        Options<ProjectsScaUpdateValidateData>
+    > = {
+        mutationFn: async (localOptions) => {
+            const {data} = await projectsScaUpdateValidate({
                 ...options,
                 ...localOptions,
                 throwOnError: true

@@ -4,35 +4,33 @@ import {
     ScaCreateValidateResponse
 } from '@/scaffold/decorators/sca-create-validate';
 import {ScaConstructor, ScaEmptyBase} from '@/scaffold/mixins/sca.mixin';
-import {ScaEntity} from '@/scaffold/models/sca.entity';
-import {ScaInvalidator} from '@/scaffold/validators/sca-invalidator';
-import {ScaValidatorService} from '@/scaffold/validators/sca-validator.service';
+import {ScaInvalidatorBuilder} from '@/scaffold/validators/sca-invalidator-builder';
+import {ScaValidatorHandler} from '@/scaffold/validators/sca-validator-handler';
 import {Type} from '@nestjs/common';
 
-interface ScaCreateValidatorMixinOptions<TCreateDto extends object> {
+interface ScaValidatorCreateMixinOptions<TCreateDto extends object> {
     createDto: Type<TCreateDto>;
 
     decorators?: () => Array<MethodDecorator>;
 }
 
-export function scaCreateValidatorMixin<
-    TDo extends ScaEntity,
+export function scaValidatorCreateMixin<
     TCreateDto extends object,
     TBase extends ScaConstructor
 >(
-    {createDto, decorators}: ScaCreateValidatorMixinOptions<TCreateDto>,
+    {createDto, decorators}: ScaValidatorCreateMixinOptions<TCreateDto>,
     Base: TBase = ScaEmptyBase as TBase
 ) {
     abstract class ScaCreateClass extends Base {
-        abstract validator(): ScaValidatorService<TDo, TCreateDto, never>;
+        abstract validator(): ScaValidatorHandler<TCreateDto, never>;
 
         @ScaCreateValidate({bodyDto: createDto, decorators})
         async scaCreateValidate(
             @ScaBody(createDto) data: TCreateDto
         ): ScaCreateValidateResponse {
-            const invalidator = new ScaInvalidator<TCreateDto>();
-            await this.validator().onCreateValidate(invalidator, data);
-            return invalidator.response();
+            const builder = new ScaInvalidatorBuilder<TCreateDto>();
+            await this.validator().onCreateValidate(builder, data);
+            return builder.result().response();
         }
     }
 
