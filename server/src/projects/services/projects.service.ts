@@ -1,4 +1,5 @@
 import {ProjectEntity} from '@/entities/project.entity';
+import {ProjectDataSourcesService} from '@/projects/services/project-data-sources.service';
 import {ScaCrudService} from '@/scaffold/crud/sca-crud.service';
 import {Injectable, Logger, NotImplementedException} from '@nestjs/common';
 import {InjectRepository} from '@nestjs/typeorm';
@@ -10,7 +11,8 @@ export class ProjectsService extends ScaCrudService<ProjectEntity> {
 
     public constructor(
         @InjectRepository(ProjectEntity)
-        private readonly projects: Repository<ProjectEntity>
+        private readonly projects: Repository<ProjectEntity>,
+        private readonly projectDataSources: ProjectDataSourcesService
     ) {
         super(projects, ProjectEntity);
 
@@ -32,9 +34,9 @@ export class ProjectsService extends ScaCrudService<ProjectEntity> {
     public async create(name: string): Promise<number> {
         this.log.log(`Create:${name}`);
 
-        // TODO: create the SQlite database file first before saving the project
+        await this.projectDataSources.open(name, false);
 
-        const entity = this.projects.create({name});
+        const entity = this.projects.create({name, open: true});
         const saved = await this.projects.save(entity);
 
         this.log.log(`Created:${JSON.stringify(saved)}`);

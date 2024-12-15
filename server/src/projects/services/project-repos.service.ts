@@ -1,7 +1,7 @@
 import {NodeEntity} from '@/projects/entities/node.entity';
 import {WorkspaceEntity} from '@/projects/entities/workspace.entity';
+import {ProjectDataSourcesService} from '@/projects/services/project-data-sources.service';
 import {ProjectParamService} from '@/projects/services/project-param.service';
-import {ProjectsStorageService} from '@/projects/services/projects-storage.service';
 import {Injectable, Logger, Scope} from '@nestjs/common';
 import {DataSource, Repository} from 'typeorm';
 import {EntityTarget} from 'typeorm/common/EntityTarget';
@@ -10,13 +10,14 @@ import {ObjectLiteral} from 'typeorm/common/ObjectLiteral';
 @Injectable({
     scope: Scope.REQUEST
 })
-export class ProjectDatabasesService {
+export class ProjectReposService {
     private dataSource?: DataSource;
-    private readonly log = new Logger('ProjectDatabasesService');
+
+    private readonly log = new Logger('ProjectReposService');
 
     public constructor(
-        private readonly projectsStorage: ProjectsStorageService,
-        private readonly projectParam: ProjectParamService
+        private readonly projectParam: ProjectParamService,
+        private readonly projectDataSources: ProjectDataSourcesService
     ) {}
 
     public async nodes(): Promise<Repository<NodeEntity> | null> {
@@ -36,18 +37,7 @@ export class ProjectDatabasesService {
     protected async connection(): Promise<DataSource> {
         if (!this.dataSource) {
             const project = await this.projectParam.getProjectOrThrow();
-            this.dataSource = new DataSource({
-                type: 'sqlite',
-                database: await this.projectsStorage.projectDatabase(
-                    project.name
-                ),
-                entities: [`${__dirname}/../entities/*.entity{.ts,.js}`],
-                subscribers: [
-                    `${__dirname}/../subscribers/*.subscriber{.ts,.js}`
-                ],
-                migrationsRun: true,
-                migrations: [`${__dirname}/../migrations/*{.ts,.js}`]
-            });
+            this.dataSource = await this.projectDataSources.open(project.name);
         }
         return this.dataSource!;
     }

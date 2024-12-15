@@ -15,8 +15,9 @@ import {
 } from '@/projects/project-symbols';
 import {EdgesService} from '@/projects/services/edges.service';
 import {NodesService} from '@/projects/services/nodes.service';
-import {ProjectDatabasesService} from '@/projects/services/project-databases.service';
+import {ProjectDataSourcesService} from '@/projects/services/project-data-sources.service';
 import {ProjectParamService} from '@/projects/services/project-param.service';
+import {ProjectReposService} from '@/projects/services/project-repos.service';
 import {
     PROJECT_EXTENSION,
     ProjectsStorageService
@@ -41,9 +42,9 @@ function repository<Entity extends ObjectLiteral>(
     return {
         scope: Scope.REQUEST,
         provide,
-        useFactory: (databases: ProjectDatabasesService) =>
+        useFactory: (databases: ProjectReposService) =>
             databases.repository(target),
-        inject: [ProjectDatabasesService]
+        inject: [ProjectReposService]
     } satisfies FactoryProvider;
 }
 
@@ -66,7 +67,8 @@ function repository<Entity extends ObjectLiteral>(
             useValue: '.aigraphr'
         },
         ProjectsStorageService,
-        ProjectDatabasesService,
+        ProjectReposService,
+        ProjectDataSourcesService,
         ProjectParamService,
         repository(WORKSPACES_REPOSITORY, WorkspaceEntity),
         repository(NODES_REPOSITORY, NodeEntity),
@@ -83,7 +85,7 @@ function repository<Entity extends ObjectLiteral>(
         ProjectsValidatorService,
         ProjectGuard,
         ProjectsStorageService,
-        ProjectDatabasesService,
+        ProjectReposService,
         ProjectParamService,
         WORKSPACES_REPOSITORY
     ]
