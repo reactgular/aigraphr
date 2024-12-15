@@ -1,14 +1,14 @@
 import {ProjectUpdateDto} from '@/entities/project.entity';
-import {ScaValidatorService} from '@/scaffold/crud/sca-validator.service';
 import {ScaBody} from '@/scaffold/decorators/sca-body';
 import {ScaParamId} from '@/scaffold/decorators/sca-param-id';
 import {
     ScaUpdateValidate,
     ScaUpdateValidateResponse
 } from '@/scaffold/decorators/sca-update-validate';
-import {ScaInvalidator} from '@/scaffold/dtos/sca-invalidator';
 import {ScaConstructor, ScaEmptyBase} from '@/scaffold/mixins/sca.mixin';
 import {ScaEntity} from '@/scaffold/models/sca.entity';
+import {ScaInvalidator} from '@/scaffold/validators/sca-invalidator';
+import {ScaValidatorService} from '@/scaffold/validators/sca-validator.service';
 import {Type} from '@nestjs/common';
 
 interface ScaUpdateValidatorMixinOptions<TUpdateDto extends object> {

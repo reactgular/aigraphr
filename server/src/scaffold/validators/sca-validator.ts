@@ -1,4 +1,4 @@
-import {ScaInvalidator} from '@/scaffold/dtos/sca-invalidator';
+import {ScaInvalidator} from '@/scaffold/validators/sca-invalidator';
 
 export interface ScaValidator<
     TCreateDto extends object,

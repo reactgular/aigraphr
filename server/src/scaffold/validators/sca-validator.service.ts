@@ -1,7 +1,7 @@
 import {ScaffoldEntity} from '@/scaffold/crud/sca-crud.service';
-import {ScaValidator} from '@/scaffold/crud/sca-validator';
-import {ScaInvalidator} from '@/scaffold/dtos/sca-invalidator';
 import {toHumanUtils} from '@/scaffold/utils/to-human.utils';
+import {ScaInvalidator} from '@/scaffold/validators/sca-invalidator';
+import {ScaValidator} from '@/scaffold/validators/sca-validator';
 import {Logger, Type} from '@nestjs/common';
 
 export abstract class ScaValidatorService<

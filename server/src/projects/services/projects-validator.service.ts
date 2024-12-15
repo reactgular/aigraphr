@@ -4,8 +4,8 @@ import {
     ProjectUpdateDto
 } from '@/entities/project.entity';
 import {ProjectsService} from '@/projects/services/projects.service';
-import {ScaValidatorService} from '@/scaffold/crud/sca-validator.service';
-import {ScaInvalidator} from '@/scaffold/dtos/sca-invalidator';
+import {ScaInvalidator} from '@/scaffold/validators/sca-invalidator';
+import {ScaValidatorService} from '@/scaffold/validators/sca-validator.service';
 import {Injectable} from '@nestjs/common';
 
 @Injectable()
