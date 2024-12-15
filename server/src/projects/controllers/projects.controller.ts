@@ -4,6 +4,7 @@ import {
     ProjectEntity,
     ProjectUpdateDto
 } from '@/entities/project.entity';
+import {ProjectsValidatorService} from '@/projects/services/projects-validator.service';
 import {ScaCrudService} from '@/scaffold/crud/sca-crud.service';
 import {ScaBody} from '@/scaffold/decorators/sca-body';
 import {ScaCreate, ScaCreateResponse} from '@/scaffold/decorators/sca-create';
@@ -32,15 +33,14 @@ export class ProjectsController extends scaReadOnlyMixin({
     paramId,
     dto: ProjectDto
 }) {
-    public constructor(private readonly projects: ProjectsService) {
+    public constructor(
+        private readonly projects: ProjectsService,
+        private readonly projectsValidator: ProjectsValidatorService
+    ) {
         super();
     }
 
-    public crud(): ScaCrudService<
-        ProjectEntity,
-        ProjectCreateDto,
-        ProjectUpdateDto
-    > {
+    public crud(): ScaCrudService<ProjectEntity> {
         return this.projects;
     }
 
@@ -48,7 +48,7 @@ export class ProjectsController extends scaReadOnlyMixin({
     public async create(
         @ScaBody(ProjectCreateDto) data: ProjectCreateDto
     ): ScaCreateResponse<ProjectDto> {
-        const validator = await this.projects.scaCreateValidate(data);
+        const validator = await this.projectsValidator.scaCreateValidate(data);
         if (validator.isValid()) {
             const projectId =
                 typeof data.cloneId === 'number'
@@ -64,7 +64,7 @@ export class ProjectsController extends scaReadOnlyMixin({
         @ScaBody(ProjectCreateDto) data: ProjectCreateDto
     ): ScaCreateValidateResponse {
         const invalidator = new ScaInvalidator<ProjectCreateDto>();
-        await this.projects.onCreateValidate(invalidator, data);
+        await this.projectsValidator.onCreateValidate(invalidator, data);
         return invalidator.response();
     }
 
@@ -77,7 +77,10 @@ export class ProjectsController extends scaReadOnlyMixin({
         @ScaParamId(paramId) id: number,
         @ScaBody(ProjectUpdateDto) data: ProjectUpdateDto
     ): ScaUpdateResponse<ProjectDto> {
-        const validator = await this.projects.scaUpdateValidate(id, data);
+        const validator = await this.projectsValidator.scaUpdateValidate(
+            id,
+            data
+        );
         if (validator.isValid()) {
             if (data.name && typeof data.open === 'boolean') {
                 // TODO: move to scaUpdateValidate
@@ -110,7 +113,7 @@ export class ProjectsController extends scaReadOnlyMixin({
         @ScaBody(ProjectUpdateDto) data: ProjectUpdateDto
     ): ScaUpdateValidateResponse {
         const invalidator = new ScaInvalidator<ProjectUpdateDto>();
-        await this.projects.onUpdateValidate(invalidator, id, data);
+        await this.projectsValidator.onUpdateValidate(invalidator, id, data);
         return invalidator.response();
     }
 

@@ -21,6 +21,7 @@ import {
     PROJECT_EXTENSION,
     ProjectsStorageService
 } from '@/projects/services/projects-storage.service';
+import {ProjectsValidatorService} from '@/projects/services/projects-validator.service';
 import {ProjectsService} from '@/projects/services/projects.service';
 import {WorkspacesService} from '@/projects/services/workspaces.service';
 import {UtilsModule} from '@/utils/utils.module';
@@ -72,12 +73,14 @@ function repository<Entity extends ObjectLiteral>(
         repository(EDGES_REPOSITORY, EdgeEntity),
         repository(ATTRIBUTES_REPOSITORY, AttributeEntity),
         ProjectsService,
+        ProjectsValidatorService,
         EdgesService,
         NodesService,
         WorkspacesService
     ],
     exports: [
         ProjectsService,
+        ProjectsValidatorService,
         ProjectGuard,
         ProjectsStorageService,
         ProjectDatabasesService,
