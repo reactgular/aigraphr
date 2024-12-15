@@ -44,6 +44,10 @@ export class ScaInvalidator<TDto extends object> {
         this.add(name, ScaFieldValidationCode.INVALID, message ?? 'Invalid');
     }
 
+    public required(name: keyof TDto, message?: string): void {
+        this.add(name, ScaFieldValidationCode.REQUIRED, message ?? 'Required');
+    }
+
     /**
      * Only the first invalidation for each field is kept.
      */

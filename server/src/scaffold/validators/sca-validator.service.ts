@@ -20,18 +20,22 @@ export abstract class ScaValidatorService<
     }
 
     public async onCreateValidate(
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         invalidator: ScaInvalidator<TCreateDto>,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         data: TCreateDto
     ): Promise<void> {
         // do nothing
     }
 
     public async onUpdateValidate(
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         invalidator: ScaInvalidator<TUpdateDto>,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         id: number,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         data: TUpdateDto
     ): Promise<void> {
-        // TODO: make sure the record exists
         // do nothing
     }
 

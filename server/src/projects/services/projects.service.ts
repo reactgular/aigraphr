@@ -83,4 +83,12 @@ export class ProjectsService extends ScaCrudService<ProjectEntity> {
               })) > 0
             : (await this.projects.count({where: {name}})) > 0;
     }
+
+    public async getName(id: number): Promise<string> {
+        const {name} = await this.projects.findOneOrFail({
+            where: {id},
+            select: {name: true}
+        });
+        return name;
+    }
 }

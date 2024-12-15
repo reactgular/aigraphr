@@ -5,7 +5,8 @@ export enum ScaFieldValidationCode {
     NOT_UNIQUE = 'not_unique',
     FORMAT = 'format',
     BAD_VALUE = 'bad_value',
-    INVALID = 'invalid'
+    INVALID = 'invalid',
+    REQUIRED = 'required'
 }
 
 export class ScaFieldValidationDto {

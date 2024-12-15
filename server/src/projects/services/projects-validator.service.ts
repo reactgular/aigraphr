@@ -35,12 +35,7 @@ export class ProjectsValidatorService extends ScaValidatorService<
             );
         }
 
-        if (data.name.length < 3) {
-            invalidator.invalid(
-                'name',
-                'Name must be at least 3 characters long'
-            );
-        }
+        this.validNameLength(data.name, invalidator);
     }
 
     public async onUpdateValidate(
@@ -48,8 +43,6 @@ export class ProjectsValidatorService extends ScaValidatorService<
         id: number,
         data: ProjectUpdateDto
     ): Promise<void> {
-        const project = await this.projects.scaGet(id);
-
         if (data.name) {
             if (typeof data.open === 'boolean') {
                 invalidator.invalid(
@@ -58,28 +51,37 @@ export class ProjectsValidatorService extends ScaValidatorService<
                 );
             }
 
-            if (data.name === project.name) {
+            if (data.name === (await this.projects.getName(id))) {
                 invalidator.badValue(
                     'name',
                     'Name must be different from the current name'
                 );
             }
 
-            if (data.name.length < 3) {
-                invalidator.invalid(
+            this.validNameLength(data.name, invalidator);
+
+            if (await this.projects.existsByName(data.name, id)) {
+                invalidator.notUnique(
                     'name',
-                    'Name must be at least 3 characters long'
+                    'Project with the same name already exists'
                 );
-            } else {
-                if (await this.projects.existsByName(data.name, id)) {
-                    invalidator.notUnique(
-                        'name',
-                        'Project with the same name already exists'
-                    );
-                }
             }
         } else if (!data.name && typeof data.open === 'undefined') {
             invalidator.invalid('name', 'Must provide name or open status');
+        }
+    }
+
+    private validNameLength(
+        name: string | undefined,
+        invalidator: ScaInvalidator<{name: string}>
+    ) {
+        if (!name) {
+            invalidator.required('name', 'Name must be provided');
+        } else if (name.length < 3) {
+            invalidator.invalid(
+                'name',
+                'Name must be at least 3 characters long'
+            );
         }
     }
 }
