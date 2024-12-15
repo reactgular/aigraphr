@@ -95,7 +95,6 @@ export class ProjectsController extends scaReadOnlyMixin({
 
     @ScaUpdateValidate({
         bodyDto: ProjectUpdateDto,
-        responseDto: ProjectDto,
         paramId
     })
     public async updateValidate(

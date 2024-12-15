@@ -7,6 +7,7 @@ import {
     ApiBody,
     ApiCreatedResponse,
     ApiExtraModels,
+    ApiOkResponse,
     ApiOperation
 } from '@nestjs/swagger';
 
@@ -29,12 +30,16 @@ export function ScaCreate<TBody extends object, TResponse extends ScaEntity>({
         ApiOperation({summary: `Create a new ${name}`}),
         ApiBody({type: bodyDto}),
         ApiExtraModels(bodyDto, responseDto),
+        // TODO: Bug, can't disable 200 response from custom decorator
+        ApiOkResponse({
+            description: `Bug, can't disable 200 response from custom decorator`
+        }),
         ApiCreatedResponse({
             description: `Return a new ${name}`,
             type: responseDto
         }),
-        ScaExceptionFilter(),
         ScaValidateResponse(responseDto),
+        ...ScaExceptionFilter(),
         ...(decoratorsFn?.() ?? [])
     ];
     return applyDecorators(...decorators);

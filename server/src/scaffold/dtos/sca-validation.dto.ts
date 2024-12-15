@@ -24,7 +24,7 @@ export class ScaValidationResponseDto {
             type: 'string'
         }
     })
-    invalidationProps: string[];
+    fields: string[];
 
     @ApiProperty({
         description: 'Validation results for each field.',

@@ -47,8 +47,8 @@ export function ScaUpdate<TBody extends object, TResponse extends ScaEntity>({
         ApiNotFoundResponse({
             description: `A ${name} with the specified ${paramId} was not found`
         }),
-        ScaExceptionFilter(),
         ScaValidateResponse(responseDto),
+        ...ScaExceptionFilter(),
         ...(decoratorsFn?.() ?? [])
     ];
     return applyDecorators(...decorators);

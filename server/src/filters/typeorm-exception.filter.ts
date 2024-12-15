@@ -33,7 +33,11 @@ export class TypeormExceptionFilter implements ExceptionFilter {
             if (exception instanceof TypeORMError) {
                 // TODO: Not all query failures are bad requests, we should handle this better.
                 if (exception instanceof QueryFailedError) {
-                    response.statusCode = HttpStatus.BAD_REQUEST;
+                    if (response.message.includes('UNIQUE constraint failed')) {
+                        response.statusCode = HttpStatus.CONFLICT;
+                    } else {
+                        response.statusCode = HttpStatus.BAD_REQUEST;
+                    }
                 }
             } else if (exception instanceof HttpException) {
                 response.statusCode = exception.getStatus();

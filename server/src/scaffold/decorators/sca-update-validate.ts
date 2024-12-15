@@ -1,9 +1,10 @@
-import {ScaExceptionFilter} from '@/scaffold/decorators/sca-exception-filter';
-import {ScaValidateResponse} from '@/scaffold/decorators/sca-validate-response';
+import {ExceptionFilterDto} from '@/filters/exception-filter.dto';
+import {ScaValidationResponseDto} from '@/scaffold/dtos/sca-validation.dto';
 import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {toHumanUtils} from '@/scaffold/utils/to-human.utils';
 import {applyDecorators, Post, Type} from '@nestjs/common';
 import {
+    ApiBadRequestResponse,
     ApiBody,
     ApiExtraModels,
     ApiNotFoundResponse,
@@ -12,29 +13,20 @@ import {
     ApiParam
 } from '@nestjs/swagger';
 
-interface ScaUpdateValidateOptions<
-    TBody extends object,
-    TResponse extends ScaEntity
-> {
+interface ScaUpdateValidateOptions<TBody extends object> {
     bodyDto: Type<TBody>;
-
-    responseDto: Type<TResponse>;
 
     paramId?: string;
 
     decorators?: () => Array<MethodDecorator>;
 }
 
-export function ScaUpdateValidate<
-    TBody extends object,
-    TResponse extends ScaEntity
->({
+export function ScaUpdateValidate<TBody extends object>({
     bodyDto,
-    responseDto,
     paramId = 'id',
     decorators: decoratorsFn
-}: ScaUpdateValidateOptions<TBody, TResponse>) {
-    const name = toHumanUtils(responseDto.name);
+}: ScaUpdateValidateOptions<TBody>) {
+    const name = toHumanUtils(bodyDto.name);
     const decorators: Array<MethodDecorator> = [
         Post(`validates/:${paramId}`),
         ApiParam({
@@ -45,16 +37,23 @@ export function ScaUpdateValidate<
         }),
         ApiOperation({summary: `Validates updating a ${name} by ${paramId}`}),
         ApiBody({type: bodyDto}),
-        ApiExtraModels(bodyDto, responseDto),
+        ApiExtraModels(bodyDto, ScaValidationResponseDto),
         ApiOkResponse({
-            description: `Return a ${name} by ${paramId}`,
-            type: responseDto
+            type: ScaValidationResponseDto,
+            description: `Validation results of ${name}`
+        }),
+        ApiBadRequestResponse({
+            type: ExceptionFilterDto,
+            description: 'Invalid request body',
+            example: {
+                statusCode: 400,
+                message: 'property should not be empty',
+                path: '/api/v1/users'
+            } satisfies ExceptionFilterDto
         }),
         ApiNotFoundResponse({
             description: `A ${name} with the specified ${paramId} was not found`
         }),
-        ScaExceptionFilter(),
-        ScaValidateResponse(responseDto),
         ...(decoratorsFn?.() ?? [])
     ];
     return applyDecorators(...decorators);
