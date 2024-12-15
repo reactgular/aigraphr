@@ -19,7 +19,7 @@ export class ProjectsService extends ScaCrudService<
     ProjectCreateDto,
     ProjectUpdateDto
 > {
-    private readonly log: Logger;
+    private readonly log: Logger = new Logger('Projects');
 
     public constructor(
         @InjectRepository(ProjectEntity)
@@ -28,8 +28,6 @@ export class ProjectsService extends ScaCrudService<
         private readonly projectsStorage: ProjectsStorageService
     ) {
         super(projects, ProjectEntity);
-
-        this.log = new Logger('Projects');
     }
 
     public async clone(id: number, destName: string): Promise<number> {

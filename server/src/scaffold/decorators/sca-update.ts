@@ -1,4 +1,4 @@
-import {ScaExceptionFilter} from '@/scaffold/decorators/sca-exception-filter';
+import {ScaExceptions} from '@/scaffold/decorators/sca-exceptions';
 import {ScaValidateResponse} from '@/scaffold/decorators/sca-validate-response';
 import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {toHumanUtils} from '@/scaffold/utils/to-human.utils';
@@ -45,7 +45,7 @@ export function ScaUpdate<TBody extends object, TResponse extends ScaEntity>({
             description: `A ${name} with the specified ${paramId} was not found`
         }),
         ScaValidateResponse(responseDto),
-        ...ScaExceptionFilter(),
+        ...ScaExceptions(),
         ...(decoratorsFn?.() ?? [])
     ];
     return applyDecorators(...decorators);

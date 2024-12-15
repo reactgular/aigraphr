@@ -1,7 +1,7 @@
 import {ScaExceptionFilterDto} from '@/scaffold/dtos/sca-exception-filter.dto';
 import {ApiBadRequestResponse, ApiConflictResponse} from '@nestjs/swagger';
 
-export function ScaExceptionFilter(): Array<MethodDecorator> {
+export function ScaExceptions(): Array<MethodDecorator> {
     return [
         ApiBadRequestResponse({
             type: ScaExceptionFilterDto,

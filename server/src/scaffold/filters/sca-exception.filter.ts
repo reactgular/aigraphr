@@ -49,6 +49,8 @@ export class ScaExceptionFilter implements ExceptionFilter {
                 if (exception instanceof QueryFailedError) {
                     if (response.message.includes('constraint failed')) {
                         response.statusCode = HttpStatus.CONFLICT;
+                    } else if (response.message.includes('no such table')) {
+                        response.statusCode = HttpStatus.INTERNAL_SERVER_ERROR;
                     } else {
                         response.statusCode = HttpStatus.BAD_REQUEST;
                     }

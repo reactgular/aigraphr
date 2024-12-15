@@ -19,4 +19,8 @@ export class WorkspacesController extends projectCrudMixin({
     public constructor(private readonly workspaces: WorkspacesService) {
         super();
     }
+
+    public crud() {
+        return this.workspaces;
+    }
 }
