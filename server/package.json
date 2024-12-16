@@ -27,7 +27,7 @@
         "test": "jest",
         "test:cov": "jest --coverage",
         "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-        "test:e2e": "jest --config ./test/jest-e2e.json",
+        "test:e2e": "jest --config test/jest-e2e.json",
         "test:watch": "jest --watch",
         "typeorm": "typeorm"
     },
@@ -41,11 +41,20 @@
             "json",
             "ts"
         ],
+        "moduleNameMapper": {
+            "@/(.*)": "<rootDir>/$1",
+            "@shared/(.*)": "<rootDir>../shared/$1"
+        },
         "rootDir": "src",
         "testEnvironment": "node",
         "testRegex": ".*\\.spec\\.ts$",
         "transform": {
-            "^.+\\.(t|j)s$": "ts-jest"
+            "^.+\\.(t|j)s$": [
+                "ts-jest",
+                {
+                    "tsconfig": "tsconfig.json"
+                }
+            ]
         }
     },
     "dependencies": {

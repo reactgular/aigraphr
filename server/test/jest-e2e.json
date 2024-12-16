@@ -4,10 +4,19 @@
         "json",
         "ts"
     ],
+    "moduleNameMapper": {
+        "@/(.*)": "<rootDir>/../src/$1",
+        "@shared/(.*)": "<rootDir>../../shared/$1"
+    },
     "rootDir": ".",
     "testEnvironment": "node",
     "testRegex": ".e2e-spec.ts$",
     "transform": {
-        "^.+\\.(t|j)s$": "ts-jest"
+        "^.+\\.(t|j)s$": [
+            "ts-jest",
+            {
+                "tsconfig": "tsconfig.json"
+            }
+        ]
     }
 }
