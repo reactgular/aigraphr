@@ -1,7 +1,13 @@
 import {EdgeEntity} from '@/projects/entities/edge.entity';
 import {NodeEntity} from '@/projects/entities/node.entity';
 import {ScaEntity} from '@/scaffold/models/sca.entity';
-import {ApiProperty, ApiSchema, OmitType, PartialType} from '@nestjs/swagger';
+import {
+    ApiProperty,
+    ApiPropertyOptional,
+    ApiSchema,
+    OmitType,
+    PartialType
+} from '@nestjs/swagger';
 import {
     IsEnum,
     IsOptional,
@@ -24,12 +30,12 @@ export enum WorkspaceEngine {
 export class WorkspaceEntity extends ScaEntity {
     @IsString()
     @IsOptional()
-    @ApiProperty({
+    @ApiPropertyOptional({
+        type: 'string',
         description: 'Description of the workspace',
-        required: false,
         nullable: true
     })
-    @Column({nullable: true})
+    @Column({type: 'text', nullable: true})
     description?: string | null;
 
     @ApiProperty({
@@ -50,7 +56,7 @@ export class WorkspaceEntity extends ScaEntity {
         description: 'The engine of the workspace',
         enum: WorkspaceEngine
     })
-    @Column({type: 'enum', enum: WorkspaceEngine})
+    @Column({type: 'text', enum: WorkspaceEngine})
     engine: WorkspaceEngine;
 
     @IsString()
