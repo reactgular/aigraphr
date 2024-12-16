@@ -4,10 +4,12 @@ import {INestApplication} from '@nestjs/common';
 import {HttpAdapterHost} from '@nestjs/core';
 import {Express} from 'express';
 
+export type AiGraphrApp = INestApplication<Express>;
+
 /**
  * Used by main.ts and Jest tests to configure the app.
  */
-export function appConfig(app: INestApplication<Express>) {
+export function appConfig(app: AiGraphrApp) {
     app.enableCors();
     app.useGlobalPipes(scaValidationPipe());
     app.useGlobalFilters(new ScaExceptionFilter(app.get(HttpAdapterHost)));

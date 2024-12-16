@@ -1,35 +1,35 @@
+import {AiGraphrApp} from '@/app.config';
 import {ProjectDto} from '@/entities/project.entity';
-import {INestApplication} from '@nestjs/common';
-import {Express} from 'express';
+import {ProjectsController} from '@/projects/controllers/projects.controller';
 import request from 'supertest';
+import {createTestApp} from '../../../test/utils/create-test-app';
 
-declare global {
-    // eslint-disable-next-line no-var
-    var __app: INestApplication<Express>;
-}
+describe(ProjectsController.name, () => {
+    let app: AiGraphrApp;
+    let r: ReturnType<typeof request>;
 
-describe('ProjectsController (e2e)', () => {
-    // let app: INestApplication;
-    //
-    // beforeEach(async () => {
-    //     const moduleFixture: TestingModule = await Test.createTestingModule({
-    //         imports: [MainModule]
-    //     }).compile();
-    //     app = moduleFixture.createNestApplication();
-    //     appConfig(app);
-    //     await app.init();
-    // });
+    beforeAll(async () => {
+        app = await createTestApp();
+        r = request(app.getHttpServer());
+    });
 
-    it('/ (GET)', () => {
-        return request(global.__app.getHttpServer())
-            .get('/api/projects')
-            .expect(200)
-            .expect([
-                {
-                    id: 1,
-                    name: 'project',
-                    open: false
-                } satisfies ProjectDto
-            ]);
+    afterAll(async () => {
+        await app.close();
+    });
+
+    it('should have no projects', () => {
+        return r.get('/api/projects').expect(200).expect([]);
+    });
+
+    it('should not open a project when creating it', () => {
+        return r
+            .post('/api/projects')
+            .send({name: 'test'})
+            .expect(201)
+            .expect({
+                id: 1,
+                name: 'test',
+                open: false
+            } satisfies ProjectDto);
     });
 });

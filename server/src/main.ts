@@ -1,13 +1,13 @@
+import {AiGraphrApp, appConfig} from '@/app.config';
 import {EnvConfig} from '@/configs/env.config';
-import {appConfig} from '@/app.config';
 import {MainModule} from '@/main.module';
 import {swaggerApiDocument} from '@/swagger/swagger-api-document';
 import {swaggerApiSave} from '@/swagger/swagger-api-save';
 import {swaggerApiSetup} from '@/swagger/swagger-api-setup';
-import {INestApplication, Logger} from '@nestjs/common';
+import {Logger} from '@nestjs/common';
 import {ConfigService} from '@nestjs/config';
 import {NestFactory} from '@nestjs/core';
-import {Express, NextFunction, Request, Response} from 'express';
+import {NextFunction, Request, Response} from 'express';
 import * as process from 'process';
 
 const specPath = (function (argv: Array<string>): string | undefined {
@@ -34,7 +34,8 @@ async function bootstrap() {
 
     const log = new Logger('bootstrap');
 
-    const app = await NestFactory.create<INestApplication<Express>>(MainModule);
+    const app = await NestFactory.create<AiGraphrApp>(MainModule);
+
     appConfig(app);
 
     const config = app.get(ConfigService<EnvConfig>);
