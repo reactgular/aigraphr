@@ -45,6 +45,8 @@
     <codeStyleSettings language="TypeScript">
       <option name="RIGHT_MARGIN" value="80" />
       <option name="BLOCK_COMMENT_ADD_SPACE" value="true" />
+      <option name="BLANK_LINES_AROUND_FIELD" value="1" />
+      <option name="BLANK_LINES_AROUND_FIELD_IN_INTERFACE" value="1" />
       <option name="ALIGN_MULTILINE_PARAMETERS_IN_CALLS" value="true" />
       <option name="ALIGN_MULTILINE_EXTENDS_LIST" value="true" />
       <option name="CALL_PARAMETERS_WRAP" value="1" />

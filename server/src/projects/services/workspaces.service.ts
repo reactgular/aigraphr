@@ -47,7 +47,7 @@ export class WorkspacesService extends ScaCrudService<
     protected fromCreateDto(
         createDto: WorkspaceCreateDto
     ): Omit<WorkspaceEntity, 'id'> {
-        return createDto;
+        return createDto as WorkspaceEntity;
     }
 
     protected fromUpdateDto(

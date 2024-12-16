@@ -3,12 +3,10 @@ import {ProjectEntity} from '@/entities/project.entity';
 import {NodesController} from '@/projects/controllers/nodes.controller';
 import {ProjectsController} from '@/projects/controllers/projects.controller';
 import {WorkspacesController} from '@/projects/controllers/workspaces.controller';
-import {AttributeEntity} from '@/projects/entities/attribute.entity';
 import {EdgeEntity} from '@/projects/entities/edge.entity';
 import {NodeEntity} from '@/projects/entities/node.entity';
 import {WorkspaceEntity} from '@/projects/entities/workspace.entity';
 import {
-    ATTRIBUTES_REPOSITORY,
     EDGES_REPOSITORY,
     NODES_REPOSITORY,
     WORKSPACES_REPOSITORY
@@ -73,7 +71,6 @@ function repository<Entity extends ObjectLiteral>(
         repository(WORKSPACES_REPOSITORY, WorkspaceEntity),
         repository(NODES_REPOSITORY, NodeEntity),
         repository(EDGES_REPOSITORY, EdgeEntity),
-        repository(ATTRIBUTES_REPOSITORY, AttributeEntity),
         ProjectsService,
         ProjectsValidatorService,
         EdgesService,
