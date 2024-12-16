@@ -1,14 +1,14 @@
 import {AiGraphrApp} from '@/app.config';
 import {ProjectDto} from '@/entities/project.entity';
-import {ProjectsController} from '@/projects/controllers/projects.controller';
 import request from 'supertest';
-import {createTestApp} from '../../../test/utils/create-test-app';
+import {createTestApp} from '../utils/create-test-app';
 
-describe(ProjectsController.name, () => {
+describe('Projects', () => {
     let app: AiGraphrApp;
     let r: ReturnType<typeof request>;
 
     beforeAll(async () => {
+        // TODO: createTestApp should start with a clean database
         app = await createTestApp();
         r = request(app.getHttpServer());
     });
