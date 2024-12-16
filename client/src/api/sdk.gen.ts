@@ -56,6 +56,12 @@ import type {
     WorkspacesScaUpdateData,
     WorkspacesScaUpdateError,
     WorkspacesScaUpdateResponse,
+    WorkspacesScaCreateValidateData,
+    WorkspacesScaCreateValidateError,
+    WorkspacesScaCreateValidateResponse,
+    WorkspacesScaUpdateValidateData,
+    WorkspacesScaUpdateValidateError,
+    WorkspacesScaUpdateValidateResponse,
     SettingsGetData,
     SettingsGetResponse,
     SettingsUpdateData,
@@ -455,6 +461,50 @@ export const workspacesScaUpdate = <ThrowOnError extends boolean = false>(
             ...options?.headers
         },
         url: '/api/projects/{projectId}/workspaces/{workspaceId}'
+    });
+};
+
+/**
+ * Validates creation of a WorkspaceCreate
+ */
+export const workspacesScaCreateValidate = <
+    ThrowOnError extends boolean = false
+>(
+    options: Options<WorkspacesScaCreateValidateData, ThrowOnError>
+) => {
+    return (options?.client ?? client).post<
+        WorkspacesScaCreateValidateResponse,
+        WorkspacesScaCreateValidateError,
+        ThrowOnError
+    >({
+        ...options,
+        headers: {
+            'Content-Type': 'application/json',
+            ...options?.headers
+        },
+        url: '/api/projects/{projectId}/workspaces/validates'
+    });
+};
+
+/**
+ * Validates updating a WorkspaceUpdate by workspaceId
+ */
+export const workspacesScaUpdateValidate = <
+    ThrowOnError extends boolean = false
+>(
+    options: Options<WorkspacesScaUpdateValidateData, ThrowOnError>
+) => {
+    return (options?.client ?? client).patch<
+        WorkspacesScaUpdateValidateResponse,
+        WorkspacesScaUpdateValidateError,
+        ThrowOnError
+    >({
+        ...options,
+        headers: {
+            'Content-Type': 'application/json',
+            ...options?.headers
+        },
+        url: '/api/projects/{projectId}/workspaces/{workspaceId}/validates'
     });
 };
 

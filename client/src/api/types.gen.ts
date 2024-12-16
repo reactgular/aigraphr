@@ -25,10 +25,6 @@ export type ProjectDto = {
 
 export type ScaExceptionFilterDto = {
     /**
-     * The HTTP status code of the error.
-     */
-    statusCode: number;
-    /**
      * Extra information about the error.
      */
     cause?: {
@@ -46,6 +42,10 @@ export type ScaExceptionFilterDto = {
      * The stack trace of the error.
      */
     stack?: Array<string>;
+    /**
+     * The HTTP status code of the error.
+     */
+    statusCode: number;
 };
 
 export type ProjectUpdateDto = {
@@ -61,10 +61,6 @@ export type ProjectUpdateDto = {
 
 export type ScaFieldValidationDto = {
     /**
-     * The name of the field being validated.
-     */
-    name: string;
-    /**
      * The code of the validation.
      */
     code:
@@ -78,13 +74,13 @@ export type ScaFieldValidationDto = {
      * A message providing additional details about the validation.
      */
     message: string;
+    /**
+     * The name of the field being validated.
+     */
+    name: string;
 };
 
 export type ScaValidationResponseDto = {
-    /**
-     * Whether the validation was successful.
-     */
-    valid: boolean;
     /**
      * The list of fields that failed validation.
      */
@@ -95,57 +91,265 @@ export type ScaValidationResponseDto = {
     invalidations: {
         [key: string]: ScaFieldValidationDto;
     };
+    /**
+     * Whether the validation was successful.
+     */
+    valid: boolean;
+};
+
+/**
+ * Workspaces are the top level of the project hierarchy, and contain the nodes that make up an executable graph.
+ */
+export type WorkspaceEntity = {
+    id: number;
+    /**
+     * Description of the workspace
+     */
+    description?: string | null;
+    /**
+     * The edges of the workspace that connect nodes
+     */
+    edges?: EdgeEntity;
+    /**
+     * The engine of the workspace
+     */
+    engine: 'javascript' | 'python';
+    /**
+     * The name of the workspace
+     */
+    name: string;
+    /**
+     * The nodes of the workspace
+     */
+    nodes?: NodeEntity;
+};
+
+/**
+ * Edges connect nodes in a workspace. They are used to define the flow of data between nodes.
+ */
+export type EdgeEntity = {
+    id: number;
+    /**
+     * The node that the edge connects to as an input
+     */
+    inputNode?: NodeEntity;
+    /**
+     * The ID of the node that the edge connects to as an input
+     */
+    inputNodeId: number;
+    /**
+     * The node that the edge connects to as an output
+     */
+    outputNode?: NodeEntity;
+    /**
+     * The ID of the node that the edge connects to as an output
+     */
+    outputNodeId: number;
+    /**
+     * The workspace of the edge
+     */
+    workspace?: WorkspaceEntity;
+};
+
+/**
+ * Nodes store the run-time data needed by Node Instances to run. They are connected by Edges to form a graph.
+ */
+export type NodeEntity = {
+    id: number;
+    /**
+     * The edges that connect to the node as inputs
+     */
+    inputEdges?: EdgeEntity;
+    /**
+     * The edges that connect to the node as outputs
+     */
+    outputEdges?: EdgeEntity;
+    /**
+     * The workspace of the node
+     */
+    workspace?: WorkspaceEntity;
+    /**
+     * The ID of the workspace of the node
+     */
+    workspaceId: number;
 };
 
 export type EdgeCreateDto = {
-    test: string;
+    /**
+     * The node that the edge connects to as an input
+     */
+    inputNode?: NodeEntity;
+    /**
+     * The ID of the node that the edge connects to as an input
+     */
+    inputNodeId: number;
+    /**
+     * The node that the edge connects to as an output
+     */
+    outputNode?: NodeEntity;
+    /**
+     * The ID of the node that the edge connects to as an output
+     */
+    outputNodeId: number;
+    /**
+     * The workspace of the edge
+     */
+    workspace?: WorkspaceEntity;
 };
 
 export type EdgeDto = {
     id: number;
-    test: string;
+    /**
+     * The node that the edge connects to as an input
+     */
+    inputNode?: NodeEntity;
+    /**
+     * The ID of the node that the edge connects to as an input
+     */
+    inputNodeId: number;
+    /**
+     * The node that the edge connects to as an output
+     */
+    outputNode?: NodeEntity;
+    /**
+     * The ID of the node that the edge connects to as an output
+     */
+    outputNodeId: number;
+    /**
+     * The workspace of the edge
+     */
+    workspace?: WorkspaceEntity;
 };
 
 export type EdgeUpdateDto = {
-    test?: string;
+    /**
+     * The node that the edge connects to as an input
+     */
+    inputNode?: NodeEntity;
+    /**
+     * The ID of the node that the edge connects to as an input
+     */
+    inputNodeId?: number;
+    /**
+     * The node that the edge connects to as an output
+     */
+    outputNode?: NodeEntity;
+    /**
+     * The ID of the node that the edge connects to as an output
+     */
+    outputNodeId?: number;
+    /**
+     * The workspace of the edge
+     */
+    workspace?: WorkspaceEntity;
 };
 
 export type NodeCreateDto = {
-    test: string;
+    /**
+     * The edges that connect to the node as inputs
+     */
+    inputEdges?: EdgeEntity;
+    /**
+     * The edges that connect to the node as outputs
+     */
+    outputEdges?: EdgeEntity;
+    /**
+     * The ID of the workspace of the node
+     */
+    workspaceId: number;
 };
 
 export type NodeDto = {
     id: number;
-    test: string;
+    /**
+     * The edges that connect to the node as inputs
+     */
+    inputEdges?: EdgeEntity;
+    /**
+     * The edges that connect to the node as outputs
+     */
+    outputEdges?: EdgeEntity;
+    /**
+     * The workspace of the node
+     */
+    workspace?: WorkspaceEntity;
+    /**
+     * The ID of the workspace of the node
+     */
+    workspaceId: number;
 };
 
 export type NodeUpdateDto = {
-    test?: string;
+    /**
+     * The edges that connect to the node as inputs
+     */
+    inputEdges?: EdgeEntity;
+    /**
+     * The edges that connect to the node as outputs
+     */
+    outputEdges?: EdgeEntity;
+    /**
+     * The ID of the workspace of the node
+     */
+    workspaceId?: number;
 };
 
 export type WorkspaceCreateDto = {
     /**
-     * The name of the project (alphanumeric)
+     * Description of the workspace
+     */
+    description?: string | null;
+    /**
+     * The edges of the workspace that connect nodes
+     */
+    edges?: EdgeEntity;
+    /**
+     * The engine of the workspace
+     */
+    engine: 'javascript' | 'python';
+    /**
+     * The name of the workspace
      */
     name: string;
-    test: string;
 };
 
 export type WorkspaceDto = {
     id: number;
     /**
-     * The name of the project (alphanumeric)
+     * Description of the workspace
+     */
+    description?: string | null;
+    /**
+     * The edges of the workspace that connect nodes
+     */
+    edges?: EdgeEntity;
+    /**
+     * The engine of the workspace
+     */
+    engine: 'javascript' | 'python';
+    /**
+     * The name of the workspace
      */
     name: string;
-    test: string;
+    /**
+     * The nodes of the workspace
+     */
+    nodes?: NodeEntity;
 };
 
 export type WorkspaceUpdateDto = {
     /**
-     * The name of the project (alphanumeric)
+     * Description of the workspace
+     */
+    description?: string | null;
+    /**
+     * The edges of the workspace that connect nodes
+     */
+    edges?: EdgeEntity;
+    /**
+     * The name of the workspace
      */
     name?: string;
-    test?: string;
 };
 
 export type SettingDto = {
@@ -923,6 +1127,69 @@ export type WorkspacesScaUpdateResponses = {
 
 export type WorkspacesScaUpdateResponse =
     WorkspacesScaUpdateResponses[keyof WorkspacesScaUpdateResponses];
+
+export type WorkspacesScaCreateValidateData = {
+    body: WorkspaceCreateDto;
+    path?: never;
+    query?: never;
+    url: '/api/projects/{projectId}/workspaces/validates';
+};
+
+export type WorkspacesScaCreateValidateErrors = {
+    /**
+     * Invalid request body
+     */
+    400: ScaExceptionFilterDto;
+};
+
+export type WorkspacesScaCreateValidateError =
+    WorkspacesScaCreateValidateErrors[keyof WorkspacesScaCreateValidateErrors];
+
+export type WorkspacesScaCreateValidateResponses = {
+    /**
+     * Validation results of WorkspaceCreate
+     */
+    200: ScaValidationResponseDto;
+};
+
+export type WorkspacesScaCreateValidateResponse =
+    WorkspacesScaCreateValidateResponses[keyof WorkspacesScaCreateValidateResponses];
+
+export type WorkspacesScaUpdateValidateData = {
+    body: WorkspaceUpdateDto;
+    path: {
+        /**
+         * The ID of a WorkspaceUpdate
+         */
+        workspaceId: number;
+    };
+    query?: never;
+    url: '/api/projects/{projectId}/workspaces/{workspaceId}/validates';
+};
+
+export type WorkspacesScaUpdateValidateErrors = {
+    /**
+     * Invalid request body
+     */
+    400: ScaExceptionFilterDto;
+    /**
+     * A WorkspaceUpdate with the specified workspaceId was not found
+     */
+    404: unknown;
+};
+
+export type WorkspacesScaUpdateValidateError =
+    WorkspacesScaUpdateValidateErrors[keyof WorkspacesScaUpdateValidateErrors];
+
+export type WorkspacesScaUpdateValidateResponses = {
+    /**
+     * Validation results of WorkspaceUpdate
+     */
+    200: ScaValidationResponseDto;
+};
+
+export type WorkspacesScaUpdateValidateResponse =
+    WorkspacesScaUpdateValidateResponses[keyof WorkspacesScaUpdateValidateResponses];
 
 export type SettingsGetData = {
     body?: never;

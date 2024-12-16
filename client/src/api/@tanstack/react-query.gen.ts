@@ -53,6 +53,12 @@ import type {
     WorkspacesScaUpdateData,
     WorkspacesScaUpdateError,
     WorkspacesScaUpdateResponse,
+    WorkspacesScaCreateValidateData,
+    WorkspacesScaCreateValidateError,
+    WorkspacesScaCreateValidateResponse,
+    WorkspacesScaUpdateValidateData,
+    WorkspacesScaUpdateValidateError,
+    WorkspacesScaUpdateValidateResponse,
     SettingsGetData,
     SettingsUpdateData,
     SettingsUpdateResponse,
@@ -83,6 +89,8 @@ import {
     workspacesScaRemove,
     workspacesScaGet,
     workspacesScaUpdate,
+    workspacesScaCreateValidate,
+    workspacesScaUpdateValidate,
     settingsGet,
     settingsUpdate,
     settingsReplace
@@ -653,6 +661,67 @@ export const workspacesScaUpdateMutation = (
     > = {
         mutationFn: async (localOptions) => {
             const {data} = await workspacesScaUpdate({
+                ...options,
+                ...localOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const workspacesScaCreateValidateQueryKey = (
+    options: Options<WorkspacesScaCreateValidateData>
+) => [createQueryKey('workspacesScaCreateValidate', options)];
+
+export const workspacesScaCreateValidateOptions = (
+    options: Options<WorkspacesScaCreateValidateData>
+) => {
+    return queryOptions({
+        queryFn: async ({queryKey, signal}) => {
+            const {data} = await workspacesScaCreateValidate({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: workspacesScaCreateValidateQueryKey(options)
+    });
+};
+
+export const workspacesScaCreateValidateMutation = (
+    options?: Partial<Options<WorkspacesScaCreateValidateData>>
+) => {
+    const mutationOptions: UseMutationOptions<
+        WorkspacesScaCreateValidateResponse,
+        WorkspacesScaCreateValidateError,
+        Options<WorkspacesScaCreateValidateData>
+    > = {
+        mutationFn: async (localOptions) => {
+            const {data} = await workspacesScaCreateValidate({
+                ...options,
+                ...localOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const workspacesScaUpdateValidateMutation = (
+    options?: Partial<Options<WorkspacesScaUpdateValidateData>>
+) => {
+    const mutationOptions: UseMutationOptions<
+        WorkspacesScaUpdateValidateResponse,
+        WorkspacesScaUpdateValidateError,
+        Options<WorkspacesScaUpdateValidateData>
+    > = {
+        mutationFn: async (localOptions) => {
+            const {data} = await workspacesScaUpdateValidate({
                 ...options,
                 ...localOptions,
                 throwOnError: true
