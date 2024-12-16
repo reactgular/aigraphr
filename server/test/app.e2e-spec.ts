@@ -1,32 +1,27 @@
 import {ProjectDto} from '@/entities/project.entity';
-import {MainModule} from '@/main.module';
-import {ScaExceptionFilter} from '@/scaffold/filters/sca-exception.filter';
-import {scaValidationPipe} from '@/scaffold/pipes/sca-validation.pipe';
 import {INestApplication} from '@nestjs/common';
-import {HttpAdapterHost} from '@nestjs/core';
-import {Test, TestingModule} from '@nestjs/testing';
+import {Express} from 'express';
 import request from 'supertest';
 
+declare global {
+    // eslint-disable-next-line no-var
+    var __app: INestApplication<Express>;
+}
+
 describe('ProjectsController (e2e)', () => {
-    let app: INestApplication;
-
-    beforeEach(async () => {
-        const moduleFixture: TestingModule = await Test.createTestingModule({
-            imports: [MainModule]
-        }).compile();
-
-        app = moduleFixture.createNestApplication();
-        app.enableCors();
-        app.useGlobalPipes(scaValidationPipe());
-        app.useGlobalFilters(new ScaExceptionFilter(app.get(HttpAdapterHost)));
-        app.enableShutdownHooks();
-        app.setGlobalPrefix('api');
-
-        await app.init();
-    });
+    // let app: INestApplication;
+    //
+    // beforeEach(async () => {
+    //     const moduleFixture: TestingModule = await Test.createTestingModule({
+    //         imports: [MainModule]
+    //     }).compile();
+    //     app = moduleFixture.createNestApplication();
+    //     appConfig(app);
+    //     await app.init();
+    // });
 
     it('/ (GET)', () => {
-        return request(app.getHttpServer())
+        return request(global.__app.getHttpServer())
             .get('/api/projects')
             .expect(200)
             .expect([
