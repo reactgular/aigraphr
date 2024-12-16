@@ -12,26 +12,6 @@ export class ProjectsStorageService {
 
     public constructor(private config: ConfigService<EnvConfig>) {}
 
-    public async aigraphrDatabase(): Promise<string> {
-        return path.join(await this.aigraphrFolder(), 'aigraphr.sqlite');
-    }
-
-    public async aigraphrFolder(): Promise<string> {
-        const storagePath = path.resolve(this.config.get('PROJECTS_FOLDER')!);
-        try {
-            await fs.access(storagePath);
-        } catch (error) {
-            this.log.warn(`Storage path does not exist: ${storagePath}`, error);
-            try {
-                await fs.mkdir(storagePath, {recursive: true});
-            } catch (error) {
-                this.log.error('Error while creating storage path', error);
-                throw error;
-            }
-        }
-        return storagePath;
-    }
-
     public async projectCopy(
         sourceName: string,
         destName: string
@@ -67,7 +47,7 @@ export class ProjectsStorageService {
     }
 
     public async projectPath(name: string): Promise<string> {
-        return path.join(await this.aigraphrFolder(), `${name}.aigraphr`);
+        return path.join(await this.rootFolder(), `${name}.aigraphr`);
     }
 
     public async projectRemove(name: string): Promise<[true] | [false, Error]> {
@@ -108,5 +88,25 @@ export class ProjectsStorageService {
                 error instanceof Error ? error : new Error('Unknown error')
             ];
         }
+    }
+
+    public async rootDatabase(): Promise<string> {
+        return path.join(await this.rootFolder(), 'aigraphr.sqlite');
+    }
+
+    public async rootFolder(): Promise<string> {
+        const storagePath = path.resolve(this.config.get('PROJECTS_FOLDER')!);
+        try {
+            await fs.access(storagePath);
+        } catch (error) {
+            this.log.warn(`Storage path does not exist: ${storagePath}`, error);
+            try {
+                await fs.mkdir(storagePath, {recursive: true});
+            } catch (error) {
+                this.log.error('Error while creating storage path', error);
+                throw error;
+            }
+        }
+        return storagePath;
     }
 }

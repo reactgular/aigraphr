@@ -16,14 +16,18 @@ import {TypeOrmModuleOptions} from '@nestjs/typeorm/dist/interfaces/typeorm-opti
             validationSchema: VALIDATE_ENV_CONFIG,
             validationOptions: {
                 abortEarly: true
-            }
+            },
+            envFilePath:
+                process.env.NODE_ENV === 'test'
+                    ? ['.env.test.local', '.env.local', '.env']
+                    : ['.env.local', '.env']
         }),
         TypeOrmModule.forRootAsync({
             imports: [ProjectsModule],
             useFactory: async (projectsStorage: ProjectsStorageService) =>
                 ({
                     type: 'sqlite',
-                    database: await projectsStorage.aigraphrDatabase(),
+                    database: await projectsStorage.rootDatabase(),
                     entities: [`${__dirname}/entities/*.entity{.ts,.js}`],
                     subscribers: [
                         `${__dirname}/entities/subscribers/*.subscriber{.ts,.js}`
