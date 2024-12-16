@@ -2,7 +2,8 @@ import {NodeEntity} from '@/projects/entities/node.entity';
 import {WorkspaceEntity} from '@/projects/entities/workspace.entity';
 import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {ApiProperty, ApiSchema, OmitType, PartialType} from '@nestjs/swagger';
-import {Entity, ManyToOne} from 'typeorm';
+import {IsNumber, Min} from 'class-validator';
+import {Column, Entity, ManyToOne} from 'typeorm';
 
 @ApiSchema({
     description:
@@ -27,6 +28,15 @@ export class EdgeEntity extends ScaEntity {
     inputNode: NodeEntity;
 
     @ApiProperty({
+        description: 'The ID of the node that the edge connects to as an input',
+        example: 1
+    })
+    @IsNumber()
+    @Min(1)
+    @Column()
+    inputNodeId: number;
+
+    @ApiProperty({
         type: () => NodeEntity,
         description: 'The node that the edge connects to as an output',
         required: false,
@@ -41,6 +51,16 @@ export class EdgeEntity extends ScaEntity {
         onDelete: 'CASCADE'
     })
     outputNode: NodeEntity;
+
+    @ApiProperty({
+        description:
+            'The ID of the node that the edge connects to as an output',
+        example: 1
+    })
+    @IsNumber()
+    @Min(1)
+    @Column()
+    outputNodeId: number;
 
     @ApiProperty({
         type: () => WorkspaceEntity,

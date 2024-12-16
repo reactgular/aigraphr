@@ -2,7 +2,7 @@ import {EdgeEntity} from '@/projects/entities/edge.entity';
 import {WorkspaceEntity} from '@/projects/entities/workspace.entity';
 import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {ApiProperty, ApiSchema, OmitType, PartialType} from '@nestjs/swagger';
-import {IsString} from 'class-validator';
+import {IsNumber, Min} from 'class-validator';
 import {Column, Entity, ManyToOne, OneToMany} from 'typeorm';
 
 @ApiSchema({
@@ -35,10 +35,6 @@ export class NodeEntity extends ScaEntity {
     })
     outputEdges: EdgeEntity[];
 
-    @IsString()
-    @Column()
-    test: string;
-
     @ApiProperty({
         type: () => WorkspaceEntity,
         description: 'The workspace of the node',
@@ -49,6 +45,15 @@ export class NodeEntity extends ScaEntity {
         onDelete: 'CASCADE'
     })
     workspace: WorkspaceEntity;
+
+    @ApiProperty({
+        description: 'The ID of the workspace of the node',
+        example: 1
+    })
+    @IsNumber()
+    @Min(1)
+    @Column()
+    workspaceId: number;
 }
 
 export class NodeDto extends OmitType(NodeEntity, [] as const) {}

@@ -5,7 +5,7 @@ import {PrimaryGeneratedColumn} from 'typeorm';
 export abstract class ScaEntity {
     @IsNumber()
     @Min(1)
-    @ApiProperty({example: 1234})
+    @ApiProperty({example: 1})
     @PrimaryGeneratedColumn()
     id: number;
 }
