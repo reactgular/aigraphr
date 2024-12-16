@@ -18,5 +18,7 @@
                 "tsconfig": "tsconfig.json"
             }
         ]
-    }
+    },
+    "globalSetup": "<rootDir>/jest-e2e-setup.ts",
+    "globalTeardown": "<rootDir>/jest-e2e-teardown.ts"
 }
