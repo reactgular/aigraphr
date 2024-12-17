@@ -4,7 +4,7 @@ import {
     WorkspaceEntity,
     WorkspaceUpdateDto
 } from '@/projects/entities/workspace.entity';
-import {WORKSPACES_REPOSITORY} from '@/projects/project-symbols';
+import {WORKSPACES_REPOSITORY} from '@/projects/project.symbols';
 import {ScaCrudService} from '@/scaffold/crud/sca-crud.service';
 import {Inject, Injectable, Logger} from '@nestjs/common';
 import {DeepPartial, Not, Repository} from 'typeorm';

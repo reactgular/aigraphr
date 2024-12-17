@@ -1,15 +1,23 @@
-import {ProjectsStorageService} from '@/projects/services/projects-storage.service';
-import {Injectable, Logger, OnApplicationShutdown} from '@nestjs/common';
+import {PROJECTS_STORAGE} from '@/projects/project.symbols';
+import {ProjectsStorage} from '@/projects/storages/projects-storage';
+import {
+    Inject,
+    Injectable,
+    Logger,
+    OnApplicationShutdown
+} from '@nestjs/common';
 import {GoneException} from '@nestjs/common/exceptions/gone.exception';
 import {DataSource} from 'typeorm'; // TODO: This could pool data sources in memory.
 
 @Injectable()
 export class ProjectDataSourcesService implements OnApplicationShutdown {
     private readonly connections: Record<string, DataSource> = {};
+
     private readonly log = new Logger('ProjectDataSourcesService');
 
     public constructor(
-        private readonly projectsStorage: ProjectsStorageService
+        @Inject(PROJECTS_STORAGE)
+        private readonly projectsStorage: ProjectsStorage
     ) {}
 
     public async close(name: string) {
@@ -53,7 +61,7 @@ export class ProjectDataSourcesService implements OnApplicationShutdown {
         }
 
         if (strict) {
-            const path = await this.projectsStorage.projectPath(name);
+            const path = await this.projectsStorage.projectDatabase(name);
             const exists = await this.projectsStorage.projectExists(name);
 
             if (!exists) {
@@ -65,7 +73,7 @@ export class ProjectDataSourcesService implements OnApplicationShutdown {
 
         const dataSource = new DataSource({
             type: 'sqlite',
-            database: await this.projectsStorage.projectPath(name),
+            database: await this.projectsStorage.projectDatabase(name),
             entities: [`${__dirname}/../entities/*.entity{.ts,.js}`],
             subscribers: [
                 `${__dirname}/../entities/subscribers/*.subscriber{.ts,.js}`

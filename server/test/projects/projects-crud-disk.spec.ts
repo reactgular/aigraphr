@@ -8,8 +8,7 @@ describe('Projects', () => {
     let r: ReturnType<typeof request>;
 
     beforeAll(async () => {
-        // TODO: createTestApp should start with a clean database
-        app = await createTestApp();
+        app = await createTestApp('disk');
         r = request(app.getHttpServer());
     });
 
@@ -29,7 +28,7 @@ describe('Projects', () => {
             .expect({
                 id: 1,
                 name: 'test',
-                open: false
+                open: true
             } satisfies ProjectDto);
     });
 });

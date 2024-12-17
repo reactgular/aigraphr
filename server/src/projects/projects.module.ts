@@ -1,4 +1,5 @@
 import {AppModule} from '@/app/app.module';
+import {EnvConfig} from '@/configs/env.config';
 import {ProjectEntity} from '@/entities/project.entity';
 import {NodesController} from '@/projects/controllers/nodes.controller';
 import {ProjectsController} from '@/projects/controllers/projects.controller';
@@ -9,24 +10,25 @@ import {WorkspaceEntity} from '@/projects/entities/workspace.entity';
 import {
     EDGES_REPOSITORY,
     NODES_REPOSITORY,
+    PROJECT_EXTENSION,
+    PROJECTS_STORAGE,
     WORKSPACES_REPOSITORY
-} from '@/projects/project-symbols';
+} from '@/projects/project.symbols';
 import {EdgesService} from '@/projects/services/edges.service';
 import {NodesService} from '@/projects/services/nodes.service';
 import {ProjectDataSourcesService} from '@/projects/services/project-data-sources.service';
 import {ProjectParamService} from '@/projects/services/project-param.service';
 import {ProjectReposService} from '@/projects/services/project-repos.service';
-import {
-    PROJECT_EXTENSION,
-    ProjectsStorageService
-} from '@/projects/services/projects-storage.service';
 import {ProjectsValidatorService} from '@/projects/services/projects-validator.service';
 import {ProjectsService} from '@/projects/services/projects.service';
 import {WorkspacesService} from '@/projects/services/workspaces.service';
+import {ProjectsStorageDiskService} from '@/projects/storages/projects-storage-disk.service';
+import {ProjectsStorageMemoryService} from '@/projects/storages/projects-storage-memory.service';
 import {UtilsModule} from '@/utils/utils.module';
-import {Module, Scope} from '@nestjs/common';
+import {Logger, Module, Scope} from '@nestjs/common';
 import {InjectionToken} from '@nestjs/common/interfaces/modules/injection-token.interface';
 import {FactoryProvider} from '@nestjs/common/interfaces/modules/provider.interface';
+import {ConfigService} from '@nestjs/config';
 import {TypeOrmModule} from '@nestjs/typeorm';
 import {EntityTarget} from 'typeorm/common/EntityTarget';
 import {ObjectLiteral} from 'typeorm/common/ObjectLiteral';
@@ -46,6 +48,8 @@ function repository<Entity extends ObjectLiteral>(
     } satisfies FactoryProvider;
 }
 
+const log = new Logger('ProjectsModule');
+
 @Module({
     imports: [
         AppModule,
@@ -64,7 +68,17 @@ function repository<Entity extends ObjectLiteral>(
             provide: PROJECT_EXTENSION,
             useValue: '.aigraphr'
         },
-        ProjectsStorageService,
+        {
+            provide: PROJECTS_STORAGE,
+            useFactory: async (config: ConfigService<EnvConfig>) => {
+                const isTest = config.get('NODE_ENV') === 'test';
+                log.debug(`Using ${isTest ? 'MEMORY' : 'DISK'} storage`);
+                return isTest
+                    ? new ProjectsStorageMemoryService(config)
+                    : new ProjectsStorageDiskService(config);
+            },
+            inject: [ConfigService]
+        },
         ProjectReposService,
         ProjectDataSourcesService,
         ProjectParamService,
@@ -81,10 +95,10 @@ function repository<Entity extends ObjectLiteral>(
         ProjectsService,
         ProjectsValidatorService,
         ProjectGuard,
-        ProjectsStorageService,
         ProjectReposService,
         ProjectParamService,
-        WORKSPACES_REPOSITORY
+        WORKSPACES_REPOSITORY,
+        PROJECTS_STORAGE
     ]
 })
 export class ProjectsModule {}

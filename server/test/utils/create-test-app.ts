@@ -1,9 +1,24 @@
 import {AiGraphrApp, appConfig} from '@/app.config';
 import {MainModule} from '@/main.module';
-import {ProjectsStorageService} from '@/projects/services/projects-storage.service';
+import {ConsoleLogger} from '@nestjs/common';
 import {Test, TestingModule} from '@nestjs/testing';
+import dotenv from 'dotenv';
+import * as process from 'node:process';
 
-export const createTestApp = async (): Promise<AiGraphrApp> => {
+dotenv.config();
+
+export const createTestApp = async (
+    mode: 'memory' | 'disk' = 'memory'
+): Promise<AiGraphrApp> => {
+    const PROJECTS_FOLDER = process.env.PROJECTS_FOLDER;
+    if (!PROJECTS_FOLDER || !PROJECTS_FOLDER.includes('e2e')) {
+        throw new Error(`Possible wrong projects folder: ${PROJECTS_FOLDER}`);
+    }
+
+    // if (mode === 'disk') {
+    //     await fs.unlink(PROJECTS_FOLDER);
+    // }
+
     const moduleFixture: TestingModule = await Test.createTestingModule({
         imports: [MainModule]
     }).compile();
@@ -12,17 +27,9 @@ export const createTestApp = async (): Promise<AiGraphrApp> => {
 
     appConfig(app);
 
+    app.useLogger(new ConsoleLogger());
+
     await app.init();
-
-    const projectsStorage = app.get(ProjectsStorageService);
-    const rootFolder = await projectsStorage.rootFolder();
-
-    if (!rootFolder.includes('e2e')) {
-        throw new Error(`Possible wrong root folder: ${rootFolder}`);
-    }
-
-    // TODO: folder is locked
-    // await fs.unlink(rootFolder);
 
     return app;
 };

@@ -4,10 +4,11 @@ import {
     ProjectEntity,
     ProjectUpdateDto
 } from '@/entities/project.entity';
+import {PROJECTS_STORAGE} from '@/projects/project.symbols';
 import {ProjectDataSourcesService} from '@/projects/services/project-data-sources.service';
-import {ProjectsStorageService} from '@/projects/services/projects-storage.service';
+import {ProjectsStorage} from '@/projects/storages/projects-storage';
 import {ScaCrudService} from '@/scaffold/crud/sca-crud.service';
-import {BadRequestException, Injectable, Logger} from '@nestjs/common';
+import {BadRequestException, Inject, Injectable, Logger} from '@nestjs/common';
 import {InternalServerErrorException} from '@nestjs/common/exceptions/internal-server-error.exception';
 import {InjectRepository} from '@nestjs/typeorm';
 import {DeepPartial, Not, Repository} from 'typeorm';
@@ -25,7 +26,8 @@ export class ProjectsService extends ScaCrudService<
         @InjectRepository(ProjectEntity)
         private readonly projects: Repository<ProjectEntity>,
         private readonly projectDataSources: ProjectDataSourcesService,
-        private readonly projectsStorage: ProjectsStorageService
+        @Inject(PROJECTS_STORAGE)
+        private readonly projectsStorage: ProjectsStorage
     ) {
         super(projects, ProjectEntity);
     }
@@ -130,7 +132,9 @@ export class ProjectsService extends ScaCrudService<
         );
 
         if (!success) {
-            const path = await this.projectsStorage.projectPath(project.name);
+            const path = await this.projectsStorage.projectDatabase(
+                project.name
+            );
             throw new InternalServerErrorException(
                 `Failed to remove project ${id} at ${path}`,
                 {cause}
@@ -157,7 +161,9 @@ export class ProjectsService extends ScaCrudService<
         if (success) {
             await this.projects.update(id, {name: newName});
         } else {
-            const path = await this.projectsStorage.projectPath(project.name);
+            const path = await this.projectsStorage.projectDatabase(
+                project.name
+            );
             throw new InternalServerErrorException(
                 `Failed to rename project ${id} at ${path}`,
                 {cause}

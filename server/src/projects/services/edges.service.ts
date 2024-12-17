@@ -1,5 +1,5 @@
 import {EdgeEntity} from '@/projects/entities/edge.entity';
-import {EDGES_REPOSITORY} from '@/projects/project-symbols';
+import {EDGES_REPOSITORY} from '@/projects/project.symbols';
 import {Inject, Injectable} from '@nestjs/common';
 import {Repository} from 'typeorm';
 

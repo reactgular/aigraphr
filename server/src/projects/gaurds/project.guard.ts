@@ -1,9 +1,11 @@
-import {ProjectsStorageService} from '@/projects/services/projects-storage.service';
+import {PROJECTS_STORAGE} from '@/projects/project.symbols';
 import {ProjectsService} from '@/projects/services/projects.service';
+import {ProjectsStorage} from '@/projects/storages/projects-storage';
 import {
     BadRequestException,
     CanActivate,
     ExecutionContext,
+    Inject,
     Injectable,
     Logger,
     NotFoundException,
@@ -22,7 +24,8 @@ export class ProjectGuard implements CanActivate {
 
     public constructor(
         private readonly projects: ProjectsService,
-        private readonly projectsStorage: ProjectsStorageService
+        @Inject(PROJECTS_STORAGE)
+        private readonly projectsStorage: ProjectsStorage
     ) {}
 
     public async canActivate(execContext: ExecutionContext): Promise<boolean> {
