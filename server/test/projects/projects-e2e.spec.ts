@@ -1,4 +1,8 @@
-import {ProjectDto, ProjectUpdateDto} from '@/entities/project.entity';
+import {
+    ProjectCreateDto,
+    ProjectDto,
+    ProjectUpdateDto
+} from '@/entities/project.entity';
 import {CreateDisk, createDiskApp} from '../utils/create-disk-app';
 import {CreateMemory, createMemoryApp} from '../utils/create-memory-app';
 
@@ -289,10 +293,35 @@ describe('Projects API (e2e) Tests', () => {
             expect(await app.projectExists('after-test')).toBe(false);
         });
 
+        it('should copy a project file', async () => {
+            const resp1 = await app.request
+                .post(route)
+                .send({name: 'original'} satisfies ProjectCreateDto)
+                .expect(201)
+                .expect(/original/);
+
+            await app.request
+                .patch(`${route}/${resp1.body.id}`)
+                .send({open: false} satisfies ProjectUpdateDto)
+                .expect(200);
+
+            await app.request
+                .post(route)
+                .send({
+                    name: 'copy',
+                    cloneId: resp1.body.id
+                } satisfies ProjectCreateDto)
+                .expect(201)
+                .expect(/copy/);
+
+            expect(await app.projectExists('original')).toBe(true);
+            expect(await app.projectExists('copy')).toBe(true);
+        });
+
         it('should report user deleted files as GONE', async () => {
             const resp = await app.request
                 .post(route)
-                .send({name: 'is-gone'})
+                .send({name: 'is-gone'} satisfies ProjectCreateDto)
                 .expect(201)
                 .expect(/is-gone/);
 
