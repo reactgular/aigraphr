@@ -212,51 +212,103 @@ describe('Projects API (e2e) Tests', () => {
             await app.request.get(route).expect(200).expect([]);
         });
 
-        it('should create a new project file', async () => {
-            await app.request
-                .post(route)
-                .send({name: 'test'})
-                .expect(201)
-                .expect({
-                    id: 1,
-                    name: 'test',
-                    open: true
-                } satisfies ProjectDto);
-
-            expect(await app.projectExists('test')).toBe(true);
-
-            await app.request
-                .get(route)
-                .expect(200)
-                .expect([
-                    {
+        describe('Project Create and Delete', () => {
+            it('should create a new project file', async () => {
+                await app.request
+                    .post(route)
+                    .send({name: 'test'})
+                    .expect(201)
+                    .expect({
                         id: 1,
                         name: 'test',
                         open: true
-                    } satisfies ProjectDto
-                ]);
+                    } satisfies ProjectDto);
+
+                expect(await app.projectExists('test')).toBe(true);
+
+                await app.request
+                    .get(`${route}/1`)
+                    .expect(200)
+                    .expect({
+                        id: 1,
+                        name: 'test',
+                        open: true
+                    } satisfies ProjectDto);
+            });
+
+            it('should remove the project file', async () => {
+                await app.request
+                    .patch(`${route}/1`)
+                    .send({
+                        open: false
+                    } satisfies ProjectUpdateDto)
+                    .expect(200)
+                    .expect({
+                        id: 1,
+                        name: 'test',
+                        open: false
+                    } satisfies ProjectDto);
+
+                await app.request.delete(`${route}/1`).expect({}).expect(204);
+
+                expect(await app.projectExists('test')).toBe(false);
+
+                await app.request.get(`${route}/1`).expect(404);
+            });
         });
 
-        it('should remove the project file', async () => {
+        it('should rename the project file', async () => {
+            const resp = await app.request
+                .post(route)
+                .send({name: 'before-test'})
+                .expect(201)
+                .expect(/before-test/);
+
             await app.request
-                .patch(`${route}/1`)
-                .send({
-                    open: false
-                } satisfies ProjectUpdateDto)
-                .expect(200)
-                .expect({
-                    id: 1,
-                    name: 'test',
-                    open: false
-                } satisfies ProjectDto);
+                .patch(`${route}/${resp.body.id}`)
+                .send({open: false} satisfies ProjectUpdateDto)
+                .expect(200);
 
-            await app.request.delete(`${route}/1`).expect({}).expect(204);
+            expect(await app.projectExists('before-test')).toBe(true);
+            expect(await app.projectExists('after-test')).toBe(false);
 
-            expect(await app.projectExists('test')).toBe(false);
+            await app.request
+                .patch(`${route}/${resp.body.id}`)
+                .send({name: 'after-test'} satisfies ProjectUpdateDto)
+                .expect(200);
 
-            await app.request.get(route).expect(200).expect([]);
+            expect(await app.projectExists('before-test')).toBe(false);
+            expect(await app.projectExists('after-test')).toBe(true);
+
+            await app.request
+                .delete(`${route}/${resp.body.id}`)
+                .expect({})
+                .expect(204);
+
+            expect(await app.projectExists('before-test')).toBe(false);
+            expect(await app.projectExists('after-test')).toBe(false);
         });
 
-        // TODO: test user deleted files
+        it('should report user deleted files as GONE', async () => {
+            const resp = await app.request
+                .post(route)
+                .send({name: 'is-gone'})
+                .expect(201)
+                .expect(/is-gone/);
+
+            await app.request
+                .patch(`${route}/${resp.body.id}`)
+                .send({open: false} satisfies ProjectUpdateDto)
+                .expect(200);
+
+            expect(await app.projectExists('is-gone')).toBe(true);
+            await app.projectDelete('is-gone');
+            expect(await app.projectExists('is-gone')).toBe(false);
+
+            await app.request
+                .patch(`${route}/${resp.body.id}`)
+                .send({open: true} satisfies ProjectUpdateDto)
+                .expect(410);
+        });
     });
 });

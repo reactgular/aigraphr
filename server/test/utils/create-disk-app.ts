@@ -35,6 +35,9 @@ export const createDiskApp = async (logger: boolean = false) => {
                 return false;
             }
         },
+        projectDelete: async (name: string) => {
+            await fs.rm(path.join(folder, `${name}.aigraphr`));
+        },
         shutdown: async () => {
             await app.close();
             await fs.rm(folder, {recursive: true});
