@@ -1,5 +1,7 @@
 export type ProjectsStorageResult = [true] | [false, Error];
 
+export type ProjectsStorageMode = 'disk' | 'memory';
+
 export interface ProjectsStorage {
     projectCopy(
         sourceName: string,

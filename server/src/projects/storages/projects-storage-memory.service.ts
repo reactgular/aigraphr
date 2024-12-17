@@ -12,7 +12,9 @@ export class ProjectsStorageMemoryService implements ProjectsStorage {
 
     private readonly log = new Logger('ProjectsStorageMemoryService');
 
-    public constructor(private config: ConfigService<EnvConfig>) {}
+    public constructor(private config: ConfigService<EnvConfig>) {
+        this.log.warn('Memory storage has some unsupported features');
+    }
 
     public async projectCopy(
         sourceName: string,

@@ -11,6 +11,7 @@ import {
     EDGES_REPOSITORY,
     NODES_REPOSITORY,
     PROJECT_EXTENSION,
+    PROJECT_STORAGE_MODE,
     PROJECTS_STORAGE,
     WORKSPACES_REPOSITORY
 } from '@/projects/project.symbols';
@@ -22,10 +23,11 @@ import {ProjectReposService} from '@/projects/services/project-repos.service';
 import {ProjectsValidatorService} from '@/projects/services/projects-validator.service';
 import {ProjectsService} from '@/projects/services/projects.service';
 import {WorkspacesService} from '@/projects/services/workspaces.service';
+import {ProjectsStorageMode} from '@/projects/storages/projects-storage';
 import {ProjectsStorageDiskService} from '@/projects/storages/projects-storage-disk.service';
 import {ProjectsStorageMemoryService} from '@/projects/storages/projects-storage-memory.service';
 import {UtilsModule} from '@/utils/utils.module';
-import {Logger, Module, Scope} from '@nestjs/common';
+import {Module, Scope} from '@nestjs/common';
 import {InjectionToken} from '@nestjs/common/interfaces/modules/injection-token.interface';
 import {FactoryProvider} from '@nestjs/common/interfaces/modules/provider.interface';
 import {ConfigService} from '@nestjs/config';
@@ -48,8 +50,6 @@ function repository<Entity extends ObjectLiteral>(
     } satisfies FactoryProvider;
 }
 
-const log = new Logger('ProjectsModule');
-
 @Module({
     imports: [
         AppModule,
@@ -70,14 +70,21 @@ const log = new Logger('ProjectsModule');
         },
         {
             provide: PROJECTS_STORAGE,
-            useFactory: async (config: ConfigService<EnvConfig>) => {
-                const isTest = config.get('NODE_ENV') === 'test';
-                log.debug(`Using ${isTest ? 'MEMORY' : 'DISK'} storage`);
-                return isTest
+            useFactory: async (
+                config: ConfigService<EnvConfig>,
+                mode?: ProjectsStorageMode
+            ) => {
+                return mode === 'memory'
                     ? new ProjectsStorageMemoryService(config)
                     : new ProjectsStorageDiskService(config);
             },
-            inject: [ConfigService]
+            inject: [
+                ConfigService,
+                {
+                    token: PROJECT_STORAGE_MODE,
+                    optional: true
+                }
+            ]
         },
         ProjectReposService,
         ProjectDataSourcesService,

@@ -17,11 +17,7 @@ import {TypeOrmModule, TypeOrmModuleOptions} from '@nestjs/typeorm';
             validationOptions: {
                 abortEarly: true
             },
-            envFilePath:
-                process.env.NODE_ENV === 'test'
-                    ? // @BUG - if .env.test.local does not exist, it will not load .env.local and that will be a problem
-                      ['.env.test.local', '.env.local', '.env']
-                    : ['.env.local', '.env']
+            envFilePath: ['.env.local', '.env']
         }),
         TypeOrmModule.forRootAsync({
             imports: [ProjectsModule],

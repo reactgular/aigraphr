@@ -12,7 +12,12 @@ import path from 'path';
 export class ProjectsStorageDiskService implements ProjectsStorage {
     private readonly log = new Logger('ProjectsStorageDiskService');
 
-    public constructor(private config: ConfigService<EnvConfig>) {}
+    private readonly storagePath: string;
+
+    public constructor(private config: ConfigService<EnvConfig>) {
+        this.storagePath = path.resolve(this.config.get('PROJECTS_FOLDER')!);
+        this.log.log(`Using disk storage: ${this.storagePath}`);
+    }
 
     public async projectCopy(
         sourceName: string,
@@ -100,18 +105,20 @@ export class ProjectsStorageDiskService implements ProjectsStorage {
      * @deprecated will become private when we add support for in memory databases.
      */
     public async rootFolder(): Promise<string> {
-        const storagePath = path.resolve(this.config.get('PROJECTS_FOLDER')!);
         try {
-            await fs.access(storagePath);
+            await fs.access(this.storagePath);
         } catch (error) {
-            this.log.warn(`Storage path does not exist: ${storagePath}`, error);
+            this.log.warn(
+                `Storage path does not exist: ${this.storagePath}`,
+                error
+            );
             try {
-                await fs.mkdir(storagePath, {recursive: true});
+                await fs.mkdir(this.storagePath, {recursive: true});
             } catch (error) {
                 this.log.error('Error while creating storage path', error);
                 throw error;
             }
         }
-        return storagePath;
+        return this.storagePath;
     }
 }
