@@ -83,19 +83,21 @@ export class WorkspaceEntity extends ScaEntity {
     nodes: NodeEntity[];
 }
 
-export class WorkspaceDto extends OmitType(WorkspaceEntity, [] as const) {}
-
-/**
- * @deprecated need to switch to using groups
- */
-export class WorkspaceCreateDto extends OmitType(WorkspaceDto, [
-    'id',
+export class WorkspaceDto extends OmitType(WorkspaceEntity, [
+    'edges',
     'nodes'
 ] as const) {}
 
 /**
  * @deprecated need to switch to using groups
  */
+export class WorkspaceCreateDto extends OmitType(WorkspaceDto, [
+    'id'
+] as const) {}
+
+/**
+ * @deprecated need to switch to using groups
+ */
 export class WorkspaceUpdateDto extends PartialType(
-    OmitType(WorkspaceDto, ['id', 'engine', 'nodes'] as const)
+    OmitType(WorkspaceDto, ['id', 'engine'] as const)
 ) {}
