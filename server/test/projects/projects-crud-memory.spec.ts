@@ -1,26 +1,23 @@
 import {ProjectDto} from '@/entities/project.entity';
-import request from 'supertest';
-import {createTestApp, CreateTestAppResult} from '../utils/create-test-app';
+import {CreateMemory, createMemoryApp} from '../utils/create-memory-app';
 
 describe('Projects', () => {
-    let testApp: CreateTestAppResult;
-    let r: ReturnType<typeof request>;
+    let app: CreateMemory;
 
     beforeAll(async () => {
-        testApp = await createTestApp({mode: 'memory'});
-        r = request(testApp.app.getHttpServer());
+        app = await createMemoryApp();
     });
 
     afterAll(async () => {
-        await testApp.shutdown();
+        await app.shutdown();
     });
 
     it('should have no projects', () => {
-        return r.get('/api/projects').expect(200).expect([]);
+        return app.request.get('/api/projects').expect(200).expect([]);
     });
 
     it('should not open a project when creating it', () => {
-        return r
+        return app.request
             .post('/api/projects')
             .send({name: 'test'})
             .expect(201)
