@@ -1,19 +1,18 @@
-import {AiGraphrApp} from '@/app.config';
 import {ProjectDto} from '@/entities/project.entity';
 import request from 'supertest';
-import {createTestApp} from '../utils/create-test-app';
+import {createTestApp, CreateTestAppResult} from '../utils/create-test-app';
 
 describe('Projects', () => {
-    let app: AiGraphrApp;
+    let testApp: CreateTestAppResult;
     let r: ReturnType<typeof request>;
 
     beforeAll(async () => {
-        app = await createTestApp('disk');
-        r = request(app.getHttpServer());
+        testApp = await createTestApp({mode: 'disk'});
+        r = request(testApp.app.getHttpServer());
     });
 
     afterAll(async () => {
-        await app.close();
+        await testApp.shutdown();
     });
 
     it('should have no projects', () => {
