@@ -21,7 +21,7 @@ export const createDiskApp = async () => {
         .overrideProvider(PROJECTS_STORAGE)
         .useValue(new ProjectsStorageDiskService(folder));
 
-    const app = await compileApp(builder);
+    const app = await compileApp(builder, true);
 
     return {
         app,
@@ -32,7 +32,6 @@ export const createDiskApp = async () => {
                 await fs.access(path.join(folder, `${name}.aigraphr`));
                 return true;
             } catch (err) {
-                console.warn(err);
                 return false;
             }
         },

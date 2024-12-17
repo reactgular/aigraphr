@@ -1,6 +1,6 @@
 import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {toHumanUtils} from '@/scaffold/utils/to-human.utils';
-import {applyDecorators, Delete, Type} from '@nestjs/common';
+import {applyDecorators, Delete, HttpCode, Type} from '@nestjs/common';
 import {
     ApiNoContentResponse,
     ApiNotFoundResponse,
@@ -10,7 +10,9 @@ import {
 
 interface ScaRemoveOptions<T extends ScaEntity> {
     decorators?: () => Array<MethodDecorator>;
+
     dto: Type<T>;
+
     paramId?: string;
 }
 
@@ -22,6 +24,7 @@ export function ScaRemove<T extends ScaEntity>({
     const name = toHumanUtils(dto.name);
     const decorators: Array<MethodDecorator> = [
         Delete(`:${paramId}`),
+        HttpCode(204),
         ApiParam({
             name: paramId,
             type: Number,
