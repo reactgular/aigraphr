@@ -1,18 +1,13 @@
-import {EnvConfig} from '@/configs/env.config';
 import {
     ProjectsStorage,
     ProjectsStorageResult
 } from '@/projects/storages/projects-storage';
-import {Injectable, Logger} from '@nestjs/common';
-import {ConfigService} from '@nestjs/config';
+import {InternalServerErrorException, Logger} from '@nestjs/common';
 
-@Injectable()
 export class ProjectsStorageMemoryService implements ProjectsStorage {
-    private readonly inMemory: Record<string, boolean> = {};
-
     private readonly log = new Logger('ProjectsStorageMemoryService');
 
-    public constructor(private config: ConfigService<EnvConfig>) {
+    public constructor() {
         this.log.warn('Memory storage has some unsupported features');
     }
 
@@ -20,7 +15,12 @@ export class ProjectsStorageMemoryService implements ProjectsStorage {
         sourceName: string,
         destName: string
     ): Promise<ProjectsStorageResult> {
-        return [false, new Error('Not implemented')];
+        return [
+            false,
+            new InternalServerErrorException(
+                'Not supported while using memory storage'
+            )
+        ];
     }
 
     public async projectDatabase(name: string): Promise<string> {
@@ -32,14 +32,24 @@ export class ProjectsStorageMemoryService implements ProjectsStorage {
     }
 
     public async projectRemove(name: string): Promise<ProjectsStorageResult> {
-        return [false, new Error('Not implemented')];
+        return [
+            false,
+            new InternalServerErrorException(
+                'Not supported while using memory storage'
+            )
+        ];
     }
 
     public async projectRename(
         oldName: string,
         newName: string
     ): Promise<ProjectsStorageResult> {
-        return [false, new Error('Not implemented')];
+        return [
+            false,
+            new InternalServerErrorException(
+                'Not supported while using memory storage'
+            )
+        ];
     }
 
     public async rootDatabase(): Promise<string> {

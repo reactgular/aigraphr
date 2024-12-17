@@ -1,33 +1,46 @@
 import {AiGraphrApp, appConfig} from '@/app.config';
 import {MainModule} from '@/main.module';
-import {PROJECT_STORAGE_MODE} from '@/projects/project.symbols';
+import {PROJECTS_STORAGE} from '@/projects/project.symbols';
 import {ProjectsStorageMode} from '@/projects/storages/projects-storage';
+import {ProjectsStorageDiskService} from '@/projects/storages/projects-storage-disk.service';
+import {ProjectsStorageMemoryService} from '@/projects/storages/projects-storage-memory.service';
 import {ConsoleLogger} from '@nestjs/common';
-import {Test, TestingModule} from '@nestjs/testing';
+import {Test} from '@nestjs/testing';
+import {TestingModuleBuilder} from '@nestjs/testing/testing-module.builder';
+import {promises as fs} from 'fs';
+
+async function makeTmpFolder(): Promise<string> {
+    try {
+        await fs.access('tmp');
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+        await fs.mkdir('tmp', {recursive: true});
+    }
+    return await fs.mkdtemp('tmp/aigraphr-test-');
+}
 
 export const createTestApp = async (
     mode: ProjectsStorageMode = 'memory'
 ): Promise<AiGraphrApp> => {
-    // const PROJECTS_FOLDER = process.env.PROJECTS_FOLDER;
-    // if (!PROJECTS_FOLDER || !PROJECTS_FOLDER.includes('e2e')) {
-    //     throw new Error(`Possible wrong projects folder: ${PROJECTS_FOLDER}`);
-    // }
+    const builder: TestingModuleBuilder = Test.createTestingModule({
+        imports: [MainModule]
+    });
 
-    // if (mode === 'disk') {
-    //     await fs.unlink(PROJECTS_FOLDER);
-    // }
+    if (mode === 'disk') {
+        const projectsFolder = await makeTmpFolder();
+        console.warn(`Using projects folder: ${projectsFolder}`);
+        builder
+            .overrideProvider(PROJECTS_STORAGE)
+            .useValue(new ProjectsStorageDiskService(projectsFolder));
+    } else {
+        builder
+            .overrideProvider(PROJECTS_STORAGE)
+            .useValue(new ProjectsStorageMemoryService());
+    }
 
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-        imports: [MainModule],
-        providers: [
-            {
-                provide: PROJECT_STORAGE_MODE,
-                useValue: mode
-            }
-        ]
-    }).compile();
+    const module = await builder.compile();
 
-    const app = moduleFixture.createNestApplication<AiGraphrApp>({
+    const app = module.createNestApplication<AiGraphrApp>({
         logger: new ConsoleLogger()
     });
 

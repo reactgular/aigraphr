@@ -11,7 +11,6 @@ import {
     EDGES_REPOSITORY,
     NODES_REPOSITORY,
     PROJECT_EXTENSION,
-    PROJECT_STORAGE_MODE,
     PROJECTS_STORAGE,
     WORKSPACES_REPOSITORY
 } from '@/projects/project.symbols';
@@ -23,9 +22,7 @@ import {ProjectReposService} from '@/projects/services/project-repos.service';
 import {ProjectsValidatorService} from '@/projects/services/projects-validator.service';
 import {ProjectsService} from '@/projects/services/projects.service';
 import {WorkspacesService} from '@/projects/services/workspaces.service';
-import {ProjectsStorageMode} from '@/projects/storages/projects-storage';
 import {ProjectsStorageDiskService} from '@/projects/storages/projects-storage-disk.service';
-import {ProjectsStorageMemoryService} from '@/projects/storages/projects-storage-memory.service';
 import {UtilsModule} from '@/utils/utils.module';
 import {Module, Scope} from '@nestjs/common';
 import {InjectionToken} from '@nestjs/common/interfaces/modules/injection-token.interface';
@@ -70,21 +67,11 @@ function repository<Entity extends ObjectLiteral>(
         },
         {
             provide: PROJECTS_STORAGE,
-            useFactory: async (
-                config: ConfigService<EnvConfig>,
-                mode?: ProjectsStorageMode
-            ) => {
-                return mode === 'memory'
-                    ? new ProjectsStorageMemoryService(config)
-                    : new ProjectsStorageDiskService(config);
+            useFactory: async (config: ConfigService<EnvConfig>) => {
+                const projectsFolder = config.get<string>('PROJECTS_FOLDER')!;
+                return new ProjectsStorageDiskService(projectsFolder);
             },
-            inject: [
-                ConfigService,
-                {
-                    token: PROJECT_STORAGE_MODE,
-                    optional: true
-                }
-            ]
+            inject: [ConfigService]
         },
         ProjectReposService,
         ProjectDataSourcesService,

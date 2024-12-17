@@ -1,21 +1,15 @@
-import {EnvConfig} from '@/configs/env.config';
 import {
     ProjectsStorage,
     ProjectsStorageResult
 } from '@/projects/storages/projects-storage';
-import {Injectable, Logger} from '@nestjs/common';
-import {ConfigService} from '@nestjs/config';
+import {Logger} from '@nestjs/common';
 import {promises as fs} from 'fs';
 import path from 'path';
 
-@Injectable()
 export class ProjectsStorageDiskService implements ProjectsStorage {
     private readonly log = new Logger('ProjectsStorageDiskService');
 
-    private readonly storagePath: string;
-
-    public constructor(private config: ConfigService<EnvConfig>) {
-        this.storagePath = path.resolve(this.config.get('PROJECTS_FOLDER')!);
+    public constructor(private readonly storagePath: string) {
         this.log.log(`Using disk storage: ${this.storagePath}`);
     }
 

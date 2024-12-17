@@ -19,6 +19,7 @@ node_modules/
 # testing
 coverage
 .nyc_output
+tmp
 
 # Environment files
 *.env
