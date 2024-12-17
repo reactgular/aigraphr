@@ -8,7 +8,7 @@ import {compileApp} from './compile-app';
 
 export type CreateMemory = Awaited<ReturnType<typeof createMemoryApp>>;
 
-export const createMemoryApp = async () => {
+export const createMemoryApp = async (logger: boolean = false) => {
     const builder: TestingModuleBuilder = Test.createTestingModule({
         imports: [MainModule]
     });
@@ -17,7 +17,7 @@ export const createMemoryApp = async () => {
         .overrideProvider(PROJECTS_STORAGE)
         .useValue(new ProjectsStorageMemoryService());
 
-    const app = await compileApp(builder);
+    const app = await compileApp(builder, logger);
 
     return {
         app,

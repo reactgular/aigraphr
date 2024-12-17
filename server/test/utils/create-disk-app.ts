@@ -10,7 +10,7 @@ import {tmpFolder} from './tmp-folder';
 
 export type CreateDisk = Awaited<ReturnType<typeof createDiskApp>>;
 
-export const createDiskApp = async () => {
+export const createDiskApp = async (logger: boolean = false) => {
     const builder: TestingModuleBuilder = Test.createTestingModule({
         imports: [MainModule]
     });
@@ -21,7 +21,7 @@ export const createDiskApp = async () => {
         .overrideProvider(PROJECTS_STORAGE)
         .useValue(new ProjectsStorageDiskService(folder));
 
-    const app = await compileApp(builder, true);
+    const app = await compileApp(builder, logger);
 
     return {
         app,

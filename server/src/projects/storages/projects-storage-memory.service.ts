@@ -2,7 +2,7 @@ import {
     ProjectsStorage,
     ProjectsStorageResult
 } from '@/projects/storages/projects-storage';
-import {InternalServerErrorException, Logger} from '@nestjs/common';
+import {Logger} from '@nestjs/common';
 
 export class ProjectsStorageMemoryService implements ProjectsStorage {
     private readonly log = new Logger('ProjectsStorageMemoryService');
@@ -15,12 +15,7 @@ export class ProjectsStorageMemoryService implements ProjectsStorage {
         sourceName: string,
         destName: string
     ): Promise<ProjectsStorageResult> {
-        return [
-            false,
-            new InternalServerErrorException(
-                'Not supported while using memory storage'
-            )
-        ];
+        return [true];
     }
 
     public async projectDatabase(name: string): Promise<string> {
@@ -28,28 +23,18 @@ export class ProjectsStorageMemoryService implements ProjectsStorage {
     }
 
     public async projectExists(name: string): Promise<boolean> {
-        return false;
+        return true;
     }
 
     public async projectRemove(name: string): Promise<ProjectsStorageResult> {
-        return [
-            false,
-            new InternalServerErrorException(
-                'Not supported while using memory storage'
-            )
-        ];
+        return [true];
     }
 
     public async projectRename(
         oldName: string,
         newName: string
     ): Promise<ProjectsStorageResult> {
-        return [
-            false,
-            new InternalServerErrorException(
-                'Not supported while using memory storage'
-            )
-        ];
+        return [true];
     }
 
     public async rootDatabase(): Promise<string> {
