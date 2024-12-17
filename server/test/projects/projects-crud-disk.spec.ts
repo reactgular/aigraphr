@@ -13,6 +13,10 @@ describe('Projects', () => {
         await app.shutdown();
     });
 
+    describe('', async () => {
+        //
+    });
+
     it('should have no projects', async () => {
         await app.request.get(route).expect(200).expect([]);
     });
