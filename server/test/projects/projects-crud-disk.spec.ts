@@ -3,6 +3,7 @@ import {CreateDisk, createDiskApp} from '../utils/create-disk-app';
 
 describe('Projects', () => {
     let app: CreateDisk;
+    const route = '/api/projects';
 
     beforeAll(async () => {
         app = await createDiskApp();
@@ -12,13 +13,13 @@ describe('Projects', () => {
         await app.shutdown();
     });
 
-    it('should have no projects', () => {
-        return app.request.get('/api/projects').expect(200).expect([]);
+    it('should have no projects', async () => {
+        await app.request.get(route).expect(200).expect([]);
     });
 
-    it('should not open a project when creating it', () => {
-        return app.request
-            .post('/api/projects')
+    it('should create a new project file', async () => {
+        await app.request
+            .post(route)
             .send({name: 'test'})
             .expect(201)
             .expect({
@@ -26,5 +27,7 @@ describe('Projects', () => {
                 name: 'test',
                 open: true
             } satisfies ProjectDto);
+
+        await app.projectExists('test');
     });
 });

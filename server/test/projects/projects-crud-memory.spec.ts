@@ -16,7 +16,7 @@ describe('Projects', () => {
         return app.request.get('/api/projects').expect(200).expect([]);
     });
 
-    it('should not open a project when creating it', () => {
+    it('should open a project when creating it', () => {
         return app.request
             .post('/api/projects')
             .send({name: 'test'})
