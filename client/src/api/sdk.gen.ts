@@ -2,66 +2,66 @@
 
 import {createClient, createConfig, type Options} from '@hey-api/client-fetch';
 import type {
-    ProjectsScaPaginateData,
-    ProjectsScaPaginateResponse,
+    ProjectsPaginateData,
+    ProjectsPaginateResponse,
     ProjectsCreateData,
     ProjectsCreateError,
     ProjectsCreateResponse,
     ProjectsRemoveData,
     ProjectsRemoveResponse,
-    ProjectsScaGetData,
-    ProjectsScaGetResponse,
+    ProjectsGetData,
+    ProjectsGetResponse,
     ProjectsUpdateData,
     ProjectsUpdateError,
     ProjectsUpdateResponse,
-    ProjectsScaCreateValidateData,
-    ProjectsScaCreateValidateError,
-    ProjectsScaCreateValidateResponse,
-    ProjectsScaUpdateValidateData,
-    ProjectsScaUpdateValidateError,
-    ProjectsScaUpdateValidateResponse,
-    EdgesScaPaginateData,
-    EdgesScaPaginateResponse,
-    EdgesScaCreateData,
-    EdgesScaCreateError,
-    EdgesScaCreateResponse,
-    EdgesScaRemoveData,
-    EdgesScaRemoveResponse,
-    EdgesScaGetData,
-    EdgesScaGetResponse,
-    EdgesScaUpdateData,
-    EdgesScaUpdateError,
-    EdgesScaUpdateResponse,
-    NodesScaPaginateData,
-    NodesScaPaginateResponse,
-    NodesScaCreateData,
-    NodesScaCreateError,
-    NodesScaCreateResponse,
-    NodesScaRemoveData,
-    NodesScaRemoveResponse,
-    NodesScaGetData,
-    NodesScaGetResponse,
-    NodesScaUpdateData,
-    NodesScaUpdateError,
-    NodesScaUpdateResponse,
-    WorkspacesScaPaginateData,
-    WorkspacesScaPaginateResponse,
-    WorkspacesScaCreateData,
-    WorkspacesScaCreateError,
-    WorkspacesScaCreateResponse,
-    WorkspacesScaRemoveData,
-    WorkspacesScaRemoveResponse,
-    WorkspacesScaGetData,
-    WorkspacesScaGetResponse,
-    WorkspacesScaUpdateData,
-    WorkspacesScaUpdateError,
-    WorkspacesScaUpdateResponse,
-    WorkspacesScaCreateValidateData,
-    WorkspacesScaCreateValidateError,
-    WorkspacesScaCreateValidateResponse,
-    WorkspacesScaUpdateValidateData,
-    WorkspacesScaUpdateValidateError,
-    WorkspacesScaUpdateValidateResponse,
+    ProjectsCreateValidateData,
+    ProjectsCreateValidateError,
+    ProjectsCreateValidateResponse,
+    ProjectsUpdateValidateData,
+    ProjectsUpdateValidateError,
+    ProjectsUpdateValidateResponse,
+    EdgesPaginateData,
+    EdgesPaginateResponse,
+    EdgesCreateData,
+    EdgesCreateError,
+    EdgesCreateResponse,
+    EdgesRemoveData,
+    EdgesRemoveResponse,
+    EdgesGetData,
+    EdgesGetResponse,
+    EdgesUpdateData,
+    EdgesUpdateError,
+    EdgesUpdateResponse,
+    NodesPaginateData,
+    NodesPaginateResponse,
+    NodesCreateData,
+    NodesCreateError,
+    NodesCreateResponse,
+    NodesRemoveData,
+    NodesRemoveResponse,
+    NodesGetData,
+    NodesGetResponse,
+    NodesUpdateData,
+    NodesUpdateError,
+    NodesUpdateResponse,
+    WorkspacesPaginateData,
+    WorkspacesPaginateResponse,
+    WorkspacesCreateData,
+    WorkspacesCreateError,
+    WorkspacesCreateResponse,
+    WorkspacesRemoveData,
+    WorkspacesRemoveResponse,
+    WorkspacesGetData,
+    WorkspacesGetResponse,
+    WorkspacesUpdateData,
+    WorkspacesUpdateError,
+    WorkspacesUpdateResponse,
+    WorkspacesCreateValidateData,
+    WorkspacesCreateValidateError,
+    WorkspacesCreateValidateResponse,
+    WorkspacesUpdateValidateData,
+    WorkspacesUpdateValidateError,
+    WorkspacesUpdateValidateResponse,
     SettingsGetData,
     SettingsGetResponse,
     SettingsUpdateData,
@@ -75,11 +75,11 @@ export const client = createClient(createConfig());
 /**
  * Paginate Project
  */
-export const projectsScaPaginate = <ThrowOnError extends boolean = false>(
-    options?: Options<ProjectsScaPaginateData, ThrowOnError>
+export const projectsPaginate = <ThrowOnError extends boolean = false>(
+    options?: Options<ProjectsPaginateData, ThrowOnError>
 ) => {
     return (options?.client ?? client).get<
-        ProjectsScaPaginateResponse,
+        ProjectsPaginateResponse,
         unknown,
         ThrowOnError
     >({
@@ -127,11 +127,11 @@ export const projectsRemove = <ThrowOnError extends boolean = false>(
 /**
  * Get Project by projectId
  */
-export const projectsScaGet = <ThrowOnError extends boolean = false>(
-    options: Options<ProjectsScaGetData, ThrowOnError>
+export const projectsGet = <ThrowOnError extends boolean = false>(
+    options: Options<ProjectsGetData, ThrowOnError>
 ) => {
     return (options?.client ?? client).get<
-        ProjectsScaGetResponse,
+        ProjectsGetResponse,
         unknown,
         ThrowOnError
     >({
@@ -163,12 +163,12 @@ export const projectsUpdate = <ThrowOnError extends boolean = false>(
 /**
  * Validates creation of a ProjectCreate
  */
-export const projectsScaCreateValidate = <ThrowOnError extends boolean = false>(
-    options: Options<ProjectsScaCreateValidateData, ThrowOnError>
+export const projectsCreateValidate = <ThrowOnError extends boolean = false>(
+    options: Options<ProjectsCreateValidateData, ThrowOnError>
 ) => {
     return (options?.client ?? client).post<
-        ProjectsScaCreateValidateResponse,
-        ProjectsScaCreateValidateError,
+        ProjectsCreateValidateResponse,
+        ProjectsCreateValidateError,
         ThrowOnError
     >({
         ...options,
@@ -183,12 +183,12 @@ export const projectsScaCreateValidate = <ThrowOnError extends boolean = false>(
 /**
  * Validates updating a ProjectUpdate by projectId
  */
-export const projectsScaUpdateValidate = <ThrowOnError extends boolean = false>(
-    options: Options<ProjectsScaUpdateValidateData, ThrowOnError>
+export const projectsUpdateValidate = <ThrowOnError extends boolean = false>(
+    options: Options<ProjectsUpdateValidateData, ThrowOnError>
 ) => {
     return (options?.client ?? client).patch<
-        ProjectsScaUpdateValidateResponse,
-        ProjectsScaUpdateValidateError,
+        ProjectsUpdateValidateResponse,
+        ProjectsUpdateValidateError,
         ThrowOnError
     >({
         ...options,
@@ -203,11 +203,11 @@ export const projectsScaUpdateValidate = <ThrowOnError extends boolean = false>(
 /**
  * Paginate Edge
  */
-export const edgesScaPaginate = <ThrowOnError extends boolean = false>(
-    options: Options<EdgesScaPaginateData, ThrowOnError>
+export const edgesPaginate = <ThrowOnError extends boolean = false>(
+    options: Options<EdgesPaginateData, ThrowOnError>
 ) => {
     return (options?.client ?? client).get<
-        EdgesScaPaginateResponse,
+        EdgesPaginateResponse,
         unknown,
         ThrowOnError
     >({
@@ -219,12 +219,12 @@ export const edgesScaPaginate = <ThrowOnError extends boolean = false>(
 /**
  * Create a new Edge
  */
-export const edgesScaCreate = <ThrowOnError extends boolean = false>(
-    options: Options<EdgesScaCreateData, ThrowOnError>
+export const edgesCreate = <ThrowOnError extends boolean = false>(
+    options: Options<EdgesCreateData, ThrowOnError>
 ) => {
     return (options?.client ?? client).post<
-        EdgesScaCreateResponse,
-        EdgesScaCreateError,
+        EdgesCreateResponse,
+        EdgesCreateError,
         ThrowOnError
     >({
         ...options,
@@ -239,11 +239,11 @@ export const edgesScaCreate = <ThrowOnError extends boolean = false>(
 /**
  * Delete a Edge by edgeId
  */
-export const edgesScaRemove = <ThrowOnError extends boolean = false>(
-    options: Options<EdgesScaRemoveData, ThrowOnError>
+export const edgesRemove = <ThrowOnError extends boolean = false>(
+    options: Options<EdgesRemoveData, ThrowOnError>
 ) => {
     return (options?.client ?? client).delete<
-        EdgesScaRemoveResponse,
+        EdgesRemoveResponse,
         unknown,
         ThrowOnError
     >({
@@ -255,11 +255,11 @@ export const edgesScaRemove = <ThrowOnError extends boolean = false>(
 /**
  * Get Edge by edgeId
  */
-export const edgesScaGet = <ThrowOnError extends boolean = false>(
-    options: Options<EdgesScaGetData, ThrowOnError>
+export const edgesGet = <ThrowOnError extends boolean = false>(
+    options: Options<EdgesGetData, ThrowOnError>
 ) => {
     return (options?.client ?? client).get<
-        EdgesScaGetResponse,
+        EdgesGetResponse,
         unknown,
         ThrowOnError
     >({
@@ -271,12 +271,12 @@ export const edgesScaGet = <ThrowOnError extends boolean = false>(
 /**
  * Update a Edge by edgeId
  */
-export const edgesScaUpdate = <ThrowOnError extends boolean = false>(
-    options: Options<EdgesScaUpdateData, ThrowOnError>
+export const edgesUpdate = <ThrowOnError extends boolean = false>(
+    options: Options<EdgesUpdateData, ThrowOnError>
 ) => {
     return (options?.client ?? client).patch<
-        EdgesScaUpdateResponse,
-        EdgesScaUpdateError,
+        EdgesUpdateResponse,
+        EdgesUpdateError,
         ThrowOnError
     >({
         ...options,
@@ -291,11 +291,11 @@ export const edgesScaUpdate = <ThrowOnError extends boolean = false>(
 /**
  * Paginate Node
  */
-export const nodesScaPaginate = <ThrowOnError extends boolean = false>(
-    options: Options<NodesScaPaginateData, ThrowOnError>
+export const nodesPaginate = <ThrowOnError extends boolean = false>(
+    options: Options<NodesPaginateData, ThrowOnError>
 ) => {
     return (options?.client ?? client).get<
-        NodesScaPaginateResponse,
+        NodesPaginateResponse,
         unknown,
         ThrowOnError
     >({
@@ -307,12 +307,12 @@ export const nodesScaPaginate = <ThrowOnError extends boolean = false>(
 /**
  * Create a new Node
  */
-export const nodesScaCreate = <ThrowOnError extends boolean = false>(
-    options: Options<NodesScaCreateData, ThrowOnError>
+export const nodesCreate = <ThrowOnError extends boolean = false>(
+    options: Options<NodesCreateData, ThrowOnError>
 ) => {
     return (options?.client ?? client).post<
-        NodesScaCreateResponse,
-        NodesScaCreateError,
+        NodesCreateResponse,
+        NodesCreateError,
         ThrowOnError
     >({
         ...options,
@@ -327,11 +327,11 @@ export const nodesScaCreate = <ThrowOnError extends boolean = false>(
 /**
  * Delete a Node by nodeId
  */
-export const nodesScaRemove = <ThrowOnError extends boolean = false>(
-    options: Options<NodesScaRemoveData, ThrowOnError>
+export const nodesRemove = <ThrowOnError extends boolean = false>(
+    options: Options<NodesRemoveData, ThrowOnError>
 ) => {
     return (options?.client ?? client).delete<
-        NodesScaRemoveResponse,
+        NodesRemoveResponse,
         unknown,
         ThrowOnError
     >({
@@ -343,11 +343,11 @@ export const nodesScaRemove = <ThrowOnError extends boolean = false>(
 /**
  * Get Node by nodeId
  */
-export const nodesScaGet = <ThrowOnError extends boolean = false>(
-    options: Options<NodesScaGetData, ThrowOnError>
+export const nodesGet = <ThrowOnError extends boolean = false>(
+    options: Options<NodesGetData, ThrowOnError>
 ) => {
     return (options?.client ?? client).get<
-        NodesScaGetResponse,
+        NodesGetResponse,
         unknown,
         ThrowOnError
     >({
@@ -359,12 +359,12 @@ export const nodesScaGet = <ThrowOnError extends boolean = false>(
 /**
  * Update a Node by nodeId
  */
-export const nodesScaUpdate = <ThrowOnError extends boolean = false>(
-    options: Options<NodesScaUpdateData, ThrowOnError>
+export const nodesUpdate = <ThrowOnError extends boolean = false>(
+    options: Options<NodesUpdateData, ThrowOnError>
 ) => {
     return (options?.client ?? client).patch<
-        NodesScaUpdateResponse,
-        NodesScaUpdateError,
+        NodesUpdateResponse,
+        NodesUpdateError,
         ThrowOnError
     >({
         ...options,
@@ -379,11 +379,11 @@ export const nodesScaUpdate = <ThrowOnError extends boolean = false>(
 /**
  * Paginate Workspace
  */
-export const workspacesScaPaginate = <ThrowOnError extends boolean = false>(
-    options: Options<WorkspacesScaPaginateData, ThrowOnError>
+export const workspacesPaginate = <ThrowOnError extends boolean = false>(
+    options: Options<WorkspacesPaginateData, ThrowOnError>
 ) => {
     return (options?.client ?? client).get<
-        WorkspacesScaPaginateResponse,
+        WorkspacesPaginateResponse,
         unknown,
         ThrowOnError
     >({
@@ -395,12 +395,12 @@ export const workspacesScaPaginate = <ThrowOnError extends boolean = false>(
 /**
  * Create a new Workspace
  */
-export const workspacesScaCreate = <ThrowOnError extends boolean = false>(
-    options: Options<WorkspacesScaCreateData, ThrowOnError>
+export const workspacesCreate = <ThrowOnError extends boolean = false>(
+    options: Options<WorkspacesCreateData, ThrowOnError>
 ) => {
     return (options?.client ?? client).post<
-        WorkspacesScaCreateResponse,
-        WorkspacesScaCreateError,
+        WorkspacesCreateResponse,
+        WorkspacesCreateError,
         ThrowOnError
     >({
         ...options,
@@ -415,11 +415,11 @@ export const workspacesScaCreate = <ThrowOnError extends boolean = false>(
 /**
  * Delete a Workspace by workspaceId
  */
-export const workspacesScaRemove = <ThrowOnError extends boolean = false>(
-    options: Options<WorkspacesScaRemoveData, ThrowOnError>
+export const workspacesRemove = <ThrowOnError extends boolean = false>(
+    options: Options<WorkspacesRemoveData, ThrowOnError>
 ) => {
     return (options?.client ?? client).delete<
-        WorkspacesScaRemoveResponse,
+        WorkspacesRemoveResponse,
         unknown,
         ThrowOnError
     >({
@@ -431,11 +431,11 @@ export const workspacesScaRemove = <ThrowOnError extends boolean = false>(
 /**
  * Get Workspace by workspaceId
  */
-export const workspacesScaGet = <ThrowOnError extends boolean = false>(
-    options: Options<WorkspacesScaGetData, ThrowOnError>
+export const workspacesGet = <ThrowOnError extends boolean = false>(
+    options: Options<WorkspacesGetData, ThrowOnError>
 ) => {
     return (options?.client ?? client).get<
-        WorkspacesScaGetResponse,
+        WorkspacesGetResponse,
         unknown,
         ThrowOnError
     >({
@@ -447,12 +447,12 @@ export const workspacesScaGet = <ThrowOnError extends boolean = false>(
 /**
  * Update a Workspace by workspaceId
  */
-export const workspacesScaUpdate = <ThrowOnError extends boolean = false>(
-    options: Options<WorkspacesScaUpdateData, ThrowOnError>
+export const workspacesUpdate = <ThrowOnError extends boolean = false>(
+    options: Options<WorkspacesUpdateData, ThrowOnError>
 ) => {
     return (options?.client ?? client).patch<
-        WorkspacesScaUpdateResponse,
-        WorkspacesScaUpdateError,
+        WorkspacesUpdateResponse,
+        WorkspacesUpdateError,
         ThrowOnError
     >({
         ...options,
@@ -467,14 +467,12 @@ export const workspacesScaUpdate = <ThrowOnError extends boolean = false>(
 /**
  * Validates creation of a WorkspaceCreate
  */
-export const workspacesScaCreateValidate = <
-    ThrowOnError extends boolean = false
->(
-    options: Options<WorkspacesScaCreateValidateData, ThrowOnError>
+export const workspacesCreateValidate = <ThrowOnError extends boolean = false>(
+    options: Options<WorkspacesCreateValidateData, ThrowOnError>
 ) => {
     return (options?.client ?? client).post<
-        WorkspacesScaCreateValidateResponse,
-        WorkspacesScaCreateValidateError,
+        WorkspacesCreateValidateResponse,
+        WorkspacesCreateValidateError,
         ThrowOnError
     >({
         ...options,
@@ -489,14 +487,12 @@ export const workspacesScaCreateValidate = <
 /**
  * Validates updating a WorkspaceUpdate by workspaceId
  */
-export const workspacesScaUpdateValidate = <
-    ThrowOnError extends boolean = false
->(
-    options: Options<WorkspacesScaUpdateValidateData, ThrowOnError>
+export const workspacesUpdateValidate = <ThrowOnError extends boolean = false>(
+    options: Options<WorkspacesUpdateValidateData, ThrowOnError>
 ) => {
     return (options?.client ?? client).patch<
-        WorkspacesScaUpdateValidateResponse,
-        WorkspacesScaUpdateValidateError,
+        WorkspacesUpdateValidateResponse,
+        WorkspacesUpdateValidateError,
         ThrowOnError
     >({
         ...options,

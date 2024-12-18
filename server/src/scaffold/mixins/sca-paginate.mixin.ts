@@ -9,6 +9,7 @@ import {Logger, Type} from '@nestjs/common';
 
 interface ScaPaginateMixinOptions<TDo extends ScaEntity> {
     decorators?: () => Array<MethodDecorator>;
+
     dto: Type<TDo>;
 }
 
@@ -23,7 +24,7 @@ export function scaPaginateMixin<
         abstract crud(): ScaCrudRead<TDo>;
 
         @ScaPaginate({dto, decorators})
-        async scaPaginate(): ScaPaginateResponse<TDo> {
+        async paginate(): ScaPaginateResponse<TDo> {
             Logger.log('Paginate', 'ScaPaginateMixin');
             return await this.crud().scaPaginate();
         }

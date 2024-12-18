@@ -7,58 +7,58 @@ import {
     type DefaultError
 } from '@tanstack/react-query';
 import type {
-    ProjectsScaPaginateData,
+    ProjectsPaginateData,
     ProjectsCreateData,
     ProjectsCreateError,
     ProjectsCreateResponse,
     ProjectsRemoveData,
     ProjectsRemoveResponse,
-    ProjectsScaGetData,
+    ProjectsGetData,
     ProjectsUpdateData,
     ProjectsUpdateError,
     ProjectsUpdateResponse,
-    ProjectsScaCreateValidateData,
-    ProjectsScaCreateValidateError,
-    ProjectsScaCreateValidateResponse,
-    ProjectsScaUpdateValidateData,
-    ProjectsScaUpdateValidateError,
-    ProjectsScaUpdateValidateResponse,
-    EdgesScaPaginateData,
-    EdgesScaCreateData,
-    EdgesScaCreateError,
-    EdgesScaCreateResponse,
-    EdgesScaRemoveData,
-    EdgesScaRemoveResponse,
-    EdgesScaGetData,
-    EdgesScaUpdateData,
-    EdgesScaUpdateError,
-    EdgesScaUpdateResponse,
-    NodesScaPaginateData,
-    NodesScaCreateData,
-    NodesScaCreateError,
-    NodesScaCreateResponse,
-    NodesScaRemoveData,
-    NodesScaRemoveResponse,
-    NodesScaGetData,
-    NodesScaUpdateData,
-    NodesScaUpdateError,
-    NodesScaUpdateResponse,
-    WorkspacesScaPaginateData,
-    WorkspacesScaCreateData,
-    WorkspacesScaCreateError,
-    WorkspacesScaCreateResponse,
-    WorkspacesScaRemoveData,
-    WorkspacesScaRemoveResponse,
-    WorkspacesScaGetData,
-    WorkspacesScaUpdateData,
-    WorkspacesScaUpdateError,
-    WorkspacesScaUpdateResponse,
-    WorkspacesScaCreateValidateData,
-    WorkspacesScaCreateValidateError,
-    WorkspacesScaCreateValidateResponse,
-    WorkspacesScaUpdateValidateData,
-    WorkspacesScaUpdateValidateError,
-    WorkspacesScaUpdateValidateResponse,
+    ProjectsCreateValidateData,
+    ProjectsCreateValidateError,
+    ProjectsCreateValidateResponse,
+    ProjectsUpdateValidateData,
+    ProjectsUpdateValidateError,
+    ProjectsUpdateValidateResponse,
+    EdgesPaginateData,
+    EdgesCreateData,
+    EdgesCreateError,
+    EdgesCreateResponse,
+    EdgesRemoveData,
+    EdgesRemoveResponse,
+    EdgesGetData,
+    EdgesUpdateData,
+    EdgesUpdateError,
+    EdgesUpdateResponse,
+    NodesPaginateData,
+    NodesCreateData,
+    NodesCreateError,
+    NodesCreateResponse,
+    NodesRemoveData,
+    NodesRemoveResponse,
+    NodesGetData,
+    NodesUpdateData,
+    NodesUpdateError,
+    NodesUpdateResponse,
+    WorkspacesPaginateData,
+    WorkspacesCreateData,
+    WorkspacesCreateError,
+    WorkspacesCreateResponse,
+    WorkspacesRemoveData,
+    WorkspacesRemoveResponse,
+    WorkspacesGetData,
+    WorkspacesUpdateData,
+    WorkspacesUpdateError,
+    WorkspacesUpdateResponse,
+    WorkspacesCreateValidateData,
+    WorkspacesCreateValidateError,
+    WorkspacesCreateValidateResponse,
+    WorkspacesUpdateValidateData,
+    WorkspacesUpdateValidateError,
+    WorkspacesUpdateValidateResponse,
     SettingsGetData,
     SettingsUpdateData,
     SettingsUpdateResponse,
@@ -67,30 +67,30 @@ import type {
 } from '../types.gen';
 import {
     client,
-    projectsScaPaginate,
+    projectsPaginate,
     projectsCreate,
     projectsRemove,
-    projectsScaGet,
+    projectsGet,
     projectsUpdate,
-    projectsScaCreateValidate,
-    projectsScaUpdateValidate,
-    edgesScaPaginate,
-    edgesScaCreate,
-    edgesScaRemove,
-    edgesScaGet,
-    edgesScaUpdate,
-    nodesScaPaginate,
-    nodesScaCreate,
-    nodesScaRemove,
-    nodesScaGet,
-    nodesScaUpdate,
-    workspacesScaPaginate,
-    workspacesScaCreate,
-    workspacesScaRemove,
-    workspacesScaGet,
-    workspacesScaUpdate,
-    workspacesScaCreateValidate,
-    workspacesScaUpdateValidate,
+    projectsCreateValidate,
+    projectsUpdateValidate,
+    edgesPaginate,
+    edgesCreate,
+    edgesRemove,
+    edgesGet,
+    edgesUpdate,
+    nodesPaginate,
+    nodesCreate,
+    nodesRemove,
+    nodesGet,
+    nodesUpdate,
+    workspacesPaginate,
+    workspacesCreate,
+    workspacesRemove,
+    workspacesGet,
+    workspacesUpdate,
+    workspacesCreateValidate,
+    workspacesUpdateValidate,
     settingsGet,
     settingsUpdate,
     settingsReplace
@@ -130,16 +130,16 @@ const createQueryKey = <TOptions extends Options>(
     return params;
 };
 
-export const projectsScaPaginateQueryKey = (
-    options?: Options<ProjectsScaPaginateData>
-) => [createQueryKey('projectsScaPaginate', options)];
+export const projectsPaginateQueryKey = (
+    options?: Options<ProjectsPaginateData>
+) => [createQueryKey('projectsPaginate', options)];
 
-export const projectsScaPaginateOptions = (
-    options?: Options<ProjectsScaPaginateData>
+export const projectsPaginateOptions = (
+    options?: Options<ProjectsPaginateData>
 ) => {
     return queryOptions({
         queryFn: async ({queryKey, signal}) => {
-            const {data} = await projectsScaPaginate({
+            const {data} = await projectsPaginate({
                 ...options,
                 ...queryKey[0],
                 signal,
@@ -147,7 +147,7 @@ export const projectsScaPaginateOptions = (
             });
             return data;
         },
-        queryKey: projectsScaPaginateQueryKey(options)
+        queryKey: projectsPaginateQueryKey(options)
     });
 };
 
@@ -210,14 +210,14 @@ export const projectsRemoveMutation = (
     return mutationOptions;
 };
 
-export const projectsScaGetQueryKey = (
-    options: Options<ProjectsScaGetData>
-) => [createQueryKey('projectsScaGet', options)];
+export const projectsGetQueryKey = (options: Options<ProjectsGetData>) => [
+    createQueryKey('projectsGet', options)
+];
 
-export const projectsScaGetOptions = (options: Options<ProjectsScaGetData>) => {
+export const projectsGetOptions = (options: Options<ProjectsGetData>) => {
     return queryOptions({
         queryFn: async ({queryKey, signal}) => {
-            const {data} = await projectsScaGet({
+            const {data} = await projectsGet({
                 ...options,
                 ...queryKey[0],
                 signal,
@@ -225,7 +225,7 @@ export const projectsScaGetOptions = (options: Options<ProjectsScaGetData>) => {
             });
             return data;
         },
-        queryKey: projectsScaGetQueryKey(options)
+        queryKey: projectsGetQueryKey(options)
     });
 };
 
@@ -249,16 +249,16 @@ export const projectsUpdateMutation = (
     return mutationOptions;
 };
 
-export const projectsScaCreateValidateQueryKey = (
-    options: Options<ProjectsScaCreateValidateData>
-) => [createQueryKey('projectsScaCreateValidate', options)];
+export const projectsCreateValidateQueryKey = (
+    options: Options<ProjectsCreateValidateData>
+) => [createQueryKey('projectsCreateValidate', options)];
 
-export const projectsScaCreateValidateOptions = (
-    options: Options<ProjectsScaCreateValidateData>
+export const projectsCreateValidateOptions = (
+    options: Options<ProjectsCreateValidateData>
 ) => {
     return queryOptions({
         queryFn: async ({queryKey, signal}) => {
-            const {data} = await projectsScaCreateValidate({
+            const {data} = await projectsCreateValidate({
                 ...options,
                 ...queryKey[0],
                 signal,
@@ -266,20 +266,20 @@ export const projectsScaCreateValidateOptions = (
             });
             return data;
         },
-        queryKey: projectsScaCreateValidateQueryKey(options)
+        queryKey: projectsCreateValidateQueryKey(options)
     });
 };
 
-export const projectsScaCreateValidateMutation = (
-    options?: Partial<Options<ProjectsScaCreateValidateData>>
+export const projectsCreateValidateMutation = (
+    options?: Partial<Options<ProjectsCreateValidateData>>
 ) => {
     const mutationOptions: UseMutationOptions<
-        ProjectsScaCreateValidateResponse,
-        ProjectsScaCreateValidateError,
-        Options<ProjectsScaCreateValidateData>
+        ProjectsCreateValidateResponse,
+        ProjectsCreateValidateError,
+        Options<ProjectsCreateValidateData>
     > = {
         mutationFn: async (localOptions) => {
-            const {data} = await projectsScaCreateValidate({
+            const {data} = await projectsCreateValidate({
                 ...options,
                 ...localOptions,
                 throwOnError: true
@@ -290,16 +290,16 @@ export const projectsScaCreateValidateMutation = (
     return mutationOptions;
 };
 
-export const projectsScaUpdateValidateMutation = (
-    options?: Partial<Options<ProjectsScaUpdateValidateData>>
+export const projectsUpdateValidateMutation = (
+    options?: Partial<Options<ProjectsUpdateValidateData>>
 ) => {
     const mutationOptions: UseMutationOptions<
-        ProjectsScaUpdateValidateResponse,
-        ProjectsScaUpdateValidateError,
-        Options<ProjectsScaUpdateValidateData>
+        ProjectsUpdateValidateResponse,
+        ProjectsUpdateValidateError,
+        Options<ProjectsUpdateValidateData>
     > = {
         mutationFn: async (localOptions) => {
-            const {data} = await projectsScaUpdateValidate({
+            const {data} = await projectsUpdateValidate({
                 ...options,
                 ...localOptions,
                 throwOnError: true
@@ -310,94 +310,14 @@ export const projectsScaUpdateValidateMutation = (
     return mutationOptions;
 };
 
-export const edgesScaPaginateQueryKey = (
-    options: Options<EdgesScaPaginateData>
-) => [createQueryKey('edgesScaPaginate', options)];
-
-export const edgesScaPaginateOptions = (
-    options: Options<EdgesScaPaginateData>
-) => {
-    return queryOptions({
-        queryFn: async ({queryKey, signal}) => {
-            const {data} = await edgesScaPaginate({
-                ...options,
-                ...queryKey[0],
-                signal,
-                throwOnError: true
-            });
-            return data;
-        },
-        queryKey: edgesScaPaginateQueryKey(options)
-    });
-};
-
-export const edgesScaCreateQueryKey = (
-    options: Options<EdgesScaCreateData>
-) => [createQueryKey('edgesScaCreate', options)];
-
-export const edgesScaCreateOptions = (options: Options<EdgesScaCreateData>) => {
-    return queryOptions({
-        queryFn: async ({queryKey, signal}) => {
-            const {data} = await edgesScaCreate({
-                ...options,
-                ...queryKey[0],
-                signal,
-                throwOnError: true
-            });
-            return data;
-        },
-        queryKey: edgesScaCreateQueryKey(options)
-    });
-};
-
-export const edgesScaCreateMutation = (
-    options?: Partial<Options<EdgesScaCreateData>>
-) => {
-    const mutationOptions: UseMutationOptions<
-        EdgesScaCreateResponse,
-        EdgesScaCreateError,
-        Options<EdgesScaCreateData>
-    > = {
-        mutationFn: async (localOptions) => {
-            const {data} = await edgesScaCreate({
-                ...options,
-                ...localOptions,
-                throwOnError: true
-            });
-            return data;
-        }
-    };
-    return mutationOptions;
-};
-
-export const edgesScaRemoveMutation = (
-    options?: Partial<Options<EdgesScaRemoveData>>
-) => {
-    const mutationOptions: UseMutationOptions<
-        EdgesScaRemoveResponse,
-        DefaultError,
-        Options<EdgesScaRemoveData>
-    > = {
-        mutationFn: async (localOptions) => {
-            const {data} = await edgesScaRemove({
-                ...options,
-                ...localOptions,
-                throwOnError: true
-            });
-            return data;
-        }
-    };
-    return mutationOptions;
-};
-
-export const edgesScaGetQueryKey = (options: Options<EdgesScaGetData>) => [
-    createQueryKey('edgesScaGet', options)
+export const edgesPaginateQueryKey = (options: Options<EdgesPaginateData>) => [
+    createQueryKey('edgesPaginate', options)
 ];
 
-export const edgesScaGetOptions = (options: Options<EdgesScaGetData>) => {
+export const edgesPaginateOptions = (options: Options<EdgesPaginateData>) => {
     return queryOptions({
         queryFn: async ({queryKey, signal}) => {
-            const {data} = await edgesScaGet({
+            const {data} = await edgesPaginate({
                 ...options,
                 ...queryKey[0],
                 signal,
@@ -405,118 +325,18 @@ export const edgesScaGetOptions = (options: Options<EdgesScaGetData>) => {
             });
             return data;
         },
-        queryKey: edgesScaGetQueryKey(options)
+        queryKey: edgesPaginateQueryKey(options)
     });
 };
 
-export const edgesScaUpdateMutation = (
-    options?: Partial<Options<EdgesScaUpdateData>>
-) => {
-    const mutationOptions: UseMutationOptions<
-        EdgesScaUpdateResponse,
-        EdgesScaUpdateError,
-        Options<EdgesScaUpdateData>
-    > = {
-        mutationFn: async (localOptions) => {
-            const {data} = await edgesScaUpdate({
-                ...options,
-                ...localOptions,
-                throwOnError: true
-            });
-            return data;
-        }
-    };
-    return mutationOptions;
-};
-
-export const nodesScaPaginateQueryKey = (
-    options: Options<NodesScaPaginateData>
-) => [createQueryKey('nodesScaPaginate', options)];
-
-export const nodesScaPaginateOptions = (
-    options: Options<NodesScaPaginateData>
-) => {
-    return queryOptions({
-        queryFn: async ({queryKey, signal}) => {
-            const {data} = await nodesScaPaginate({
-                ...options,
-                ...queryKey[0],
-                signal,
-                throwOnError: true
-            });
-            return data;
-        },
-        queryKey: nodesScaPaginateQueryKey(options)
-    });
-};
-
-export const nodesScaCreateQueryKey = (
-    options: Options<NodesScaCreateData>
-) => [createQueryKey('nodesScaCreate', options)];
-
-export const nodesScaCreateOptions = (options: Options<NodesScaCreateData>) => {
-    return queryOptions({
-        queryFn: async ({queryKey, signal}) => {
-            const {data} = await nodesScaCreate({
-                ...options,
-                ...queryKey[0],
-                signal,
-                throwOnError: true
-            });
-            return data;
-        },
-        queryKey: nodesScaCreateQueryKey(options)
-    });
-};
-
-export const nodesScaCreateMutation = (
-    options?: Partial<Options<NodesScaCreateData>>
-) => {
-    const mutationOptions: UseMutationOptions<
-        NodesScaCreateResponse,
-        NodesScaCreateError,
-        Options<NodesScaCreateData>
-    > = {
-        mutationFn: async (localOptions) => {
-            const {data} = await nodesScaCreate({
-                ...options,
-                ...localOptions,
-                throwOnError: true
-            });
-            return data;
-        }
-    };
-    return mutationOptions;
-};
-
-export const nodesScaRemoveMutation = (
-    options?: Partial<Options<NodesScaRemoveData>>
-) => {
-    const mutationOptions: UseMutationOptions<
-        NodesScaRemoveResponse,
-        DefaultError,
-        Options<NodesScaRemoveData>
-    > = {
-        mutationFn: async (localOptions) => {
-            const {data} = await nodesScaRemove({
-                ...options,
-                ...localOptions,
-                throwOnError: true
-            });
-            return data;
-        }
-    };
-    return mutationOptions;
-};
-
-export const nodesScaGetQueryKey = (options: Options<NodesScaGetData>) => [
-    createQueryKey('nodesScaGet', options)
+export const edgesCreateQueryKey = (options: Options<EdgesCreateData>) => [
+    createQueryKey('edgesCreate', options)
 ];
 
-export const nodesScaGetOptions = (options: Options<NodesScaGetData>) => {
+export const edgesCreateOptions = (options: Options<EdgesCreateData>) => {
     return queryOptions({
         queryFn: async ({queryKey, signal}) => {
-            const {data} = await nodesScaGet({
+            const {data} = await edgesCreate({
                 ...options,
                 ...queryKey[0],
                 signal,
@@ -524,20 +344,20 @@ export const nodesScaGetOptions = (options: Options<NodesScaGetData>) => {
             });
             return data;
         },
-        queryKey: nodesScaGetQueryKey(options)
+        queryKey: edgesCreateQueryKey(options)
     });
 };
 
-export const nodesScaUpdateMutation = (
-    options?: Partial<Options<NodesScaUpdateData>>
+export const edgesCreateMutation = (
+    options?: Partial<Options<EdgesCreateData>>
 ) => {
     const mutationOptions: UseMutationOptions<
-        NodesScaUpdateResponse,
-        NodesScaUpdateError,
-        Options<NodesScaUpdateData>
+        EdgesCreateResponse,
+        EdgesCreateError,
+        Options<EdgesCreateData>
     > = {
         mutationFn: async (localOptions) => {
-            const {data} = await nodesScaUpdate({
+            const {data} = await edgesCreate({
                 ...options,
                 ...localOptions,
                 throwOnError: true
@@ -548,78 +368,16 @@ export const nodesScaUpdateMutation = (
     return mutationOptions;
 };
 
-export const workspacesScaPaginateQueryKey = (
-    options: Options<WorkspacesScaPaginateData>
-) => [createQueryKey('workspacesScaPaginate', options)];
-
-export const workspacesScaPaginateOptions = (
-    options: Options<WorkspacesScaPaginateData>
-) => {
-    return queryOptions({
-        queryFn: async ({queryKey, signal}) => {
-            const {data} = await workspacesScaPaginate({
-                ...options,
-                ...queryKey[0],
-                signal,
-                throwOnError: true
-            });
-            return data;
-        },
-        queryKey: workspacesScaPaginateQueryKey(options)
-    });
-};
-
-export const workspacesScaCreateQueryKey = (
-    options: Options<WorkspacesScaCreateData>
-) => [createQueryKey('workspacesScaCreate', options)];
-
-export const workspacesScaCreateOptions = (
-    options: Options<WorkspacesScaCreateData>
-) => {
-    return queryOptions({
-        queryFn: async ({queryKey, signal}) => {
-            const {data} = await workspacesScaCreate({
-                ...options,
-                ...queryKey[0],
-                signal,
-                throwOnError: true
-            });
-            return data;
-        },
-        queryKey: workspacesScaCreateQueryKey(options)
-    });
-};
-
-export const workspacesScaCreateMutation = (
-    options?: Partial<Options<WorkspacesScaCreateData>>
+export const edgesRemoveMutation = (
+    options?: Partial<Options<EdgesRemoveData>>
 ) => {
     const mutationOptions: UseMutationOptions<
-        WorkspacesScaCreateResponse,
-        WorkspacesScaCreateError,
-        Options<WorkspacesScaCreateData>
-    > = {
-        mutationFn: async (localOptions) => {
-            const {data} = await workspacesScaCreate({
-                ...options,
-                ...localOptions,
-                throwOnError: true
-            });
-            return data;
-        }
-    };
-    return mutationOptions;
-};
-
-export const workspacesScaRemoveMutation = (
-    options?: Partial<Options<WorkspacesScaRemoveData>>
-) => {
-    const mutationOptions: UseMutationOptions<
-        WorkspacesScaRemoveResponse,
+        EdgesRemoveResponse,
         DefaultError,
-        Options<WorkspacesScaRemoveData>
+        Options<EdgesRemoveData>
     > = {
         mutationFn: async (localOptions) => {
-            const {data} = await workspacesScaRemove({
+            const {data} = await edgesRemove({
                 ...options,
                 ...localOptions,
                 throwOnError: true
@@ -630,16 +388,14 @@ export const workspacesScaRemoveMutation = (
     return mutationOptions;
 };
 
-export const workspacesScaGetQueryKey = (
-    options: Options<WorkspacesScaGetData>
-) => [createQueryKey('workspacesScaGet', options)];
+export const edgesGetQueryKey = (options: Options<EdgesGetData>) => [
+    createQueryKey('edgesGet', options)
+];
 
-export const workspacesScaGetOptions = (
-    options: Options<WorkspacesScaGetData>
-) => {
+export const edgesGetOptions = (options: Options<EdgesGetData>) => {
     return queryOptions({
         queryFn: async ({queryKey, signal}) => {
-            const {data} = await workspacesScaGet({
+            const {data} = await edgesGet({
                 ...options,
                 ...queryKey[0],
                 signal,
@@ -647,20 +403,20 @@ export const workspacesScaGetOptions = (
             });
             return data;
         },
-        queryKey: workspacesScaGetQueryKey(options)
+        queryKey: edgesGetQueryKey(options)
     });
 };
 
-export const workspacesScaUpdateMutation = (
-    options?: Partial<Options<WorkspacesScaUpdateData>>
+export const edgesUpdateMutation = (
+    options?: Partial<Options<EdgesUpdateData>>
 ) => {
     const mutationOptions: UseMutationOptions<
-        WorkspacesScaUpdateResponse,
-        WorkspacesScaUpdateError,
-        Options<WorkspacesScaUpdateData>
+        EdgesUpdateResponse,
+        EdgesUpdateError,
+        Options<EdgesUpdateData>
     > = {
         mutationFn: async (localOptions) => {
-            const {data} = await workspacesScaUpdate({
+            const {data} = await edgesUpdate({
                 ...options,
                 ...localOptions,
                 throwOnError: true
@@ -671,16 +427,14 @@ export const workspacesScaUpdateMutation = (
     return mutationOptions;
 };
 
-export const workspacesScaCreateValidateQueryKey = (
-    options: Options<WorkspacesScaCreateValidateData>
-) => [createQueryKey('workspacesScaCreateValidate', options)];
+export const nodesPaginateQueryKey = (options: Options<NodesPaginateData>) => [
+    createQueryKey('nodesPaginate', options)
+];
 
-export const workspacesScaCreateValidateOptions = (
-    options: Options<WorkspacesScaCreateValidateData>
-) => {
+export const nodesPaginateOptions = (options: Options<NodesPaginateData>) => {
     return queryOptions({
         queryFn: async ({queryKey, signal}) => {
-            const {data} = await workspacesScaCreateValidate({
+            const {data} = await nodesPaginate({
                 ...options,
                 ...queryKey[0],
                 signal,
@@ -688,20 +442,39 @@ export const workspacesScaCreateValidateOptions = (
             });
             return data;
         },
-        queryKey: workspacesScaCreateValidateQueryKey(options)
+        queryKey: nodesPaginateQueryKey(options)
     });
 };
 
-export const workspacesScaCreateValidateMutation = (
-    options?: Partial<Options<WorkspacesScaCreateValidateData>>
+export const nodesCreateQueryKey = (options: Options<NodesCreateData>) => [
+    createQueryKey('nodesCreate', options)
+];
+
+export const nodesCreateOptions = (options: Options<NodesCreateData>) => {
+    return queryOptions({
+        queryFn: async ({queryKey, signal}) => {
+            const {data} = await nodesCreate({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: nodesCreateQueryKey(options)
+    });
+};
+
+export const nodesCreateMutation = (
+    options?: Partial<Options<NodesCreateData>>
 ) => {
     const mutationOptions: UseMutationOptions<
-        WorkspacesScaCreateValidateResponse,
-        WorkspacesScaCreateValidateError,
-        Options<WorkspacesScaCreateValidateData>
+        NodesCreateResponse,
+        NodesCreateError,
+        Options<NodesCreateData>
     > = {
         mutationFn: async (localOptions) => {
-            const {data} = await workspacesScaCreateValidate({
+            const {data} = await nodesCreate({
                 ...options,
                 ...localOptions,
                 throwOnError: true
@@ -712,16 +485,237 @@ export const workspacesScaCreateValidateMutation = (
     return mutationOptions;
 };
 
-export const workspacesScaUpdateValidateMutation = (
-    options?: Partial<Options<WorkspacesScaUpdateValidateData>>
+export const nodesRemoveMutation = (
+    options?: Partial<Options<NodesRemoveData>>
 ) => {
     const mutationOptions: UseMutationOptions<
-        WorkspacesScaUpdateValidateResponse,
-        WorkspacesScaUpdateValidateError,
-        Options<WorkspacesScaUpdateValidateData>
+        NodesRemoveResponse,
+        DefaultError,
+        Options<NodesRemoveData>
     > = {
         mutationFn: async (localOptions) => {
-            const {data} = await workspacesScaUpdateValidate({
+            const {data} = await nodesRemove({
+                ...options,
+                ...localOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const nodesGetQueryKey = (options: Options<NodesGetData>) => [
+    createQueryKey('nodesGet', options)
+];
+
+export const nodesGetOptions = (options: Options<NodesGetData>) => {
+    return queryOptions({
+        queryFn: async ({queryKey, signal}) => {
+            const {data} = await nodesGet({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: nodesGetQueryKey(options)
+    });
+};
+
+export const nodesUpdateMutation = (
+    options?: Partial<Options<NodesUpdateData>>
+) => {
+    const mutationOptions: UseMutationOptions<
+        NodesUpdateResponse,
+        NodesUpdateError,
+        Options<NodesUpdateData>
+    > = {
+        mutationFn: async (localOptions) => {
+            const {data} = await nodesUpdate({
+                ...options,
+                ...localOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const workspacesPaginateQueryKey = (
+    options: Options<WorkspacesPaginateData>
+) => [createQueryKey('workspacesPaginate', options)];
+
+export const workspacesPaginateOptions = (
+    options: Options<WorkspacesPaginateData>
+) => {
+    return queryOptions({
+        queryFn: async ({queryKey, signal}) => {
+            const {data} = await workspacesPaginate({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: workspacesPaginateQueryKey(options)
+    });
+};
+
+export const workspacesCreateQueryKey = (
+    options: Options<WorkspacesCreateData>
+) => [createQueryKey('workspacesCreate', options)];
+
+export const workspacesCreateOptions = (
+    options: Options<WorkspacesCreateData>
+) => {
+    return queryOptions({
+        queryFn: async ({queryKey, signal}) => {
+            const {data} = await workspacesCreate({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: workspacesCreateQueryKey(options)
+    });
+};
+
+export const workspacesCreateMutation = (
+    options?: Partial<Options<WorkspacesCreateData>>
+) => {
+    const mutationOptions: UseMutationOptions<
+        WorkspacesCreateResponse,
+        WorkspacesCreateError,
+        Options<WorkspacesCreateData>
+    > = {
+        mutationFn: async (localOptions) => {
+            const {data} = await workspacesCreate({
+                ...options,
+                ...localOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const workspacesRemoveMutation = (
+    options?: Partial<Options<WorkspacesRemoveData>>
+) => {
+    const mutationOptions: UseMutationOptions<
+        WorkspacesRemoveResponse,
+        DefaultError,
+        Options<WorkspacesRemoveData>
+    > = {
+        mutationFn: async (localOptions) => {
+            const {data} = await workspacesRemove({
+                ...options,
+                ...localOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const workspacesGetQueryKey = (options: Options<WorkspacesGetData>) => [
+    createQueryKey('workspacesGet', options)
+];
+
+export const workspacesGetOptions = (options: Options<WorkspacesGetData>) => {
+    return queryOptions({
+        queryFn: async ({queryKey, signal}) => {
+            const {data} = await workspacesGet({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: workspacesGetQueryKey(options)
+    });
+};
+
+export const workspacesUpdateMutation = (
+    options?: Partial<Options<WorkspacesUpdateData>>
+) => {
+    const mutationOptions: UseMutationOptions<
+        WorkspacesUpdateResponse,
+        WorkspacesUpdateError,
+        Options<WorkspacesUpdateData>
+    > = {
+        mutationFn: async (localOptions) => {
+            const {data} = await workspacesUpdate({
+                ...options,
+                ...localOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const workspacesCreateValidateQueryKey = (
+    options: Options<WorkspacesCreateValidateData>
+) => [createQueryKey('workspacesCreateValidate', options)];
+
+export const workspacesCreateValidateOptions = (
+    options: Options<WorkspacesCreateValidateData>
+) => {
+    return queryOptions({
+        queryFn: async ({queryKey, signal}) => {
+            const {data} = await workspacesCreateValidate({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: workspacesCreateValidateQueryKey(options)
+    });
+};
+
+export const workspacesCreateValidateMutation = (
+    options?: Partial<Options<WorkspacesCreateValidateData>>
+) => {
+    const mutationOptions: UseMutationOptions<
+        WorkspacesCreateValidateResponse,
+        WorkspacesCreateValidateError,
+        Options<WorkspacesCreateValidateData>
+    > = {
+        mutationFn: async (localOptions) => {
+            const {data} = await workspacesCreateValidate({
+                ...options,
+                ...localOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const workspacesUpdateValidateMutation = (
+    options?: Partial<Options<WorkspacesUpdateValidateData>>
+) => {
+    const mutationOptions: UseMutationOptions<
+        WorkspacesUpdateValidateResponse,
+        WorkspacesUpdateValidateError,
+        Options<WorkspacesUpdateValidateData>
+    > = {
+        mutationFn: async (localOptions) => {
+            const {data} = await workspacesUpdateValidate({
                 ...options,
                 ...localOptions,
                 throwOnError: true

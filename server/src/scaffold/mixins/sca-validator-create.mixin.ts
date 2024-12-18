@@ -23,7 +23,7 @@ export function scaValidatorCreateMixin<
 ) {
     abstract class ScaCreateClass extends Base {
         @ScaCreateValidate({bodyDto: createDto, decorators})
-        async scaCreateValidate(
+        async createValidate(
             @ScaBody(createDto) data: TCreateDto
         ): ScaCreateValidateResponse {
             const builder = new ScaInvalidatorBuilder<TCreateDto>();

@@ -7,7 +7,9 @@ import {Type} from '@nestjs/common';
 
 interface ScaRemoveMixinOptions<TDo extends ScaEntity> {
     decorators?: () => Array<MethodDecorator>;
+
     dto: Type<TDo>;
+
     paramId?: string;
 }
 
@@ -22,7 +24,7 @@ export function scaRemoveMixin<
         abstract crud(): ScaCrudRemove;
 
         @ScaRemove({dto, paramId, decorators})
-        async scaRemove(@ScaParamId(paramId) id: number): ScaRemoveResponse {
+        async remove(@ScaParamId(paramId) id: number): ScaRemoveResponse {
             await this.crud().scaRemove(id);
         }
     }

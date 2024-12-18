@@ -300,10 +300,6 @@ export type WorkspaceCreateDto = {
      */
     description?: string | null;
     /**
-     * The edges of the workspace that connect nodes
-     */
-    edges?: EdgeEntity;
-    /**
      * The engine of the workspace
      */
     engine: 'javascript' | 'python';
@@ -320,10 +316,6 @@ export type WorkspaceDto = {
      */
     description?: string | null;
     /**
-     * The edges of the workspace that connect nodes
-     */
-    edges?: EdgeEntity;
-    /**
      * The engine of the workspace
      */
     engine: 'javascript' | 'python';
@@ -331,10 +323,6 @@ export type WorkspaceDto = {
      * The name of the workspace
      */
     name: string;
-    /**
-     * The nodes of the workspace
-     */
-    nodes?: NodeEntity;
 };
 
 export type WorkspaceUpdateDto = {
@@ -342,10 +330,6 @@ export type WorkspaceUpdateDto = {
      * Description of the workspace
      */
     description?: string | null;
-    /**
-     * The edges of the workspace that connect nodes
-     */
-    edges?: EdgeEntity;
     /**
      * The name of the workspace
      */
@@ -356,22 +340,22 @@ export type SettingDto = {
     test: string;
 };
 
-export type ProjectsScaPaginateData = {
+export type ProjectsPaginateData = {
     body?: never;
     path?: never;
     query?: never;
     url: '/api/projects';
 };
 
-export type ProjectsScaPaginateResponses = {
+export type ProjectsPaginateResponses = {
     /**
      * Return a list of Project
      */
     200: ProjectDto;
 };
 
-export type ProjectsScaPaginateResponse =
-    ProjectsScaPaginateResponses[keyof ProjectsScaPaginateResponses];
+export type ProjectsPaginateResponse =
+    ProjectsPaginateResponses[keyof ProjectsPaginateResponses];
 
 export type ProjectsCreateData = {
     body: ProjectCreateDto;
@@ -440,7 +424,7 @@ export type ProjectsRemoveResponses = {
 export type ProjectsRemoveResponse =
     ProjectsRemoveResponses[keyof ProjectsRemoveResponses];
 
-export type ProjectsScaGetData = {
+export type ProjectsGetData = {
     body?: never;
     path: {
         /**
@@ -452,22 +436,22 @@ export type ProjectsScaGetData = {
     url: '/api/projects/{projectId}';
 };
 
-export type ProjectsScaGetErrors = {
+export type ProjectsGetErrors = {
     /**
      * A Project with the specified projectId was not found
      */
     404: unknown;
 };
 
-export type ProjectsScaGetResponses = {
+export type ProjectsGetResponses = {
     /**
      * Return a Project by projectId
      */
     200: ProjectDto;
 };
 
-export type ProjectsScaGetResponse =
-    ProjectsScaGetResponses[keyof ProjectsScaGetResponses];
+export type ProjectsGetResponse =
+    ProjectsGetResponses[keyof ProjectsGetResponses];
 
 export type ProjectsUpdateData = {
     body: ProjectUpdateDto;
@@ -509,34 +493,34 @@ export type ProjectsUpdateResponses = {
 export type ProjectsUpdateResponse =
     ProjectsUpdateResponses[keyof ProjectsUpdateResponses];
 
-export type ProjectsScaCreateValidateData = {
+export type ProjectsCreateValidateData = {
     body: ProjectCreateDto;
     path?: never;
     query?: never;
     url: '/api/projects/validates';
 };
 
-export type ProjectsScaCreateValidateErrors = {
+export type ProjectsCreateValidateErrors = {
     /**
      * Invalid request body
      */
     400: ScaExceptionFilterDto;
 };
 
-export type ProjectsScaCreateValidateError =
-    ProjectsScaCreateValidateErrors[keyof ProjectsScaCreateValidateErrors];
+export type ProjectsCreateValidateError =
+    ProjectsCreateValidateErrors[keyof ProjectsCreateValidateErrors];
 
-export type ProjectsScaCreateValidateResponses = {
+export type ProjectsCreateValidateResponses = {
     /**
      * Validation results of ProjectCreate
      */
     200: ScaValidationResponseDto;
 };
 
-export type ProjectsScaCreateValidateResponse =
-    ProjectsScaCreateValidateResponses[keyof ProjectsScaCreateValidateResponses];
+export type ProjectsCreateValidateResponse =
+    ProjectsCreateValidateResponses[keyof ProjectsCreateValidateResponses];
 
-export type ProjectsScaUpdateValidateData = {
+export type ProjectsUpdateValidateData = {
     body: ProjectUpdateDto;
     path: {
         /**
@@ -548,7 +532,7 @@ export type ProjectsScaUpdateValidateData = {
     url: '/api/projects/{projectId}/validates';
 };
 
-export type ProjectsScaUpdateValidateErrors = {
+export type ProjectsUpdateValidateErrors = {
     /**
      * Invalid request body
      */
@@ -559,20 +543,20 @@ export type ProjectsScaUpdateValidateErrors = {
     404: unknown;
 };
 
-export type ProjectsScaUpdateValidateError =
-    ProjectsScaUpdateValidateErrors[keyof ProjectsScaUpdateValidateErrors];
+export type ProjectsUpdateValidateError =
+    ProjectsUpdateValidateErrors[keyof ProjectsUpdateValidateErrors];
 
-export type ProjectsScaUpdateValidateResponses = {
+export type ProjectsUpdateValidateResponses = {
     /**
      * Validation results of ProjectUpdate
      */
     200: ScaValidationResponseDto;
 };
 
-export type ProjectsScaUpdateValidateResponse =
-    ProjectsScaUpdateValidateResponses[keyof ProjectsScaUpdateValidateResponses];
+export type ProjectsUpdateValidateResponse =
+    ProjectsUpdateValidateResponses[keyof ProjectsUpdateValidateResponses];
 
-export type EdgesScaPaginateData = {
+export type EdgesPaginateData = {
     body?: never;
     path: {
         /**
@@ -588,17 +572,17 @@ export type EdgesScaPaginateData = {
     url: '/api/projects/{projectId}/workspaces/{workspaceId}/edges';
 };
 
-export type EdgesScaPaginateResponses = {
+export type EdgesPaginateResponses = {
     /**
      * Return a list of Edge
      */
     200: EdgeDto;
 };
 
-export type EdgesScaPaginateResponse =
-    EdgesScaPaginateResponses[keyof EdgesScaPaginateResponses];
+export type EdgesPaginateResponse =
+    EdgesPaginateResponses[keyof EdgesPaginateResponses];
 
-export type EdgesScaCreateData = {
+export type EdgesCreateData = {
     body: EdgeCreateDto;
     path: {
         /**
@@ -614,7 +598,7 @@ export type EdgesScaCreateData = {
     url: '/api/projects/{projectId}/workspaces/{workspaceId}/edges';
 };
 
-export type EdgesScaCreateErrors = {
+export type EdgesCreateErrors = {
     /**
      * TypeORM related errors
      */
@@ -625,10 +609,9 @@ export type EdgesScaCreateErrors = {
     409: ScaExceptionFilterDto;
 };
 
-export type EdgesScaCreateError =
-    EdgesScaCreateErrors[keyof EdgesScaCreateErrors];
+export type EdgesCreateError = EdgesCreateErrors[keyof EdgesCreateErrors];
 
-export type EdgesScaCreateResponses = {
+export type EdgesCreateResponses = {
     /**
      * Bug, can't disable 200 response from custom decorator
      */
@@ -639,10 +622,10 @@ export type EdgesScaCreateResponses = {
     201: EdgeDto;
 };
 
-export type EdgesScaCreateResponse =
-    EdgesScaCreateResponses[keyof EdgesScaCreateResponses];
+export type EdgesCreateResponse =
+    EdgesCreateResponses[keyof EdgesCreateResponses];
 
-export type EdgesScaRemoveData = {
+export type EdgesRemoveData = {
     body?: never;
     path: {
         /**
@@ -662,24 +645,24 @@ export type EdgesScaRemoveData = {
     url: '/api/projects/{projectId}/workspaces/{workspaceId}/edges/{edgeId}';
 };
 
-export type EdgesScaRemoveErrors = {
+export type EdgesRemoveErrors = {
     /**
      * A Edge with the specified edgeId was not found
      */
     404: unknown;
 };
 
-export type EdgesScaRemoveResponses = {
+export type EdgesRemoveResponses = {
     /**
      * The Edge has been deleted
      */
     204: void;
 };
 
-export type EdgesScaRemoveResponse =
-    EdgesScaRemoveResponses[keyof EdgesScaRemoveResponses];
+export type EdgesRemoveResponse =
+    EdgesRemoveResponses[keyof EdgesRemoveResponses];
 
-export type EdgesScaGetData = {
+export type EdgesGetData = {
     body?: never;
     path: {
         /**
@@ -699,24 +682,23 @@ export type EdgesScaGetData = {
     url: '/api/projects/{projectId}/workspaces/{workspaceId}/edges/{edgeId}';
 };
 
-export type EdgesScaGetErrors = {
+export type EdgesGetErrors = {
     /**
      * A Edge with the specified edgeId was not found
      */
     404: unknown;
 };
 
-export type EdgesScaGetResponses = {
+export type EdgesGetResponses = {
     /**
      * Return a Edge by edgeId
      */
     200: EdgeDto;
 };
 
-export type EdgesScaGetResponse =
-    EdgesScaGetResponses[keyof EdgesScaGetResponses];
+export type EdgesGetResponse = EdgesGetResponses[keyof EdgesGetResponses];
 
-export type EdgesScaUpdateData = {
+export type EdgesUpdateData = {
     body: EdgeUpdateDto;
     path: {
         /**
@@ -736,7 +718,7 @@ export type EdgesScaUpdateData = {
     url: '/api/projects/{projectId}/workspaces/{workspaceId}/edges/{edgeId}';
 };
 
-export type EdgesScaUpdateErrors = {
+export type EdgesUpdateErrors = {
     /**
      * TypeORM related errors
      */
@@ -751,20 +733,19 @@ export type EdgesScaUpdateErrors = {
     409: ScaExceptionFilterDto;
 };
 
-export type EdgesScaUpdateError =
-    EdgesScaUpdateErrors[keyof EdgesScaUpdateErrors];
+export type EdgesUpdateError = EdgesUpdateErrors[keyof EdgesUpdateErrors];
 
-export type EdgesScaUpdateResponses = {
+export type EdgesUpdateResponses = {
     /**
      * Return a Edge by edgeId
      */
     200: EdgeDto;
 };
 
-export type EdgesScaUpdateResponse =
-    EdgesScaUpdateResponses[keyof EdgesScaUpdateResponses];
+export type EdgesUpdateResponse =
+    EdgesUpdateResponses[keyof EdgesUpdateResponses];
 
-export type NodesScaPaginateData = {
+export type NodesPaginateData = {
     body?: never;
     path: {
         /**
@@ -780,17 +761,17 @@ export type NodesScaPaginateData = {
     url: '/api/projects/{projectId}/workspaces/{workspaceId}/nodes';
 };
 
-export type NodesScaPaginateResponses = {
+export type NodesPaginateResponses = {
     /**
      * Return a list of Node
      */
     200: NodeDto;
 };
 
-export type NodesScaPaginateResponse =
-    NodesScaPaginateResponses[keyof NodesScaPaginateResponses];
+export type NodesPaginateResponse =
+    NodesPaginateResponses[keyof NodesPaginateResponses];
 
-export type NodesScaCreateData = {
+export type NodesCreateData = {
     body: NodeCreateDto;
     path: {
         /**
@@ -806,7 +787,7 @@ export type NodesScaCreateData = {
     url: '/api/projects/{projectId}/workspaces/{workspaceId}/nodes';
 };
 
-export type NodesScaCreateErrors = {
+export type NodesCreateErrors = {
     /**
      * TypeORM related errors
      */
@@ -817,10 +798,9 @@ export type NodesScaCreateErrors = {
     409: ScaExceptionFilterDto;
 };
 
-export type NodesScaCreateError =
-    NodesScaCreateErrors[keyof NodesScaCreateErrors];
+export type NodesCreateError = NodesCreateErrors[keyof NodesCreateErrors];
 
-export type NodesScaCreateResponses = {
+export type NodesCreateResponses = {
     /**
      * Bug, can't disable 200 response from custom decorator
      */
@@ -831,10 +811,10 @@ export type NodesScaCreateResponses = {
     201: NodeDto;
 };
 
-export type NodesScaCreateResponse =
-    NodesScaCreateResponses[keyof NodesScaCreateResponses];
+export type NodesCreateResponse =
+    NodesCreateResponses[keyof NodesCreateResponses];
 
-export type NodesScaRemoveData = {
+export type NodesRemoveData = {
     body?: never;
     path: {
         /**
@@ -854,24 +834,24 @@ export type NodesScaRemoveData = {
     url: '/api/projects/{projectId}/workspaces/{workspaceId}/nodes/{nodeId}';
 };
 
-export type NodesScaRemoveErrors = {
+export type NodesRemoveErrors = {
     /**
      * A Node with the specified nodeId was not found
      */
     404: unknown;
 };
 
-export type NodesScaRemoveResponses = {
+export type NodesRemoveResponses = {
     /**
      * The Node has been deleted
      */
     204: void;
 };
 
-export type NodesScaRemoveResponse =
-    NodesScaRemoveResponses[keyof NodesScaRemoveResponses];
+export type NodesRemoveResponse =
+    NodesRemoveResponses[keyof NodesRemoveResponses];
 
-export type NodesScaGetData = {
+export type NodesGetData = {
     body?: never;
     path: {
         /**
@@ -891,24 +871,23 @@ export type NodesScaGetData = {
     url: '/api/projects/{projectId}/workspaces/{workspaceId}/nodes/{nodeId}';
 };
 
-export type NodesScaGetErrors = {
+export type NodesGetErrors = {
     /**
      * A Node with the specified nodeId was not found
      */
     404: unknown;
 };
 
-export type NodesScaGetResponses = {
+export type NodesGetResponses = {
     /**
      * Return a Node by nodeId
      */
     200: NodeDto;
 };
 
-export type NodesScaGetResponse =
-    NodesScaGetResponses[keyof NodesScaGetResponses];
+export type NodesGetResponse = NodesGetResponses[keyof NodesGetResponses];
 
-export type NodesScaUpdateData = {
+export type NodesUpdateData = {
     body: NodeUpdateDto;
     path: {
         /**
@@ -928,7 +907,7 @@ export type NodesScaUpdateData = {
     url: '/api/projects/{projectId}/workspaces/{workspaceId}/nodes/{nodeId}';
 };
 
-export type NodesScaUpdateErrors = {
+export type NodesUpdateErrors = {
     /**
      * TypeORM related errors
      */
@@ -943,20 +922,19 @@ export type NodesScaUpdateErrors = {
     409: ScaExceptionFilterDto;
 };
 
-export type NodesScaUpdateError =
-    NodesScaUpdateErrors[keyof NodesScaUpdateErrors];
+export type NodesUpdateError = NodesUpdateErrors[keyof NodesUpdateErrors];
 
-export type NodesScaUpdateResponses = {
+export type NodesUpdateResponses = {
     /**
      * Return a Node by nodeId
      */
     200: NodeDto;
 };
 
-export type NodesScaUpdateResponse =
-    NodesScaUpdateResponses[keyof NodesScaUpdateResponses];
+export type NodesUpdateResponse =
+    NodesUpdateResponses[keyof NodesUpdateResponses];
 
-export type WorkspacesScaPaginateData = {
+export type WorkspacesPaginateData = {
     body?: never;
     path: {
         /**
@@ -968,17 +946,17 @@ export type WorkspacesScaPaginateData = {
     url: '/api/projects/{projectId}/workspaces';
 };
 
-export type WorkspacesScaPaginateResponses = {
+export type WorkspacesPaginateResponses = {
     /**
      * Return a list of Workspace
      */
     200: WorkspaceDto;
 };
 
-export type WorkspacesScaPaginateResponse =
-    WorkspacesScaPaginateResponses[keyof WorkspacesScaPaginateResponses];
+export type WorkspacesPaginateResponse =
+    WorkspacesPaginateResponses[keyof WorkspacesPaginateResponses];
 
-export type WorkspacesScaCreateData = {
+export type WorkspacesCreateData = {
     body: WorkspaceCreateDto;
     path: {
         /**
@@ -990,7 +968,7 @@ export type WorkspacesScaCreateData = {
     url: '/api/projects/{projectId}/workspaces';
 };
 
-export type WorkspacesScaCreateErrors = {
+export type WorkspacesCreateErrors = {
     /**
      * TypeORM related errors
      */
@@ -1001,10 +979,10 @@ export type WorkspacesScaCreateErrors = {
     409: ScaExceptionFilterDto;
 };
 
-export type WorkspacesScaCreateError =
-    WorkspacesScaCreateErrors[keyof WorkspacesScaCreateErrors];
+export type WorkspacesCreateError =
+    WorkspacesCreateErrors[keyof WorkspacesCreateErrors];
 
-export type WorkspacesScaCreateResponses = {
+export type WorkspacesCreateResponses = {
     /**
      * Bug, can't disable 200 response from custom decorator
      */
@@ -1015,10 +993,10 @@ export type WorkspacesScaCreateResponses = {
     201: WorkspaceDto;
 };
 
-export type WorkspacesScaCreateResponse =
-    WorkspacesScaCreateResponses[keyof WorkspacesScaCreateResponses];
+export type WorkspacesCreateResponse =
+    WorkspacesCreateResponses[keyof WorkspacesCreateResponses];
 
-export type WorkspacesScaRemoveData = {
+export type WorkspacesRemoveData = {
     body?: never;
     path: {
         /**
@@ -1034,24 +1012,24 @@ export type WorkspacesScaRemoveData = {
     url: '/api/projects/{projectId}/workspaces/{workspaceId}';
 };
 
-export type WorkspacesScaRemoveErrors = {
+export type WorkspacesRemoveErrors = {
     /**
      * A Workspace with the specified workspaceId was not found
      */
     404: unknown;
 };
 
-export type WorkspacesScaRemoveResponses = {
+export type WorkspacesRemoveResponses = {
     /**
      * The Workspace has been deleted
      */
     204: void;
 };
 
-export type WorkspacesScaRemoveResponse =
-    WorkspacesScaRemoveResponses[keyof WorkspacesScaRemoveResponses];
+export type WorkspacesRemoveResponse =
+    WorkspacesRemoveResponses[keyof WorkspacesRemoveResponses];
 
-export type WorkspacesScaGetData = {
+export type WorkspacesGetData = {
     body?: never;
     path: {
         /**
@@ -1067,24 +1045,24 @@ export type WorkspacesScaGetData = {
     url: '/api/projects/{projectId}/workspaces/{workspaceId}';
 };
 
-export type WorkspacesScaGetErrors = {
+export type WorkspacesGetErrors = {
     /**
      * A Workspace with the specified workspaceId was not found
      */
     404: unknown;
 };
 
-export type WorkspacesScaGetResponses = {
+export type WorkspacesGetResponses = {
     /**
      * Return a Workspace by workspaceId
      */
     200: WorkspaceDto;
 };
 
-export type WorkspacesScaGetResponse =
-    WorkspacesScaGetResponses[keyof WorkspacesScaGetResponses];
+export type WorkspacesGetResponse =
+    WorkspacesGetResponses[keyof WorkspacesGetResponses];
 
-export type WorkspacesScaUpdateData = {
+export type WorkspacesUpdateData = {
     body: WorkspaceUpdateDto;
     path: {
         /**
@@ -1100,7 +1078,7 @@ export type WorkspacesScaUpdateData = {
     url: '/api/projects/{projectId}/workspaces/{workspaceId}';
 };
 
-export type WorkspacesScaUpdateErrors = {
+export type WorkspacesUpdateErrors = {
     /**
      * TypeORM related errors
      */
@@ -1115,47 +1093,47 @@ export type WorkspacesScaUpdateErrors = {
     409: ScaExceptionFilterDto;
 };
 
-export type WorkspacesScaUpdateError =
-    WorkspacesScaUpdateErrors[keyof WorkspacesScaUpdateErrors];
+export type WorkspacesUpdateError =
+    WorkspacesUpdateErrors[keyof WorkspacesUpdateErrors];
 
-export type WorkspacesScaUpdateResponses = {
+export type WorkspacesUpdateResponses = {
     /**
      * Return a Workspace by workspaceId
      */
     200: WorkspaceDto;
 };
 
-export type WorkspacesScaUpdateResponse =
-    WorkspacesScaUpdateResponses[keyof WorkspacesScaUpdateResponses];
+export type WorkspacesUpdateResponse =
+    WorkspacesUpdateResponses[keyof WorkspacesUpdateResponses];
 
-export type WorkspacesScaCreateValidateData = {
+export type WorkspacesCreateValidateData = {
     body: WorkspaceCreateDto;
     path?: never;
     query?: never;
     url: '/api/projects/{projectId}/workspaces/validates';
 };
 
-export type WorkspacesScaCreateValidateErrors = {
+export type WorkspacesCreateValidateErrors = {
     /**
      * Invalid request body
      */
     400: ScaExceptionFilterDto;
 };
 
-export type WorkspacesScaCreateValidateError =
-    WorkspacesScaCreateValidateErrors[keyof WorkspacesScaCreateValidateErrors];
+export type WorkspacesCreateValidateError =
+    WorkspacesCreateValidateErrors[keyof WorkspacesCreateValidateErrors];
 
-export type WorkspacesScaCreateValidateResponses = {
+export type WorkspacesCreateValidateResponses = {
     /**
      * Validation results of WorkspaceCreate
      */
     200: ScaValidationResponseDto;
 };
 
-export type WorkspacesScaCreateValidateResponse =
-    WorkspacesScaCreateValidateResponses[keyof WorkspacesScaCreateValidateResponses];
+export type WorkspacesCreateValidateResponse =
+    WorkspacesCreateValidateResponses[keyof WorkspacesCreateValidateResponses];
 
-export type WorkspacesScaUpdateValidateData = {
+export type WorkspacesUpdateValidateData = {
     body: WorkspaceUpdateDto;
     path: {
         /**
@@ -1167,7 +1145,7 @@ export type WorkspacesScaUpdateValidateData = {
     url: '/api/projects/{projectId}/workspaces/{workspaceId}/validates';
 };
 
-export type WorkspacesScaUpdateValidateErrors = {
+export type WorkspacesUpdateValidateErrors = {
     /**
      * Invalid request body
      */
@@ -1178,18 +1156,18 @@ export type WorkspacesScaUpdateValidateErrors = {
     404: unknown;
 };
 
-export type WorkspacesScaUpdateValidateError =
-    WorkspacesScaUpdateValidateErrors[keyof WorkspacesScaUpdateValidateErrors];
+export type WorkspacesUpdateValidateError =
+    WorkspacesUpdateValidateErrors[keyof WorkspacesUpdateValidateErrors];
 
-export type WorkspacesScaUpdateValidateResponses = {
+export type WorkspacesUpdateValidateResponses = {
     /**
      * Validation results of WorkspaceUpdate
      */
     200: ScaValidationResponseDto;
 };
 
-export type WorkspacesScaUpdateValidateResponse =
-    WorkspacesScaUpdateValidateResponses[keyof WorkspacesScaUpdateValidateResponses];
+export type WorkspacesUpdateValidateResponse =
+    WorkspacesUpdateValidateResponses[keyof WorkspacesUpdateValidateResponses];
 
 export type SettingsGetData = {
     body?: never;

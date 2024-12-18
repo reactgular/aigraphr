@@ -12,8 +12,11 @@ interface ScaUpdateMixinOptions<
     TUpdateDto extends object
 > {
     decorators?: () => Array<MethodDecorator>;
+
     dto: Type<TDo>;
+
     paramId?: string;
+
     updateDto: Type<TUpdateDto>;
 }
 
@@ -34,7 +37,7 @@ export function scaUpdateMixin<
         abstract crud(): ScaCrudUpdate<TDo, TUpdateDto>;
 
         @ScaUpdate({bodyDto: updateDto, responseDto: dto, paramId, decorators})
-        async scaUpdate(
+        async update(
             @ScaParamId(paramId) id: number,
             @ScaBody(updateDto) data: TUpdateDto
         ): ScaUpdateResponse<TDo> {

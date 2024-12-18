@@ -7,7 +7,9 @@ import {Type} from '@nestjs/common';
 
 interface ScaGetMixinOptions<TDo extends ScaEntity> {
     decorators?: () => Array<MethodDecorator>;
+
     dto: Type<TDo>;
+
     paramId?: string;
 }
 
@@ -22,7 +24,7 @@ export function scaGetMixin<
         abstract crud(): ScaCrudRead<TDo>;
 
         @ScaGet({dto, paramId, decorators})
-        async scaGet(@ScaParamId(paramId) id: number): ScaGetResponse<TDo> {
+        async get(@ScaParamId(paramId) id: number): ScaGetResponse<TDo> {
             return await this.crud().scaGet(id);
         }
     }

@@ -66,7 +66,7 @@
                 ]
             },
             "get": {
-                "operationId": "Projects_scaPaginate",
+                "operationId": "Projects_paginate",
                 "parameters": [],
                 "responses": {
                     "200": {
@@ -197,7 +197,7 @@
                 ]
             },
             "get": {
-                "operationId": "Projects_scaGet",
+                "operationId": "Projects_get",
                 "parameters": [
                     {
                         "name": "projectId",
@@ -232,7 +232,7 @@
         },
         "/api/projects/validates": {
             "post": {
-                "operationId": "Projects_scaCreateValidate",
+                "operationId": "Projects_createValidate",
                 "parameters": [],
                 "requestBody": {
                     "required": true,
@@ -279,7 +279,7 @@
         },
         "/api/projects/{projectId}/validates": {
             "patch": {
-                "operationId": "Projects_scaUpdateValidate",
+                "operationId": "Projects_updateValidate",
                 "parameters": [
                     {
                         "name": "projectId",
@@ -339,7 +339,7 @@
         },
         "/api/projects/{projectId}/workspaces/{workspaceId}/edges": {
             "post": {
-                "operationId": "Edges_scaCreate",
+                "operationId": "Edges_create",
                 "parameters": [
                     {
                         "name": "projectId",
@@ -421,7 +421,7 @@
                 ]
             },
             "get": {
-                "operationId": "Edges_scaPaginate",
+                "operationId": "Edges_paginate",
                 "parameters": [
                     {
                         "name": "projectId",
@@ -462,7 +462,7 @@
         },
         "/api/projects/{projectId}/workspaces/{workspaceId}/edges/{edgeId}": {
             "patch": {
-                "operationId": "Edges_scaUpdate",
+                "operationId": "Edges_update",
                 "parameters": [
                     {
                         "name": "edgeId",
@@ -553,7 +553,7 @@
                 ]
             },
             "delete": {
-                "operationId": "Edges_scaRemove",
+                "operationId": "Edges_remove",
                 "parameters": [
                     {
                         "name": "edgeId",
@@ -597,7 +597,7 @@
                 ]
             },
             "get": {
-                "operationId": "Edges_scaGet",
+                "operationId": "Edges_get",
                 "parameters": [
                     {
                         "name": "edgeId",
@@ -650,7 +650,7 @@
         },
         "/api/projects/{projectId}/workspaces/{workspaceId}/nodes": {
             "post": {
-                "operationId": "Nodes_scaCreate",
+                "operationId": "Nodes_create",
                 "parameters": [
                     {
                         "name": "projectId",
@@ -732,7 +732,7 @@
                 ]
             },
             "get": {
-                "operationId": "Nodes_scaPaginate",
+                "operationId": "Nodes_paginate",
                 "parameters": [
                     {
                         "name": "projectId",
@@ -773,7 +773,7 @@
         },
         "/api/projects/{projectId}/workspaces/{workspaceId}/nodes/{nodeId}": {
             "patch": {
-                "operationId": "Nodes_scaUpdate",
+                "operationId": "Nodes_update",
                 "parameters": [
                     {
                         "name": "nodeId",
@@ -864,7 +864,7 @@
                 ]
             },
             "delete": {
-                "operationId": "Nodes_scaRemove",
+                "operationId": "Nodes_remove",
                 "parameters": [
                     {
                         "name": "nodeId",
@@ -908,7 +908,7 @@
                 ]
             },
             "get": {
-                "operationId": "Nodes_scaGet",
+                "operationId": "Nodes_get",
                 "parameters": [
                     {
                         "name": "nodeId",
@@ -961,7 +961,7 @@
         },
         "/api/projects/{projectId}/workspaces": {
             "post": {
-                "operationId": "Workspaces_scaCreate",
+                "operationId": "Workspaces_create",
                 "parameters": [
                     {
                         "name": "projectId",
@@ -1034,7 +1034,7 @@
                 ]
             },
             "get": {
-                "operationId": "Workspaces_scaPaginate",
+                "operationId": "Workspaces_paginate",
                 "parameters": [
                     {
                         "name": "projectId",
@@ -1066,7 +1066,7 @@
         },
         "/api/projects/{projectId}/workspaces/{workspaceId}": {
             "patch": {
-                "operationId": "Workspaces_scaUpdate",
+                "operationId": "Workspaces_update",
                 "parameters": [
                     {
                         "name": "workspaceId",
@@ -1148,7 +1148,7 @@
                 ]
             },
             "delete": {
-                "operationId": "Workspaces_scaRemove",
+                "operationId": "Workspaces_remove",
                 "parameters": [
                     {
                         "name": "workspaceId",
@@ -1183,7 +1183,7 @@
                 ]
             },
             "get": {
-                "operationId": "Workspaces_scaGet",
+                "operationId": "Workspaces_get",
                 "parameters": [
                     {
                         "name": "workspaceId",
@@ -1227,7 +1227,7 @@
         },
         "/api/projects/{projectId}/workspaces/validates": {
             "post": {
-                "operationId": "Workspaces_scaCreateValidate",
+                "operationId": "Workspaces_createValidate",
                 "parameters": [],
                 "requestBody": {
                     "required": true,
@@ -1274,7 +1274,7 @@
         },
         "/api/projects/{projectId}/workspaces/{workspaceId}/validates": {
             "patch": {
-                "operationId": "Workspaces_scaUpdateValidate",
+                "operationId": "Workspaces_updateValidate",
                 "parameters": [
                     {
                         "name": "workspaceId",
@@ -2097,20 +2097,6 @@
                         "nullable": true,
                         "description": "Description of the workspace"
                     },
-                    "edges": {
-                        "description": "The edges of the workspace that connect nodes",
-                        "example": [
-                            {
-                                "id": 1,
-                                "workspaceId": 1
-                            }
-                        ],
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/EdgeEntity"
-                            }
-                        ]
-                    },
                     "engine": {
                         "enum": [
                             "javascript",
@@ -2142,20 +2128,6 @@
                         "nullable": true,
                         "description": "Description of the workspace"
                     },
-                    "edges": {
-                        "description": "The edges of the workspace that connect nodes",
-                        "example": [
-                            {
-                                "id": 1,
-                                "workspaceId": 1
-                            }
-                        ],
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/EdgeEntity"
-                            }
-                        ]
-                    },
                     "engine": {
                         "enum": [
                             "javascript",
@@ -2168,20 +2140,6 @@
                         "type": "string",
                         "description": "The name of the workspace",
                         "example": "main"
-                    },
-                    "nodes": {
-                        "description": "The nodes of the workspace",
-                        "example": [
-                            {
-                                "id": 1,
-                                "workspaceId": 1
-                            }
-                        ],
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/NodeEntity"
-                            }
-                        ]
                     }
                 },
                 "required": [
@@ -2197,20 +2155,6 @@
                         "type": "string",
                         "nullable": true,
                         "description": "Description of the workspace"
-                    },
-                    "edges": {
-                        "description": "The edges of the workspace that connect nodes",
-                        "example": [
-                            {
-                                "id": 1,
-                                "workspaceId": 1
-                            }
-                        ],
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/EdgeEntity"
-                            }
-                        ]
                     },
                     "name": {
                         "type": "string",

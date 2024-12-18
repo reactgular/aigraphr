@@ -11,7 +11,9 @@ import {Type} from '@nestjs/common';
 
 interface ScaValidatorUpdateMixinOptions<TUpdateDto extends object> {
     decorators?: () => Array<MethodDecorator>;
+
     paramId?: string;
+
     updateDto: Type<TUpdateDto>;
 }
 
@@ -28,7 +30,7 @@ export function scaValidatorUpdateMixin<
 ) {
     abstract class ScaPaginateClass extends Base {
         @ScaUpdateValidate({bodyDto: updateDto, paramId, decorators})
-        async scaUpdateValidate(
+        async updateValidate(
             @ScaParamId(paramId) id: number,
             @ScaBody(updateDto) data: TUpdateDto
         ): ScaUpdateValidateResponse {

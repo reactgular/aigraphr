@@ -11,7 +11,9 @@ interface ScaCreateMixinOptions<
     TCreateDto extends object
 > {
     createDto: Type<TCreateDto>;
+
     decorators?: () => Array<MethodDecorator>;
+
     dto: Type<TDo>;
 }
 
@@ -24,14 +26,14 @@ export function scaCreateMixin<
     Base: TBase = ScaEmptyBase as TBase
 ) {
     abstract class ScaCreateClass extends Base {
-        abstract crud(): ScaCrudCreate<TDo, TCreateDto>;
-
         @ScaCreate({bodyDto: createDto, responseDto: dto, decorators})
-        async scaCreate(
+        async create(
             @ScaBody(createDto) data: TCreateDto
         ): ScaCreateResponse<TDo> {
             return await this.crud().scaCreate(data);
         }
+
+        abstract crud(): ScaCrudCreate<TDo, TCreateDto>;
     }
 
     return ScaCreateClass;
