@@ -4,8 +4,13 @@ import {
     WorkspaceDto,
     WorkspaceEngine
 } from '@/projects/entities/workspace.entity';
+import {client, workspacesGet} from '@shared/api/sdk.gen';
 import {CreateMemory, createMemoryApp} from '../utils/create-memory-app';
 import {expectPartial} from '../utils/expect-partial';
+
+client.setConfig({
+    baseUrl: 'http://localhost:3030'
+});
 
 describe('Workspaces API (e2e) Tests', () => {
     let app: CreateMemory;
@@ -45,5 +50,23 @@ describe('Workspaces API (e2e) Tests', () => {
                     engine: WorkspaceEngine.JAVASCRIPT
                 })
             );
+    });
+
+    it('should get a workspace', async () => {
+        const resp = await workspacesGet({
+            path: {
+                projectId: 1,
+                workspaceId: 1
+            }
+        });
+
+        expect(resp.response.status).toBe(200);
+        expect(resp.data).toEqual(
+            expect.objectContaining<Omit<WorkspaceDto, 'id'>>({
+                name: 'test',
+                description: 'A test workspace',
+                engine: WorkspaceEngine.JAVASCRIPT
+            })
+        );
     });
 });

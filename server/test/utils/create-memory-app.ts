@@ -19,6 +19,8 @@ export const createMemoryApp = async (logger: boolean = false) => {
 
     const app = await compileApp(builder, logger);
 
+    await new Promise<void>((resolve) => app.listen(3030, resolve));
+
     return {
         app,
         request: request(app.getHttpServer()),
