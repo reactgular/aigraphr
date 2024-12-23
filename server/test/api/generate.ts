@@ -2,6 +2,17 @@ import {promises as fs} from 'fs';
 import {OpenAPIV3} from 'openapi-types';
 import path from 'path';
 
+const methods: Array<OpenAPIV3.HttpMethods> = [
+    OpenAPIV3.HttpMethods.GET,
+    OpenAPIV3.HttpMethods.POST,
+    OpenAPIV3.HttpMethods.PUT,
+    OpenAPIV3.HttpMethods.DELETE,
+    OpenAPIV3.HttpMethods.PATCH,
+    OpenAPIV3.HttpMethods.HEAD,
+    OpenAPIV3.HttpMethods.OPTIONS,
+    OpenAPIV3.HttpMethods.TRACE
+];
+
 const generator = async () => {
     // Ensure a file path argument is provided
     if (process.argv.length < 3) {
@@ -15,15 +26,13 @@ const generator = async () => {
     const filePath = process.argv[2];
 
     try {
-        // Convert the provided path to an absolute path
         const absolutePath = path.resolve(filePath);
-
-        // Read and parse the JSON file
         const json = await fs.readFile(absolutePath, 'utf-8');
         const openApiSpec: OpenAPIV3.Document = JSON.parse(json);
 
-        // Do whatever you need with the parsed OpenAPI spec
-        console.log(openApiSpec);
+        for (const path of Object.keys(openApiSpec.paths)) {
+            const methods = openApiSpec.paths[path];
+        }
     } catch (error) {
         console.error(`Failed to read or parse file at ${filePath}:`, error);
         process.exit(1);
