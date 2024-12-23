@@ -5,4 +5,4 @@ import {projects} from './projects';
 import {settings} from './settings';
 import {workspaces} from './workspaces';
 
-export const apis = {projects, edges, nodes, workspaces, settings};
+export const apis = {edges, nodes, projects, settings, workspaces};

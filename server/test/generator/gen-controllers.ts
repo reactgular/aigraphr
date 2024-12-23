@@ -10,5 +10,9 @@ export async function* genControllers(
         arr.push(desc);
         map.set(desc.controller, arr);
     }
-    yield* map;
+
+    for (const [controller, descriptors] of map) {
+        descriptors.sort((a, b) => a.action.localeCompare(b.action));
+        yield [controller, descriptors];
+    }
 }

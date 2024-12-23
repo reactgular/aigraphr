@@ -9,11 +9,13 @@ export async function* genOutputIndex(
 
     const names: string[] = [];
     for await (const [controller] of genControllers(openApiSpec)) {
-        const name = toCamelCase(controller);
-        yield `import {${name}} from './${name}';`;
-        names.push(name);
+        names.push(toCamelCase(controller));
     }
+    names.sort();
 
+    for (const name of names) {
+        yield `import {${name}} from './${name}';`;
+    }
     yield '';
     yield `export const apis = {${names.join(', ')}};`;
 }
