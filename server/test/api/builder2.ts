@@ -1,6 +1,5 @@
 import {workspacesCreate} from '@shared/api/sdk.gen';
 import {
-    WorkspaceDto,
     WorkspacesCreateData,
     WorkspacesCreateResponses
 } from '@shared/api/types.gen';
@@ -32,46 +31,45 @@ export function fetchApiBody<TBody, TQuery>(fetcher: unknown) {
     };
 }
 
-export function fetchApiParamsBody<
-    TPath,
-    TBody,
-    TQuery,
-    TCodes extends Record<string, (param: any[]) => void> = Record<
-        string,
-        (param: any[]) => void
-    >
->(fetcher: unknown, codes: TCodes) {
-    return (path: TPath, body: TBody, query?: TQuery) => {
+export function fetchApiParamsBody<TPath, TBody, TQuery, TCodes>(
+    fetcher: unknown,
+    codes: TCodes
+) {
+    return (
+        path: TPath,
+        body: TBody,
+        query?: TQuery
+    ): Promise<unknown> & TCodes => {
         const expectations = [];
-        return new Promise((resolver) => {
+        const promise = new Promise((resolver) => {
             // call the fetcher and test expectations
         });
+        return {...promise, ...codes};
     };
 }
 
-const test = fetchApiParamsBody<
-    WorkspacesCreateData['path'],
-    WorkspacesCreateData['body'],
-    WorkspacesCreateData['query']
->(workspacesCreate, {
-    _200: createResponseExpects(200)
-});
-
-export type WorkspacesPaginateResponses = {
-    200: WorkspaceDto;
-};
-
-function createResponseExpects<
-    TResponses,
-    TCode extends Extract<keyof TResponses, number>
->(code: TCode): {[P in `is${TCode}`]: null} {
+function status<TResponses, TCode extends Extract<keyof TResponses, number>>(
+    code: TCode
+): {[P in `is${TCode}`]: () => Promise<null>} {
     return {
-        [`is${code}`]: null
-    } as {[P in `is${TCode}`]: null};
+        [`is${code}`]: async () => null
+    } as {[P in `is${TCode}`]: () => Promise<null>};
 }
 
-const x = {
-    ...createResponseExpects<WorkspacesCreateResponses, 200>(200),
-    ...createResponseExpects<WorkspacesCreateResponses, 201>(201)
+const codes = {
+    ...status<WorkspacesCreateResponses, 200>(200),
+    ...status<WorkspacesCreateResponses, 201>(201)
 };
-console.log(x.is200, x.is201);
+const create = fetchApiParamsBody<
+    WorkspacesCreateData['path'],
+    WorkspacesCreateData['body'],
+    WorkspacesCreateData['query'],
+    typeof codes
+>(workspacesCreate, codes);
+
+(async function () {
+    const resp = await create(
+        {projectId: 1},
+        {name: 'example', engine: 'javascript', description: 'description'}
+    ).is200();
+})().then();
