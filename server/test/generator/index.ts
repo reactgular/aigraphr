@@ -46,9 +46,11 @@ const generator = async () => {
             );
         }
 
+        const indexFile = path.join(outputPath, 'index.ts');
+        console.log(`Generating ${indexFile}`);
         await fs.writeFile(
-            path.join(outputPath, 'index.ts'),
-            await toString(genOutputIndex()),
+            indexFile,
+            await toString(genOutputIndex(openApiSpec)),
             'utf-8'
         );
     } catch (error) {

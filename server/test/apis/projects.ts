@@ -1,5 +1,5 @@
 // THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
-function Projects() {
+function projects() {
 }
 
-export {Projects};
+export {projects};

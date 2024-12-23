@@ -1,5 +1,5 @@
 // THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
-function Nodes() {
+function nodes() {
 }
 
-export {Nodes};
+export {nodes};

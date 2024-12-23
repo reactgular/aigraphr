@@ -1,5 +1,5 @@
 // THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
-function Settings() {
+function settings() {
 }
 
-export {Settings};
+export {settings};

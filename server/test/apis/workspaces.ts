@@ -1,5 +1,5 @@
 // THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
-function Workspaces() {
+function workspaces() {
 }
 
-export {Workspaces};
+export {workspaces};

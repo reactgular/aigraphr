@@ -1,5 +1,5 @@
 // THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
-function Edges() {
+function edges() {
 }
 
-export {Edges};
+export {edges};
