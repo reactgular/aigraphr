@@ -7,7 +7,7 @@ export interface Descriptor {
 
     controller: string;
 
-    data?: string;
+    data: string;
 
     errors?: string;
 

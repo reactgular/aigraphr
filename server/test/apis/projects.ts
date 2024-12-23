@@ -1,26 +1,43 @@
 // THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
+import {
+    ProjectsCreateData,
+    ProjectsCreateValidateData,
+    ProjectsGetData,
+    ProjectsPaginateData,
+    ProjectsRemoveData,
+    ProjectsUpdateData,
+    ProjectsUpdateValidateData
+} from '@shared/api/types.gen';
+
 export function projects() {
-    function create() {
+    function create(data: ProjectsCreateData) {
         // TODO: implement Create
     }
-    function createValidate() {
+
+    function createValidate(data: ProjectsCreateValidateData) {
         // TODO: implement CreateValidate
     }
-    function get() {
+
+    function get(data: ProjectsGetData) {
         // TODO: implement Get
     }
-    function paginate() {
+
+    function paginate(data: ProjectsPaginateData) {
         // TODO: implement Paginate
     }
-    function remove() {
+
+    function remove(data: ProjectsRemoveData) {
         // TODO: implement Remove
     }
-    function update() {
+
+    function update(data: ProjectsUpdateData) {
         // TODO: implement Update
     }
-    function updateValidate() {
+
+    function updateValidate(data: ProjectsUpdateValidateData) {
         // TODO: implement UpdateValidate
     }
+
     return {
         create,
         createValidate,
