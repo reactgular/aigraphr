@@ -53,6 +53,9 @@ export function builder<
     };
 }
 
+/**
+ * @deprecated just an example
+ */
 const get = builder<
     WorkspacesGetData,
     WorkspacesGetResponses,
@@ -72,6 +75,9 @@ get({
     })
     .then();
 
+/**
+ * @deprecated just an example
+ */
 export const api = {
     workspaces: {
         get: builder<
