@@ -2,6 +2,51 @@ import {promises as fs} from 'fs';
 import {OpenAPIV3} from 'openapi-types';
 import path from 'path';
 
+// Utility to create valid variable names
+function sanitize(name: string): string {
+    // Replace all non-alphanumeric/underscore characters with an underscore
+    return name.replace(/[^\w]/g, '_');
+}
+
+async function* api(openApiSpec: OpenAPIV3.Document) {
+    yield '// THIS FILE IS AUTO-GENERATED. DO NOT EDIT.';
+    yield '';
+
+    if (openApiSpec.paths) {
+        for (const [pathName, pathItem] of Object.entries(openApiSpec.paths)) {
+            if (!pathItem) {
+                continue;
+            } // In case a path is undefined
+
+            for (const method of [
+                'get',
+                'post',
+                'put',
+                'delete',
+                'options',
+                'head',
+                'patch',
+                'trace'
+            ] as const) {
+                // Each of these corresponds to an OpenAPI operation
+                const operation = pathItem[method];
+                if (operation) {
+                    // Create a variable name based on method and path
+                    const varName = sanitize(`API_${method}_${pathName}`);
+                    // Use the operation description if available, else a fallback
+                    const description =
+                        operation.description || 'No description provided';
+                    // Escape double quotes in the description
+                    const escapedDescription = description.replace(/"/g, '\\"');
+
+                    // Create a line exporting the variable
+                    yield `export const ${varName} = "${escapedDescription}";`;
+                }
+            }
+        }
+    }
+}
+
 const generator = async () => {
     // We need at least 4 args: [node, dist/index.js, openapi.json, api.ts]
     if (process.argv.length < 4) {
@@ -28,54 +73,8 @@ const generator = async () => {
 
         // Prepare lines for "api.ts" output
         const lines: string[] = [];
-        lines.push('// THIS FILE IS AUTO-GENERATED. DO NOT EDIT.\n');
-
-        // Utility to create valid variable names
-        function sanitize(name: string): string {
-            // Replace all non-alphanumeric/underscore characters with an underscore
-            return name.replace(/[^\w]/g, '_');
-        }
-
-        // Iterate over each path and method
-        if (openApiSpec.paths) {
-            for (const [pathName, pathItem] of Object.entries(
-                openApiSpec.paths
-            )) {
-                if (!pathItem) {
-                    continue;
-                } // In case a path is undefined
-
-                for (const method of [
-                    'get',
-                    'post',
-                    'put',
-                    'delete',
-                    'options',
-                    'head',
-                    'patch',
-                    'trace'
-                ] as const) {
-                    // Each of these corresponds to an OpenAPI operation
-                    const operation = pathItem[method];
-                    if (operation) {
-                        // Create a variable name based on method and path
-                        const varName = sanitize(`API_${method}_${pathName}`);
-                        // Use the operation description if available, else a fallback
-                        const description =
-                            operation.description || 'No description provided';
-                        // Escape double quotes in the description
-                        const escapedDescription = description.replace(
-                            /"/g,
-                            '\\"'
-                        );
-
-                        // Create a line exporting the variable
-                        lines.push(
-                            `export const ${varName} = "${escapedDescription}";`
-                        );
-                    }
-                }
-            }
+        for await (const line of api(openApiSpec)) {
+            lines.push(line);
         }
 
         // Write all lines to the specified "api.ts" file
