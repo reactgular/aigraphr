@@ -8,43 +8,53 @@ function sanitize(name: string): string {
     return name.replace(/[^\w]/g, '_');
 }
 
-async function* api(openApiSpec: OpenAPIV3.Document) {
+async function* genApi(openApiSpec: OpenAPIV3.Document) {
     yield '// THIS FILE IS AUTO-GENERATED. DO NOT EDIT.';
     yield '';
 
     if (openApiSpec.paths) {
         for (const [pathName, pathItem] of Object.entries(openApiSpec.paths)) {
-            if (!pathItem) {
-                continue;
-            } // In case a path is undefined
+            console.log(pathName);
 
-            for (const method of [
-                'get',
-                'post',
-                'put',
-                'delete',
-                'options',
-                'head',
-                'patch',
-                'trace'
-            ] as const) {
-                // Each of these corresponds to an OpenAPI operation
-                const operation = pathItem[method];
-                if (operation) {
-                    // Create a variable name based on method and path
-                    const varName = sanitize(`API_${method}_${pathName}`);
-                    // Use the operation description if available, else a fallback
-                    const description =
-                        operation.description || 'No description provided';
-                    // Escape double quotes in the description
-                    const escapedDescription = description.replace(/"/g, '\\"');
-
-                    // Create a line exporting the variable
-                    yield `export const ${varName} = "${escapedDescription}";`;
-                }
+            yield `// ${pathName}`;
+            if (pathItem) {
+                yield* genOperations(pathItem!);
+            } else {
+                yield '// No operations';
             }
         }
+    } else {
+        yield '// No paths';
     }
+}
+
+async function* genOperations(pathItem: OpenAPIV3.PathItemObject) {
+    for (const method of [
+        'get',
+        'post',
+        'put',
+        'delete',
+        'options',
+        'head',
+        'patch',
+        'trace'
+    ] as const) {
+        const operation = pathItem[method];
+        if (operation) {
+            console.log(`  ${method} ${operation.operationId}`);
+            yield* genOperation(operation);
+        }
+    }
+}
+
+async function* genOperation(operation: OpenAPIV3.OperationObject) {
+    if (!operation.operationId) {
+        throw new Error('OperationId is required');
+    }
+    const varName = sanitize(`API_${operation.operationId}`);
+    const description = operation.description || 'No description provided';
+    const escapedDescription = description.replace(/"/g, '\\"');
+    yield `export const ${varName} = "${escapedDescription}";`;
 }
 
 const generator = async () => {
@@ -71,9 +81,9 @@ const generator = async () => {
         const json = await fs.readFile(absoluteOpenApiPath, 'utf-8');
         const openApiSpec: OpenAPIV3.Document = JSON.parse(json);
 
-        // Prepare lines for "api.ts" output
+        // Generate the API file content
         const lines: string[] = [];
-        for await (const line of api(openApiSpec)) {
+        for await (const line of genApi(openApiSpec)) {
             lines.push(line);
         }
 

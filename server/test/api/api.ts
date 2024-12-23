@@ -1,47 +1,42 @@
 // THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 
-export const API_get__api_projects = 'No description provided';
-export const API_post__api_projects = 'No description provided';
-export const API_get__api_projects__projectId_ = 'No description provided';
-export const API_delete__api_projects__projectId_ = 'No description provided';
-export const API_patch__api_projects__projectId_ = 'No description provided';
-export const API_post__api_projects_validates = 'No description provided';
-export const API_patch__api_projects__projectId__validates =
-    'No description provided';
-export const API_get__api_projects__projectId__workspaces__workspaceId__edges =
-    'No description provided';
-export const API_post__api_projects__projectId__workspaces__workspaceId__edges =
-    'No description provided';
-export const API_get__api_projects__projectId__workspaces__workspaceId__edges__edgeId_ =
-    'No description provided';
-export const API_delete__api_projects__projectId__workspaces__workspaceId__edges__edgeId_ =
-    'No description provided';
-export const API_patch__api_projects__projectId__workspaces__workspaceId__edges__edgeId_ =
-    'No description provided';
-export const API_get__api_projects__projectId__workspaces__workspaceId__nodes =
-    'No description provided';
-export const API_post__api_projects__projectId__workspaces__workspaceId__nodes =
-    'No description provided';
-export const API_get__api_projects__projectId__workspaces__workspaceId__nodes__nodeId_ =
-    'No description provided';
-export const API_delete__api_projects__projectId__workspaces__workspaceId__nodes__nodeId_ =
-    'No description provided';
-export const API_patch__api_projects__projectId__workspaces__workspaceId__nodes__nodeId_ =
-    'No description provided';
-export const API_get__api_projects__projectId__workspaces =
-    'No description provided';
-export const API_post__api_projects__projectId__workspaces =
-    'No description provided';
-export const API_get__api_projects__projectId__workspaces__workspaceId_ =
-    'No description provided';
-export const API_delete__api_projects__projectId__workspaces__workspaceId_ =
-    'No description provided';
-export const API_patch__api_projects__projectId__workspaces__workspaceId_ =
-    'No description provided';
-export const API_post__api_projects__projectId__workspaces_validates =
-    'No description provided';
-export const API_patch__api_projects__projectId__workspaces__workspaceId__validates =
-    'No description provided';
-export const API_get__api_app_settings = 'No description provided';
-export const API_put__api_app_settings = 'No description provided';
-export const API_patch__api_app_settings = 'No description provided';
+// /api/projects
+export const API_Projects_paginate = 'No description provided';
+export const API_Projects_create = 'No description provided';
+// /api/projects/{projectId}
+export const API_Projects_get = 'No description provided';
+export const API_Projects_remove = 'No description provided';
+export const API_Projects_update = 'No description provided';
+// /api/projects/validates
+export const API_Projects_createValidate = 'No description provided';
+// /api/projects/{projectId}/validates
+export const API_Projects_updateValidate = 'No description provided';
+// /api/projects/{projectId}/workspaces/{workspaceId}/edges
+export const API_Edges_paginate = 'No description provided';
+export const API_Edges_create = 'No description provided';
+// /api/projects/{projectId}/workspaces/{workspaceId}/edges/{edgeId}
+export const API_Edges_get = 'No description provided';
+export const API_Edges_remove = 'No description provided';
+export const API_Edges_update = 'No description provided';
+// /api/projects/{projectId}/workspaces/{workspaceId}/nodes
+export const API_Nodes_paginate = 'No description provided';
+export const API_Nodes_create = 'No description provided';
+// /api/projects/{projectId}/workspaces/{workspaceId}/nodes/{nodeId}
+export const API_Nodes_get = 'No description provided';
+export const API_Nodes_remove = 'No description provided';
+export const API_Nodes_update = 'No description provided';
+// /api/projects/{projectId}/workspaces
+export const API_Workspaces_paginate = 'No description provided';
+export const API_Workspaces_create = 'No description provided';
+// /api/projects/{projectId}/workspaces/{workspaceId}
+export const API_Workspaces_get = 'No description provided';
+export const API_Workspaces_remove = 'No description provided';
+export const API_Workspaces_update = 'No description provided';
+// /api/projects/{projectId}/workspaces/validates
+export const API_Workspaces_createValidate = 'No description provided';
+// /api/projects/{projectId}/workspaces/{workspaceId}/validates
+export const API_Workspaces_updateValidate = 'No description provided';
+// /api/app/settings
+export const API_Settings_get = 'No description provided';
+export const API_Settings_replace = 'No description provided';
+export const API_Settings_update = 'No description provided';
