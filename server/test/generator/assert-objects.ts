@@ -2,11 +2,11 @@ export function assertObjects<
     TBody extends {
         id: number;
     },
-    TPromise
->(promise: TPromise) {
+    TChain
+>(chain: TChain) {
     const isPartial = (value: TBody) => {
         // we lose the other assertions here
-        return {...promise, isPartial};
+        return chain;
     };
     return {isPartial};
 }

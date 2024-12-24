@@ -48,7 +48,11 @@ export function nodes() {
                 NodesCreateResponses[201],
                 ReturnType<typeof nodesCreate>
             >(promise);
-            return {...promise, ...objects};
+            const entities = assertEntities<
+                NodesCreateResponses[201],
+                ReturnType<typeof nodesCreate>
+            >(promise);
+            return {...promise, ...objects, ...entities};
         }
         /**
          * TypeORM related errors
@@ -87,7 +91,11 @@ export function nodes() {
                 NodesGetResponses[200],
                 ReturnType<typeof nodesGet>
             >(promise);
-            return {...promise, ...objects};
+            const entities = assertEntities<
+                NodesGetResponses[200],
+                ReturnType<typeof nodesGet>
+            >(promise);
+            return {...promise, ...objects, ...entities};
         }
         /**
          * A Node with the specified nodeId was not found
@@ -112,7 +120,11 @@ export function nodes() {
                 NodesPaginateResponses[200],
                 ReturnType<typeof nodesPaginate>
             >(promise);
-            return {...promise, ...objects};
+            const entities = assertEntities<
+                NodesPaginateResponses[200],
+                ReturnType<typeof nodesPaginate>
+            >(promise);
+            return {...promise, ...objects, ...entities};
         }
 
         return {...promise, is200};
@@ -155,7 +167,11 @@ export function nodes() {
                 NodesUpdateResponses[200],
                 ReturnType<typeof nodesUpdate>
             >(promise);
-            return {...promise, ...objects};
+            const entities = assertEntities<
+                NodesUpdateResponses[200],
+                ReturnType<typeof nodesUpdate>
+            >(promise);
+            return {...promise, ...objects, ...entities};
         }
         /**
          * TypeORM related errors

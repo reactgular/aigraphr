@@ -48,7 +48,11 @@ export function edges() {
                 EdgesCreateResponses[201],
                 ReturnType<typeof edgesCreate>
             >(promise);
-            return {...promise, ...objects};
+            const entities = assertEntities<
+                EdgesCreateResponses[201],
+                ReturnType<typeof edgesCreate>
+            >(promise);
+            return {...promise, ...objects, ...entities};
         }
         /**
          * TypeORM related errors
@@ -87,7 +91,11 @@ export function edges() {
                 EdgesGetResponses[200],
                 ReturnType<typeof edgesGet>
             >(promise);
-            return {...promise, ...objects};
+            const entities = assertEntities<
+                EdgesGetResponses[200],
+                ReturnType<typeof edgesGet>
+            >(promise);
+            return {...promise, ...objects, ...entities};
         }
         /**
          * A Edge with the specified edgeId was not found
@@ -112,7 +120,11 @@ export function edges() {
                 EdgesPaginateResponses[200],
                 ReturnType<typeof edgesPaginate>
             >(promise);
-            return {...promise, ...objects};
+            const entities = assertEntities<
+                EdgesPaginateResponses[200],
+                ReturnType<typeof edgesPaginate>
+            >(promise);
+            return {...promise, ...objects, ...entities};
         }
 
         return {...promise, is200};
@@ -155,7 +167,11 @@ export function edges() {
                 EdgesUpdateResponses[200],
                 ReturnType<typeof edgesUpdate>
             >(promise);
-            return {...promise, ...objects};
+            const entities = assertEntities<
+                EdgesUpdateResponses[200],
+                ReturnType<typeof edgesUpdate>
+            >(promise);
+            return {...promise, ...objects, ...entities};
         }
         /**
          * TypeORM related errors

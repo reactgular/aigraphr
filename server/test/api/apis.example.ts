@@ -11,17 +11,17 @@ async function testIt() {
                 description: 'example'
             }
         )
-        .is200()
-        .isBody({
+        .is201()
+        .isEntity({
             id: 1,
             name: 'test',
             engine: 'javascript',
             description: 'example'
         })
-        .isBodyWithoutId({
+        .isWithoutId({
             name: 'test',
             engine: 'javascript',
             description: 'example'
         })
-        .isId(3);
+        .isId(1);
 }

@@ -16,13 +16,10 @@ import {
     WorkspacesCreateValidateErrors,
     WorkspacesCreateValidateResponses,
     WorkspacesGetData,
-    WorkspacesGetErrors,
     WorkspacesGetResponses,
     WorkspacesPaginateData,
     WorkspacesPaginateResponses,
     WorkspacesRemoveData,
-    WorkspacesRemoveErrors,
-    WorkspacesRemoveResponses,
     WorkspacesUpdateData,
     WorkspacesUpdateErrors,
     WorkspacesUpdateResponses,
@@ -42,12 +39,14 @@ export function workspaces() {
         body: WorkspacesCreateData['body']
     ) {
         const promise = workspacesCreate({path, body});
+
         /**
          * Bug, can't disable 200 response from custom decorator
          */
         function is200() {
             return {...promise};
         }
+
         /**
          * Return a new Workspace
          */
@@ -56,8 +55,13 @@ export function workspaces() {
                 WorkspacesCreateResponses[201],
                 ReturnType<typeof workspacesCreate>
             >(promise);
-            return {...promise, ...objects};
+            const entities = assertEntities<
+                WorkspacesCreateResponses[201],
+                ReturnType<typeof workspacesCreate>
+            >(() => ({...promise, ...objects, ...entities}));
+            return {...promise, ...objects, ...entities};
         }
+
         /**
          * TypeORM related errors
          */
@@ -68,6 +72,7 @@ export function workspaces() {
             >(promise);
             return {...promise, ...objects};
         }
+
         /**
          * TypeORM related constraint errors
          */
@@ -87,6 +92,7 @@ export function workspaces() {
      */
     function createValidate(body: WorkspacesCreateValidateData['body']) {
         const promise = workspacesCreateValidate({body});
+
         /**
          * Validation results of WorkspaceCreate
          */
@@ -97,6 +103,7 @@ export function workspaces() {
             >(promise);
             return {...promise, ...objects};
         }
+
         /**
          * Invalid request body
          */
@@ -116,6 +123,7 @@ export function workspaces() {
      */
     function get(path: WorkspacesGetData['path']) {
         const promise = workspacesGet({path});
+
         /**
          * Return a Workspace by workspaceId
          */
@@ -124,8 +132,13 @@ export function workspaces() {
                 WorkspacesGetResponses[200],
                 ReturnType<typeof workspacesGet>
             >(promise);
-            return {...promise, ...objects};
+            const entities = assertEntities<
+                WorkspacesGetResponses[200],
+                ReturnType<typeof workspacesGet>
+            >(promise);
+            return {...promise, ...objects, ...entities};
         }
+
         /**
          * A Workspace with the specified workspaceId was not found
          */
@@ -141,6 +154,7 @@ export function workspaces() {
      */
     function paginate(path: WorkspacesPaginateData['path']) {
         const promise = workspacesPaginate({path});
+
         /**
          * Return a list of Workspace
          */
@@ -149,7 +163,11 @@ export function workspaces() {
                 WorkspacesPaginateResponses[200],
                 ReturnType<typeof workspacesPaginate>
             >(promise);
-            return {...promise, ...objects};
+            const entities = assertEntities<
+                WorkspacesPaginateResponses[200],
+                ReturnType<typeof workspacesPaginate>
+            >(promise);
+            return {...promise, ...objects, ...entities};
         }
 
         return {...promise, is200};
@@ -160,12 +178,14 @@ export function workspaces() {
      */
     function remove(path: WorkspacesRemoveData['path']) {
         const promise = workspacesRemove({path});
+
         /**
          * The Workspace has been deleted
          */
         function is204() {
             return {...promise};
         }
+
         /**
          * A Workspace with the specified workspaceId was not found
          */
@@ -184,6 +204,7 @@ export function workspaces() {
         body: WorkspacesUpdateData['body']
     ) {
         const promise = workspacesUpdate({path, body});
+
         /**
          * Return a Workspace by workspaceId
          */
@@ -192,8 +213,13 @@ export function workspaces() {
                 WorkspacesUpdateResponses[200],
                 ReturnType<typeof workspacesUpdate>
             >(promise);
-            return {...promise, ...objects};
+            const entities = assertEntities<
+                WorkspacesUpdateResponses[200],
+                ReturnType<typeof workspacesUpdate>
+            >(promise);
+            return {...promise, ...objects, ...entities};
         }
+
         /**
          * TypeORM related errors
          */
@@ -204,12 +230,14 @@ export function workspaces() {
             >(promise);
             return {...promise, ...objects};
         }
+
         /**
          * A Workspace with the specified workspaceId was not found
          */
         function is404() {
             return {...promise};
         }
+
         /**
          * TypeORM related constraint errors
          */
@@ -232,6 +260,7 @@ export function workspaces() {
         body: WorkspacesUpdateValidateData['body']
     ) {
         const promise = workspacesUpdateValidate({path, body});
+
         /**
          * Validation results of WorkspaceUpdate
          */
@@ -242,6 +271,7 @@ export function workspaces() {
             >(promise);
             return {...promise, ...objects};
         }
+
         /**
          * Invalid request body
          */
@@ -252,6 +282,7 @@ export function workspaces() {
             >(promise);
             return {...promise, ...objects};
         }
+
         /**
          * A WorkspaceUpdate with the specified workspaceId was not found
          */

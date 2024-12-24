@@ -15,8 +15,8 @@ export async function* genOutputFile(
     yield '// THIS FILE IS AUTO-GENERATED. DO NOT EDIT.';
     yield* genImportSdk(spec, descriptors);
     yield* genImportTypes(spec, descriptors);
-    yield "import {assertEntity} from '../generator/assert-entity';";
-    yield "import {assertObject} from '../generator/assert-object';";
+    yield "import {assertEntities} from '../generator/assert-entities';";
+    yield "import {assertObjects} from '../generator/assert-objects';";
     yield '';
     yield `export function ${name}() {`;
     for (const descriptor of descriptors) {

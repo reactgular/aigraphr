@@ -39,14 +39,12 @@ export function projects() {
      */
     function create(body: ProjectsCreateData['body']) {
         const promise = projectsCreate({body});
-
         /**
          * Bug, can't disable 200 response from custom decorator
          */
         function is200() {
             return {...promise};
         }
-
         /**
          * Return a new Project
          */
@@ -55,9 +53,12 @@ export function projects() {
                 ProjectsCreateResponses[201],
                 ReturnType<typeof projectsCreate>
             >(promise);
-            return {...promise, ...objects};
+            const entities = assertEntities<
+                ProjectsCreateResponses[201],
+                ReturnType<typeof projectsCreate>
+            >(promise);
+            return {...promise, ...objects, ...entities};
         }
-
         /**
          * TypeORM related errors
          */
@@ -68,7 +69,6 @@ export function projects() {
             >(promise);
             return {...promise, ...objects};
         }
-
         /**
          * TypeORM related constraint errors
          */
@@ -88,7 +88,6 @@ export function projects() {
      */
     function createValidate(body: ProjectsCreateValidateData['body']) {
         const promise = projectsCreateValidate({body});
-
         /**
          * Validation results of ProjectCreate
          */
@@ -99,7 +98,6 @@ export function projects() {
             >(promise);
             return {...promise, ...objects};
         }
-
         /**
          * Invalid request body
          */
@@ -119,7 +117,6 @@ export function projects() {
      */
     function get(path: ProjectsGetData['path']) {
         const promise = projectsGet({path});
-
         /**
          * Return a Project by projectId
          */
@@ -128,9 +125,12 @@ export function projects() {
                 ProjectsGetResponses[200],
                 ReturnType<typeof projectsGet>
             >(promise);
-            return {...promise, ...objects};
+            const entities = assertEntities<
+                ProjectsGetResponses[200],
+                ReturnType<typeof projectsGet>
+            >(promise);
+            return {...promise, ...objects, ...entities};
         }
-
         /**
          * A Project with the specified projectId was not found
          */
@@ -146,7 +146,6 @@ export function projects() {
      */
     function paginate() {
         const promise = projectsPaginate({});
-
         /**
          * Return a list of Project
          */
@@ -155,7 +154,11 @@ export function projects() {
                 ProjectsPaginateResponses[200],
                 ReturnType<typeof projectsPaginate>
             >(promise);
-            return {...promise, ...objects};
+            const entities = assertEntities<
+                ProjectsPaginateResponses[200],
+                ReturnType<typeof projectsPaginate>
+            >(promise);
+            return {...promise, ...objects, ...entities};
         }
 
         return {...promise, is200};
@@ -166,7 +169,6 @@ export function projects() {
      */
     function remove(path: ProjectsRemoveData['path']) {
         const promise = projectsRemove({path});
-
         /**
          *
          */
@@ -177,14 +179,12 @@ export function projects() {
             >(promise);
             return {...promise, ...objects};
         }
-
         /**
          * The Project has been deleted
          */
         function is204() {
             return {...promise};
         }
-
         /**
          * A Project with the specified projectId was not found
          */
@@ -203,7 +203,6 @@ export function projects() {
         body: ProjectsUpdateData['body']
     ) {
         const promise = projectsUpdate({path, body});
-
         /**
          * Return a Project by projectId
          */
@@ -212,9 +211,12 @@ export function projects() {
                 ProjectsUpdateResponses[200],
                 ReturnType<typeof projectsUpdate>
             >(promise);
-            return {...promise, ...objects};
+            const entities = assertEntities<
+                ProjectsUpdateResponses[200],
+                ReturnType<typeof projectsUpdate>
+            >(promise);
+            return {...promise, ...objects, ...entities};
         }
-
         /**
          * TypeORM related errors
          */
@@ -225,14 +227,12 @@ export function projects() {
             >(promise);
             return {...promise, ...objects};
         }
-
         /**
          * A Project with the specified projectId was not found
          */
         function is404() {
             return {...promise};
         }
-
         /**
          * TypeORM related constraint errors
          */
@@ -255,7 +255,6 @@ export function projects() {
         body: ProjectsUpdateValidateData['body']
     ) {
         const promise = projectsUpdateValidate({path, body});
-
         /**
          * Validation results of ProjectUpdate
          */
@@ -266,7 +265,6 @@ export function projects() {
             >(promise);
             return {...promise, ...objects};
         }
-
         /**
          * Invalid request body
          */
@@ -277,7 +275,6 @@ export function projects() {
             >(promise);
             return {...promise, ...objects};
         }
-
         /**
          * A ProjectUpdate with the specified projectId was not found
          */
