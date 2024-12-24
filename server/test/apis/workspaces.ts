@@ -30,8 +30,8 @@ import {
     WorkspacesUpdateValidateErrors,
     WorkspacesUpdateValidateResponses
 } from '@shared/api/types.gen';
-import {assertEntity} from '../generator/assert-entity';
-import {assertObject} from '../generator/assert-object';
+import {assertEntities} from '../generator/assert-entities';
+import {assertObjects} from '../generator/assert-objects';
 
 export function workspaces() {
     /**
@@ -52,7 +52,7 @@ export function workspaces() {
          * Return a new Workspace
          */
         function is201() {
-            const objects = assertObject<
+            const objects = assertObjects<
                 WorkspacesCreateResponses[201],
                 ReturnType<typeof workspacesCreate>
             >(promise);
@@ -62,7 +62,7 @@ export function workspaces() {
          * TypeORM related errors
          */
         function is400() {
-            const objects = assertObject<
+            const objects = assertObjects<
                 WorkspacesCreateErrors[400],
                 ReturnType<typeof workspacesCreate>
             >(promise);
@@ -72,7 +72,7 @@ export function workspaces() {
          * TypeORM related constraint errors
          */
         function is409() {
-            const objects = assertObject<
+            const objects = assertObjects<
                 WorkspacesCreateErrors[409],
                 ReturnType<typeof workspacesCreate>
             >(promise);
@@ -91,7 +91,7 @@ export function workspaces() {
          * Validation results of WorkspaceCreate
          */
         function is200() {
-            const objects = assertObject<
+            const objects = assertObjects<
                 WorkspacesCreateValidateResponses[200],
                 ReturnType<typeof workspacesCreateValidate>
             >(promise);
@@ -101,7 +101,7 @@ export function workspaces() {
          * Invalid request body
          */
         function is400() {
-            const objects = assertObject<
+            const objects = assertObjects<
                 WorkspacesCreateValidateErrors[400],
                 ReturnType<typeof workspacesCreateValidate>
             >(promise);
@@ -120,7 +120,7 @@ export function workspaces() {
          * Return a Workspace by workspaceId
          */
         function is200() {
-            const objects = assertObject<
+            const objects = assertObjects<
                 WorkspacesGetResponses[200],
                 ReturnType<typeof workspacesGet>
             >(promise);
@@ -145,7 +145,7 @@ export function workspaces() {
          * Return a list of Workspace
          */
         function is200() {
-            const objects = assertObject<
+            const objects = assertObjects<
                 WorkspacesPaginateResponses[200],
                 ReturnType<typeof workspacesPaginate>
             >(promise);
@@ -188,7 +188,7 @@ export function workspaces() {
          * Return a Workspace by workspaceId
          */
         function is200() {
-            const objects = assertObject<
+            const objects = assertObjects<
                 WorkspacesUpdateResponses[200],
                 ReturnType<typeof workspacesUpdate>
             >(promise);
@@ -198,7 +198,7 @@ export function workspaces() {
          * TypeORM related errors
          */
         function is400() {
-            const objects = assertObject<
+            const objects = assertObjects<
                 WorkspacesUpdateErrors[400],
                 ReturnType<typeof workspacesUpdate>
             >(promise);
@@ -214,7 +214,7 @@ export function workspaces() {
          * TypeORM related constraint errors
          */
         function is409() {
-            const objects = assertObject<
+            const objects = assertObjects<
                 WorkspacesUpdateErrors[409],
                 ReturnType<typeof workspacesUpdate>
             >(promise);
@@ -236,7 +236,7 @@ export function workspaces() {
          * Validation results of WorkspaceUpdate
          */
         function is200() {
-            const objects = assertObject<
+            const objects = assertObjects<
                 WorkspacesUpdateValidateResponses[200],
                 ReturnType<typeof workspacesUpdateValidate>
             >(promise);
@@ -246,7 +246,7 @@ export function workspaces() {
          * Invalid request body
          */
         function is400() {
-            const objects = assertObject<
+            const objects = assertObjects<
                 WorkspacesUpdateValidateErrors[400],
                 ReturnType<typeof workspacesUpdateValidate>
             >(promise);

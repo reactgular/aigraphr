@@ -38,7 +38,16 @@ export async function* genStatus(spec: OpenApiSpec, desc: Descriptor) {
 
         if (schema) {
             if (schema.type == 'object') {
-                yield* assert('objects', 'assertObject');
+                yield* assert('objects', 'assertObjects');
+            }
+            if (
+                (
+                    schema.properties?.['id'] as
+                        | OpenAPIV3.SchemaObject
+                        | undefined
+                )?.type === 'number'
+            ) {
+                yield* assert('entities', 'assertEntities');
             }
         }
 

@@ -1,4 +1,4 @@
-export function assertObject<
+export function assertObjects<
     TBody extends {
         id: number;
     },

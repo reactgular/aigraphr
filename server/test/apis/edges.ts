@@ -22,8 +22,8 @@ import {
     EdgesUpdateErrors,
     EdgesUpdateResponses
 } from '@shared/api/types.gen';
-import {assertEntity} from '../generator/assert-entity';
-import {assertObject} from '../generator/assert-object';
+import {assertEntities} from '../generator/assert-entities';
+import {assertObjects} from '../generator/assert-objects';
 
 export function edges() {
     /**
@@ -44,7 +44,7 @@ export function edges() {
          * Return a new Edge
          */
         function is201() {
-            const objects = assertObject<
+            const objects = assertObjects<
                 EdgesCreateResponses[201],
                 ReturnType<typeof edgesCreate>
             >(promise);
@@ -54,7 +54,7 @@ export function edges() {
          * TypeORM related errors
          */
         function is400() {
-            const objects = assertObject<
+            const objects = assertObjects<
                 EdgesCreateErrors[400],
                 ReturnType<typeof edgesCreate>
             >(promise);
@@ -64,7 +64,7 @@ export function edges() {
          * TypeORM related constraint errors
          */
         function is409() {
-            const objects = assertObject<
+            const objects = assertObjects<
                 EdgesCreateErrors[409],
                 ReturnType<typeof edgesCreate>
             >(promise);
@@ -83,7 +83,7 @@ export function edges() {
          * Return a Edge by edgeId
          */
         function is200() {
-            const objects = assertObject<
+            const objects = assertObjects<
                 EdgesGetResponses[200],
                 ReturnType<typeof edgesGet>
             >(promise);
@@ -108,7 +108,7 @@ export function edges() {
          * Return a list of Edge
          */
         function is200() {
-            const objects = assertObject<
+            const objects = assertObjects<
                 EdgesPaginateResponses[200],
                 ReturnType<typeof edgesPaginate>
             >(promise);
@@ -151,7 +151,7 @@ export function edges() {
          * Return a Edge by edgeId
          */
         function is200() {
-            const objects = assertObject<
+            const objects = assertObjects<
                 EdgesUpdateResponses[200],
                 ReturnType<typeof edgesUpdate>
             >(promise);
@@ -161,7 +161,7 @@ export function edges() {
          * TypeORM related errors
          */
         function is400() {
-            const objects = assertObject<
+            const objects = assertObjects<
                 EdgesUpdateErrors[400],
                 ReturnType<typeof edgesUpdate>
             >(promise);
@@ -177,7 +177,7 @@ export function edges() {
          * TypeORM related constraint errors
          */
         function is409() {
-            const objects = assertObject<
+            const objects = assertObjects<
                 EdgesUpdateErrors[409],
                 ReturnType<typeof edgesUpdate>
             >(promise);

@@ -12,8 +12,8 @@ import {
     SettingsUpdateData,
     SettingsUpdateResponses
 } from '@shared/api/types.gen';
-import {assertEntity} from '../generator/assert-entity';
-import {assertObject} from '../generator/assert-object';
+import {assertEntities} from '../generator/assert-entities';
+import {assertObjects} from '../generator/assert-objects';
 
 export function settings() {
     /**
@@ -25,7 +25,7 @@ export function settings() {
          *
          */
         function is200() {
-            const objects = assertObject<
+            const objects = assertObjects<
                 SettingsGetResponses[200],
                 ReturnType<typeof settingsGet>
             >(promise);
@@ -44,7 +44,7 @@ export function settings() {
          *
          */
         function is200() {
-            const objects = assertObject<
+            const objects = assertObjects<
                 SettingsReplaceResponses[200],
                 ReturnType<typeof settingsReplace>
             >(promise);
@@ -63,7 +63,7 @@ export function settings() {
          *
          */
         function is200() {
-            const objects = assertObject<
+            const objects = assertObjects<
                 SettingsUpdateResponses[200],
                 ReturnType<typeof settingsUpdate>
             >(promise);

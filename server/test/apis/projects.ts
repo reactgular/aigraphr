@@ -30,8 +30,8 @@ import {
     ProjectsUpdateValidateErrors,
     ProjectsUpdateValidateResponses
 } from '@shared/api/types.gen';
-import {assertEntity} from '../generator/assert-entity';
-import {assertObject} from '../generator/assert-object';
+import {assertEntities} from '../generator/assert-entities';
+import {assertObjects} from '../generator/assert-objects';
 
 export function projects() {
     /**
@@ -39,37 +39,41 @@ export function projects() {
      */
     function create(body: ProjectsCreateData['body']) {
         const promise = projectsCreate({body});
+
         /**
          * Bug, can't disable 200 response from custom decorator
          */
         function is200() {
             return {...promise};
         }
+
         /**
          * Return a new Project
          */
         function is201() {
-            const objects = assertObject<
+            const objects = assertObjects<
                 ProjectsCreateResponses[201],
                 ReturnType<typeof projectsCreate>
             >(promise);
             return {...promise, ...objects};
         }
+
         /**
          * TypeORM related errors
          */
         function is400() {
-            const objects = assertObject<
+            const objects = assertObjects<
                 ProjectsCreateErrors[400],
                 ReturnType<typeof projectsCreate>
             >(promise);
             return {...promise, ...objects};
         }
+
         /**
          * TypeORM related constraint errors
          */
         function is409() {
-            const objects = assertObject<
+            const objects = assertObjects<
                 ProjectsCreateErrors[409],
                 ReturnType<typeof projectsCreate>
             >(promise);
@@ -84,21 +88,23 @@ export function projects() {
      */
     function createValidate(body: ProjectsCreateValidateData['body']) {
         const promise = projectsCreateValidate({body});
+
         /**
          * Validation results of ProjectCreate
          */
         function is200() {
-            const objects = assertObject<
+            const objects = assertObjects<
                 ProjectsCreateValidateResponses[200],
                 ReturnType<typeof projectsCreateValidate>
             >(promise);
             return {...promise, ...objects};
         }
+
         /**
          * Invalid request body
          */
         function is400() {
-            const objects = assertObject<
+            const objects = assertObjects<
                 ProjectsCreateValidateErrors[400],
                 ReturnType<typeof projectsCreateValidate>
             >(promise);
@@ -113,16 +119,18 @@ export function projects() {
      */
     function get(path: ProjectsGetData['path']) {
         const promise = projectsGet({path});
+
         /**
          * Return a Project by projectId
          */
         function is200() {
-            const objects = assertObject<
+            const objects = assertObjects<
                 ProjectsGetResponses[200],
                 ReturnType<typeof projectsGet>
             >(promise);
             return {...promise, ...objects};
         }
+
         /**
          * A Project with the specified projectId was not found
          */
@@ -138,11 +146,12 @@ export function projects() {
      */
     function paginate() {
         const promise = projectsPaginate({});
+
         /**
          * Return a list of Project
          */
         function is200() {
-            const objects = assertObject<
+            const objects = assertObjects<
                 ProjectsPaginateResponses[200],
                 ReturnType<typeof projectsPaginate>
             >(promise);
@@ -157,22 +166,25 @@ export function projects() {
      */
     function remove(path: ProjectsRemoveData['path']) {
         const promise = projectsRemove({path});
+
         /**
          *
          */
         function is200() {
-            const objects = assertObject<
+            const objects = assertObjects<
                 ProjectsRemoveResponses[200],
                 ReturnType<typeof projectsRemove>
             >(promise);
             return {...promise, ...objects};
         }
+
         /**
          * The Project has been deleted
          */
         function is204() {
             return {...promise};
         }
+
         /**
          * A Project with the specified projectId was not found
          */
@@ -191,37 +203,41 @@ export function projects() {
         body: ProjectsUpdateData['body']
     ) {
         const promise = projectsUpdate({path, body});
+
         /**
          * Return a Project by projectId
          */
         function is200() {
-            const objects = assertObject<
+            const objects = assertObjects<
                 ProjectsUpdateResponses[200],
                 ReturnType<typeof projectsUpdate>
             >(promise);
             return {...promise, ...objects};
         }
+
         /**
          * TypeORM related errors
          */
         function is400() {
-            const objects = assertObject<
+            const objects = assertObjects<
                 ProjectsUpdateErrors[400],
                 ReturnType<typeof projectsUpdate>
             >(promise);
             return {...promise, ...objects};
         }
+
         /**
          * A Project with the specified projectId was not found
          */
         function is404() {
             return {...promise};
         }
+
         /**
          * TypeORM related constraint errors
          */
         function is409() {
-            const objects = assertObject<
+            const objects = assertObjects<
                 ProjectsUpdateErrors[409],
                 ReturnType<typeof projectsUpdate>
             >(promise);
@@ -239,26 +255,29 @@ export function projects() {
         body: ProjectsUpdateValidateData['body']
     ) {
         const promise = projectsUpdateValidate({path, body});
+
         /**
          * Validation results of ProjectUpdate
          */
         function is200() {
-            const objects = assertObject<
+            const objects = assertObjects<
                 ProjectsUpdateValidateResponses[200],
                 ReturnType<typeof projectsUpdateValidate>
             >(promise);
             return {...promise, ...objects};
         }
+
         /**
          * Invalid request body
          */
         function is400() {
-            const objects = assertObject<
+            const objects = assertObjects<
                 ProjectsUpdateValidateErrors[400],
                 ReturnType<typeof projectsUpdateValidate>
             >(promise);
             return {...promise, ...objects};
         }
+
         /**
          * A ProjectUpdate with the specified projectId was not found
          */
