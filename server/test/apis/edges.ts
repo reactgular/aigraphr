@@ -44,35 +44,31 @@ export function edges() {
          * Return a new Edge
          */
         function is201() {
-            const objects = assertObjects<
+            const asserts = assertEntities<
                 EdgesCreateResponses[201],
                 ReturnType<typeof edgesCreate>
             >(promise);
-            const entities = assertEntities<
-                EdgesCreateResponses[201],
-                ReturnType<typeof edgesCreate>
-            >(promise);
-            return {...promise, ...objects, ...entities};
+            return {...promise, ...asserts};
         }
         /**
          * TypeORM related errors
          */
         function is400() {
-            const objects = assertObjects<
+            const asserts = assertObjects<
                 EdgesCreateErrors[400],
                 ReturnType<typeof edgesCreate>
             >(promise);
-            return {...promise, ...objects};
+            return {...promise, ...asserts};
         }
         /**
          * TypeORM related constraint errors
          */
         function is409() {
-            const objects = assertObjects<
+            const asserts = assertObjects<
                 EdgesCreateErrors[409],
                 ReturnType<typeof edgesCreate>
             >(promise);
-            return {...promise, ...objects};
+            return {...promise, ...asserts};
         }
 
         return {...promise, is200, is201, is400, is409};
@@ -87,15 +83,11 @@ export function edges() {
          * Return a Edge by edgeId
          */
         function is200() {
-            const objects = assertObjects<
+            const asserts = assertEntities<
                 EdgesGetResponses[200],
                 ReturnType<typeof edgesGet>
             >(promise);
-            const entities = assertEntities<
-                EdgesGetResponses[200],
-                ReturnType<typeof edgesGet>
-            >(promise);
-            return {...promise, ...objects, ...entities};
+            return {...promise, ...asserts};
         }
         /**
          * A Edge with the specified edgeId was not found
@@ -116,15 +108,11 @@ export function edges() {
          * Return a list of Edge
          */
         function is200() {
-            const objects = assertObjects<
+            const asserts = assertEntities<
                 EdgesPaginateResponses[200],
                 ReturnType<typeof edgesPaginate>
             >(promise);
-            const entities = assertEntities<
-                EdgesPaginateResponses[200],
-                ReturnType<typeof edgesPaginate>
-            >(promise);
-            return {...promise, ...objects, ...entities};
+            return {...promise, ...asserts};
         }
 
         return {...promise, is200};
@@ -163,25 +151,21 @@ export function edges() {
          * Return a Edge by edgeId
          */
         function is200() {
-            const objects = assertObjects<
+            const asserts = assertEntities<
                 EdgesUpdateResponses[200],
                 ReturnType<typeof edgesUpdate>
             >(promise);
-            const entities = assertEntities<
-                EdgesUpdateResponses[200],
-                ReturnType<typeof edgesUpdate>
-            >(promise);
-            return {...promise, ...objects, ...entities};
+            return {...promise, ...asserts};
         }
         /**
          * TypeORM related errors
          */
         function is400() {
-            const objects = assertObjects<
+            const asserts = assertObjects<
                 EdgesUpdateErrors[400],
                 ReturnType<typeof edgesUpdate>
             >(promise);
-            return {...promise, ...objects};
+            return {...promise, ...asserts};
         }
         /**
          * A Edge with the specified edgeId was not found
@@ -193,11 +177,11 @@ export function edges() {
          * TypeORM related constraint errors
          */
         function is409() {
-            const objects = assertObjects<
+            const asserts = assertObjects<
                 EdgesUpdateErrors[409],
                 ReturnType<typeof edgesUpdate>
             >(promise);
-            return {...promise, ...objects};
+            return {...promise, ...asserts};
         }
 
         return {...promise, is200, is400, is404, is409};

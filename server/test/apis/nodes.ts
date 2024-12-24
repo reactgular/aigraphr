@@ -44,35 +44,31 @@ export function nodes() {
          * Return a new Node
          */
         function is201() {
-            const objects = assertObjects<
+            const asserts = assertEntities<
                 NodesCreateResponses[201],
                 ReturnType<typeof nodesCreate>
             >(promise);
-            const entities = assertEntities<
-                NodesCreateResponses[201],
-                ReturnType<typeof nodesCreate>
-            >(promise);
-            return {...promise, ...objects, ...entities};
+            return {...promise, ...asserts};
         }
         /**
          * TypeORM related errors
          */
         function is400() {
-            const objects = assertObjects<
+            const asserts = assertObjects<
                 NodesCreateErrors[400],
                 ReturnType<typeof nodesCreate>
             >(promise);
-            return {...promise, ...objects};
+            return {...promise, ...asserts};
         }
         /**
          * TypeORM related constraint errors
          */
         function is409() {
-            const objects = assertObjects<
+            const asserts = assertObjects<
                 NodesCreateErrors[409],
                 ReturnType<typeof nodesCreate>
             >(promise);
-            return {...promise, ...objects};
+            return {...promise, ...asserts};
         }
 
         return {...promise, is200, is201, is400, is409};
@@ -87,15 +83,11 @@ export function nodes() {
          * Return a Node by nodeId
          */
         function is200() {
-            const objects = assertObjects<
+            const asserts = assertEntities<
                 NodesGetResponses[200],
                 ReturnType<typeof nodesGet>
             >(promise);
-            const entities = assertEntities<
-                NodesGetResponses[200],
-                ReturnType<typeof nodesGet>
-            >(promise);
-            return {...promise, ...objects, ...entities};
+            return {...promise, ...asserts};
         }
         /**
          * A Node with the specified nodeId was not found
@@ -116,15 +108,11 @@ export function nodes() {
          * Return a list of Node
          */
         function is200() {
-            const objects = assertObjects<
+            const asserts = assertEntities<
                 NodesPaginateResponses[200],
                 ReturnType<typeof nodesPaginate>
             >(promise);
-            const entities = assertEntities<
-                NodesPaginateResponses[200],
-                ReturnType<typeof nodesPaginate>
-            >(promise);
-            return {...promise, ...objects, ...entities};
+            return {...promise, ...asserts};
         }
 
         return {...promise, is200};
@@ -163,25 +151,21 @@ export function nodes() {
          * Return a Node by nodeId
          */
         function is200() {
-            const objects = assertObjects<
+            const asserts = assertEntities<
                 NodesUpdateResponses[200],
                 ReturnType<typeof nodesUpdate>
             >(promise);
-            const entities = assertEntities<
-                NodesUpdateResponses[200],
-                ReturnType<typeof nodesUpdate>
-            >(promise);
-            return {...promise, ...objects, ...entities};
+            return {...promise, ...asserts};
         }
         /**
          * TypeORM related errors
          */
         function is400() {
-            const objects = assertObjects<
+            const asserts = assertObjects<
                 NodesUpdateErrors[400],
                 ReturnType<typeof nodesUpdate>
             >(promise);
-            return {...promise, ...objects};
+            return {...promise, ...asserts};
         }
         /**
          * A Node with the specified nodeId was not found
@@ -193,11 +177,11 @@ export function nodes() {
          * TypeORM related constraint errors
          */
         function is409() {
-            const objects = assertObjects<
+            const asserts = assertObjects<
                 NodesUpdateErrors[409],
                 ReturnType<typeof nodesUpdate>
             >(promise);
-            return {...promise, ...objects};
+            return {...promise, ...asserts};
         }
 
         return {...promise, is200, is400, is404, is409};

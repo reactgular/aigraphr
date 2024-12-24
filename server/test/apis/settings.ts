@@ -25,11 +25,11 @@ export function settings() {
          *
          */
         function is200() {
-            const objects = assertObjects<
+            const asserts = assertObjects<
                 SettingsGetResponses[200],
                 ReturnType<typeof settingsGet>
             >(promise);
-            return {...promise, ...objects};
+            return {...promise, ...asserts};
         }
 
         return {...promise, is200};
@@ -44,11 +44,11 @@ export function settings() {
          *
          */
         function is200() {
-            const objects = assertObjects<
+            const asserts = assertObjects<
                 SettingsReplaceResponses[200],
                 ReturnType<typeof settingsReplace>
             >(promise);
-            return {...promise, ...objects};
+            return {...promise, ...asserts};
         }
 
         return {...promise, is200};
@@ -63,11 +63,11 @@ export function settings() {
          *
          */
         function is200() {
-            const objects = assertObjects<
+            const asserts = assertObjects<
                 SettingsUpdateResponses[200],
                 ReturnType<typeof settingsUpdate>
             >(promise);
-            return {...promise, ...objects};
+            return {...promise, ...asserts};
         }
 
         return {...promise, is200};

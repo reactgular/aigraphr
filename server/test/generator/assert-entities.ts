@@ -2,16 +2,16 @@ export function assertEntities<
     TBody extends {
         id: number;
     },
-    TChain
->(chain: () => TChain) {
+    TPromise
+>(promise: TPromise) {
     const isId = (value: number) => {
-        return chain();
+        return {...promise, isId, isEntity, isWithoutId};
     };
     const isEntity = (value: TBody) => {
-        return chain();
+        return {...promise, isId, isEntity, isWithoutId};
     };
     const isWithoutId = (value: Omit<TBody, 'id'>) => {
-        return chain();
+        return {...promise, isId, isEntity, isWithoutId};
     };
-    return {isId, isEntity, isWithoutId};
+    return {...promise, isId, isEntity, isWithoutId};
 }

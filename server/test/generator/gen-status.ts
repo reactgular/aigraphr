@@ -20,8 +20,6 @@ export async function* genStatus(spec: OpenApiSpec, desc: Descriptor) {
         const isResponse = code.startsWith('2') || code.startsWith('3');
         const isError = code.startsWith('4') || code.startsWith('5');
 
-        const variables: string[] = ['promise'];
-
         yield `/**`;
         yield ` * ${resp.description}`;
         yield ` */`;
@@ -31,23 +29,25 @@ export async function* genStatus(spec: OpenApiSpec, desc: Descriptor) {
             resp.content?.['application/json']?.schema
         );
 
-        function* assert(name: string, assert: string) {
-            yield `const ${name} = ${assert}<${isResponse ? desc.responses : desc.errors}[${code}],ReturnType<typeof ${desc.fetcher}>>(promise);`;
-            variables.push(name);
+        const variables: string[] = ['promise'];
+
+        function* assert(assert: string) {
+            yield `const asserts = ${assert}<${isResponse ? desc.responses : desc.errors}[${code}],ReturnType<typeof ${desc.fetcher}>>(promise);`;
+            variables.push('asserts');
         }
 
         if (schema) {
-            if (schema.type == 'object') {
-                yield* assert('objects', 'assertObjects');
-            }
             if (
+                schema.type === 'object' &&
                 (
                     schema.properties?.['id'] as
                         | OpenAPIV3.SchemaObject
                         | undefined
                 )?.type === 'number'
             ) {
-                yield* assert('entities', 'assertEntities');
+                yield* assert('assertEntities');
+            } else if (schema.type === 'object') {
+                yield* assert('assertObjects');
             }
         }
 
