@@ -1,11 +1,11 @@
-import {OpenAPIV3} from 'openapi-types';
 import {Descriptor, genDescriptors} from './gen-descriptors';
+import {OpenApiSpec} from './open-api-spec';
 
 export async function* genControllers(
-    openApiSpec: OpenAPIV3.Document
+    spec: OpenApiSpec
 ): AsyncGenerator<[string, Descriptor[]]> {
     const map = new Map<string, Descriptor[]>();
-    for await (const desc of genDescriptors(openApiSpec)) {
+    for await (const desc of genDescriptors(spec)) {
         const arr = map.get(desc.controller) ?? [];
         arr.push(desc);
         map.set(desc.controller, arr);

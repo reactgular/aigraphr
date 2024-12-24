@@ -1,14 +1,14 @@
-import {OpenAPIV3} from 'openapi-types';
 import {toCamelCase} from 'remeda';
 import {genControllers} from './gen-controllers';
+import {OpenApiSpec} from './open-api-spec';
 
 export async function* genOutputIndex(
-    openApiSpec: OpenAPIV3.Document
+    spec: OpenApiSpec
 ): AsyncGenerator<string> {
     yield '// THIS FILE IS AUTO-GENERATED. DO NOT EDIT.';
 
     const names: string[] = [];
-    for await (const [controller] of genControllers(openApiSpec)) {
+    for await (const [controller] of genControllers(spec)) {
         names.push(toCamelCase(controller));
     }
     names.sort();

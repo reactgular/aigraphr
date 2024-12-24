@@ -3,21 +3,23 @@ import {genAction} from './gen-action';
 import {Descriptor} from './gen-descriptors';
 import {genImportSdk} from './gen-import-sdk';
 import {genImportTypes} from './gen-import-types';
+import {OpenApiSpec} from './open-api-spec';
 
 export async function* genOutputFile(
+    spec: OpenApiSpec,
     controller: string,
     descriptors: Descriptor[]
 ): AsyncGenerator<string> {
     const name = toCamelCase(controller);
 
     yield '// THIS FILE IS AUTO-GENERATED. DO NOT EDIT.';
-    yield* genImportSdk(descriptors);
-    yield* genImportTypes(descriptors);
+    yield* genImportSdk(spec, descriptors);
+    yield* genImportTypes(spec, descriptors);
     yield "import {assetEntity} from '../generator/asset-entity';";
     yield '';
     yield `export function ${name}() {`;
     for (const descriptor of descriptors) {
-        yield* genAction(descriptor);
+        yield* genAction(spec, descriptor);
         yield '';
     }
     yield `return {${descriptors

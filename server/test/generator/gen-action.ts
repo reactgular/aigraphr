@@ -2,8 +2,9 @@ import {OpenAPIV3} from 'openapi-types';
 import {toCamelCase} from 'remeda';
 import {Descriptor} from './gen-descriptors';
 import {genStatus} from './gen-status';
+import {OpenApiSpec} from './open-api-spec';
 
-export async function* genAction(desc: Descriptor) {
+export async function* genAction(spec: OpenApiSpec, desc: Descriptor) {
     function isParameterObject(
         p: OpenAPIV3.ReferenceObject | OpenAPIV3.ParameterObject
     ): p is OpenAPIV3.ParameterObject {
@@ -50,6 +51,6 @@ export async function* genAction(desc: Descriptor) {
     yield ` */`;
     yield `function ${name}(${params.join(',')}) {`;
     yield `  const promise = ${desc.fetcher}({${request.join(',')}});`;
-    yield* genStatus(desc);
+    yield* genStatus(spec, desc);
     yield '}';
 }

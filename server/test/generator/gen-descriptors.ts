@@ -1,6 +1,6 @@
 import {toPascalCase, toSpaces} from '@/strings';
-import {OpenAPIV3} from 'openapi-types';
 import {genOperations, OperationWithId} from './gen-operations';
+import {OpenApiSpec} from './open-api-spec';
 
 export interface Descriptor {
     action: string;
@@ -21,9 +21,9 @@ export interface Descriptor {
 }
 
 export async function* genDescriptors(
-    openApiSpec: OpenAPIV3.Document
+    spec: OpenApiSpec
 ): AsyncGenerator<Descriptor> {
-    for await (const [path, operation] of genOperations(openApiSpec)) {
+    for await (const [path, operation] of genOperations(spec)) {
         const [controller, _action] = operation.operationId!.split('_');
 
         const action = toPascalCase(toSpaces(_action)).replace(/ /g, '');

@@ -1,4 +1,5 @@
 import {OpenAPIV3} from 'openapi-types';
+import {OpenApiSpec} from './open-api-spec';
 
 const methods = [
     OpenAPIV3.HttpMethods.GET,
@@ -16,9 +17,9 @@ export type OperationWithId = Omit<OpenAPIV3.OperationObject, 'operationId'> & {
 };
 
 export async function* genOperations(
-    openApiSpec: OpenAPIV3.Document
+    spec: OpenApiSpec
 ): AsyncGenerator<[string, OperationWithId]> {
-    for (const [path, pathItem] of Object.entries(openApiSpec.paths ?? {})) {
+    for (const [path, pathItem] of spec.paths) {
         for (const method of methods) {
             const operation: OpenAPIV3.OperationObject | undefined =
                 pathItem?.[method];

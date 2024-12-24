@@ -1,6 +1,10 @@
 import {Descriptor} from './gen-descriptors';
+import {OpenApiSpec} from './open-api-spec';
 
-export async function* genImportTypes(descriptors: Descriptor[]) {
+export async function* genImportTypes(
+    spec: OpenApiSpec,
+    descriptors: Descriptor[]
+) {
     const types = new Set<string>();
 
     for (const desc of descriptors) {

@@ -5,6 +5,7 @@ import path from 'path';
 import {genControllers} from './gen-controllers';
 import {genOutputFile} from './gen-output-file';
 import {genOutputIndex} from './gen-output-index';
+import {OpenApiSpec} from './open-api-spec';
 
 const toString = async (generator: AsyncGenerator<string>): Promise<string> => {
     const lines: string[] = [];
@@ -29,11 +30,9 @@ const generator = async () => {
 
     try {
         const json = await fs.readFile(openApiFilePath, 'utf-8');
-        const openApiSpec: OpenAPIV3.Document = JSON.parse(json);
+        const spec = new OpenApiSpec(JSON.parse(json) as OpenAPIV3.Document);
 
-        for await (const [controller, descriptors] of genControllers(
-            openApiSpec
-        )) {
+        for await (const [controller, descriptors] of genControllers(spec)) {
             const fileName = `${toKebabCase(toSpaces(controller))}.ts`;
             const output = path.join(outputPath, fileName);
 
@@ -41,7 +40,7 @@ const generator = async () => {
 
             await fs.writeFile(
                 output,
-                await toString(genOutputFile(controller, descriptors)),
+                await toString(genOutputFile(spec, controller, descriptors)),
                 'utf-8'
             );
         }
@@ -50,7 +49,7 @@ const generator = async () => {
         console.log(`Generating ${indexFile}`);
         await fs.writeFile(
             indexFile,
-            await toString(genOutputIndex(openApiSpec)),
+            await toString(genOutputIndex(spec)),
             'utf-8'
         );
     } catch (error) {

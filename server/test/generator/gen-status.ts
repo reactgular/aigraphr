@@ -1,11 +1,12 @@
 import {OpenAPIV3} from 'openapi-types';
 import {Descriptor} from './gen-descriptors';
+import {OpenApiSpec} from './open-api-spec';
 
 function isResponseObject(obj: unknown): obj is OpenAPIV3.ResponseObject {
     return typeof obj === 'object' && obj !== null && 'description' in obj;
 }
 
-export async function* genStatus(desc: Descriptor) {
+export async function* genStatus(spec: OpenApiSpec, desc: Descriptor) {
     if (!desc.responses) {
         return;
     }
