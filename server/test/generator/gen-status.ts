@@ -16,12 +16,25 @@ export async function* genStatus(desc: Descriptor) {
             continue;
         }
 
+        const isResponse = code.startsWith('2') || code.startsWith('3');
+        const isError = code.startsWith('4') || code.startsWith('5');
+
+        const variables: string[] = ['promise'];
+
         yield `/**`;
         yield ` * ${resp.description}`;
         yield ` */`;
         yield `function is${code}() {`;
-        yield `const asserts = assetEntity<${desc.responses}[${code}],ReturnType<typeof ${desc.fetcher}>>(promise);`;
-        yield `  return {...promise, ...asserts};`;
+
+        if (isResponse) {
+            yield `const entity = assetEntity<${desc.responses}[${code}],ReturnType<typeof ${desc.fetcher}>>(promise);`;
+            variables.push('entity');
+        } else if (isError) {
+            yield `const entity = assetEntity<${desc.errors}[${code}],ReturnType<typeof ${desc.fetcher}>>(promise);`;
+            variables.push('entity');
+        }
+
+        yield `  return {...${variables.join(',')}};`;
         yield `}`;
 
         results.push(`is${code}`);

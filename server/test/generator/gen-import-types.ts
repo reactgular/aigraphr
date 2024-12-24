@@ -8,6 +8,9 @@ export async function* genImportTypes(descriptors: Descriptor[]) {
         if (desc.responses) {
             types.add(desc.responses);
         }
+        if (desc.errors) {
+            types.add(desc.errors);
+        }
     }
 
     yield `import {${Array.from(types)
