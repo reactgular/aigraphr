@@ -10,31 +10,61 @@ import {
 } from '@shared/api/types.gen';
 
 export function workspaces() {
-    function create(data: WorkspacesCreateData) {
+    /**
+     * /api/projects/{projectId}/workspaces
+     */
+    function create(
+        path: WorkspacesCreateData['path'],
+        body: WorkspacesCreateData['body']
+    ) {
         // TODO: implement Create
     }
 
-    function createValidate(data: WorkspacesCreateValidateData) {
+    /**
+     * /api/projects/{projectId}/workspaces/validates
+     */
+    function createValidate(body: WorkspacesCreateValidateData['body']) {
         // TODO: implement CreateValidate
     }
 
-    function get(data: WorkspacesGetData) {
+    /**
+     * /api/projects/{projectId}/workspaces/{workspaceId}
+     */
+    function get(path: WorkspacesGetData['path']) {
         // TODO: implement Get
     }
 
-    function paginate(data: WorkspacesPaginateData) {
+    /**
+     * /api/projects/{projectId}/workspaces
+     */
+    function paginate(path: WorkspacesPaginateData['path']) {
         // TODO: implement Paginate
     }
 
-    function remove(data: WorkspacesRemoveData) {
+    /**
+     * /api/projects/{projectId}/workspaces/{workspaceId}
+     */
+    function remove(path: WorkspacesRemoveData['path']) {
         // TODO: implement Remove
     }
 
-    function update(data: WorkspacesUpdateData) {
+    /**
+     * /api/projects/{projectId}/workspaces/{workspaceId}
+     */
+    function update(
+        path: WorkspacesUpdateData['path'],
+        body: WorkspacesUpdateData['body']
+    ) {
         // TODO: implement Update
     }
 
-    function updateValidate(data: WorkspacesUpdateValidateData) {
+    /**
+     * /api/projects/{projectId}/workspaces/{workspaceId}/validates
+     */
+    function updateValidate(
+        path: WorkspacesUpdateValidateData['path'],
+        body: WorkspacesUpdateValidateData['body']
+    ) {
         // TODO: implement UpdateValidate
     }
 

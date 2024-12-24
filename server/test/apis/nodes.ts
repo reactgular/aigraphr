@@ -8,23 +8,44 @@ import {
 } from '@shared/api/types.gen';
 
 export function nodes() {
-    function create(data: NodesCreateData) {
+    /**
+     * /api/projects/{projectId}/workspaces/{workspaceId}/nodes
+     */
+    function create(
+        path: NodesCreateData['path'],
+        body: NodesCreateData['body']
+    ) {
         // TODO: implement Create
     }
 
-    function get(data: NodesGetData) {
+    /**
+     * /api/projects/{projectId}/workspaces/{workspaceId}/nodes/{nodeId}
+     */
+    function get(path: NodesGetData['path']) {
         // TODO: implement Get
     }
 
-    function paginate(data: NodesPaginateData) {
+    /**
+     * /api/projects/{projectId}/workspaces/{workspaceId}/nodes
+     */
+    function paginate(path: NodesPaginateData['path']) {
         // TODO: implement Paginate
     }
 
-    function remove(data: NodesRemoveData) {
+    /**
+     * /api/projects/{projectId}/workspaces/{workspaceId}/nodes/{nodeId}
+     */
+    function remove(path: NodesRemoveData['path']) {
         // TODO: implement Remove
     }
 
-    function update(data: NodesUpdateData) {
+    /**
+     * /api/projects/{projectId}/workspaces/{workspaceId}/nodes/{nodeId}
+     */
+    function update(
+        path: NodesUpdateData['path'],
+        body: NodesUpdateData['body']
+    ) {
         // TODO: implement Update
     }
 

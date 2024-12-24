@@ -6,15 +6,24 @@ import {
 } from '@shared/api/types.gen';
 
 export function settings() {
-    function get(data: SettingsGetData) {
+    /**
+     * /api/app/settings
+     */
+    function get() {
         // TODO: implement Get
     }
 
-    function replace(data: SettingsReplaceData) {
+    /**
+     * /api/app/settings
+     */
+    function replace(body: SettingsReplaceData['body']) {
         // TODO: implement Replace
     }
 
-    function update(data: SettingsUpdateData) {
+    /**
+     * /api/app/settings
+     */
+    function update(body: SettingsUpdateData['body']) {
         // TODO: implement Update
     }
 

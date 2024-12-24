@@ -11,7 +11,7 @@ const methods = [
     OpenAPIV3.HttpMethods.TRACE
 ] as const;
 
-type OperationWithId = Omit<OpenAPIV3.OperationObject, 'operationId'> & {
+export type OperationWithId = Omit<OpenAPIV3.OperationObject, 'operationId'> & {
     operationId: string;
 };
 

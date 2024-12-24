@@ -8,23 +8,44 @@ import {
 } from '@shared/api/types.gen';
 
 export function edges() {
-    function create(data: EdgesCreateData) {
+    /**
+     * /api/projects/{projectId}/workspaces/{workspaceId}/edges
+     */
+    function create(
+        path: EdgesCreateData['path'],
+        body: EdgesCreateData['body']
+    ) {
         // TODO: implement Create
     }
 
-    function get(data: EdgesGetData) {
+    /**
+     * /api/projects/{projectId}/workspaces/{workspaceId}/edges/{edgeId}
+     */
+    function get(path: EdgesGetData['path']) {
         // TODO: implement Get
     }
 
-    function paginate(data: EdgesPaginateData) {
+    /**
+     * /api/projects/{projectId}/workspaces/{workspaceId}/edges
+     */
+    function paginate(path: EdgesPaginateData['path']) {
         // TODO: implement Paginate
     }
 
-    function remove(data: EdgesRemoveData) {
+    /**
+     * /api/projects/{projectId}/workspaces/{workspaceId}/edges/{edgeId}
+     */
+    function remove(path: EdgesRemoveData['path']) {
         // TODO: implement Remove
     }
 
-    function update(data: EdgesUpdateData) {
+    /**
+     * /api/projects/{projectId}/workspaces/{workspaceId}/edges/{edgeId}
+     */
+    function update(
+        path: EdgesUpdateData['path'],
+        body: EdgesUpdateData['body']
+    ) {
         // TODO: implement Update
     }
 

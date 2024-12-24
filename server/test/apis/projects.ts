@@ -10,31 +10,58 @@ import {
 } from '@shared/api/types.gen';
 
 export function projects() {
-    function create(data: ProjectsCreateData) {
+    /**
+     * /api/projects
+     */
+    function create(body: ProjectsCreateData['body']) {
         // TODO: implement Create
     }
 
-    function createValidate(data: ProjectsCreateValidateData) {
+    /**
+     * /api/projects/validates
+     */
+    function createValidate(body: ProjectsCreateValidateData['body']) {
         // TODO: implement CreateValidate
     }
 
-    function get(data: ProjectsGetData) {
+    /**
+     * /api/projects/{projectId}
+     */
+    function get(path: ProjectsGetData['path']) {
         // TODO: implement Get
     }
 
-    function paginate(data: ProjectsPaginateData) {
+    /**
+     * /api/projects
+     */
+    function paginate() {
         // TODO: implement Paginate
     }
 
-    function remove(data: ProjectsRemoveData) {
+    /**
+     * /api/projects/{projectId}
+     */
+    function remove(path: ProjectsRemoveData['path']) {
         // TODO: implement Remove
     }
 
-    function update(data: ProjectsUpdateData) {
+    /**
+     * /api/projects/{projectId}
+     */
+    function update(
+        path: ProjectsUpdateData['path'],
+        body: ProjectsUpdateData['body']
+    ) {
         // TODO: implement Update
     }
 
-    function updateValidate(data: ProjectsUpdateValidateData) {
+    /**
+     * /api/projects/{projectId}/validates
+     */
+    function updateValidate(
+        path: ProjectsUpdateValidateData['path'],
+        body: ProjectsUpdateValidateData['body']
+    ) {
         // TODO: implement UpdateValidate
     }
 

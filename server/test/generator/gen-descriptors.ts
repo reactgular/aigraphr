@@ -1,6 +1,6 @@
 import {toPascalCase, toSpaces} from '@/strings';
 import {OpenAPIV3} from 'openapi-types';
-import {genOperations} from './gen-operations';
+import {genOperations, OperationWithId} from './gen-operations';
 
 export interface Descriptor {
     action: string;
@@ -12,6 +12,8 @@ export interface Descriptor {
     errors?: string;
 
     fetcher: string;
+
+    operation: OperationWithId;
 
     path: string;
 
@@ -44,6 +46,15 @@ export async function* genDescriptors(
             : undefined;
         const errors = hasErrors ? `${controller}${action}Errors` : undefined;
 
-        yield {path, controller, action, fetcher, data, errors, responses};
+        yield {
+            path,
+            operation,
+            controller,
+            action,
+            fetcher,
+            data,
+            errors,
+            responses
+        };
     }
 }
