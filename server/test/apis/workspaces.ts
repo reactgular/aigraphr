@@ -30,7 +30,8 @@ import {
     WorkspacesUpdateValidateErrors,
     WorkspacesUpdateValidateResponses
 } from '@shared/api/types.gen';
-import {assetEntity} from '../generator/asset-entity';
+import {assertEntity} from '../generator/assert-entity';
+import {assertObject} from '../generator/assert-object';
 
 export function workspaces() {
     /**
@@ -51,19 +52,31 @@ export function workspaces() {
          * Return a new Workspace
          */
         function is201() {
-            return {...promise};
+            const objects = assertObject<
+                WorkspacesCreateResponses[201],
+                ReturnType<typeof workspacesCreate>
+            >(promise);
+            return {...promise, ...objects};
         }
         /**
          * TypeORM related errors
          */
         function is400() {
-            return {...promise};
+            const objects = assertObject<
+                WorkspacesCreateErrors[400],
+                ReturnType<typeof workspacesCreate>
+            >(promise);
+            return {...promise, ...objects};
         }
         /**
          * TypeORM related constraint errors
          */
         function is409() {
-            return {...promise};
+            const objects = assertObject<
+                WorkspacesCreateErrors[409],
+                ReturnType<typeof workspacesCreate>
+            >(promise);
+            return {...promise, ...objects};
         }
 
         return {...promise, is200, is201, is400, is409};
@@ -78,13 +91,21 @@ export function workspaces() {
          * Validation results of WorkspaceCreate
          */
         function is200() {
-            return {...promise};
+            const objects = assertObject<
+                WorkspacesCreateValidateResponses[200],
+                ReturnType<typeof workspacesCreateValidate>
+            >(promise);
+            return {...promise, ...objects};
         }
         /**
          * Invalid request body
          */
         function is400() {
-            return {...promise};
+            const objects = assertObject<
+                WorkspacesCreateValidateErrors[400],
+                ReturnType<typeof workspacesCreateValidate>
+            >(promise);
+            return {...promise, ...objects};
         }
 
         return {...promise, is200, is400};
@@ -99,7 +120,11 @@ export function workspaces() {
          * Return a Workspace by workspaceId
          */
         function is200() {
-            return {...promise};
+            const objects = assertObject<
+                WorkspacesGetResponses[200],
+                ReturnType<typeof workspacesGet>
+            >(promise);
+            return {...promise, ...objects};
         }
         /**
          * A Workspace with the specified workspaceId was not found
@@ -120,7 +145,11 @@ export function workspaces() {
          * Return a list of Workspace
          */
         function is200() {
-            return {...promise};
+            const objects = assertObject<
+                WorkspacesPaginateResponses[200],
+                ReturnType<typeof workspacesPaginate>
+            >(promise);
+            return {...promise, ...objects};
         }
 
         return {...promise, is200};
@@ -159,13 +188,21 @@ export function workspaces() {
          * Return a Workspace by workspaceId
          */
         function is200() {
-            return {...promise};
+            const objects = assertObject<
+                WorkspacesUpdateResponses[200],
+                ReturnType<typeof workspacesUpdate>
+            >(promise);
+            return {...promise, ...objects};
         }
         /**
          * TypeORM related errors
          */
         function is400() {
-            return {...promise};
+            const objects = assertObject<
+                WorkspacesUpdateErrors[400],
+                ReturnType<typeof workspacesUpdate>
+            >(promise);
+            return {...promise, ...objects};
         }
         /**
          * A Workspace with the specified workspaceId was not found
@@ -177,7 +214,11 @@ export function workspaces() {
          * TypeORM related constraint errors
          */
         function is409() {
-            return {...promise};
+            const objects = assertObject<
+                WorkspacesUpdateErrors[409],
+                ReturnType<typeof workspacesUpdate>
+            >(promise);
+            return {...promise, ...objects};
         }
 
         return {...promise, is200, is400, is404, is409};
@@ -195,13 +236,21 @@ export function workspaces() {
          * Validation results of WorkspaceUpdate
          */
         function is200() {
-            return {...promise};
+            const objects = assertObject<
+                WorkspacesUpdateValidateResponses[200],
+                ReturnType<typeof workspacesUpdateValidate>
+            >(promise);
+            return {...promise, ...objects};
         }
         /**
          * Invalid request body
          */
         function is400() {
-            return {...promise};
+            const objects = assertObject<
+                WorkspacesUpdateValidateErrors[400],
+                ReturnType<typeof workspacesUpdateValidate>
+            >(promise);
+            return {...promise, ...objects};
         }
         /**
          * A WorkspaceUpdate with the specified workspaceId was not found

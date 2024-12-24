@@ -1,4 +1,4 @@
-export function assetEntity<
+export function assertEntity<
     TBody extends {
         id: number;
     },

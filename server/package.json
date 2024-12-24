@@ -80,6 +80,7 @@
         "zod": "^3.23.8"
     },
     "devDependencies": {
+        "@apidevtools/swagger-parser": "^10.1.0",
         "@nestjs/cli": "^10.0.0",
         "@nestjs/schematics": "^10.0.0",
         "@nestjs/testing": "^10.0.0",

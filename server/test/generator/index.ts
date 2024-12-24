@@ -1,6 +1,5 @@
 import {toKebabCase, toSpaces} from '@/strings';
 import {promises as fs} from 'fs';
-import {OpenAPIV3} from 'openapi-types';
 import path from 'path';
 import {genControllers} from './gen-controllers';
 import {genOutputFile} from './gen-output-file';
@@ -29,8 +28,7 @@ const generator = async () => {
     const outputPath = process.argv[3];
 
     try {
-        const json = await fs.readFile(openApiFilePath, 'utf-8');
-        const spec = new OpenApiSpec(JSON.parse(json) as OpenAPIV3.Document);
+        const spec = await OpenApiSpec.open(openApiFilePath);
 
         for await (const [controller, descriptors] of genControllers(spec)) {
             const fileName = `${toKebabCase(toSpaces(controller))}.ts`;
