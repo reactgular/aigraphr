@@ -13,6 +13,7 @@ export async function* genOutputFile(
     yield '// THIS FILE IS AUTO-GENERATED. DO NOT EDIT.';
     yield* genImportSdk(descriptors);
     yield* genImportTypes(descriptors);
+    yield "import {assetEntity} from '../generator/asset-entity';";
     yield '';
     yield `export function ${name}() {`;
     for (const descriptor of descriptors) {

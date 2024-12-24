@@ -8,11 +8,17 @@ import {
 } from '@shared/api/sdk.gen';
 import {
     NodesCreateData,
+    NodesCreateResponses,
     NodesGetData,
+    NodesGetResponses,
     NodesPaginateData,
+    NodesPaginateResponses,
     NodesRemoveData,
-    NodesUpdateData
+    NodesRemoveResponses,
+    NodesUpdateData,
+    NodesUpdateResponses
 } from '@shared/api/types.gen';
+import {assetEntity} from '../generator/asset-entity';
 
 export function nodes() {
     /**
@@ -26,19 +32,43 @@ export function nodes() {
         /**
          * Bug, can't disable 200 response from custom decorator
          */
-        function is200() {}
+        function is200() {
+            const asserts = assetEntity<
+                NodesCreateResponses[200],
+                ReturnType<typeof nodesCreate>
+            >(promise);
+            return {...promise, ...asserts};
+        }
         /**
          * Return a new Node
          */
-        function is201() {}
+        function is201() {
+            const asserts = assetEntity<
+                NodesCreateResponses[201],
+                ReturnType<typeof nodesCreate>
+            >(promise);
+            return {...promise, ...asserts};
+        }
         /**
          * TypeORM related errors
          */
-        function is400() {}
+        function is400() {
+            const asserts = assetEntity<
+                NodesCreateResponses[400],
+                ReturnType<typeof nodesCreate>
+            >(promise);
+            return {...promise, ...asserts};
+        }
         /**
          * TypeORM related constraint errors
          */
-        function is409() {}
+        function is409() {
+            const asserts = assetEntity<
+                NodesCreateResponses[409],
+                ReturnType<typeof nodesCreate>
+            >(promise);
+            return {...promise, ...asserts};
+        }
 
         return {...promise, is200, is201, is400, is409};
     }
@@ -51,11 +81,23 @@ export function nodes() {
         /**
          * Return a Node by nodeId
          */
-        function is200() {}
+        function is200() {
+            const asserts = assetEntity<
+                NodesGetResponses[200],
+                ReturnType<typeof nodesGet>
+            >(promise);
+            return {...promise, ...asserts};
+        }
         /**
          * A Node with the specified nodeId was not found
          */
-        function is404() {}
+        function is404() {
+            const asserts = assetEntity<
+                NodesGetResponses[404],
+                ReturnType<typeof nodesGet>
+            >(promise);
+            return {...promise, ...asserts};
+        }
 
         return {...promise, is200, is404};
     }
@@ -68,7 +110,13 @@ export function nodes() {
         /**
          * Return a list of Node
          */
-        function is200() {}
+        function is200() {
+            const asserts = assetEntity<
+                NodesPaginateResponses[200],
+                ReturnType<typeof nodesPaginate>
+            >(promise);
+            return {...promise, ...asserts};
+        }
 
         return {...promise, is200};
     }
@@ -81,11 +129,23 @@ export function nodes() {
         /**
          * The Node has been deleted
          */
-        function is204() {}
+        function is204() {
+            const asserts = assetEntity<
+                NodesRemoveResponses[204],
+                ReturnType<typeof nodesRemove>
+            >(promise);
+            return {...promise, ...asserts};
+        }
         /**
          * A Node with the specified nodeId was not found
          */
-        function is404() {}
+        function is404() {
+            const asserts = assetEntity<
+                NodesRemoveResponses[404],
+                ReturnType<typeof nodesRemove>
+            >(promise);
+            return {...promise, ...asserts};
+        }
 
         return {...promise, is204, is404};
     }
@@ -101,19 +161,43 @@ export function nodes() {
         /**
          * Return a Node by nodeId
          */
-        function is200() {}
+        function is200() {
+            const asserts = assetEntity<
+                NodesUpdateResponses[200],
+                ReturnType<typeof nodesUpdate>
+            >(promise);
+            return {...promise, ...asserts};
+        }
         /**
          * TypeORM related errors
          */
-        function is400() {}
+        function is400() {
+            const asserts = assetEntity<
+                NodesUpdateResponses[400],
+                ReturnType<typeof nodesUpdate>
+            >(promise);
+            return {...promise, ...asserts};
+        }
         /**
          * A Node with the specified nodeId was not found
          */
-        function is404() {}
+        function is404() {
+            const asserts = assetEntity<
+                NodesUpdateResponses[404],
+                ReturnType<typeof nodesUpdate>
+            >(promise);
+            return {...promise, ...asserts};
+        }
         /**
          * TypeORM related constraint errors
          */
-        function is409() {}
+        function is409() {
+            const asserts = assetEntity<
+                NodesUpdateResponses[409],
+                ReturnType<typeof nodesUpdate>
+            >(promise);
+            return {...promise, ...asserts};
+        }
 
         return {...promise, is200, is400, is404, is409};
     }

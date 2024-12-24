@@ -6,9 +6,13 @@ import {
 } from '@shared/api/sdk.gen';
 import {
     SettingsGetData,
+    SettingsGetResponses,
     SettingsReplaceData,
-    SettingsUpdateData
+    SettingsReplaceResponses,
+    SettingsUpdateData,
+    SettingsUpdateResponses
 } from '@shared/api/types.gen';
+import {assetEntity} from '../generator/asset-entity';
 
 export function settings() {
     /**
@@ -19,7 +23,13 @@ export function settings() {
         /**
          *
          */
-        function is200() {}
+        function is200() {
+            const asserts = assetEntity<
+                SettingsGetResponses[200],
+                ReturnType<typeof settingsGet>
+            >(promise);
+            return {...promise, ...asserts};
+        }
 
         return {...promise, is200};
     }
@@ -32,7 +42,13 @@ export function settings() {
         /**
          *
          */
-        function is200() {}
+        function is200() {
+            const asserts = assetEntity<
+                SettingsReplaceResponses[200],
+                ReturnType<typeof settingsReplace>
+            >(promise);
+            return {...promise, ...asserts};
+        }
 
         return {...promise, is200};
     }
@@ -45,7 +61,13 @@ export function settings() {
         /**
          *
          */
-        function is200() {}
+        function is200() {
+            const asserts = assetEntity<
+                SettingsUpdateResponses[200],
+                ReturnType<typeof settingsUpdate>
+            >(promise);
+            return {...promise, ...asserts};
+        }
 
         return {...promise, is200};
     }

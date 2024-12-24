@@ -8,11 +8,17 @@ import {
 } from '@shared/api/sdk.gen';
 import {
     EdgesCreateData,
+    EdgesCreateResponses,
     EdgesGetData,
+    EdgesGetResponses,
     EdgesPaginateData,
+    EdgesPaginateResponses,
     EdgesRemoveData,
-    EdgesUpdateData
+    EdgesRemoveResponses,
+    EdgesUpdateData,
+    EdgesUpdateResponses
 } from '@shared/api/types.gen';
+import {assetEntity} from '../generator/asset-entity';
 
 export function edges() {
     /**
@@ -26,19 +32,43 @@ export function edges() {
         /**
          * Bug, can't disable 200 response from custom decorator
          */
-        function is200() {}
+        function is200() {
+            const asserts = assetEntity<
+                EdgesCreateResponses[200],
+                ReturnType<typeof edgesCreate>
+            >(promise);
+            return {...promise, ...asserts};
+        }
         /**
          * Return a new Edge
          */
-        function is201() {}
+        function is201() {
+            const asserts = assetEntity<
+                EdgesCreateResponses[201],
+                ReturnType<typeof edgesCreate>
+            >(promise);
+            return {...promise, ...asserts};
+        }
         /**
          * TypeORM related errors
          */
-        function is400() {}
+        function is400() {
+            const asserts = assetEntity<
+                EdgesCreateResponses[400],
+                ReturnType<typeof edgesCreate>
+            >(promise);
+            return {...promise, ...asserts};
+        }
         /**
          * TypeORM related constraint errors
          */
-        function is409() {}
+        function is409() {
+            const asserts = assetEntity<
+                EdgesCreateResponses[409],
+                ReturnType<typeof edgesCreate>
+            >(promise);
+            return {...promise, ...asserts};
+        }
 
         return {...promise, is200, is201, is400, is409};
     }
@@ -51,11 +81,23 @@ export function edges() {
         /**
          * Return a Edge by edgeId
          */
-        function is200() {}
+        function is200() {
+            const asserts = assetEntity<
+                EdgesGetResponses[200],
+                ReturnType<typeof edgesGet>
+            >(promise);
+            return {...promise, ...asserts};
+        }
         /**
          * A Edge with the specified edgeId was not found
          */
-        function is404() {}
+        function is404() {
+            const asserts = assetEntity<
+                EdgesGetResponses[404],
+                ReturnType<typeof edgesGet>
+            >(promise);
+            return {...promise, ...asserts};
+        }
 
         return {...promise, is200, is404};
     }
@@ -68,7 +110,13 @@ export function edges() {
         /**
          * Return a list of Edge
          */
-        function is200() {}
+        function is200() {
+            const asserts = assetEntity<
+                EdgesPaginateResponses[200],
+                ReturnType<typeof edgesPaginate>
+            >(promise);
+            return {...promise, ...asserts};
+        }
 
         return {...promise, is200};
     }
@@ -81,11 +129,23 @@ export function edges() {
         /**
          * The Edge has been deleted
          */
-        function is204() {}
+        function is204() {
+            const asserts = assetEntity<
+                EdgesRemoveResponses[204],
+                ReturnType<typeof edgesRemove>
+            >(promise);
+            return {...promise, ...asserts};
+        }
         /**
          * A Edge with the specified edgeId was not found
          */
-        function is404() {}
+        function is404() {
+            const asserts = assetEntity<
+                EdgesRemoveResponses[404],
+                ReturnType<typeof edgesRemove>
+            >(promise);
+            return {...promise, ...asserts};
+        }
 
         return {...promise, is204, is404};
     }
@@ -101,19 +161,43 @@ export function edges() {
         /**
          * Return a Edge by edgeId
          */
-        function is200() {}
+        function is200() {
+            const asserts = assetEntity<
+                EdgesUpdateResponses[200],
+                ReturnType<typeof edgesUpdate>
+            >(promise);
+            return {...promise, ...asserts};
+        }
         /**
          * TypeORM related errors
          */
-        function is400() {}
+        function is400() {
+            const asserts = assetEntity<
+                EdgesUpdateResponses[400],
+                ReturnType<typeof edgesUpdate>
+            >(promise);
+            return {...promise, ...asserts};
+        }
         /**
          * A Edge with the specified edgeId was not found
          */
-        function is404() {}
+        function is404() {
+            const asserts = assetEntity<
+                EdgesUpdateResponses[404],
+                ReturnType<typeof edgesUpdate>
+            >(promise);
+            return {...promise, ...asserts};
+        }
         /**
          * TypeORM related constraint errors
          */
-        function is409() {}
+        function is409() {
+            const asserts = assetEntity<
+                EdgesUpdateResponses[409],
+                ReturnType<typeof edgesUpdate>
+            >(promise);
+            return {...promise, ...asserts};
+        }
 
         return {...promise, is200, is400, is404, is409};
     }

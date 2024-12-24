@@ -20,7 +20,8 @@ export async function* genStatus(desc: Descriptor) {
         yield ` * ${resp.description}`;
         yield ` */`;
         yield `function is${code}() {`;
-        yield ``;
+        yield `const asserts = assetEntity<${desc.responses}[${code}],ReturnType<typeof ${desc.fetcher}>>(promise);`;
+        yield `  return {...promise, ...asserts};`;
         yield `}`;
 
         results.push(`is${code}`);
