@@ -45,41 +45,25 @@ export function workspaces() {
          * Bug, can't disable 200 response from custom decorator
          */
         function is200() {
-            const entity = assetEntity<
-                WorkspacesCreateResponses[200],
-                ReturnType<typeof workspacesCreate>
-            >(promise);
-            return {...promise, entity};
+            return {...promise};
         }
         /**
          * Return a new Workspace
          */
         function is201() {
-            const entity = assetEntity<
-                WorkspacesCreateResponses[201],
-                ReturnType<typeof workspacesCreate>
-            >(promise);
-            return {...promise, entity};
+            return {...promise};
         }
         /**
          * TypeORM related errors
          */
         function is400() {
-            const entity = assetEntity<
-                WorkspacesCreateErrors[400],
-                ReturnType<typeof workspacesCreate>
-            >(promise);
-            return {...promise, entity};
+            return {...promise};
         }
         /**
          * TypeORM related constraint errors
          */
         function is409() {
-            const entity = assetEntity<
-                WorkspacesCreateErrors[409],
-                ReturnType<typeof workspacesCreate>
-            >(promise);
-            return {...promise, entity};
+            return {...promise};
         }
 
         return {...promise, is200, is201, is400, is409};
@@ -94,21 +78,13 @@ export function workspaces() {
          * Validation results of WorkspaceCreate
          */
         function is200() {
-            const entity = assetEntity<
-                WorkspacesCreateValidateResponses[200],
-                ReturnType<typeof workspacesCreateValidate>
-            >(promise);
-            return {...promise, entity};
+            return {...promise};
         }
         /**
          * Invalid request body
          */
         function is400() {
-            const entity = assetEntity<
-                WorkspacesCreateValidateErrors[400],
-                ReturnType<typeof workspacesCreateValidate>
-            >(promise);
-            return {...promise, entity};
+            return {...promise};
         }
 
         return {...promise, is200, is400};
@@ -123,21 +99,13 @@ export function workspaces() {
          * Return a Workspace by workspaceId
          */
         function is200() {
-            const entity = assetEntity<
-                WorkspacesGetResponses[200],
-                ReturnType<typeof workspacesGet>
-            >(promise);
-            return {...promise, entity};
+            return {...promise};
         }
         /**
          * A Workspace with the specified workspaceId was not found
          */
         function is404() {
-            const entity = assetEntity<
-                WorkspacesGetErrors[404],
-                ReturnType<typeof workspacesGet>
-            >(promise);
-            return {...promise, entity};
+            return {...promise};
         }
 
         return {...promise, is200, is404};
@@ -152,11 +120,7 @@ export function workspaces() {
          * Return a list of Workspace
          */
         function is200() {
-            const entity = assetEntity<
-                WorkspacesPaginateResponses[200],
-                ReturnType<typeof workspacesPaginate>
-            >(promise);
-            return {...promise, entity};
+            return {...promise};
         }
 
         return {...promise, is200};
@@ -171,21 +135,13 @@ export function workspaces() {
          * The Workspace has been deleted
          */
         function is204() {
-            const entity = assetEntity<
-                WorkspacesRemoveResponses[204],
-                ReturnType<typeof workspacesRemove>
-            >(promise);
-            return {...promise, entity};
+            return {...promise};
         }
         /**
          * A Workspace with the specified workspaceId was not found
          */
         function is404() {
-            const entity = assetEntity<
-                WorkspacesRemoveErrors[404],
-                ReturnType<typeof workspacesRemove>
-            >(promise);
-            return {...promise, entity};
+            return {...promise};
         }
 
         return {...promise, is204, is404};
@@ -203,41 +159,25 @@ export function workspaces() {
          * Return a Workspace by workspaceId
          */
         function is200() {
-            const entity = assetEntity<
-                WorkspacesUpdateResponses[200],
-                ReturnType<typeof workspacesUpdate>
-            >(promise);
-            return {...promise, entity};
+            return {...promise};
         }
         /**
          * TypeORM related errors
          */
         function is400() {
-            const entity = assetEntity<
-                WorkspacesUpdateErrors[400],
-                ReturnType<typeof workspacesUpdate>
-            >(promise);
-            return {...promise, entity};
+            return {...promise};
         }
         /**
          * A Workspace with the specified workspaceId was not found
          */
         function is404() {
-            const entity = assetEntity<
-                WorkspacesUpdateErrors[404],
-                ReturnType<typeof workspacesUpdate>
-            >(promise);
-            return {...promise, entity};
+            return {...promise};
         }
         /**
          * TypeORM related constraint errors
          */
         function is409() {
-            const entity = assetEntity<
-                WorkspacesUpdateErrors[409],
-                ReturnType<typeof workspacesUpdate>
-            >(promise);
-            return {...promise, entity};
+            return {...promise};
         }
 
         return {...promise, is200, is400, is404, is409};
@@ -255,31 +195,19 @@ export function workspaces() {
          * Validation results of WorkspaceUpdate
          */
         function is200() {
-            const entity = assetEntity<
-                WorkspacesUpdateValidateResponses[200],
-                ReturnType<typeof workspacesUpdateValidate>
-            >(promise);
-            return {...promise, entity};
+            return {...promise};
         }
         /**
          * Invalid request body
          */
         function is400() {
-            const entity = assetEntity<
-                WorkspacesUpdateValidateErrors[400],
-                ReturnType<typeof workspacesUpdateValidate>
-            >(promise);
-            return {...promise, entity};
+            return {...promise};
         }
         /**
          * A WorkspaceUpdate with the specified workspaceId was not found
          */
         function is404() {
-            const entity = assetEntity<
-                WorkspacesUpdateValidateErrors[404],
-                ReturnType<typeof workspacesUpdateValidate>
-            >(promise);
-            return {...promise, entity};
+            return {...promise};
         }
 
         return {...promise, is200, is400, is404};

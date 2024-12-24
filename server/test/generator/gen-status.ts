@@ -26,12 +26,23 @@ export async function* genStatus(desc: Descriptor) {
         yield ` */`;
         yield `function is${code}() {`;
 
-        if (isResponse) {
-            yield `const entity = assetEntity<${desc.responses}[${code}],ReturnType<typeof ${desc.fetcher}>>(promise);`;
-            variables.push('entity');
-        } else if (isError) {
-            yield `const entity = assetEntity<${desc.errors}[${code}],ReturnType<typeof ${desc.fetcher}>>(promise);`;
-            variables.push('entity');
+        if (resp.content) {
+            /**
+             * @deprecated need to reference the schema
+             */
+            const hasId =
+                typeof resp.content['application/json']?.example?.id ===
+                'number';
+
+            if (hasId) {
+                if (isResponse) {
+                    yield `const entity = assetEntity<${desc.responses}[${code}],ReturnType<typeof ${desc.fetcher}>>(promise);`;
+                    variables.push('entity');
+                } else if (isError) {
+                    yield `const entity = assetEntity<${desc.errors}[${code}],ReturnType<typeof ${desc.fetcher}>>(promise);`;
+                    variables.push('entity');
+                }
+            }
         }
 
         yield `  return {...${variables.join(',')}};`;

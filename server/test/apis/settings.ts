@@ -24,11 +24,7 @@ export function settings() {
          *
          */
         function is200() {
-            const entity = assetEntity<
-                SettingsGetResponses[200],
-                ReturnType<typeof settingsGet>
-            >(promise);
-            return {...promise, entity};
+            return {...promise};
         }
 
         return {...promise, is200};
@@ -43,11 +39,7 @@ export function settings() {
          *
          */
         function is200() {
-            const entity = assetEntity<
-                SettingsReplaceResponses[200],
-                ReturnType<typeof settingsReplace>
-            >(promise);
-            return {...promise, entity};
+            return {...promise};
         }
 
         return {...promise, is200};
@@ -62,11 +54,7 @@ export function settings() {
          *
          */
         function is200() {
-            const entity = assetEntity<
-                SettingsUpdateResponses[200],
-                ReturnType<typeof settingsUpdate>
-            >(promise);
-            return {...promise, entity};
+            return {...promise};
         }
 
         return {...promise, is200};
