@@ -23,5 +23,7 @@ async function testIt() {
             engine: 'javascript',
             description: 'example'
         })
-        .isId(1);
+        .isId(1)
+        .isPartial({name: 'text'})
+        .isKeyValue('name', 'text');
 }
