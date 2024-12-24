@@ -1,5 +1,14 @@
 // THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 import {
+    workspacesCreate,
+    workspacesCreateValidate,
+    workspacesGet,
+    workspacesPaginate,
+    workspacesRemove,
+    workspacesUpdate,
+    workspacesUpdateValidate
+} from '@shared/api/sdk.gen';
+import {
     WorkspacesCreateData,
     WorkspacesCreateValidateData,
     WorkspacesGetData,
@@ -17,35 +26,89 @@ export function workspaces() {
         path: WorkspacesCreateData['path'],
         body: WorkspacesCreateData['body']
     ) {
-        // TODO: implement Create
+        const promise = workspacesCreate({path, body});
+        /**
+         * Bug, can't disable 200 response from custom decorator
+         */
+        function is200() {}
+        /**
+         * Return a new Workspace
+         */
+        function is201() {}
+        /**
+         * TypeORM related errors
+         */
+        function is400() {}
+        /**
+         * TypeORM related constraint errors
+         */
+        function is409() {}
+
+        return {...promise, is200, is201, is400, is409};
     }
 
     /**
      * /api/projects/{projectId}/workspaces/validates
      */
     function createValidate(body: WorkspacesCreateValidateData['body']) {
-        // TODO: implement CreateValidate
+        const promise = workspacesCreateValidate({body});
+        /**
+         * Validation results of WorkspaceCreate
+         */
+        function is200() {}
+        /**
+         * Invalid request body
+         */
+        function is400() {}
+
+        return {...promise, is200, is400};
     }
 
     /**
      * /api/projects/{projectId}/workspaces/{workspaceId}
      */
     function get(path: WorkspacesGetData['path']) {
-        // TODO: implement Get
+        const promise = workspacesGet({path});
+        /**
+         * Return a Workspace by workspaceId
+         */
+        function is200() {}
+        /**
+         * A Workspace with the specified workspaceId was not found
+         */
+        function is404() {}
+
+        return {...promise, is200, is404};
     }
 
     /**
      * /api/projects/{projectId}/workspaces
      */
     function paginate(path: WorkspacesPaginateData['path']) {
-        // TODO: implement Paginate
+        const promise = workspacesPaginate({path});
+        /**
+         * Return a list of Workspace
+         */
+        function is200() {}
+
+        return {...promise, is200};
     }
 
     /**
      * /api/projects/{projectId}/workspaces/{workspaceId}
      */
     function remove(path: WorkspacesRemoveData['path']) {
-        // TODO: implement Remove
+        const promise = workspacesRemove({path});
+        /**
+         * The Workspace has been deleted
+         */
+        function is204() {}
+        /**
+         * A Workspace with the specified workspaceId was not found
+         */
+        function is404() {}
+
+        return {...promise, is204, is404};
     }
 
     /**
@@ -55,7 +118,25 @@ export function workspaces() {
         path: WorkspacesUpdateData['path'],
         body: WorkspacesUpdateData['body']
     ) {
-        // TODO: implement Update
+        const promise = workspacesUpdate({path, body});
+        /**
+         * Return a Workspace by workspaceId
+         */
+        function is200() {}
+        /**
+         * TypeORM related errors
+         */
+        function is400() {}
+        /**
+         * A Workspace with the specified workspaceId was not found
+         */
+        function is404() {}
+        /**
+         * TypeORM related constraint errors
+         */
+        function is409() {}
+
+        return {...promise, is200, is400, is404, is409};
     }
 
     /**
@@ -65,7 +146,21 @@ export function workspaces() {
         path: WorkspacesUpdateValidateData['path'],
         body: WorkspacesUpdateValidateData['body']
     ) {
-        // TODO: implement UpdateValidate
+        const promise = workspacesUpdateValidate({path, body});
+        /**
+         * Validation results of WorkspaceUpdate
+         */
+        function is200() {}
+        /**
+         * Invalid request body
+         */
+        function is400() {}
+        /**
+         * A WorkspaceUpdate with the specified workspaceId was not found
+         */
+        function is404() {}
+
+        return {...promise, is200, is400, is404};
     }
 
     return {

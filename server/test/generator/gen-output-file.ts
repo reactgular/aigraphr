@@ -1,6 +1,7 @@
 import {toCamelCase} from 'remeda';
 import {genAction} from './gen-action';
 import {Descriptor} from './gen-descriptors';
+import {genImportSdk} from './gen-import-sdk';
 import {genImportTypes} from './gen-import-types';
 
 export async function* genOutputFile(
@@ -10,6 +11,7 @@ export async function* genOutputFile(
     const name = toCamelCase(controller);
 
     yield '// THIS FILE IS AUTO-GENERATED. DO NOT EDIT.';
+    yield* genImportSdk(descriptors);
     yield* genImportTypes(descriptors);
     yield '';
     yield `export function ${name}() {`;
