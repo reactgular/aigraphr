@@ -1,4 +1,14 @@
-import * as React from 'react';
+import {NavMain} from '@/components/shadcn/nav-main';
+import {NavProjects} from '@/components/shadcn/nav-projects';
+import {NavUser} from '@/components/shadcn/nav-user';
+import {TeamSwitcher} from '@/components/shadcn/team-switcher';
+import {
+    Sidebar,
+    SidebarContent,
+    SidebarFooter,
+    SidebarHeader,
+    SidebarRail
+} from '@/components/shadcn/ui/sidebar';
 import {
     AudioWaveform,
     BookOpen,
@@ -11,18 +21,8 @@ import {
     Settings2,
     SquareTerminal
 } from 'lucide-react';
-
-import {NavMain} from '@/components/shadcn/nav-main';
-import {NavProjects} from '@/components/shadcn/nav-projects';
-import {NavUser} from '@/components/shadcn/nav-user';
-import {TeamSwitcher} from '@/components/shadcn/team-switcher';
-import {
-    Sidebar,
-    SidebarContent,
-    SidebarFooter,
-    SidebarHeader,
-    SidebarRail
-} from '@/components/shadcn/ui/sidebar';
+import * as React from 'react';
+import {ComponentProps, FC} from 'react';
 
 // This is sample data.
 const data = {
@@ -154,7 +154,7 @@ const data = {
     ]
 };
 
-export function AppSidebar({...props}: React.ComponentProps<typeof Sidebar>) {
+export const AppSidebar: FC<ComponentProps<typeof Sidebar>> = (props) => {
     return (
         <Sidebar collapsible="icon" {...props}>
             <SidebarHeader>
@@ -170,4 +170,4 @@ export function AppSidebar({...props}: React.ComponentProps<typeof Sidebar>) {
             <SidebarRail />
         </Sidebar>
     );
-}
+};
