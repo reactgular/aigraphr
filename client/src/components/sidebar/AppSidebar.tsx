@@ -3,14 +3,11 @@ import {
     SidebarContent,
     SidebarRail
 } from '@/components/shadcn/ui/sidebar';
-import {AppSideBarCTA} from '@/components/sidebar/AppSideBarCTA';
-import {AppSideBarData} from '@/components/sidebar/AppSideBarData';
 import {AppSideBarHeader} from '@/components/sidebar/AppSideBarHeader';
 import {
     AppSideBarMenu,
     AppSideBarMenuItem
 } from '@/components/sidebar/AppSideBarMenu';
-import {AppSideBarProject} from '@/components/sidebar/AppSideBarProject';
 import {ComponentProps, FC} from 'react';
 import {AiFillDashboard, AiOutlineDashboard} from 'react-icons/ai';
 
@@ -119,9 +116,6 @@ export const AppSidebar: FC<ComponentProps<typeof Sidebar>> = ({...props}) => {
                 <AppSideBarMenu items={menu1} />
                 <AppSideBarMenu label="Engage" items={menu2} />
                 <AppSideBarMenu label="Find & Manage" items={menu3} />
-                <AppSideBarCTA />
-                <AppSideBarProject />
-                <AppSideBarData />
             </SidebarContent>
             <SidebarRail />
         </Sidebar>
