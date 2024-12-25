@@ -1,6 +1,3 @@
-import * as React from 'react';
-import {ChevronsUpDown, Plus} from 'lucide-react';
-
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -16,18 +13,25 @@ import {
     SidebarMenuItem,
     useSidebar
 } from '@/components/shadcn/ui/sidebar';
+import {ChevronsUpDown, Plus} from 'lucide-react';
+import {ElementType, FC, useState} from 'react';
 
-export function TeamSwitcher({
-    teams
-}: {
-    teams: {
-        name: string;
-        logo: React.ElementType;
-        plan: string;
-    }[];
-}) {
+/**
+ * @deprecated will be replaced by ProjectDto
+ */
+export interface ProjectDesc {
+    logo: ElementType;
+
+    name: string;
+
+    plan: string;
+}
+
+export const ProjectSwitcher: FC<{
+    projects: ProjectDesc[];
+}> = ({projects}) => {
     const {isMobile} = useSidebar();
-    const [activeTeam, setActiveTeam] = React.useState(teams[0]);
+    const [activeTeam, setActiveTeam] = useState(projects[0]);
 
     return (
         <SidebarMenu>
@@ -59,9 +63,9 @@ export function TeamSwitcher({
                         sideOffset={4}
                     >
                         <DropdownMenuLabel className="text-xs text-muted-foreground">
-                            Teams
+                            Projects
                         </DropdownMenuLabel>
-                        {teams.map((team, index) => (
+                        {projects.map((team, index) => (
                             <DropdownMenuItem
                                 key={team.name}
                                 onClick={() => setActiveTeam(team)}
@@ -82,7 +86,7 @@ export function TeamSwitcher({
                                 <Plus className="size-4" />
                             </div>
                             <div className="font-medium text-muted-foreground">
-                                Add team
+                                Create Project
                             </div>
                         </DropdownMenuItem>
                     </DropdownMenuContent>
@@ -90,4 +94,4 @@ export function TeamSwitcher({
             </SidebarMenuItem>
         </SidebarMenu>
     );
-}
+};

@@ -1,7 +1,7 @@
+import {ProjectSwitcher} from '@/components/projects/ProjectSwitcher';
 import {NavMain} from '@/components/shadcn/nav-main';
 import {NavProjects} from '@/components/shadcn/nav-projects';
 import {NavUser} from '@/components/shadcn/nav-user';
-import {TeamSwitcher} from '@/components/shadcn/team-switcher';
 import {
     Sidebar,
     SidebarContent,
@@ -21,7 +21,6 @@ import {
     Settings2,
     SquareTerminal
 } from 'lucide-react';
-import * as React from 'react';
 import {ComponentProps, FC} from 'react';
 
 // This is sample data.
@@ -158,7 +157,7 @@ export const AppSidebar: FC<ComponentProps<typeof Sidebar>> = (props) => {
     return (
         <Sidebar collapsible="icon" {...props}>
             <SidebarHeader>
-                <TeamSwitcher teams={data.teams} />
+                <ProjectSwitcher projects={data.teams} />
             </SidebarHeader>
             <SidebarContent>
                 <NavMain items={data.navMain} />
