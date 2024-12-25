@@ -19,9 +19,14 @@ export const AppSideBarMenuItem: FC<AppSideBarMenuItemProps> = ({
 }) => {
     return (
         <SidebarMenuItem>
-            <SidebarMenuButton asChild>
+            <SidebarMenuButton
+                className="h-auto bg-primary/[10%] font-bold"
+                asChild
+            >
                 <Link to={activate}>
-                    <Inactive />
+                    <span>
+                        <Inactive className="text-primary" size={20} />
+                    </span>
                     {title}
                 </Link>
             </SidebarMenuButton>
