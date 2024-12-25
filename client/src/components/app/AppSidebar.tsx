@@ -17,7 +17,6 @@ import {
     SidebarRail
 } from '@/components/shadcn/ui/sidebar';
 import {ChevronRight, File, Folder} from 'lucide-react';
-import * as React from 'react';
 import {FC} from 'react';
 
 // This is sample data.
@@ -71,7 +70,7 @@ export const AppSidebar: FC<React.ComponentProps<typeof Sidebar>> = ({
         <Sidebar {...props}>
             <SidebarContent>
                 <SidebarGroup>
-                    <SidebarGroupLabel>Changes</SidebarGroupLabel>
+                    <SidebarGroupLabel>Engage</SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu>
                             {data.changes.map((item, index) => (
@@ -89,7 +88,7 @@ export const AppSidebar: FC<React.ComponentProps<typeof Sidebar>> = ({
                     </SidebarGroupContent>
                 </SidebarGroup>
                 <SidebarGroup>
-                    <SidebarGroupLabel>Files</SidebarGroupLabel>
+                    <SidebarGroupLabel>Find & Manage</SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu>
                             {data.tree.map((item, index) => (
