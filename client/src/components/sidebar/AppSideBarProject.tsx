@@ -33,6 +33,9 @@ const data = [
     }
 ];
 
+/**
+ * @deprecated
+ */
 export const AppSideBarProject: FC = () => {
     return (
         <SidebarGroup>

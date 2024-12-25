@@ -2,7 +2,6 @@ import {
     SidebarGroup,
     SidebarGroupContent,
     SidebarMenu,
-    SidebarMenuBadge,
     SidebarMenuButton,
     SidebarMenuItem
 } from '@/components/shadcn/ui/sidebar';
@@ -16,6 +15,9 @@ const data = [
     }
 ];
 
+/**
+ * @deprecated
+ */
 export const AppSideBarCTA: FC = () => {
     return (
         <SidebarGroup>
@@ -27,7 +29,6 @@ export const AppSideBarCTA: FC = () => {
                                 <File />
                                 {item.file}
                             </SidebarMenuButton>
-                            <SidebarMenuBadge>{item.state}</SidebarMenuBadge>
                         </SidebarMenuItem>
                     ))}
                 </SidebarMenu>

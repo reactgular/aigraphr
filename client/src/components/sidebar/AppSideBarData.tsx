@@ -21,6 +21,9 @@ const data = [
     }
 ];
 
+/**
+ * @deprecated
+ */
 export const AppSideBarData: FC = () => {
     return (
         <SidebarGroup>
