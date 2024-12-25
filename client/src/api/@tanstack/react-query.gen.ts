@@ -7,47 +7,93 @@ import {
     type DefaultError
 } from '@tanstack/react-query';
 import type {
-    ProjectsIndexData,
+    ProjectsPaginateData,
     ProjectsCreateData,
+    ProjectsCreateError,
     ProjectsCreateResponse,
     ProjectsRemoveData,
+    ProjectsRemoveResponse,
     ProjectsGetData,
     ProjectsUpdateData,
+    ProjectsUpdateError,
     ProjectsUpdateResponse,
-    AppRemoveData,
-    AppRemoveResponse,
-    AppGetHelloData,
-    AppPatchData,
-    AppPatchResponse,
-    AppCreateData,
-    AppCreateResponse,
-    AppPutData,
-    AppPutResponse,
-    WorkspacesIndexData,
+    ProjectsCreateValidateData,
+    ProjectsCreateValidateError,
+    ProjectsCreateValidateResponse,
+    ProjectsUpdateValidateData,
+    ProjectsUpdateValidateError,
+    ProjectsUpdateValidateResponse,
+    EdgesPaginateData,
+    EdgesCreateData,
+    EdgesCreateError,
+    EdgesCreateResponse,
+    EdgesRemoveData,
+    EdgesRemoveResponse,
+    EdgesGetData,
+    EdgesUpdateData,
+    EdgesUpdateError,
+    EdgesUpdateResponse,
+    NodesPaginateData,
+    NodesCreateData,
+    NodesCreateError,
+    NodesCreateResponse,
+    NodesRemoveData,
+    NodesRemoveResponse,
+    NodesGetData,
+    NodesUpdateData,
+    NodesUpdateError,
+    NodesUpdateResponse,
+    WorkspacesPaginateData,
     WorkspacesCreateData,
+    WorkspacesCreateError,
     WorkspacesCreateResponse,
     WorkspacesRemoveData,
+    WorkspacesRemoveResponse,
     WorkspacesGetData,
     WorkspacesUpdateData,
-    WorkspacesUpdateResponse
+    WorkspacesUpdateError,
+    WorkspacesUpdateResponse,
+    WorkspacesCreateValidateData,
+    WorkspacesCreateValidateError,
+    WorkspacesCreateValidateResponse,
+    WorkspacesUpdateValidateData,
+    WorkspacesUpdateValidateError,
+    WorkspacesUpdateValidateResponse,
+    SettingsGetData,
+    SettingsUpdateData,
+    SettingsUpdateResponse,
+    SettingsReplaceData,
+    SettingsReplaceResponse
 } from '../types.gen';
 import {
     client,
-    projectsIndex,
+    projectsPaginate,
     projectsCreate,
     projectsRemove,
     projectsGet,
     projectsUpdate,
-    appRemove,
-    appGetHello,
-    appPatch,
-    appCreate,
-    appPut,
-    workspacesIndex,
+    projectsCreateValidate,
+    projectsUpdateValidate,
+    edgesPaginate,
+    edgesCreate,
+    edgesRemove,
+    edgesGet,
+    edgesUpdate,
+    nodesPaginate,
+    nodesCreate,
+    nodesRemove,
+    nodesGet,
+    nodesUpdate,
+    workspacesPaginate,
     workspacesCreate,
     workspacesRemove,
     workspacesGet,
-    workspacesUpdate
+    workspacesUpdate,
+    workspacesCreateValidate,
+    workspacesUpdateValidate,
+    settingsGet,
+    settingsUpdate,
+    settingsReplace
 } from '../sdk.gen';
 
 type QueryKey<TOptions extends Options> = [
@@ -84,14 +130,16 @@ const createQueryKey = <TOptions extends Options>(
     return params;
 };
 
-export const projectsIndexQueryKey = (options?: Options<ProjectsIndexData>) => [
-    createQueryKey('projectsIndex', options)
-];
+export const projectsPaginateQueryKey = (
+    options?: Options<ProjectsPaginateData>
+) => [createQueryKey('projectsPaginate', options)];
 
-export const projectsIndexOptions = (options?: Options<ProjectsIndexData>) => {
+export const projectsPaginateOptions = (
+    options?: Options<ProjectsPaginateData>
+) => {
     return queryOptions({
         queryFn: async ({queryKey, signal}) => {
-            const {data} = await projectsIndex({
+            const {data} = await projectsPaginate({
                 ...options,
                 ...queryKey[0],
                 signal,
@@ -99,7 +147,7 @@ export const projectsIndexOptions = (options?: Options<ProjectsIndexData>) => {
             });
             return data;
         },
-        queryKey: projectsIndexQueryKey(options)
+        queryKey: projectsPaginateQueryKey(options)
     });
 };
 
@@ -127,7 +175,7 @@ export const projectsCreateMutation = (
 ) => {
     const mutationOptions: UseMutationOptions<
         ProjectsCreateResponse,
-        DefaultError,
+        ProjectsCreateError,
         Options<ProjectsCreateData>
     > = {
         mutationFn: async (localOptions) => {
@@ -146,7 +194,7 @@ export const projectsRemoveMutation = (
     options?: Partial<Options<ProjectsRemoveData>>
 ) => {
     const mutationOptions: UseMutationOptions<
-        unknown,
+        ProjectsRemoveResponse,
         DefaultError,
         Options<ProjectsRemoveData>
     > = {
@@ -186,7 +234,7 @@ export const projectsUpdateMutation = (
 ) => {
     const mutationOptions: UseMutationOptions<
         ProjectsUpdateResponse,
-        DefaultError,
+        ProjectsUpdateError,
         Options<ProjectsUpdateData>
     > = {
         mutationFn: async (localOptions) => {
@@ -201,34 +249,16 @@ export const projectsUpdateMutation = (
     return mutationOptions;
 };
 
-export const appRemoveMutation = (
-    options?: Partial<Options<AppRemoveData>>
+export const projectsCreateValidateQueryKey = (
+    options: Options<ProjectsCreateValidateData>
+) => [createQueryKey('projectsCreateValidate', options)];
+
+export const projectsCreateValidateOptions = (
+    options: Options<ProjectsCreateValidateData>
 ) => {
-    const mutationOptions: UseMutationOptions<
-        AppRemoveResponse,
-        DefaultError,
-        Options<AppRemoveData>
-    > = {
-        mutationFn: async (localOptions) => {
-            const {data} = await appRemove({
-                ...options,
-                ...localOptions,
-                throwOnError: true
-            });
-            return data;
-        }
-    };
-    return mutationOptions;
-};
-
-export const appGetHelloQueryKey = (options?: Options<AppGetHelloData>) => [
-    createQueryKey('appGetHello', options)
-];
-
-export const appGetHelloOptions = (options?: Options<AppGetHelloData>) => {
     return queryOptions({
         queryFn: async ({queryKey, signal}) => {
-            const {data} = await appGetHello({
+            const {data} = await projectsCreateValidate({
                 ...options,
                 ...queryKey[0],
                 signal,
@@ -236,18 +266,20 @@ export const appGetHelloOptions = (options?: Options<AppGetHelloData>) => {
             });
             return data;
         },
-        queryKey: appGetHelloQueryKey(options)
+        queryKey: projectsCreateValidateQueryKey(options)
     });
 };
 
-export const appPatchMutation = (options?: Partial<Options<AppPatchData>>) => {
+export const projectsCreateValidateMutation = (
+    options?: Partial<Options<ProjectsCreateValidateData>>
+) => {
     const mutationOptions: UseMutationOptions<
-        AppPatchResponse,
-        DefaultError,
-        Options<AppPatchData>
+        ProjectsCreateValidateResponse,
+        ProjectsCreateValidateError,
+        Options<ProjectsCreateValidateData>
     > = {
         mutationFn: async (localOptions) => {
-            const {data} = await appPatch({
+            const {data} = await projectsCreateValidate({
                 ...options,
                 ...localOptions,
                 throwOnError: true
@@ -258,14 +290,34 @@ export const appPatchMutation = (options?: Partial<Options<AppPatchData>>) => {
     return mutationOptions;
 };
 
-export const appCreateQueryKey = (options?: Options<AppCreateData>) => [
-    createQueryKey('appCreate', options)
+export const projectsUpdateValidateMutation = (
+    options?: Partial<Options<ProjectsUpdateValidateData>>
+) => {
+    const mutationOptions: UseMutationOptions<
+        ProjectsUpdateValidateResponse,
+        ProjectsUpdateValidateError,
+        Options<ProjectsUpdateValidateData>
+    > = {
+        mutationFn: async (localOptions) => {
+            const {data} = await projectsUpdateValidate({
+                ...options,
+                ...localOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const edgesPaginateQueryKey = (options: Options<EdgesPaginateData>) => [
+    createQueryKey('edgesPaginate', options)
 ];
 
-export const appCreateOptions = (options?: Options<AppCreateData>) => {
+export const edgesPaginateOptions = (options: Options<EdgesPaginateData>) => {
     return queryOptions({
         queryFn: async ({queryKey, signal}) => {
-            const {data} = await appCreate({
+            const {data} = await edgesPaginate({
                 ...options,
                 ...queryKey[0],
                 signal,
@@ -273,58 +325,18 @@ export const appCreateOptions = (options?: Options<AppCreateData>) => {
             });
             return data;
         },
-        queryKey: appCreateQueryKey(options)
+        queryKey: edgesPaginateQueryKey(options)
     });
 };
 
-export const appCreateMutation = (
-    options?: Partial<Options<AppCreateData>>
-) => {
-    const mutationOptions: UseMutationOptions<
-        AppCreateResponse,
-        DefaultError,
-        Options<AppCreateData>
-    > = {
-        mutationFn: async (localOptions) => {
-            const {data} = await appCreate({
-                ...options,
-                ...localOptions,
-                throwOnError: true
-            });
-            return data;
-        }
-    };
-    return mutationOptions;
-};
+export const edgesCreateQueryKey = (options: Options<EdgesCreateData>) => [
+    createQueryKey('edgesCreate', options)
+];
 
-export const appPutMutation = (options?: Partial<Options<AppPutData>>) => {
-    const mutationOptions: UseMutationOptions<
-        AppPutResponse,
-        DefaultError,
-        Options<AppPutData>
-    > = {
-        mutationFn: async (localOptions) => {
-            const {data} = await appPut({
-                ...options,
-                ...localOptions,
-                throwOnError: true
-            });
-            return data;
-        }
-    };
-    return mutationOptions;
-};
-
-export const workspacesIndexQueryKey = (
-    options?: Options<WorkspacesIndexData>
-) => [createQueryKey('workspacesIndex', options)];
-
-export const workspacesIndexOptions = (
-    options?: Options<WorkspacesIndexData>
-) => {
+export const edgesCreateOptions = (options: Options<EdgesCreateData>) => {
     return queryOptions({
         queryFn: async ({queryKey, signal}) => {
-            const {data} = await workspacesIndex({
+            const {data} = await edgesCreate({
                 ...options,
                 ...queryKey[0],
                 signal,
@@ -332,7 +344,224 @@ export const workspacesIndexOptions = (
             });
             return data;
         },
-        queryKey: workspacesIndexQueryKey(options)
+        queryKey: edgesCreateQueryKey(options)
+    });
+};
+
+export const edgesCreateMutation = (
+    options?: Partial<Options<EdgesCreateData>>
+) => {
+    const mutationOptions: UseMutationOptions<
+        EdgesCreateResponse,
+        EdgesCreateError,
+        Options<EdgesCreateData>
+    > = {
+        mutationFn: async (localOptions) => {
+            const {data} = await edgesCreate({
+                ...options,
+                ...localOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const edgesRemoveMutation = (
+    options?: Partial<Options<EdgesRemoveData>>
+) => {
+    const mutationOptions: UseMutationOptions<
+        EdgesRemoveResponse,
+        DefaultError,
+        Options<EdgesRemoveData>
+    > = {
+        mutationFn: async (localOptions) => {
+            const {data} = await edgesRemove({
+                ...options,
+                ...localOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const edgesGetQueryKey = (options: Options<EdgesGetData>) => [
+    createQueryKey('edgesGet', options)
+];
+
+export const edgesGetOptions = (options: Options<EdgesGetData>) => {
+    return queryOptions({
+        queryFn: async ({queryKey, signal}) => {
+            const {data} = await edgesGet({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: edgesGetQueryKey(options)
+    });
+};
+
+export const edgesUpdateMutation = (
+    options?: Partial<Options<EdgesUpdateData>>
+) => {
+    const mutationOptions: UseMutationOptions<
+        EdgesUpdateResponse,
+        EdgesUpdateError,
+        Options<EdgesUpdateData>
+    > = {
+        mutationFn: async (localOptions) => {
+            const {data} = await edgesUpdate({
+                ...options,
+                ...localOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const nodesPaginateQueryKey = (options: Options<NodesPaginateData>) => [
+    createQueryKey('nodesPaginate', options)
+];
+
+export const nodesPaginateOptions = (options: Options<NodesPaginateData>) => {
+    return queryOptions({
+        queryFn: async ({queryKey, signal}) => {
+            const {data} = await nodesPaginate({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: nodesPaginateQueryKey(options)
+    });
+};
+
+export const nodesCreateQueryKey = (options: Options<NodesCreateData>) => [
+    createQueryKey('nodesCreate', options)
+];
+
+export const nodesCreateOptions = (options: Options<NodesCreateData>) => {
+    return queryOptions({
+        queryFn: async ({queryKey, signal}) => {
+            const {data} = await nodesCreate({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: nodesCreateQueryKey(options)
+    });
+};
+
+export const nodesCreateMutation = (
+    options?: Partial<Options<NodesCreateData>>
+) => {
+    const mutationOptions: UseMutationOptions<
+        NodesCreateResponse,
+        NodesCreateError,
+        Options<NodesCreateData>
+    > = {
+        mutationFn: async (localOptions) => {
+            const {data} = await nodesCreate({
+                ...options,
+                ...localOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const nodesRemoveMutation = (
+    options?: Partial<Options<NodesRemoveData>>
+) => {
+    const mutationOptions: UseMutationOptions<
+        NodesRemoveResponse,
+        DefaultError,
+        Options<NodesRemoveData>
+    > = {
+        mutationFn: async (localOptions) => {
+            const {data} = await nodesRemove({
+                ...options,
+                ...localOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const nodesGetQueryKey = (options: Options<NodesGetData>) => [
+    createQueryKey('nodesGet', options)
+];
+
+export const nodesGetOptions = (options: Options<NodesGetData>) => {
+    return queryOptions({
+        queryFn: async ({queryKey, signal}) => {
+            const {data} = await nodesGet({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: nodesGetQueryKey(options)
+    });
+};
+
+export const nodesUpdateMutation = (
+    options?: Partial<Options<NodesUpdateData>>
+) => {
+    const mutationOptions: UseMutationOptions<
+        NodesUpdateResponse,
+        NodesUpdateError,
+        Options<NodesUpdateData>
+    > = {
+        mutationFn: async (localOptions) => {
+            const {data} = await nodesUpdate({
+                ...options,
+                ...localOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const workspacesPaginateQueryKey = (
+    options: Options<WorkspacesPaginateData>
+) => [createQueryKey('workspacesPaginate', options)];
+
+export const workspacesPaginateOptions = (
+    options: Options<WorkspacesPaginateData>
+) => {
+    return queryOptions({
+        queryFn: async ({queryKey, signal}) => {
+            const {data} = await workspacesPaginate({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: workspacesPaginateQueryKey(options)
     });
 };
 
@@ -362,7 +591,7 @@ export const workspacesCreateMutation = (
 ) => {
     const mutationOptions: UseMutationOptions<
         WorkspacesCreateResponse,
-        DefaultError,
+        WorkspacesCreateError,
         Options<WorkspacesCreateData>
     > = {
         mutationFn: async (localOptions) => {
@@ -381,7 +610,7 @@ export const workspacesRemoveMutation = (
     options?: Partial<Options<WorkspacesRemoveData>>
 ) => {
     const mutationOptions: UseMutationOptions<
-        unknown,
+        WorkspacesRemoveResponse,
         DefaultError,
         Options<WorkspacesRemoveData>
     > = {
@@ -421,11 +650,131 @@ export const workspacesUpdateMutation = (
 ) => {
     const mutationOptions: UseMutationOptions<
         WorkspacesUpdateResponse,
-        DefaultError,
+        WorkspacesUpdateError,
         Options<WorkspacesUpdateData>
     > = {
         mutationFn: async (localOptions) => {
             const {data} = await workspacesUpdate({
+                ...options,
+                ...localOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const workspacesCreateValidateQueryKey = (
+    options: Options<WorkspacesCreateValidateData>
+) => [createQueryKey('workspacesCreateValidate', options)];
+
+export const workspacesCreateValidateOptions = (
+    options: Options<WorkspacesCreateValidateData>
+) => {
+    return queryOptions({
+        queryFn: async ({queryKey, signal}) => {
+            const {data} = await workspacesCreateValidate({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: workspacesCreateValidateQueryKey(options)
+    });
+};
+
+export const workspacesCreateValidateMutation = (
+    options?: Partial<Options<WorkspacesCreateValidateData>>
+) => {
+    const mutationOptions: UseMutationOptions<
+        WorkspacesCreateValidateResponse,
+        WorkspacesCreateValidateError,
+        Options<WorkspacesCreateValidateData>
+    > = {
+        mutationFn: async (localOptions) => {
+            const {data} = await workspacesCreateValidate({
+                ...options,
+                ...localOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const workspacesUpdateValidateMutation = (
+    options?: Partial<Options<WorkspacesUpdateValidateData>>
+) => {
+    const mutationOptions: UseMutationOptions<
+        WorkspacesUpdateValidateResponse,
+        WorkspacesUpdateValidateError,
+        Options<WorkspacesUpdateValidateData>
+    > = {
+        mutationFn: async (localOptions) => {
+            const {data} = await workspacesUpdateValidate({
+                ...options,
+                ...localOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const settingsGetQueryKey = (options?: Options<SettingsGetData>) => [
+    createQueryKey('settingsGet', options)
+];
+
+export const settingsGetOptions = (options?: Options<SettingsGetData>) => {
+    return queryOptions({
+        queryFn: async ({queryKey, signal}) => {
+            const {data} = await settingsGet({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: settingsGetQueryKey(options)
+    });
+};
+
+export const settingsUpdateMutation = (
+    options?: Partial<Options<SettingsUpdateData>>
+) => {
+    const mutationOptions: UseMutationOptions<
+        SettingsUpdateResponse,
+        DefaultError,
+        Options<SettingsUpdateData>
+    > = {
+        mutationFn: async (localOptions) => {
+            const {data} = await settingsUpdate({
+                ...options,
+                ...localOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const settingsReplaceMutation = (
+    options?: Partial<Options<SettingsReplaceData>>
+) => {
+    const mutationOptions: UseMutationOptions<
+        SettingsReplaceResponse,
+        DefaultError,
+        Options<SettingsReplaceData>
+    > = {
+        mutationFn: async (localOptions) => {
+            const {data} = await settingsReplace({
                 ...options,
                 ...localOptions,
                 throwOnError: true

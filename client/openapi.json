@@ -1,7 +1,7 @@
 {
     "openapi": "3.0.0",
     "paths": {
-        "/projects": {
+        "/api/projects": {
             "post": {
                 "operationId": "Projects_create",
                 "parameters": [],
@@ -17,7 +17,60 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "Bug, can't disable 200 response from custom decorator"
+                    },
+                    "201": {
+                        "description": "Return a new Project",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProjectDto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "TypeORM related errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScaExceptionFilterDto"
+                                },
+                                "example": {
+                                    "statusCode": 400,
+                                    "message": "property should not be empty",
+                                    "path": "/api/v1/users"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "TypeORM related constraint errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScaExceptionFilterDto"
+                                },
+                                "example": {
+                                    "statusCode": 409,
+                                    "message": "duplicate key value violates unique constraint",
+                                    "path": "/api/v1/users"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Create a new Project",
+                "tags": [
+                    "Projects"
+                ]
+            },
+            "get": {
+                "operationId": "Projects_paginate",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Return a list of Project",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -27,43 +80,57 @@
                         }
                     }
                 },
-                "summary": "Create a new ProjectCreate.",
+                "summary": "Paginate Project",
                 "tags": [
                     "Projects"
                 ]
-            },
-            "get": {
-                "operationId": "Projects_index",
-                "parameters": [],
+            }
+        },
+        "/api/projects/{projectId}": {
+            "delete": {
+                "operationId": "Projects_remove",
+                "parameters": [
+                    {
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a Project",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/ProjectDto"
-                                    }
+                                    "type": "object"
                                 }
                             }
                         }
+                    },
+                    "204": {
+                        "description": "The Project has been deleted"
+                    },
+                    "404": {
+                        "description": "A Project with the specified projectId was not found"
                     }
                 },
-                "summary": "List all Project",
+                "summary": "Delete a Project by projectId",
                 "tags": [
                     "Projects"
                 ]
-            }
-        },
-        "/projects/{id}": {
+            },
             "patch": {
                 "operationId": "Projects_update",
                 "parameters": [
                     {
-                        "name": "id",
+                        "name": "projectId",
                         "required": true,
                         "in": "path",
+                        "description": "The ID of a Project",
                         "schema": {
                             "type": "number"
                         }
@@ -81,7 +148,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "Return a Project by projectId",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -89,34 +156,42 @@
                                 }
                             }
                         }
-                    }
-                },
-                "summary": "Updates a ProjectUpdate.",
-                "tags": [
-                    "Projects"
-                ]
-            },
-            "delete": {
-                "operationId": "Projects_remove",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "required": true,
-                        "in": "path",
-                        "schema": {
-                            "type": "number"
+                    },
+                    "400": {
+                        "description": "TypeORM related errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScaExceptionFilterDto"
+                                },
+                                "example": {
+                                    "statusCode": 400,
+                                    "message": "property should not be empty",
+                                    "path": "/api/v1/users"
+                                }
+                            }
                         }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": ""
                     },
                     "404": {
-                        "description": "Project not found"
+                        "description": "A Project with the specified projectId was not found"
+                    },
+                    "409": {
+                        "description": "TypeORM related constraint errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScaExceptionFilterDto"
+                                },
+                                "example": {
+                                    "statusCode": 409,
+                                    "message": "duplicate key value violates unique constraint",
+                                    "path": "/api/v1/users"
+                                }
+                            }
+                        }
                     }
                 },
-                "summary": "Delete Project by ID",
+                "summary": "Update a Project by projectId",
                 "tags": [
                     "Projects"
                 ]
@@ -125,9 +200,10 @@
                 "operationId": "Projects_get",
                 "parameters": [
                     {
-                        "name": "id",
+                        "name": "projectId",
                         "required": true,
                         "in": "path",
+                        "description": "The ID of a Project",
                         "schema": {
                             "type": "number"
                         }
@@ -135,7 +211,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "Return a Project by projectId",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -143,115 +219,760 @@
                                 }
                             }
                         }
+                    },
+                    "404": {
+                        "description": "A Project with the specified projectId was not found"
                     }
                 },
-                "summary": "Get Project by ID",
+                "summary": "Get Project by projectId",
                 "tags": [
                     "Projects"
                 ]
             }
         },
-        "/": {
-            "get": {
-                "operationId": "App_getHello",
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "App"
-                ]
-            },
+        "/api/projects/validates": {
             "post": {
-                "operationId": "App_create",
+                "operationId": "Projects_createValidate",
                 "parameters": [],
-                "responses": {
-                    "201": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string"
-                                }
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProjectCreateDto"
                             }
                         }
                     }
                 },
-                "tags": [
-                    "App"
-                ]
-            },
-            "delete": {
-                "operationId": "App_remove",
-                "parameters": [],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "Validation results of ProjectCreate",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
+                                    "$ref": "#/components/schemas/ScaValidationResponseDto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request body",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScaExceptionFilterDto"
+                                },
+                                "example": {
+                                    "statusCode": 400,
+                                    "message": "property should not be empty",
+                                    "path": "/api/v1/users"
                                 }
                             }
                         }
                     }
                 },
+                "summary": "Validates creation of a ProjectCreate",
                 "tags": [
-                    "App"
-                ]
-            },
-            "patch": {
-                "operationId": "App_patch",
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "App"
-                ]
-            },
-            "put": {
-                "operationId": "App_put",
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "App"
+                    "Projects"
                 ]
             }
         },
-        "/projects/{projectId}/workspaces": {
+        "/api/projects/{projectId}/validates": {
+            "patch": {
+                "operationId": "Projects_updateValidate",
+                "parameters": [
+                    {
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a ProjectUpdate",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProjectUpdateDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Validation results of ProjectUpdate",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScaValidationResponseDto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request body",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScaExceptionFilterDto"
+                                },
+                                "example": {
+                                    "statusCode": 400,
+                                    "message": "property should not be empty",
+                                    "path": "/api/v1/users"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "A ProjectUpdate with the specified projectId was not found"
+                    }
+                },
+                "summary": "Validates updating a ProjectUpdate by projectId",
+                "tags": [
+                    "Projects"
+                ]
+            }
+        },
+        "/api/projects/{projectId}/workspaces/{workspaceId}/edges": {
+            "post": {
+                "operationId": "Edges_create",
+                "parameters": [
+                    {
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a project",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "workspaceId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a workspace",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/EdgeCreateDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Bug, can't disable 200 response from custom decorator"
+                    },
+                    "201": {
+                        "description": "Return a new Edge",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EdgeDto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "TypeORM related errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScaExceptionFilterDto"
+                                },
+                                "example": {
+                                    "statusCode": 400,
+                                    "message": "property should not be empty",
+                                    "path": "/api/v1/users"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "TypeORM related constraint errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScaExceptionFilterDto"
+                                },
+                                "example": {
+                                    "statusCode": 409,
+                                    "message": "duplicate key value violates unique constraint",
+                                    "path": "/api/v1/users"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Create a new Edge",
+                "tags": [
+                    "Edges"
+                ]
+            },
+            "get": {
+                "operationId": "Edges_paginate",
+                "parameters": [
+                    {
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a project",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "workspaceId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a workspace",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return a list of Edge",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EdgeDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Paginate Edge",
+                "tags": [
+                    "Edges"
+                ]
+            }
+        },
+        "/api/projects/{projectId}/workspaces/{workspaceId}/edges/{edgeId}": {
+            "patch": {
+                "operationId": "Edges_update",
+                "parameters": [
+                    {
+                        "name": "edgeId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a Edge",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a project",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "workspaceId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a workspace",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/EdgeUpdateDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Return a Edge by edgeId",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EdgeDto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "TypeORM related errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScaExceptionFilterDto"
+                                },
+                                "example": {
+                                    "statusCode": 400,
+                                    "message": "property should not be empty",
+                                    "path": "/api/v1/users"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "A Edge with the specified edgeId was not found"
+                    },
+                    "409": {
+                        "description": "TypeORM related constraint errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScaExceptionFilterDto"
+                                },
+                                "example": {
+                                    "statusCode": 409,
+                                    "message": "duplicate key value violates unique constraint",
+                                    "path": "/api/v1/users"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Update a Edge by edgeId",
+                "tags": [
+                    "Edges"
+                ]
+            },
+            "delete": {
+                "operationId": "Edges_remove",
+                "parameters": [
+                    {
+                        "name": "edgeId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a Edge",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a project",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "workspaceId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a workspace",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "The Edge has been deleted"
+                    },
+                    "404": {
+                        "description": "A Edge with the specified edgeId was not found"
+                    }
+                },
+                "summary": "Delete a Edge by edgeId",
+                "tags": [
+                    "Edges"
+                ]
+            },
+            "get": {
+                "operationId": "Edges_get",
+                "parameters": [
+                    {
+                        "name": "edgeId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a Edge",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a project",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "workspaceId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a workspace",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return a Edge by edgeId",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EdgeDto"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "A Edge with the specified edgeId was not found"
+                    }
+                },
+                "summary": "Get Edge by edgeId",
+                "tags": [
+                    "Edges"
+                ]
+            }
+        },
+        "/api/projects/{projectId}/workspaces/{workspaceId}/nodes": {
+            "post": {
+                "operationId": "Nodes_create",
+                "parameters": [
+                    {
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a project",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "workspaceId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a workspace",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/NodeCreateDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Bug, can't disable 200 response from custom decorator"
+                    },
+                    "201": {
+                        "description": "Return a new Node",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NodeDto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "TypeORM related errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScaExceptionFilterDto"
+                                },
+                                "example": {
+                                    "statusCode": 400,
+                                    "message": "property should not be empty",
+                                    "path": "/api/v1/users"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "TypeORM related constraint errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScaExceptionFilterDto"
+                                },
+                                "example": {
+                                    "statusCode": 409,
+                                    "message": "duplicate key value violates unique constraint",
+                                    "path": "/api/v1/users"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Create a new Node",
+                "tags": [
+                    "Nodes"
+                ]
+            },
+            "get": {
+                "operationId": "Nodes_paginate",
+                "parameters": [
+                    {
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a project",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "workspaceId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a workspace",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return a list of Node",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NodeDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Paginate Node",
+                "tags": [
+                    "Nodes"
+                ]
+            }
+        },
+        "/api/projects/{projectId}/workspaces/{workspaceId}/nodes/{nodeId}": {
+            "patch": {
+                "operationId": "Nodes_update",
+                "parameters": [
+                    {
+                        "name": "nodeId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a Node",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a project",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "workspaceId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a workspace",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/NodeUpdateDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Return a Node by nodeId",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NodeDto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "TypeORM related errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScaExceptionFilterDto"
+                                },
+                                "example": {
+                                    "statusCode": 400,
+                                    "message": "property should not be empty",
+                                    "path": "/api/v1/users"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "A Node with the specified nodeId was not found"
+                    },
+                    "409": {
+                        "description": "TypeORM related constraint errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScaExceptionFilterDto"
+                                },
+                                "example": {
+                                    "statusCode": 409,
+                                    "message": "duplicate key value violates unique constraint",
+                                    "path": "/api/v1/users"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Update a Node by nodeId",
+                "tags": [
+                    "Nodes"
+                ]
+            },
+            "delete": {
+                "operationId": "Nodes_remove",
+                "parameters": [
+                    {
+                        "name": "nodeId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a Node",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a project",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "workspaceId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a workspace",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "The Node has been deleted"
+                    },
+                    "404": {
+                        "description": "A Node with the specified nodeId was not found"
+                    }
+                },
+                "summary": "Delete a Node by nodeId",
+                "tags": [
+                    "Nodes"
+                ]
+            },
+            "get": {
+                "operationId": "Nodes_get",
+                "parameters": [
+                    {
+                        "name": "nodeId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a Node",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a project",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "workspaceId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a workspace",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return a Node by nodeId",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NodeDto"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "A Node with the specified nodeId was not found"
+                    }
+                },
+                "summary": "Get Node by nodeId",
+                "tags": [
+                    "Nodes"
+                ]
+            }
+        },
+        "/api/projects/{projectId}/workspaces": {
             "post": {
                 "operationId": "Workspaces_create",
-                "parameters": [],
+                "parameters": [
+                    {
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a project",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -264,7 +985,70 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "Bug, can't disable 200 response from custom decorator"
+                    },
+                    "201": {
+                        "description": "Return a new Workspace",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WorkspaceDto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "TypeORM related errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScaExceptionFilterDto"
+                                },
+                                "example": {
+                                    "statusCode": 400,
+                                    "message": "property should not be empty",
+                                    "path": "/api/v1/users"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "TypeORM related constraint errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScaExceptionFilterDto"
+                                },
+                                "example": {
+                                    "statusCode": 409,
+                                    "message": "duplicate key value violates unique constraint",
+                                    "path": "/api/v1/users"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Create a new Workspace",
+                "tags": [
+                    "Workspaces"
+                ]
+            },
+            "get": {
+                "operationId": "Workspaces_paginate",
+                "parameters": [
+                    {
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a project",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return a list of Workspace",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -274,43 +1058,30 @@
                         }
                     }
                 },
-                "summary": "Create a new WorkspaceCreate.",
-                "tags": [
-                    "Workspaces"
-                ]
-            },
-            "get": {
-                "operationId": "Workspaces_index",
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/WorkspaceDto"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "summary": "List all Workspace",
+                "summary": "Paginate Workspace",
                 "tags": [
                     "Workspaces"
                 ]
             }
         },
-        "/projects/{projectId}/workspaces/{id}": {
+        "/api/projects/{projectId}/workspaces/{workspaceId}": {
             "patch": {
                 "operationId": "Workspaces_update",
                 "parameters": [
                     {
-                        "name": "id",
+                        "name": "workspaceId",
                         "required": true,
                         "in": "path",
+                        "description": "The ID of a Workspace",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a project",
                         "schema": {
                             "type": "number"
                         }
@@ -328,7 +1099,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "Return a Workspace by workspaceId",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -336,9 +1107,42 @@
                                 }
                             }
                         }
+                    },
+                    "400": {
+                        "description": "TypeORM related errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScaExceptionFilterDto"
+                                },
+                                "example": {
+                                    "statusCode": 400,
+                                    "message": "property should not be empty",
+                                    "path": "/api/v1/users"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "A Workspace with the specified workspaceId was not found"
+                    },
+                    "409": {
+                        "description": "TypeORM related constraint errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScaExceptionFilterDto"
+                                },
+                                "example": {
+                                    "statusCode": 409,
+                                    "message": "duplicate key value violates unique constraint",
+                                    "path": "/api/v1/users"
+                                }
+                            }
+                        }
                     }
                 },
-                "summary": "Updates a WorkspaceUpdate.",
+                "summary": "Update a Workspace by workspaceId",
                 "tags": [
                     "Workspaces"
                 ]
@@ -347,23 +1151,33 @@
                 "operationId": "Workspaces_remove",
                 "parameters": [
                     {
-                        "name": "id",
+                        "name": "workspaceId",
                         "required": true,
                         "in": "path",
+                        "description": "The ID of a Workspace",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a project",
                         "schema": {
                             "type": "number"
                         }
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": ""
+                    "204": {
+                        "description": "The Workspace has been deleted"
                     },
                     "404": {
-                        "description": "Workspace not found"
+                        "description": "A Workspace with the specified workspaceId was not found"
                     }
                 },
-                "summary": "Delete Workspace by ID",
+                "summary": "Delete a Workspace by workspaceId",
                 "tags": [
                     "Workspaces"
                 ]
@@ -372,9 +1186,19 @@
                 "operationId": "Workspaces_get",
                 "parameters": [
                     {
-                        "name": "id",
+                        "name": "workspaceId",
                         "required": true,
                         "in": "path",
+                        "description": "The ID of a Workspace",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "projectId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a project",
                         "schema": {
                             "type": "number"
                         }
@@ -382,7 +1206,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "Return a Workspace by workspaceId",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -390,11 +1214,203 @@
                                 }
                             }
                         }
+                    },
+                    "404": {
+                        "description": "A Workspace with the specified workspaceId was not found"
                     }
                 },
-                "summary": "Get Workspace by ID",
+                "summary": "Get Workspace by workspaceId",
                 "tags": [
                     "Workspaces"
+                ]
+            }
+        },
+        "/api/projects/{projectId}/workspaces/validates": {
+            "post": {
+                "operationId": "Workspaces_createValidate",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/WorkspaceCreateDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Validation results of WorkspaceCreate",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScaValidationResponseDto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request body",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScaExceptionFilterDto"
+                                },
+                                "example": {
+                                    "statusCode": 400,
+                                    "message": "property should not be empty",
+                                    "path": "/api/v1/users"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Validates creation of a WorkspaceCreate",
+                "tags": [
+                    "Workspaces"
+                ]
+            }
+        },
+        "/api/projects/{projectId}/workspaces/{workspaceId}/validates": {
+            "patch": {
+                "operationId": "Workspaces_updateValidate",
+                "parameters": [
+                    {
+                        "name": "workspaceId",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a WorkspaceUpdate",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/WorkspaceUpdateDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Validation results of WorkspaceUpdate",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScaValidationResponseDto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request body",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScaExceptionFilterDto"
+                                },
+                                "example": {
+                                    "statusCode": 400,
+                                    "message": "property should not be empty",
+                                    "path": "/api/v1/users"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "A WorkspaceUpdate with the specified workspaceId was not found"
+                    }
+                },
+                "summary": "Validates updating a WorkspaceUpdate by workspaceId",
+                "tags": [
+                    "Workspaces"
+                ]
+            }
+        },
+        "/api/app/settings": {
+            "get": {
+                "operationId": "Settings_get",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SettingDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Get App settings",
+                "tags": [
+                    "App"
+                ]
+            },
+            "put": {
+                "operationId": "Settings_replace",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SettingDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SettingDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Replace App settings",
+                "tags": [
+                    "App"
+                ]
+            },
+            "patch": {
+                "operationId": "Settings_update",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SettingDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SettingDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Update App settings",
+                "tags": [
+                    "App"
                 ]
             }
         }
@@ -424,13 +1440,14 @@
                         "description": "The name of the project (alphanumeric)",
                         "example": "example-project"
                     },
-                    "test": {
-                        "type": "string"
+                    "cloneId": {
+                        "type": "number",
+                        "description": "The ID of the project to clone",
+                        "example": 1234
                     }
                 },
                 "required": [
-                    "name",
-                    "test"
+                    "name"
                 ]
             },
             "ProjectDto": {
@@ -438,7 +1455,7 @@
                 "properties": {
                     "id": {
                         "type": "number",
-                        "example": 1234
+                        "example": 1
                     },
                     "name": {
                         "type": "string",
@@ -448,16 +1465,52 @@
                     "open": {
                         "type": "boolean",
                         "description": "The open status of the project"
-                    },
-                    "test": {
-                        "type": "string"
                     }
                 },
                 "required": [
                     "id",
                     "name",
-                    "open",
-                    "test"
+                    "open"
+                ]
+            },
+            "ScaExceptionFilterDto": {
+                "type": "object",
+                "properties": {
+                    "cause": {
+                        "type": "object",
+                        "description": "Extra information about the error."
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "The error message.",
+                        "example": "Bad Request"
+                    },
+                    "path": {
+                        "type": "string",
+                        "description": "The path of the request that caused the error.",
+                        "example": "/api/v1/users"
+                    },
+                    "stack": {
+                        "description": "The stack trace of the error.",
+                        "example": [
+                            "Error: Bad Request",
+                            "    at ..."
+                        ],
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "statusCode": {
+                        "type": "number",
+                        "description": "The HTTP status code of the error.",
+                        "example": 400
+                    }
+                },
+                "required": [
+                    "message",
+                    "path",
+                    "statusCode"
                 ]
             },
             "ProjectUpdateDto": {
@@ -471,27 +1524,596 @@
                     "open": {
                         "type": "boolean",
                         "description": "The open status of the project"
+                    }
+                }
+            },
+            "ScaFieldValidationDto": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "enum": [
+                            "not_found",
+                            "not_unique",
+                            "format",
+                            "bad_value",
+                            "invalid",
+                            "required"
+                        ],
+                        "type": "string",
+                        "description": "The code of the validation.",
+                        "example": "format"
                     },
-                    "test": {
-                        "type": "string"
+                    "message": {
+                        "type": "string",
+                        "description": "A message providing additional details about the validation.",
+                        "example": "The email is not valid."
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the field being validated."
+                    }
+                },
+                "required": [
+                    "code",
+                    "message",
+                    "name"
+                ]
+            },
+            "ScaValidationResponseDto": {
+                "type": "object",
+                "properties": {
+                    "fields": {
+                        "type": "array",
+                        "description": "The list of fields that failed validation.",
+                        "example": [
+                            "name",
+                            "email"
+                        ],
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "invalidations": {
+                        "type": "object",
+                        "description": "Validation results for each field.",
+                        "example": {
+                            "name": {
+                                "name": "name",
+                                "message": "The name is already taken."
+                            },
+                            "email": {
+                                "name": "email",
+                                "message": "The email is not valid."
+                            }
+                        },
+                        "additionalProperties": {
+                            "type": "object",
+                            "$ref": "#/components/schemas/ScaFieldValidationDto"
+                        }
+                    },
+                    "valid": {
+                        "type": "boolean",
+                        "description": "Whether the validation was successful.",
+                        "example": false
+                    }
+                },
+                "required": [
+                    "fields",
+                    "invalidations",
+                    "valid"
+                ]
+            },
+            "WorkspaceEntity": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number",
+                        "example": 1
+                    },
+                    "description": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "Description of the workspace"
+                    },
+                    "edges": {
+                        "description": "The edges of the workspace that connect nodes",
+                        "example": [
+                            {
+                                "id": 1,
+                                "workspaceId": 1
+                            }
+                        ],
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/EdgeEntity"
+                            }
+                        ]
+                    },
+                    "engine": {
+                        "enum": [
+                            "javascript",
+                            "python"
+                        ],
+                        "type": "string",
+                        "description": "The engine of the workspace"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the workspace",
+                        "example": "main"
+                    },
+                    "nodes": {
+                        "description": "The nodes of the workspace",
+                        "example": [
+                            {
+                                "id": 1,
+                                "workspaceId": 1
+                            }
+                        ],
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/NodeEntity"
+                            }
+                        ]
+                    }
+                },
+                "description": "Workspaces are the top level of the project hierarchy, and contain the nodes that make up an executable graph.",
+                "required": [
+                    "id",
+                    "engine",
+                    "name"
+                ]
+            },
+            "EdgeEntity": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number",
+                        "example": 1
+                    },
+                    "inputNode": {
+                        "description": "The node that the edge connects to as an input",
+                        "example": {
+                            "id": 1,
+                            "workspaceId": 1,
+                            "inputEdges": [],
+                            "outputEdges": []
+                        },
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/NodeEntity"
+                            }
+                        ]
+                    },
+                    "inputNodeId": {
+                        "type": "number",
+                        "description": "The ID of the node that the edge connects to as an input",
+                        "example": 1
+                    },
+                    "outputNode": {
+                        "description": "The node that the edge connects to as an output",
+                        "example": {
+                            "id": 1,
+                            "workspaceId": 1,
+                            "inputEdges": [],
+                            "outputEdges": []
+                        },
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/NodeEntity"
+                            }
+                        ]
+                    },
+                    "outputNodeId": {
+                        "type": "number",
+                        "description": "The ID of the node that the edge connects to as an output",
+                        "example": 1
+                    },
+                    "workspace": {
+                        "description": "The workspace of the edge",
+                        "example": {
+                            "id": 1
+                        },
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/WorkspaceEntity"
+                            }
+                        ]
+                    }
+                },
+                "description": "Edges connect nodes in a workspace. They are used to define the flow of data between nodes.",
+                "required": [
+                    "id",
+                    "inputNodeId",
+                    "outputNodeId"
+                ]
+            },
+            "NodeEntity": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number",
+                        "example": 1
+                    },
+                    "inputEdges": {
+                        "description": "The edges that connect to the node as inputs",
+                        "example": {
+                            "id": 1,
+                            "inputNodeId": 1,
+                            "outputNodeId": 1
+                        },
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/EdgeEntity"
+                            }
+                        ]
+                    },
+                    "outputEdges": {
+                        "description": "The edges that connect to the node as outputs",
+                        "example": {
+                            "id": 1,
+                            "inputNodeId": 1,
+                            "outputNodeId": 1
+                        },
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/EdgeEntity"
+                            }
+                        ]
+                    },
+                    "workspace": {
+                        "description": "The workspace of the node",
+                        "example": {
+                            "id": 1
+                        },
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/WorkspaceEntity"
+                            }
+                        ]
+                    },
+                    "workspaceId": {
+                        "type": "number",
+                        "description": "The ID of the workspace of the node",
+                        "example": 1
+                    }
+                },
+                "description": "Nodes store the run-time data needed by Node Instances to run. They are connected by Edges to form a graph.",
+                "required": [
+                    "id",
+                    "workspaceId"
+                ]
+            },
+            "EdgeCreateDto": {
+                "type": "object",
+                "properties": {
+                    "inputNode": {
+                        "description": "The node that the edge connects to as an input",
+                        "example": {
+                            "id": 1,
+                            "workspaceId": 1,
+                            "inputEdges": [],
+                            "outputEdges": []
+                        },
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/NodeEntity"
+                            }
+                        ]
+                    },
+                    "inputNodeId": {
+                        "type": "number",
+                        "description": "The ID of the node that the edge connects to as an input",
+                        "example": 1
+                    },
+                    "outputNode": {
+                        "description": "The node that the edge connects to as an output",
+                        "example": {
+                            "id": 1,
+                            "workspaceId": 1,
+                            "inputEdges": [],
+                            "outputEdges": []
+                        },
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/NodeEntity"
+                            }
+                        ]
+                    },
+                    "outputNodeId": {
+                        "type": "number",
+                        "description": "The ID of the node that the edge connects to as an output",
+                        "example": 1
+                    },
+                    "workspace": {
+                        "description": "The workspace of the edge",
+                        "example": {
+                            "id": 1
+                        },
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/WorkspaceEntity"
+                            }
+                        ]
+                    }
+                },
+                "required": [
+                    "inputNodeId",
+                    "outputNodeId"
+                ]
+            },
+            "EdgeDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number",
+                        "example": 1
+                    },
+                    "inputNode": {
+                        "description": "The node that the edge connects to as an input",
+                        "example": {
+                            "id": 1,
+                            "workspaceId": 1,
+                            "inputEdges": [],
+                            "outputEdges": []
+                        },
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/NodeEntity"
+                            }
+                        ]
+                    },
+                    "inputNodeId": {
+                        "type": "number",
+                        "description": "The ID of the node that the edge connects to as an input",
+                        "example": 1
+                    },
+                    "outputNode": {
+                        "description": "The node that the edge connects to as an output",
+                        "example": {
+                            "id": 1,
+                            "workspaceId": 1,
+                            "inputEdges": [],
+                            "outputEdges": []
+                        },
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/NodeEntity"
+                            }
+                        ]
+                    },
+                    "outputNodeId": {
+                        "type": "number",
+                        "description": "The ID of the node that the edge connects to as an output",
+                        "example": 1
+                    },
+                    "workspace": {
+                        "description": "The workspace of the edge",
+                        "example": {
+                            "id": 1
+                        },
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/WorkspaceEntity"
+                            }
+                        ]
+                    }
+                },
+                "required": [
+                    "id",
+                    "inputNodeId",
+                    "outputNodeId"
+                ]
+            },
+            "EdgeUpdateDto": {
+                "type": "object",
+                "properties": {
+                    "inputNode": {
+                        "description": "The node that the edge connects to as an input",
+                        "example": {
+                            "id": 1,
+                            "workspaceId": 1,
+                            "inputEdges": [],
+                            "outputEdges": []
+                        },
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/NodeEntity"
+                            }
+                        ]
+                    },
+                    "inputNodeId": {
+                        "type": "number",
+                        "description": "The ID of the node that the edge connects to as an input",
+                        "example": 1
+                    },
+                    "outputNode": {
+                        "description": "The node that the edge connects to as an output",
+                        "example": {
+                            "id": 1,
+                            "workspaceId": 1,
+                            "inputEdges": [],
+                            "outputEdges": []
+                        },
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/NodeEntity"
+                            }
+                        ]
+                    },
+                    "outputNodeId": {
+                        "type": "number",
+                        "description": "The ID of the node that the edge connects to as an output",
+                        "example": 1
+                    },
+                    "workspace": {
+                        "description": "The workspace of the edge",
+                        "example": {
+                            "id": 1
+                        },
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/WorkspaceEntity"
+                            }
+                        ]
+                    }
+                }
+            },
+            "NodeCreateDto": {
+                "type": "object",
+                "properties": {
+                    "inputEdges": {
+                        "description": "The edges that connect to the node as inputs",
+                        "example": {
+                            "id": 1,
+                            "inputNodeId": 1,
+                            "outputNodeId": 1
+                        },
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/EdgeEntity"
+                            }
+                        ]
+                    },
+                    "outputEdges": {
+                        "description": "The edges that connect to the node as outputs",
+                        "example": {
+                            "id": 1,
+                            "inputNodeId": 1,
+                            "outputNodeId": 1
+                        },
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/EdgeEntity"
+                            }
+                        ]
+                    },
+                    "workspaceId": {
+                        "type": "number",
+                        "description": "The ID of the workspace of the node",
+                        "example": 1
+                    }
+                },
+                "required": [
+                    "workspaceId"
+                ]
+            },
+            "NodeDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number",
+                        "example": 1
+                    },
+                    "inputEdges": {
+                        "description": "The edges that connect to the node as inputs",
+                        "example": {
+                            "id": 1,
+                            "inputNodeId": 1,
+                            "outputNodeId": 1
+                        },
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/EdgeEntity"
+                            }
+                        ]
+                    },
+                    "outputEdges": {
+                        "description": "The edges that connect to the node as outputs",
+                        "example": {
+                            "id": 1,
+                            "inputNodeId": 1,
+                            "outputNodeId": 1
+                        },
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/EdgeEntity"
+                            }
+                        ]
+                    },
+                    "workspace": {
+                        "description": "The workspace of the node",
+                        "example": {
+                            "id": 1
+                        },
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/WorkspaceEntity"
+                            }
+                        ]
+                    },
+                    "workspaceId": {
+                        "type": "number",
+                        "description": "The ID of the workspace of the node",
+                        "example": 1
+                    }
+                },
+                "required": [
+                    "id",
+                    "workspaceId"
+                ]
+            },
+            "NodeUpdateDto": {
+                "type": "object",
+                "properties": {
+                    "inputEdges": {
+                        "description": "The edges that connect to the node as inputs",
+                        "example": {
+                            "id": 1,
+                            "inputNodeId": 1,
+                            "outputNodeId": 1
+                        },
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/EdgeEntity"
+                            }
+                        ]
+                    },
+                    "outputEdges": {
+                        "description": "The edges that connect to the node as outputs",
+                        "example": {
+                            "id": 1,
+                            "inputNodeId": 1,
+                            "outputNodeId": 1
+                        },
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/EdgeEntity"
+                            }
+                        ]
+                    },
+                    "workspaceId": {
+                        "type": "number",
+                        "description": "The ID of the workspace of the node",
+                        "example": 1
                     }
                 }
             },
             "WorkspaceCreateDto": {
                 "type": "object",
                 "properties": {
+                    "description": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "Description of the workspace"
+                    },
+                    "engine": {
+                        "enum": [
+                            "javascript",
+                            "python"
+                        ],
+                        "type": "string",
+                        "description": "The engine of the workspace"
+                    },
                     "name": {
                         "type": "string",
-                        "description": "The name of the project (alphanumeric)",
-                        "example": "example-project"
-                    },
-                    "test": {
-                        "type": "string"
+                        "description": "The name of the workspace",
+                        "example": "main"
                     }
                 },
                 "required": [
-                    "name",
-                    "test"
+                    "engine",
+                    "name"
                 ]
             },
             "WorkspaceDto": {
@@ -499,35 +2121,58 @@
                 "properties": {
                     "id": {
                         "type": "number",
-                        "example": 1234
+                        "example": 1
+                    },
+                    "description": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "Description of the workspace"
+                    },
+                    "engine": {
+                        "enum": [
+                            "javascript",
+                            "python"
+                        ],
+                        "type": "string",
+                        "description": "The engine of the workspace"
                     },
                     "name": {
                         "type": "string",
-                        "description": "The name of the project (alphanumeric)",
-                        "example": "example-project"
-                    },
-                    "test": {
-                        "type": "string"
+                        "description": "The name of the workspace",
+                        "example": "main"
                     }
                 },
                 "required": [
                     "id",
-                    "name",
-                    "test"
+                    "engine",
+                    "name"
                 ]
             },
             "WorkspaceUpdateDto": {
                 "type": "object",
                 "properties": {
+                    "description": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "Description of the workspace"
+                    },
                     "name": {
                         "type": "string",
-                        "description": "The name of the project (alphanumeric)",
-                        "example": "example-project"
-                    },
+                        "description": "The name of the workspace",
+                        "example": "main"
+                    }
+                }
+            },
+            "SettingDto": {
+                "type": "object",
+                "properties": {
                     "test": {
                         "type": "string"
                     }
-                }
+                },
+                "required": [
+                    "test"
+                ]
             }
         }
     }

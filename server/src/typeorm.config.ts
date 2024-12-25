@@ -8,9 +8,9 @@ const dataSource = new DataSource({
     type: 'sqlite',
     database: process.env.PROJECTS_FOLDER + '/aigraphr.sqlite',
     entities: [`${__dirname}/entities/*.entity{.ts,.js}`],
-    subscribers: [`${__dirname}/subscribers/*.subscriber{.ts,.js}`],
+    subscribers: [`${__dirname}/entities/subscribers/*.subscriber{.ts,.js}`],
     migrationsRun: false,
-    migrations: [`${__dirname}/migrations/*{.ts,.js}`]
+    migrations: [`${__dirname}/entities/migrations/*{.ts,.js}`]
 });
 
 export default dataSource;

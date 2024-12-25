@@ -4,41 +4,63 @@ import {
     WorkspaceEntity,
     WorkspaceUpdateDto
 } from '@/projects/entities/workspace.entity';
-import {WORKSPACES_REPOSITORY} from '@/projects/project-symbols';
-import {Inject, Injectable} from '@nestjs/common';
-import {Repository} from 'typeorm';
+import {WORKSPACES_REPOSITORY} from '@/projects/project.symbols';
+import {ScaCrudService} from '@/scaffold/crud/sca-crud.service';
+import {Inject, Injectable, Logger} from '@nestjs/common';
+import {DeepPartial, Not, Repository} from 'typeorm';
 
 @Injectable()
-export class WorkspacesService {
+export class WorkspacesService extends ScaCrudService<
+    WorkspaceEntity,
+    WorkspaceDto,
+    WorkspaceCreateDto,
+    WorkspaceUpdateDto
+> {
+    private readonly log: Logger = new Logger('WorkspacesService');
+
     public constructor(
         @Inject(WORKSPACES_REPOSITORY)
         private readonly workspaces: Repository<WorkspaceEntity>
-    ) {}
-
-    public async exists(id: number): Promise<boolean> {
-        return await this.workspaces.exists({where: {id}});
+    ) {
+        super(workspaces, WorkspaceEntity);
     }
 
-    public async index(): Promise<Array<WorkspaceDto>> {
-        return await this.workspaces.find();
+    public async existsByName(name: string, ignoreId?: number) {
+        return ignoreId
+            ? (await this.workspaces.count({
+                  where: {
+                      id: Not(ignoreId),
+                      name
+                  }
+              })) > 0
+            : (await this.workspaces.count({where: {name}})) > 0;
     }
 
-    public async get(id: number): Promise<WorkspaceDto> {
-        return {} as WorkspaceDto;
+    public async getName(id: number): Promise<string> {
+        const {name} = await this.workspaces.findOneOrFail({
+            where: {id},
+            select: {name: true}
+        });
+        return name;
     }
 
-    public async create(data: WorkspaceCreateDto): Promise<WorkspaceDto> {
-        return {} as WorkspaceDto;
+    protected fromCreateDto(
+        createDto: WorkspaceCreateDto
+    ): Omit<WorkspaceEntity, 'id'> {
+        return createDto as WorkspaceEntity;
     }
 
-    public async update(
+    protected fromUpdateDto(
         id: number,
-        data: WorkspaceUpdateDto
-    ): Promise<WorkspaceDto> {
-        return {} as WorkspaceDto;
+        updateDto: WorkspaceUpdateDto
+    ): DeepPartial<WorkspaceEntity> {
+        return {
+            id,
+            ...updateDto
+        };
     }
 
-    public async remove(id: number): Promise<void> {
-        return;
+    protected toDto(entity: WorkspaceEntity): WorkspaceDto {
+        return entity;
     }
 }

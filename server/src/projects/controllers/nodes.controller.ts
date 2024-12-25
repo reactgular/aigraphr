@@ -3,52 +3,20 @@ import {
     NodeDto,
     NodeUpdateDto
 } from '@/projects/entities/node.entity';
+import {workspaceCrudMixin} from '@/projects/mixins/workspace-crud.mixin';
 import {NodesService} from '@/projects/services/nodes.service';
-import {Response} from '@/scaffold/decorators/response';
-import {Body, Controller, Delete, Get, Param, Post} from '@nestjs/common';
-import {ApiOperation, ApiTags} from '@nestjs/swagger';
+import {Controller} from '@nestjs/common';
+import {ApiTags} from '@nestjs/swagger';
 
-@ApiTags('Editor')
-@Controller('projects/:projectId/nodes')
-export class NodesController {
+@ApiTags('Nodes')
+@Controller(`projects/:projectId/workspaces/:workspaceId/nodes`)
+export class NodesController extends workspaceCrudMixin({
+    paramId: 'nodeId',
+    dto: NodeDto,
+    createDto: NodeCreateDto,
+    updateDto: NodeUpdateDto
+}) {
     public constructor(private readonly nodes: NodesService) {
-        //
-    }
-
-    @Get()
-    @ApiOperation({summary: `List all nodes`})
-    @Response([NodeDto])
-    public async index(): Promise<Array<NodeDto>> {
-        return await this.nodes.index();
-    }
-
-    @Get(':id')
-    @ApiOperation({summary: `Get node by ID`})
-    @Response(NodeDto)
-    public async get(@Param('id') id: number): Promise<NodeDto> {
-        return await this.nodes.get(id);
-    }
-
-    @Post()
-    @ApiOperation({summary: `Create a new node`})
-    @Response(NodeDto)
-    public async create(@Body() data: NodeCreateDto): Promise<NodeDto> {
-        return await this.nodes.create(data);
-    }
-
-    @Post(':id')
-    @ApiOperation({summary: `Update a node by ID`})
-    @Response(NodeDto)
-    public async update(
-        @Param('id') id: number,
-        @Body() data: NodeUpdateDto
-    ): Promise<NodeDto> {
-        return await this.nodes.update(id, data);
-    }
-
-    @Delete(':id')
-    @ApiOperation({summary: `Delete a node by ID`})
-    public async remove(@Param('id') id: number): Promise<void> {
-        return await this.nodes.remove(id);
+        super();
     }
 }

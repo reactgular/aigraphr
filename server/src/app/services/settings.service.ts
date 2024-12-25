@@ -10,15 +10,12 @@ export class SettingsService {
         private readonly settings: Repository<SettingEntity>
     ) {}
 
-    public async get(id: number): Promise<SettingEntity> {
-        return await this.settings.findOneByOrFail({id});
+    public async get(): Promise<SettingEntity> {
+        return await this.settings.findOneByOrFail({id: 1});
     }
 
-    public async update(
-        id: number,
-        data: Partial<SettingEntity>
-    ): Promise<SettingEntity> {
-        await this.settings.update(id, data);
-        return await this.get(id);
+    public async update(data: Partial<SettingEntity>): Promise<SettingEntity> {
+        await this.settings.update(1, data);
+        return await this.get();
     }
 }

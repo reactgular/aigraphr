@@ -9,6 +9,14 @@ export class AigInputNumber extends AigTypeBase<number, AigTypeDef> {
         });
     }
 
+    public gt(value: number, reason?: string) {
+        this.constraint({
+            rule: (num) => num > value,
+            reason: reason ?? `The number must be greater than ${value}`
+        });
+        return this;
+    }
+
     public gte(value: number, reason?: string) {
         this.constraint({
             rule: (num) => num >= value,
@@ -18,10 +26,18 @@ export class AigInputNumber extends AigTypeBase<number, AigTypeDef> {
         return this;
     }
 
-    public gt(value: number, reason?: string) {
+    public integer(reason?: string) {
         this.constraint({
-            rule: (num) => num > value,
-            reason: reason ?? `The number must be greater than ${value}`
+            rule: (num) => Number.isInteger(num),
+            reason: reason ?? 'The number must be an integer'
+        });
+        return this;
+    }
+
+    public lt(value: number, reason?: string) {
+        this.constraint({
+            rule: (num) => num < value,
+            reason: reason ?? `The number must be less than ${value}`
         });
         return this;
     }
@@ -31,14 +47,6 @@ export class AigInputNumber extends AigTypeBase<number, AigTypeDef> {
             rule: (num) => num <= value,
             reason:
                 reason ?? `The number must be less than or equal to ${value}`
-        });
-        return this;
-    }
-
-    public lt(value: number, reason?: string) {
-        this.constraint({
-            rule: (num) => num < value,
-            reason: reason ?? `The number must be less than ${value}`
         });
         return this;
     }
@@ -59,26 +67,18 @@ export class AigInputNumber extends AigTypeBase<number, AigTypeDef> {
         return this;
     }
 
-    public integer(reason?: string) {
-        this.constraint({
-            rule: (num) => Number.isInteger(num),
-            reason: reason ?? 'The number must be an integer'
-        });
-        return this;
-    }
-
-    public positive(reason?: string) {
-        this.constraint({
-            rule: (num) => num > 0,
-            reason: reason ?? 'The number must be positive'
-        });
-        return this;
-    }
-
     public negative(reason?: string) {
         this.constraint({
             rule: (num) => num < 0,
             reason: reason ?? 'The number must be negative'
+        });
+        return this;
+    }
+
+    public notInfinity(reason?: string) {
+        this.constraint({
+            rule: (num) => Number.isFinite(num),
+            reason: reason ?? 'The number must not be Infinity'
         });
         return this;
     }
@@ -91,10 +91,10 @@ export class AigInputNumber extends AigTypeBase<number, AigTypeDef> {
         return this;
     }
 
-    public notInfinity(reason?: string) {
+    public positive(reason?: string) {
         this.constraint({
-            rule: (num) => Number.isFinite(num),
-            reason: reason ?? 'The number must not be Infinity'
+            rule: (num) => num > 0,
+            reason: reason ?? 'The number must be positive'
         });
         return this;
     }

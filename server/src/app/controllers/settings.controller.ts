@@ -1,7 +1,8 @@
 import {SettingsService} from '@/app/services/settings.service';
 import {SettingDto} from '@/entities/setting.entity';
-import {Response} from '@/scaffold/decorators/response';
-import {Body, Controller, Get, Put} from '@nestjs/common';
+import {ScaBody} from '@/scaffold/decorators/sca-body';
+import {ScaValidateResponse} from '@/scaffold/decorators/sca-validate-response';
+import {Controller, Get, Put} from '@nestjs/common';
 import {Patch} from '@nestjs/common/decorators/http/request-mapping.decorator';
 import {ApiOperation, ApiTags} from '@nestjs/swagger';
 
@@ -13,23 +14,27 @@ export class SettingsController {
     }
 
     @Get()
-    @ApiOperation({summary: `Get app settings`})
-    @Response(SettingDto)
+    @ApiOperation({summary: `Get App settings`})
+    @ScaValidateResponse(SettingDto)
     public async get(): Promise<SettingDto> {
-        return await this.settings.get(1);
+        return await this.settings.get();
     }
 
     @Put()
-    @ApiOperation({summary: `Replace app settings`})
-    @Response(SettingDto)
-    public async create(@Body() data: SettingDto): Promise<SettingDto> {
-        return await this.settings.update(1, data);
+    @ApiOperation({summary: `Replace App settings`})
+    @ScaValidateResponse(SettingDto)
+    public async replace(
+        @ScaBody(SettingDto) data: SettingDto
+    ): Promise<SettingDto> {
+        return await this.settings.update(data);
     }
 
     @Patch()
-    @ApiOperation({summary: `Update app settings`})
-    @Response(SettingDto)
-    public async update(@Body() data: SettingDto): Promise<SettingDto> {
-        return await this.settings.update(1, data);
+    @ApiOperation({summary: `Update App settings`})
+    @ScaValidateResponse(SettingDto)
+    public async update(
+        @ScaBody(SettingDto) data: SettingDto
+    ): Promise<SettingDto> {
+        return await this.settings.update(data);
     }
 }

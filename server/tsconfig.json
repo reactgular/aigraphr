@@ -14,8 +14,8 @@
             "@/*": [
                 "./src/*"
             ],
-            "@shared/*": [
-                "../shared/src/*"
+            "@shared/api/*": [
+                "../client/src/api/*"
             ]
         },
         "incremental": true,

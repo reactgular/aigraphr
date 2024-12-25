@@ -19,10 +19,13 @@ node_modules/
 # testing
 coverage
 .nyc_output
+tmp
 
 # Environment files
 *.env
-!example.env
+*.env.*
+!.env.template
+!.env.*.template
 docker-compose.*.yml
 
 # build
@@ -43,3 +46,5 @@ yarn-error.log*
 
 # Runtime data
 .aigraphr
+## For running tests
+.aigraphr-e2e

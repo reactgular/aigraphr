@@ -6,23 +6,23 @@ import {AigInputString} from './AigInputString';
 import {AigInputUserType} from './AigInputUserType';
 
 export class AigInputCtx {
-    public object<TZodShape extends ZodRawShape>(zod: TZodShape) {
-        return new AigInputObject<TZodShape>(zod);
-    }
-
-    public userType() {
-        return new AigInputUserType();
-    }
-
-    public string() {
-        return new AigInputString();
+    public boolean() {
+        return new AigInputBoolean();
     }
 
     public number() {
         return new AigInputNumber().notNaN().notInfinity();
     }
 
-    public boolean() {
-        return new AigInputBoolean();
+    public object<TZodShape extends ZodRawShape>(zod: TZodShape) {
+        return new AigInputObject<TZodShape>(zod);
+    }
+
+    public string() {
+        return new AigInputString();
+    }
+
+    public userType() {
+        return new AigInputUserType();
     }
 }

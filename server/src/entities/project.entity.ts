@@ -1,35 +1,64 @@
-import {IsProfileName} from '@/projects/decorators/is-profile-name.decorator';
-import {ScaffoldEntity} from '@/scaffold/models/scaffold.entity';
+import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {ApiProperty, OmitType, PartialType} from '@nestjs/swagger';
-import {IsBoolean, IsString} from 'class-validator';
-import {Column, Entity} from 'typeorm';
+import {
+    IsBoolean,
+    IsNumber,
+    IsOptional,
+    IsString,
+    Matches,
+    MaxLength,
+    Min,
+    MinLength
+} from 'class-validator';
+import {Column, Entity, Unique} from 'typeorm';
+
+const PROFILE_FILE_REGEX = /^[a-zA-Z0-9-_]+$/;
 
 @Entity({name: 'projects'})
-export class ProjectEntity extends ScaffoldEntity {
-    // TODO: this needs a unique index constraint
-    @IsProfileName()
-    @Column()
-    name: string;
-
+@Unique(['name'])
+export class ProjectEntity extends ScaEntity {
     @IsString()
-    @Column()
-    test: string;
+    @Matches(PROFILE_FILE_REGEX, {
+        message: 'The name of the project must be alphanumeric'
+    })
+    @MinLength(3)
+    @MaxLength(128)
+    @ApiProperty({
+        description: 'The name of the project (alphanumeric)',
+        example: 'example-project'
+    })
+    @Column({length: 128})
+    name: string;
+}
 
+export class ProjectDto extends OmitType(ProjectEntity, [] as const) {
     @IsBoolean()
     @ApiProperty({
         description: 'The open status of the project'
     })
-    @Column({default: false})
     open: boolean;
 }
 
-export class ProjectDto extends OmitType(ProjectEntity, [] as const) {}
-
+/**
+ * @deprecated need to switch to using groups
+ */
 export class ProjectCreateDto extends OmitType(ProjectDto, [
     'id',
     'open'
-] as const) {}
+] as const) {
+    @IsNumber()
+    @IsOptional()
+    @Min(1)
+    @ApiProperty({
+        description: 'The ID of the project to clone',
+        example: 1234
+    })
+    cloneId?: number;
+}
 
+/**
+ * @deprecated need to switch to using groups
+ */
 export class ProjectUpdateDto extends PartialType(
     OmitType(ProjectDto, ['id'] as const)
 ) {}

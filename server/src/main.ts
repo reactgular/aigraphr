@@ -1,6 +1,6 @@
+import {AiGraphrApp, appConfig} from '@/app.config';
 import {EnvConfig} from '@/configs/env.config';
 import {MainModule} from '@/main.module';
-import {scaffoldValidationPipe} from '@/scaffold/pipes/scaffold-validation.pipe';
 import {swaggerApiDocument} from '@/swagger/swagger-api-document';
 import {swaggerApiSave} from '@/swagger/swagger-api-save';
 import {swaggerApiSetup} from '@/swagger/swagger-api-setup';
@@ -29,42 +29,42 @@ if (production && specPath) {
 }
 
 async function bootstrap() {
+    // TODO: move to EnvConfig
     const port = process.env.PORT ? parseInt(process.env.PORT) : 3030;
 
     const log = new Logger('bootstrap');
 
-    const app = await NestFactory.create(MainModule);
-    app.enableCors();
-    app.useGlobalPipes(scaffoldValidationPipe());
-    app.enableShutdownHooks();
+    const app = await NestFactory.create<AiGraphrApp>(MainModule);
+
+    appConfig(app);
 
     const config = app.get(ConfigService<EnvConfig>);
     log.log(`🔧 PROJECTS_FOLDER: ${config.get('PROJECTS_FOLDER')}`);
 
-    // DEBUG: This is for debugging on prod server
-    // app.useLogger(new Logger('Debug'));
-    let reqId = 0;
-    const logger2 = new Logger('app');
-    app.use(
-        (
-            {ip, method, originalUrl}: Request,
-            res: Response,
-            next: NextFunction
-        ) => {
-            const prefix = `ID:${reqId++}`;
-            const msg = `${ip} ${method} ${originalUrl}`;
-
-            logger2.debug(`${prefix} Request: ${msg}`);
-
-            res.on('finish', () =>
-                logger2.debug(`${prefix} Response: ${res.statusCode}`)
-            );
-
-            next();
-        }
-    );
-
     if (!production) {
+        // DEBUG: This is for debugging on prod server
+        // app.useLogger(new Logger('Debug'));
+        let reqId = 0;
+        const logger2 = new Logger('app');
+        app.use(
+            (
+                {ip, method, originalUrl}: Request,
+                res: Response,
+                next: NextFunction
+            ) => {
+                const prefix = `ID:${reqId++}`;
+                const msg = `${ip} ${method} ${originalUrl}`;
+
+                logger2.debug(`${prefix} Request: ${msg}`);
+
+                res.on('finish', () =>
+                    logger2.debug(`${prefix} Response: ${res.statusCode}`)
+                );
+
+                next();
+            }
+        );
+
         const document = swaggerApiDocument({
             app,
             title: 'AIGraphr',

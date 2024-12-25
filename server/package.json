@@ -6,25 +6,31 @@
     "license": "GPL-3.0-or-later",
     "author": "",
     "scripts": {
+        "app:migration:create": "typeorm migration:create -d dist/typeorm.config.js",
+        "app:migration:generate": "typeorm migration:generate -d dist/typeorm.config.js src/entities/migrations/update",
+        "app:migration:run": "typeorm migration:run -d dist/typeorm.config.js",
+        "app:migration:show": "typeorm migration:show -d dist/typeorm.config.js",
         "build": "nest build",
-        "dev": "nest start --watch",
+        "dev": "nest start --debug --watch",
         "format": "eslint . --fix",
         "lint": "eslint .",
+        "migrate": "npm run build && npm run app:migration:generate && npm run project:migration:generate && npm run format",
         "openapi": "nest start -- --openapi=../client/openapi.json",
+        "codegen": "rimraf --glob \"test/apis/*.ts\" && ts-node --project tsconfig.test.json -r tsconfig-paths/register test/generator/index.ts ../client/openapi.json test/apis && eslint test/apis --fix",
+        "codegen:old": "ts-node --project tsconfig.test.json -r tsconfig-paths/register test/api/generate.ts ../client/openapi.json test/api/api.ts && eslint test/api/api.ts --fix",
+        "project:migration:create": "typeorm migration:create -d dist/projects/typeorm.config.js",
+        "project:migration:generate": "typeorm migration:generate -d dist/projects/typeorm.config.js src/projects/entities/migrations/update",
+        "project:migration:run": "typeorm migration:run -d dist/projects/typeorm.config.js",
+        "project:migration:show": "typeorm migration:show -d dist/projects/typeorm.config.js",
         "sort": "npx --yes sort-package-json",
         "start": "nest start",
         "start:debug": "nest start --debug --watch",
         "start:prod": "node dist/main",
-        "test": "jest",
-        "test:cov": "jest --coverage",
+        "test": "jest --runInBand",
+        "test:cov": "jest --runInBand --coverage",
         "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-        "test:e2e": "jest --config ./test/jest-e2e.json",
-        "test:watch": "jest --watch",
-        "typeorm": "typeorm",
-        "migration:generate": "npm run build && typeorm migration:generate -d dist/typeorm.config.js src/migrations/update && npm run format",
-        "migration:run": "npm run build && typeorm migration:run -d dist/typeorm.config.js",
-        "migration:create": "npm run build && typeorm migration:create -d dist/typeorm.config.js",
-        "migration:show": "npm run build && typeorm migration:show -d dist/typeorm.config.js"
+        "test:watch": "jest --runInBand --watch",
+        "typeorm": "typeorm"
     },
     "jest": {
         "collectCoverageFrom": [
@@ -36,12 +42,24 @@
             "json",
             "ts"
         ],
-        "rootDir": "src",
+        "moduleNameMapper": {
+            "@/(.*)": "<rootDir>/src/$1",
+            "@shared/api/(.*)": "<rootDir>../client/src/api/$1"
+        },
+        "rootDir": ".",
         "testEnvironment": "node",
         "testRegex": ".*\\.spec\\.ts$",
         "transform": {
-            "^.+\\.(t|j)s$": "ts-jest"
-        }
+            "^.+\\.(t|j)s$": [
+                "ts-jest",
+                {
+                    "tsconfig": "tsconfig.test.json"
+                }
+            ]
+        },
+        "setupFilesAfterEnv": [
+            "<rootDir>/test/jest.setup.ts"
+        ]
     },
     "dependencies": {
         "@nestjs/common": "^10.0.0",
@@ -62,6 +80,7 @@
         "zod": "^3.23.8"
     },
     "devDependencies": {
+        "@apidevtools/swagger-parser": "^10.1.0",
         "@nestjs/cli": "^10.0.0",
         "@nestjs/schematics": "^10.0.0",
         "@nestjs/testing": "^10.0.0",
@@ -70,6 +89,7 @@
         "@types/sequelize": "^4.28.20",
         "@types/supertest": "^6.0.0",
         "jest": "^29.5.0",
+        "openapi-types": "^12.1.3",
         "source-map-support": "^0.5.21",
         "supertest": "^7.0.0",
         "ts-jest": "^29.1.0",

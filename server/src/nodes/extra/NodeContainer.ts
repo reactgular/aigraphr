@@ -1,17 +1,15 @@
 export interface NodeContainer {
+    add(n: Node): void;
+
+    addConstraint(c: Constraint): void;
+
     each(cb: (n: Node) => void): void;
 
-    find(cb: (n: Node) => boolean): Node | undefined;
+    every(cb: (n: Node) => boolean): boolean;
 
     filter(cb: (n: Node) => boolean): Node[];
 
-    map(cb: (n: Node) => Node): NodeContainer;
-
-    reduce<T>(cb: (acc: T, n: Node) => T, initial: T): T;
-
-    some(cb: (n: Node) => boolean): boolean;
-
-    every(cb: (n: Node) => boolean): boolean;
+    find(cb: (n: Node) => boolean): Node | undefined;
 
     get(id: string): Node | undefined;
 
@@ -19,13 +17,15 @@ export interface NodeContainer {
 
     has(...nodes: Node[]): boolean;
 
-    add(n: Node): void;
+    map(cb: (n: Node) => Node): NodeContainer;
+
+    reduce<T>(cb: (acc: T, n: Node) => T, initial: T): T;
 
     remove(id: string): void;
 
-    addConstraint(c: Constraint): void;
-
     removeConstraint(c: Constraint): void;
+
+    some(cb: (n: Node) => boolean): boolean;
 
     validate(): boolean;
 }

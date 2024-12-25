@@ -30,6 +30,20 @@ export class AigNodeBuilder<
         );
     }
 
+    public constraint(
+        rule: AigConstraint<AigTypeSchema<TInputShape>, TInputShape>
+    ) {
+        this.inputConstraints.add(rule);
+        return this;
+    }
+
+    public constraintOutput(
+        rule: AigConstraint<AigTypeSchema<TOutputShape>, TOutputShape>
+    ) {
+        this.outputConstraints.add(rule);
+        return this;
+    }
+
     public inputs<TInputs extends AigTypeShape>(
         inputs: (ctx: AigInputCtx) => TInputs
     ): AigNodeBuilder<TInputs, TOutputShape> {
@@ -42,13 +56,6 @@ export class AigNodeBuilder<
         );
     }
 
-    public constraint(
-        rule: AigConstraint<AigTypeSchema<TInputShape>, TInputShape>
-    ) {
-        this.inputConstraints.add(rule);
-        return this;
-    }
-
     public outputs<TOutputs extends AigTypeShape>(
         outputs: (ctx: AigOutputCtx<TInputShape>) => TOutputs
     ): AigNodeBuilder<TInputShape, TOutputs> {
@@ -59,12 +66,5 @@ export class AigNodeBuilder<
             this.inputConstraints,
             new AigConstraints()
         );
-    }
-
-    public constraintOutput(
-        rule: AigConstraint<AigTypeSchema<TOutputShape>, TOutputShape>
-    ) {
-        this.outputConstraints.add(rule);
-        return this;
     }
 }
