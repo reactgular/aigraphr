@@ -9,6 +9,9 @@ import {
 } from 'react-router';
 import type {Route} from '../.react-router/types/src/+types/root';
 import stylesheet from './styles.css?url';
+import '@fontsource/inter';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/400-italic.css';
 
 export const links: Route.LinksFunction = () => [
     {rel: 'preconnect', href: 'https://fonts.googleapis.com'},

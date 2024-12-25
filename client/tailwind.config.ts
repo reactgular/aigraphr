@@ -1,4 +1,5 @@
 import * as animate from 'tailwindcss-animate';
+import {fontFamily} from 'tailwindcss/defaultTheme';
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -6,6 +7,9 @@ export default {
     content: ['./src/**/*.{html,js,ts,jsx,tsx}'],
     theme: {
         extend: {
+            fontFamily: {
+                sans: ['Inter', ...fontFamily.sans]
+            },
             borderRadius: {
                 lg: 'var(--radius)',
                 md: 'calc(var(--radius) - 2px)',

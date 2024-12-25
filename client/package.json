@@ -14,6 +14,7 @@
         "typecheck": "react-router typegen && tsc --build --noEmit"
     },
     "dependencies": {
+        "@fontsource/inter": "^5.1.0",
         "@hey-api/client-fetch": "^0.5.2",
         "@radix-ui/react-collapsible": "^1.1.1",
         "@radix-ui/react-dialog": "^1.1.2",
