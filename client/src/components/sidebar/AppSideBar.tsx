@@ -4,14 +4,12 @@ import {
     SidebarRail
 } from '@/components/shadcn/ui/sidebar';
 import {AppSideBarHeader} from '@/components/sidebar/AppSideBarHeader';
-import {
-    AppSideBarMenu,
-    AppSideBarMenuItem
-} from '@/components/sidebar/AppSideBarMenu';
+import {AppSideBarMenu} from '@/components/sidebar/AppSideBarMenu';
+import {AppSideBarItem} from '@/components/sidebar/sidebar.types';
 import {ComponentProps, FC} from 'react';
 import {AiFillDashboard, AiOutlineDashboard} from 'react-icons/ai';
 
-const menu1: AppSideBarMenuItem[] = [
+const menu1: AppSideBarItem[] = [
     {
         title: 'Dashboard',
         icons: {
@@ -25,7 +23,7 @@ const menu1: AppSideBarMenuItem[] = [
     }
 ];
 
-const menu2: AppSideBarMenuItem[] = [
+const menu2: AppSideBarItem[] = [
     {
         title: 'Workspaces',
         icons: {
@@ -83,7 +81,7 @@ const menu2: AppSideBarMenuItem[] = [
     }
 ];
 
-const menu3: AppSideBarMenuItem[] = [
+const menu3: AppSideBarItem[] = [
     {
         title: 'Open APIs',
         icons: {
@@ -108,7 +106,7 @@ const menu3: AppSideBarMenuItem[] = [
     }
 ];
 
-export const AppSidebar: FC<ComponentProps<typeof Sidebar>> = ({...props}) => {
+export const AppSideBar: FC<ComponentProps<typeof Sidebar>> = ({...props}) => {
     return (
         <Sidebar {...props}>
             <SidebarContent>

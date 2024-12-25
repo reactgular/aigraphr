@@ -1,13 +1,13 @@
 import {AppProviders} from '@/components/app/AppProviders';
 import {SidebarInset, SidebarProvider} from '@/components/shadcn/ui/sidebar';
-import {AppSidebar} from '@/components/sidebar/AppSidebar';
+import {AppSideBar} from '@/components/sidebar/AppSideBar';
 import {Outlet} from 'react-router';
 
 export default function Layout() {
     return (
         <AppProviders>
             <SidebarProvider>
-                <AppSidebar />
+                <AppSideBar />
                 <SidebarInset>
                     <Outlet />
                 </SidebarInset>

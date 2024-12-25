@@ -2,30 +2,14 @@ import {
     SidebarGroup,
     SidebarGroupContent,
     SidebarGroupLabel,
-    SidebarMenu,
-    SidebarMenuButton,
-    SidebarMenuItem
+    SidebarMenu
 } from '@/components/shadcn/ui/sidebar';
+import {AppSideBarMenuItem} from '@/components/sidebar/AppSideBarMenuItem';
+import {AppSideBarItem} from '@/components/sidebar/sidebar.types';
 import {FC} from 'react';
-import {IconType} from 'react-icons';
-import {Link} from 'react-router';
-
-export interface AppSideBarMenuItem {
-    icons: {
-        active: IconType;
-        inactive: IconType;
-    };
-
-    links: {
-        activate: string;
-        isActive: string;
-    };
-
-    title: string;
-}
 
 export interface AppSideBarMenuProps {
-    items: Array<AppSideBarMenuItem>;
+    items: Array<AppSideBarItem>;
 
     label?: string;
 }
@@ -36,25 +20,9 @@ export const AppSideBarMenu: FC<AppSideBarMenuProps> = ({items, label}) => {
             {label ? <SidebarGroupLabel>{label}</SidebarGroupLabel> : null}
             <SidebarGroupContent>
                 <SidebarMenu>
-                    {items.map(
-                        (
-                            {
-                                icons: {inactive: Inactive, active: Active},
-                                links: {activate, isActive},
-                                title
-                            },
-                            index
-                        ) => (
-                            <SidebarMenuItem key={index}>
-                                <SidebarMenuButton asChild>
-                                    <Link to={activate}>
-                                        <Inactive />
-                                        {title}
-                                    </Link>
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
-                        )
-                    )}
+                    {items.map((item, index) => (
+                        <AppSideBarMenuItem key={index} item={item} />
+                    ))}
                 </SidebarMenu>
             </SidebarGroupContent>
         </SidebarGroup>
