@@ -1,6 +1,8 @@
+import {Button} from '@/components/shadcn/ui/button';
 import {
     Sidebar,
     SidebarContent,
+    SidebarGroup,
     SidebarRail
 } from '@/components/shadcn/ui/sidebar';
 import {AppSideBarHeader} from '@/components/sidebar/AppSideBarHeader';
@@ -19,6 +21,9 @@ export const AppSideBar: FC<ComponentProps<typeof Sidebar>> = ({...props}) => {
         <Sidebar {...props}>
             <SidebarContent>
                 <AppSideBarHeader />
+                <SidebarGroup>
+                    <Button>Create new workspace</Button>
+                </SidebarGroup>
                 <AppSideBarMenu items={dashboard} />
                 <AppSideBarMenu label="Engage" items={projects} />
                 <AppSideBarMenu label="Find & Manage" items={general} />
