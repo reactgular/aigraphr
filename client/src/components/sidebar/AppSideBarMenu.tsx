@@ -8,6 +8,7 @@ import {
 } from '@/components/shadcn/ui/sidebar';
 import {FC} from 'react';
 import {IconType} from 'react-icons';
+import {Link} from 'react-router';
 
 export interface AppSideBarMenuItem {
     icons: {
@@ -15,7 +16,7 @@ export interface AppSideBarMenuItem {
         inactive: IconType;
     };
 
-    links?: {
+    links: {
         activate: string;
         isActive: string;
     };
@@ -39,14 +40,17 @@ export const AppSideBarMenu: FC<AppSideBarMenuProps> = ({items, label}) => {
                         (
                             {
                                 icons: {inactive: Inactive, active: Active},
+                                links: {activate, isActive},
                                 title
                             },
                             index
                         ) => (
                             <SidebarMenuItem key={index}>
-                                <SidebarMenuButton>
-                                    <Inactive />
-                                    {title}
+                                <SidebarMenuButton asChild>
+                                    <Link to={activate}>
+                                        <Inactive />
+                                        {title}
+                                    </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
                         )
