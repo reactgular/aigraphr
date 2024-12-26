@@ -7,7 +7,7 @@ import {
 } from '@/components/shadcn/ui/sidebar';
 import {Database, Workflow} from 'lucide-react';
 import {FC} from 'react';
-import {Link} from 'react-router';
+import {NavLink} from 'react-router';
 
 export interface NavProjectProps {
     projectId: number;
@@ -19,19 +19,19 @@ export const NavProject: FC<NavProjectProps> = ({projectId}) => {
             <SidebarGroupLabel>Project</SidebarGroupLabel>
             <SidebarMenu>
                 <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                        <Link to={`/projects/${projectId}/workspaces`}>
+                    <SidebarMenuButton isActive={true} asChild>
+                        <NavLink to={`/projects/${projectId}/workspaces`}>
                             <Workflow />
                             <span>Workspaces</span>
-                        </Link>
+                        </NavLink>
                     </SidebarMenuButton>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
                     <SidebarMenuButton asChild>
-                        <Link to={`/projects/${projectId}/workspaces`}>
+                        <NavLink to={`/projects/${projectId}/workspaces`}>
                             <Database />
                             <span>Databases</span>
-                        </Link>
+                        </NavLink>
                     </SidebarMenuButton>
                 </SidebarMenuItem>
             </SidebarMenu>

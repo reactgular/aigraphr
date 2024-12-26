@@ -3,8 +3,7 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "build": "npm run build:errors && react-router build",
-        "build:errors": "tsc --noEmit",
+        "build": "npm run typecheck && react-router build",
         "dev": "react-router dev",
         "format": "eslint . --fix",
         "lint": "eslint .",

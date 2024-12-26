@@ -9,8 +9,9 @@ import {
 import {Separator} from '@/components/shadcn/ui/separator';
 import {SidebarTrigger} from '@/components/shadcn/ui/sidebar';
 import {Outlet} from 'react-router';
+import type {Route} from './+types/index';
 
-export default function Index() {
+export default function Index({params}: Route.LoaderArgs) {
     return (
         <>
             <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
