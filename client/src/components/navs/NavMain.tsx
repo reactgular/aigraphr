@@ -1,7 +1,4 @@
-'use client';
-
-import {ChevronRight, type LucideIcon} from 'lucide-react';
-
+import {useMain} from '@/components/navs/hooks/useMain';
 import {
     Collapsible,
     CollapsibleContent,
@@ -17,21 +14,12 @@ import {
     SidebarMenuSubButton,
     SidebarMenuSubItem
 } from '@/components/shadcn/ui/sidebar';
+import {ChevronRight} from 'lucide-react';
+import {FC} from 'react';
 
-export function NavMain({
-    items
-}: {
-    items: {
-        title: string;
-        url: string;
-        icon?: LucideIcon;
-        isActive?: boolean;
-        items?: {
-            title: string;
-            url: string;
-        }[];
-    }[];
-}) {
+export const NavMain: FC = () => {
+    const items = useMain();
+
     return (
         <SidebarGroup>
             <SidebarGroupLabel>Platform</SidebarGroupLabel>
@@ -70,4 +58,4 @@ export function NavMain({
             </SidebarMenu>
         </SidebarGroup>
     );
-}
+};

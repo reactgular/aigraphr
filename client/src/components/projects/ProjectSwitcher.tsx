@@ -1,3 +1,4 @@
+import {useProjects} from '@/components/projects/hooks/useProjects';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -14,22 +15,10 @@ import {
     useSidebar
 } from '@/components/shadcn/ui/sidebar';
 import {ChevronsUpDown, Plus} from 'lucide-react';
-import {ElementType, FC, useState} from 'react';
+import {FC, useState} from 'react';
 
-/**
- * @deprecated will be replaced by ProjectDto
- */
-export interface ProjectDesc {
-    logo: ElementType;
-
-    name: string;
-
-    plan: string;
-}
-
-export const ProjectSwitcher: FC<{
-    projects: ProjectDesc[];
-}> = ({projects}) => {
+export const ProjectSwitcher: FC = () => {
+    const projects = useProjects();
     const {isMobile} = useSidebar();
     const [activeTeam, setActiveTeam] = useState(projects[0]);
 

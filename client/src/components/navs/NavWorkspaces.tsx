@@ -1,11 +1,4 @@
-import {
-    Folder,
-    Forward,
-    MoreHorizontal,
-    Trash2,
-    type LucideIcon
-} from 'lucide-react';
-
+import {useWorkspaces} from '@/components/navs/hooks/useWorkspaces';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -22,28 +15,23 @@ import {
     SidebarMenuItem,
     useSidebar
 } from '@/components/shadcn/ui/sidebar';
+import {Folder, Forward, MoreHorizontal, Trash2} from 'lucide-react';
+import {FC} from 'react';
 
-export function NavProjects({
-    projects
-}: {
-    projects: {
-        name: string;
-        url: string;
-        icon: LucideIcon;
-    }[];
-}) {
+export const NavWorkspaces: FC = () => {
+    const workspaces = useWorkspaces();
     const {isMobile} = useSidebar();
 
     return (
         <SidebarGroup className="group-data-[collapsible=icon]:hidden">
             <SidebarGroupLabel>Projects</SidebarGroupLabel>
             <SidebarMenu>
-                {projects.map((item) => (
-                    <SidebarMenuItem key={item.name}>
+                {workspaces.map((workspace) => (
+                    <SidebarMenuItem key={workspace.name}>
                         <SidebarMenuButton asChild>
-                            <a href={item.url}>
-                                <item.icon />
-                                <span>{item.name}</span>
+                            <a href={workspace.url}>
+                                <workspace.icon />
+                                <span>{workspace.name}</span>
                             </a>
                         </SidebarMenuButton>
                         <DropdownMenu>
@@ -84,4 +72,4 @@ export function NavProjects({
             </SidebarMenu>
         </SidebarGroup>
     );
-}
+};

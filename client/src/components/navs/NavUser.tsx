@@ -1,14 +1,6 @@
 'use client';
 
-import {
-    BadgeCheck,
-    Bell,
-    ChevronsUpDown,
-    CreditCard,
-    LogOut,
-    Sparkles
-} from 'lucide-react';
-
+import {useUser} from '@/components/navs/hooks/useUser';
 import {
     Avatar,
     AvatarFallback,
@@ -29,16 +21,18 @@ import {
     SidebarMenuItem,
     useSidebar
 } from '@/components/shadcn/ui/sidebar';
+import {
+    BadgeCheck,
+    Bell,
+    ChevronsUpDown,
+    CreditCard,
+    LogOut,
+    Sparkles
+} from 'lucide-react';
+import {FC} from 'react';
 
-export function NavUser({
-    user
-}: {
-    user: {
-        name: string;
-        email: string;
-        avatar: string;
-    };
-}) {
+export const NavUser: FC = () => {
+    const user = useUser();
     const {isMobile} = useSidebar();
 
     return (
@@ -129,4 +123,4 @@ export function NavUser({
             </SidebarMenuItem>
         </SidebarMenu>
     );
-}
+};
