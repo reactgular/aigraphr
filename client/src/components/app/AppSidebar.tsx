@@ -1,7 +1,5 @@
 import {NavDashboard} from '@/components/navs/NavDashboard';
-import {NavMain} from '@/components/navs/NavMain';
 import {NavUser} from '@/components/navs/NavUser';
-import {NavWorkspaces} from '@/components/navs/NavWorkspaces';
 import {ProjectSwitcher} from '@/components/projects/ProjectSwitcher';
 import {
     Sidebar,
@@ -20,8 +18,6 @@ export const AppSidebar: FC<ComponentProps<typeof Sidebar>> = (props) => {
             </SidebarHeader>
             <SidebarContent>
                 <NavDashboard />
-                <NavMain />
-                <NavWorkspaces />
             </SidebarContent>
             <SidebarFooter>
                 <NavUser />

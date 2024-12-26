@@ -1,6 +1,5 @@
 'use client';
 
-import {useUser} from '@/components/navs/hooks/useUser';
 import {
     Avatar,
     AvatarFallback,
@@ -31,8 +30,13 @@ import {
 } from 'lucide-react';
 import {FC} from 'react';
 
+const USER = {
+    name: 'shadcn',
+    email: 'm@example.com',
+    avatar: '/avatars/shadcn.jpg'
+};
+
 export const NavUser: FC = () => {
-    const user = useUser();
     const {isMobile} = useSidebar();
 
     return (
@@ -46,8 +50,8 @@ export const NavUser: FC = () => {
                         >
                             <Avatar className="h-8 w-8 rounded-lg">
                                 <AvatarImage
-                                    src={user.avatar}
-                                    alt={user.name}
+                                    src={USER.avatar}
+                                    alt={USER.name}
                                 />
                                 <AvatarFallback className="rounded-lg">
                                     CN
@@ -55,10 +59,10 @@ export const NavUser: FC = () => {
                             </Avatar>
                             <div className="grid flex-1 text-left text-sm leading-tight">
                                 <span className="truncate font-semibold">
-                                    {user.name}
+                                    {USER.name}
                                 </span>
                                 <span className="truncate text-xs">
-                                    {user.email}
+                                    {USER.email}
                                 </span>
                             </div>
                             <ChevronsUpDown className="ml-auto size-4" />
@@ -74,8 +78,8 @@ export const NavUser: FC = () => {
                             <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                                 <Avatar className="h-8 w-8 rounded-lg">
                                     <AvatarImage
-                                        src={user.avatar}
-                                        alt={user.name}
+                                        src={USER.avatar}
+                                        alt={USER.name}
                                     />
                                     <AvatarFallback className="rounded-lg">
                                         CN
@@ -83,10 +87,10 @@ export const NavUser: FC = () => {
                                 </Avatar>
                                 <div className="grid flex-1 text-left text-sm leading-tight">
                                     <span className="truncate font-semibold">
-                                        {user.name}
+                                        {USER.name}
                                     </span>
                                     <span className="truncate text-xs">
-                                        {user.email}
+                                        {USER.email}
                                     </span>
                                 </div>
                             </div>

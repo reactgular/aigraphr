@@ -1,4 +1,3 @@
-import {useWorkspaces} from '@/components/navs/hooks/useWorkspaces';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -15,18 +14,46 @@ import {
     SidebarMenuItem,
     useSidebar
 } from '@/components/shadcn/ui/sidebar';
-import {Folder, Forward, MoreHorizontal, Trash2} from 'lucide-react';
+import {
+    Folder,
+    Forward,
+    Frame,
+    Map,
+    MoreHorizontal,
+    PieChart,
+    Trash2
+} from 'lucide-react';
 import {FC} from 'react';
 
-export const NavWorkspaces: FC = () => {
-    const workspaces = useWorkspaces();
+const ITEMS = [
+    {
+        name: 'Design Engineering',
+        url: '#',
+        icon: Frame
+    },
+    {
+        name: 'Sales & Marketing',
+        url: '#',
+        icon: PieChart
+    },
+    {
+        name: 'Travel',
+        url: '#',
+        icon: Map
+    }
+];
+
+/**
+ * @deprecated this is an example on how to do menus with more actions
+ */
+export const NavMoveActions: FC = () => {
     const {isMobile} = useSidebar();
 
     return (
         <SidebarGroup className="group-data-[collapsible=icon]:hidden">
             <SidebarGroupLabel>Workspaces</SidebarGroupLabel>
             <SidebarMenu>
-                {workspaces.map((workspace) => (
+                {ITEMS.map((workspace) => (
                     <SidebarMenuItem key={workspace.name}>
                         <SidebarMenuButton asChild>
                             <a href={workspace.url}>
