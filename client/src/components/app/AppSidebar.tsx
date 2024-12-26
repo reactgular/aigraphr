@@ -1,3 +1,4 @@
+import {NavDashboard} from '@/components/navs/NavDashboard';
 import {NavMain} from '@/components/navs/NavMain';
 import {NavUser} from '@/components/navs/NavUser';
 import {NavWorkspaces} from '@/components/navs/NavWorkspaces';
@@ -18,6 +19,7 @@ export const AppSidebar: FC<ComponentProps<typeof Sidebar>> = (props) => {
                 <ProjectSwitcher />
             </SidebarHeader>
             <SidebarContent>
+                <NavDashboard />
                 <NavMain />
                 <NavWorkspaces />
             </SidebarContent>

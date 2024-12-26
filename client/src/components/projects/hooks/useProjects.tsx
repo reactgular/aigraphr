@@ -1,4 +1,4 @@
-import {AudioWaveform, Command, GalleryVerticalEnd} from 'lucide-react';
+import {Database} from 'lucide-react';
 import {ElementType, useMemo} from 'react';
 
 /**
@@ -16,19 +16,19 @@ export const useProjects = (): ProjectDesc[] => {
     return useMemo(
         () => [
             {
-                name: 'Acme Inc',
-                logo: GalleryVerticalEnd,
-                plan: 'Enterprise'
+                name: 'Project A',
+                logo: Database,
+                plan: 'project-a.aigraphr'
             },
             {
-                name: 'Acme Corp.',
-                logo: AudioWaveform,
-                plan: 'Startup'
+                name: 'Project B',
+                logo: Database,
+                plan: 'project-b.aigraphr'
             },
             {
-                name: 'Evil Corp.',
-                logo: Command,
-                plan: 'Free'
+                name: 'Project C',
+                logo: Database,
+                plan: 'project-c.aigraphr'
             }
         ],
         []
