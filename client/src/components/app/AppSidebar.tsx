@@ -1,3 +1,6 @@
+import {NavMain} from '@/components/navs/NavMain';
+import {NavUser} from '@/components/navs/NavUser';
+import {NavWorkspaces} from '@/components/navs/NavWorkspaces';
 import {ProjectSwitcher} from '@/components/projects/ProjectSwitcher';
 import {
     Sidebar,
@@ -6,9 +9,6 @@ import {
     SidebarHeader,
     SidebarRail
 } from '@/components/shadcn/ui/sidebar';
-import {NavMain} from '@/components/navs/NavMain';
-import {NavUser} from '@/components/navs/NavUser';
-import {NavWorkspaces} from '@/components/navs/NavWorkspaces';
 import {ComponentProps, FC} from 'react';
 
 export const AppSidebar: FC<ComponentProps<typeof Sidebar>> = (props) => {

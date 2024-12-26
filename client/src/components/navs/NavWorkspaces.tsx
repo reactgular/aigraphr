@@ -24,7 +24,7 @@ export const NavWorkspaces: FC = () => {
 
     return (
         <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-            <SidebarGroupLabel>Projects</SidebarGroupLabel>
+            <SidebarGroupLabel>Workspaces</SidebarGroupLabel>
             <SidebarMenu>
                 {workspaces.map((workspace) => (
                     <SidebarMenuItem key={workspace.name}>
@@ -48,16 +48,16 @@ export const NavWorkspaces: FC = () => {
                             >
                                 <DropdownMenuItem>
                                     <Folder className="text-muted-foreground" />
-                                    <span>View Project</span>
+                                    <span>View Workspace</span>
                                 </DropdownMenuItem>
                                 <DropdownMenuItem>
                                     <Forward className="text-muted-foreground" />
-                                    <span>Share Project</span>
+                                    <span>Clone Workspace</span>
                                 </DropdownMenuItem>
                                 <DropdownMenuSeparator />
                                 <DropdownMenuItem>
                                     <Trash2 className="text-muted-foreground" />
-                                    <span>Delete Project</span>
+                                    <span>Delete Workspace</span>
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>

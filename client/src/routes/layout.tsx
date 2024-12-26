@@ -1,6 +1,6 @@
 import {AppProviders} from '@/components/app/AppProviders';
+import {AppSidebar} from '@/components/app/AppSidebar';
 import {SidebarInset, SidebarProvider} from '@/components/shadcn/ui/sidebar';
-import {AppSidebar} from '@/components/sidebar/AppSidebar';
 import {Outlet} from 'react-router';
 
 export default function Layout() {
