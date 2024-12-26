@@ -6,11 +6,15 @@ import {
     SidebarMenuButton,
     SidebarMenuItem
 } from '@/components/shadcn/ui/sidebar';
-import {Database} from 'lucide-react';
+import {CircleGauge} from 'lucide-react';
 import {FC} from 'react';
 import {Link} from 'react-router';
 
-export const NavDashboard: FC = () => {
+export interface NavDashboardProps {
+    projectId: number;
+}
+
+export const NavDashboard: FC<NavDashboardProps> = ({projectId}) => {
     return (
         <SidebarGroup className="gap-3">
             <Button>Create new workspace</Button>
@@ -18,8 +22,8 @@ export const NavDashboard: FC = () => {
             <SidebarMenu>
                 <SidebarMenuItem>
                     <SidebarMenuButton asChild>
-                        <Link to="/projects/1/dashboard">
-                            <Database />
+                        <Link to={`/projects/${projectId}/dashboard`}>
+                            <CircleGauge />
                             <span>Dashboard</span>
                         </Link>
                     </SidebarMenuButton>
