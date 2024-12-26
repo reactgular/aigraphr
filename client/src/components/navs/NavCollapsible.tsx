@@ -20,7 +20,7 @@ import {
     Settings2,
     SquareTerminal
 } from 'lucide-react';
-import {FC} from 'react';
+import type {FC} from 'react';
 
 const ITEMS = [
     {

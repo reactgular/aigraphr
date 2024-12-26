@@ -7,7 +7,7 @@ import {
     SidebarMenuItem
 } from '@/components/shadcn/ui/sidebar';
 import {CircleGauge} from 'lucide-react';
-import {FC} from 'react';
+import type {FC} from 'react';
 import {Link} from 'react-router';
 
 export interface NavDashboardProps {

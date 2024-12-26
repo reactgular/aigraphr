@@ -8,7 +8,7 @@ export default function Index({params}: Route.LoaderArgs) {
     return (
         <AppProviders>
             <SidebarProvider>
-                <AppSidebar />
+                <AppSidebar projectId={1} />
                 <SidebarInset>
                     <Outlet />
                 </SidebarInset>

@@ -9,17 +9,21 @@ import {
     SidebarHeader,
     SidebarRail
 } from '@/components/shadcn/ui/sidebar';
-import {ComponentProps, FC} from 'react';
+import type {FC} from 'react';
 
-export const AppSidebar: FC<ComponentProps<typeof Sidebar>> = (props) => {
+export interface AppSidebarProps {
+    projectId: number;
+}
+
+export const AppSidebar: FC<AppSidebarProps> = ({projectId}) => {
     return (
-        <Sidebar collapsible="icon" {...props}>
+        <Sidebar collapsible="icon">
             <SidebarHeader>
                 <ProjectSwitcher />
             </SidebarHeader>
             <SidebarContent>
-                <NavDashboard />
-                <NavProject projectId={1} />
+                <NavDashboard projectId={projectId} />
+                <NavProject projectId={projectId} />
             </SidebarContent>
             <SidebarFooter>
                 <NavUser />

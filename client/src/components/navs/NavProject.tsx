@@ -6,7 +6,7 @@ import {
     SidebarMenuItem
 } from '@/components/shadcn/ui/sidebar';
 import {Database, Workflow} from 'lucide-react';
-import {FC} from 'react';
+import type {FC} from 'react';
 import {NavLink} from 'react-router';
 
 export interface NavProjectProps {

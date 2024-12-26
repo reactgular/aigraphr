@@ -1,5 +1,6 @@
 import {Database} from 'lucide-react';
-import {ElementType, useMemo} from 'react';
+import type {ElementType} from 'react';
+import {useMemo} from 'react';
 
 /**
  * @deprecated will be replaced by ProjectDto

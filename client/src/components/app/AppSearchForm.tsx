@@ -2,7 +2,7 @@ import {cn} from '@/components/shadcn/lib/utils';
 import {Label} from '@/components/shadcn/ui/label';
 import {SidebarInput} from '@/components/shadcn/ui/sidebar';
 import {Search} from 'lucide-react';
-import {ComponentProps, FC} from 'react';
+import type {ComponentProps, FC} from 'react';
 
 export const AppSearchForm: FC<ComponentProps<'form'>> = ({
     className,

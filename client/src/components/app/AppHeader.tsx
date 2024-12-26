@@ -8,7 +8,7 @@ import {
 } from '@/components/shadcn/ui/breadcrumb';
 import {Separator} from '@/components/shadcn/ui/separator';
 import {SidebarTrigger} from '@/components/shadcn/ui/sidebar';
-import {FC} from 'react';
+import type {FC} from 'react';
 
 export const AppHeader: FC = () => {
     return (

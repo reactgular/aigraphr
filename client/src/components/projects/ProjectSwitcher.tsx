@@ -15,7 +15,8 @@ import {
     useSidebar
 } from '@/components/shadcn/ui/sidebar';
 import {ChevronsUpDown, Plus} from 'lucide-react';
-import {FC, useState} from 'react';
+import type {FC} from 'react';
+import {useState} from 'react';
 
 export const ProjectSwitcher: FC = () => {
     const projects = useProjects();

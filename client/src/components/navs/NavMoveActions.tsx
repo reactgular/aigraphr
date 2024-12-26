@@ -23,7 +23,7 @@ import {
     PieChart,
     Trash2
 } from 'lucide-react';
-import {FC} from 'react';
+import type {FC} from 'react';
 
 const ITEMS = [
     {
