@@ -1,14 +1,8 @@
 import {
-    Avatar,
-    AvatarFallback,
-    AvatarImage
-} from '@/components/shadcn/ui/avatar';
-import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuGroup,
     DropdownMenuItem,
-    DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger
 } from '@/components/shadcn/ui/dropdown-menu';
@@ -18,21 +12,9 @@ import {
     SidebarMenuItem,
     useSidebar
 } from '@/components/shadcn/ui/sidebar';
-import {
-    BadgeCheck,
-    Bell,
-    ChevronsUpDown,
-    CreditCard,
-    LogOut,
-    Sparkles
-} from 'lucide-react';
+import {UserInfo} from '@/components/user/UserInfo';
+import {Bell, ChevronsUpDown, CreditCard, Lock, LogOut} from 'lucide-react';
 import type {FC} from 'react';
-
-const USER = {
-    name: 'shadcn',
-    email: 'm@example.com',
-    avatar: '/avatars/shadcn.jpg'
-};
 
 export const NavUser: FC = () => {
     const {isMobile} = useSidebar();
@@ -46,23 +28,7 @@ export const NavUser: FC = () => {
                             size="lg"
                             className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
                         >
-                            <Avatar className="h-8 w-8 rounded-lg">
-                                <AvatarImage
-                                    src={USER.avatar}
-                                    alt={USER.name}
-                                />
-                                <AvatarFallback className="rounded-lg">
-                                    CN
-                                </AvatarFallback>
-                            </Avatar>
-                            <div className="grid flex-1 text-left text-sm leading-tight">
-                                <span className="truncate font-semibold">
-                                    {USER.name}
-                                </span>
-                                <span className="truncate text-xs">
-                                    {USER.email}
-                                </span>
-                            </div>
+                            <UserInfo />
                             <ChevronsUpDown className="ml-auto size-4" />
                         </SidebarMenuButton>
                     </DropdownMenuTrigger>
@@ -72,53 +38,24 @@ export const NavUser: FC = () => {
                         align="end"
                         sideOffset={4}
                     >
-                        <DropdownMenuLabel className="p-0 font-normal">
-                            <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                                <Avatar className="h-8 w-8 rounded-lg">
-                                    <AvatarImage
-                                        src={USER.avatar}
-                                        alt={USER.name}
-                                    />
-                                    <AvatarFallback className="rounded-lg">
-                                        CN
-                                    </AvatarFallback>
-                                </Avatar>
-                                <div className="grid flex-1 text-left text-sm leading-tight">
-                                    <span className="truncate font-semibold">
-                                        {USER.name}
-                                    </span>
-                                    <span className="truncate text-xs">
-                                        {USER.email}
-                                    </span>
-                                </div>
-                            </div>
-                        </DropdownMenuLabel>
-                        <DropdownMenuSeparator />
                         <DropdownMenuGroup>
                             <DropdownMenuItem>
-                                <Sparkles />
-                                Upgrade to Pro
+                                <Bell />
+                                Notifications
                             </DropdownMenuItem>
-                        </DropdownMenuGroup>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuGroup>
                             <DropdownMenuItem>
-                                <BadgeCheck />
-                                Account
+                                <Lock />
+                                Secrets
                             </DropdownMenuItem>
                             <DropdownMenuItem>
                                 <CreditCard />
                                 Billing
                             </DropdownMenuItem>
-                            <DropdownMenuItem>
-                                <Bell />
-                                Notifications
-                            </DropdownMenuItem>
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem>
                             <LogOut />
-                            Log out
+                            Shut down
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
