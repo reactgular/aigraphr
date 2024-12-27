@@ -1,3 +1,4 @@
+import {cn} from '@/components/shadcn/lib/utils';
 import {
     SidebarMenuButton,
     SidebarMenuItem
@@ -6,7 +7,7 @@ import type {FC} from 'react';
 import {NavLink, type Path} from 'react-router';
 
 export interface UiSideBarItem {
-    icon: FC;
+    icon: FC<Partial<HTMLElement>>;
 
     label: string;
 
@@ -20,11 +21,19 @@ export interface UiSideBarItemProps {
 export const UiSideBarItem: FC<UiSideBarItemProps> = ({item}) => {
     return (
         <SidebarMenuItem>
-            <NavLink className="example" to={item.to}>
+            <NavLink to={item.to}>
                 {({isActive}) => (
-                    <SidebarMenuButton isActive={isActive} asChild>
+                    <SidebarMenuButton
+                        className={
+                            'data-[active=true]:bg-primary/10 data-[active=true]:font-[500]'
+                        }
+                        isActive={isActive}
+                        asChild
+                    >
                         <span>
-                            <item.icon />
+                            <item.icon
+                                className={cn({'text-primary': isActive})}
+                            />
                             <span>{item.label}</span>
                         </span>
                     </SidebarMenuButton>
