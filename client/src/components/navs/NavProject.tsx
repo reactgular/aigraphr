@@ -1,13 +1,11 @@
 import {
     SidebarGroup,
     SidebarGroupLabel,
-    SidebarMenu,
-    SidebarMenuButton,
-    SidebarMenuItem
+    SidebarMenu
 } from '@/components/shadcn/ui/sidebar';
-import {Database, Workflow} from 'lucide-react';
+import {UiSideBarItem} from '@/components/ui/sidebar/UiSideBarItem';
+import {Database, Images, Workflow} from 'lucide-react';
 import type {FC} from 'react';
-import {NavLink} from 'react-router';
 
 export interface NavProjectProps {
     projectId: number;
@@ -18,22 +16,27 @@ export const NavProject: FC<NavProjectProps> = ({projectId}) => {
         <SidebarGroup>
             <SidebarGroupLabel>Project</SidebarGroupLabel>
             <SidebarMenu>
-                <SidebarMenuItem>
-                    <SidebarMenuButton isActive={true} asChild>
-                        <NavLink to={`/projects/${projectId}/workspaces`}>
-                            <Workflow />
-                            <span>Workspaces</span>
-                        </NavLink>
-                    </SidebarMenuButton>
-                </SidebarMenuItem>
-                <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                        <NavLink to={`/projects/${projectId}/workspaces`}>
-                            <Database />
-                            <span>Databases</span>
-                        </NavLink>
-                    </SidebarMenuButton>
-                </SidebarMenuItem>
+                <UiSideBarItem
+                    item={{
+                        icon: Workflow,
+                        label: 'Workspaces',
+                        to: `/projects/${projectId}/workspaces`
+                    }}
+                />
+                <UiSideBarItem
+                    item={{
+                        icon: Database,
+                        label: 'Databases',
+                        to: `/projects/${projectId}/databases`
+                    }}
+                />
+                <UiSideBarItem
+                    item={{
+                        icon: Images,
+                        label: 'Media',
+                        to: `/projects/${projectId}/media`
+                    }}
+                />
             </SidebarMenu>
         </SidebarGroup>
     );

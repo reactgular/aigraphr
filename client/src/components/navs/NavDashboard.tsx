@@ -1,14 +1,9 @@
 import {AppSearchForm} from '@/components/app/AppSearchForm';
 import {Button} from '@/components/shadcn/ui/button';
-import {
-    SidebarGroup,
-    SidebarMenu,
-    SidebarMenuButton,
-    SidebarMenuItem
-} from '@/components/shadcn/ui/sidebar';
+import {SidebarGroup, SidebarMenu} from '@/components/shadcn/ui/sidebar';
+import {UiSideBarItem} from '@/components/ui/sidebar/UiSideBarItem';
 import {CircleGauge} from 'lucide-react';
 import type {FC} from 'react';
-import {Link} from 'react-router';
 
 export interface NavDashboardProps {
     projectId: number;
@@ -20,14 +15,13 @@ export const NavDashboard: FC<NavDashboardProps> = ({projectId}) => {
             <Button>Create new workspace</Button>
             <AppSearchForm />
             <SidebarMenu>
-                <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                        <Link to={`/projects/${projectId}/dashboard`}>
-                            <CircleGauge />
-                            <span>Dashboard</span>
-                        </Link>
-                    </SidebarMenuButton>
-                </SidebarMenuItem>
+                <UiSideBarItem
+                    item={{
+                        icon: CircleGauge,
+                        label: 'Dashboard',
+                        to: `/projects/${projectId}/dashboard`
+                    }}
+                />
             </SidebarMenu>
         </SidebarGroup>
     );
