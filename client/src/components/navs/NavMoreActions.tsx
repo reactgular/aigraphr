@@ -46,7 +46,7 @@ const ITEMS = [
 /**
  * @deprecated this is an example on how to do menus with more actions
  */
-export const NavMoveActions: FC = () => {
+export const NavMoreActions: FC = () => {
     const {isMobile} = useSidebar();
 
     return (

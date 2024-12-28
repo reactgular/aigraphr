@@ -3,11 +3,12 @@ import {
     SidebarMenuButton,
     SidebarMenuItem
 } from '@/components/shadcn/ui/sidebar';
+import type {LucideProps} from 'lucide-react';
 import type {FC} from 'react';
 import {NavLink, type Path} from 'react-router';
 
 export interface UiSideBarItem {
-    icon: FC<Partial<HTMLElement>>;
+    icon: FC<LucideProps>;
 
     label: string;
 

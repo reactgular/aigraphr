@@ -13,8 +13,16 @@ import {
     useSidebar
 } from '@/components/shadcn/ui/sidebar';
 import {UserInfo} from '@/components/user/UserInfo';
-import {Bell, ChevronsUpDown, CreditCard, Lock, LogOut} from 'lucide-react';
+import {
+    Bell,
+    ChevronsUpDown,
+    CreditCard,
+    Database,
+    Lock,
+    LogOut
+} from 'lucide-react';
 import type {FC} from 'react';
+import {Link} from 'react-router';
 
 export const NavUser: FC = () => {
     const {isMobile} = useSidebar();
@@ -39,6 +47,13 @@ export const NavUser: FC = () => {
                         sideOffset={4}
                     >
                         <DropdownMenuGroup>
+                            <DropdownMenuItem asChild>
+                                <Link to="/projects">
+                                    <Database />
+                                    Projects
+                                </Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuSeparator />
                             <DropdownMenuItem>
                                 <Bell />
                                 Notifications
