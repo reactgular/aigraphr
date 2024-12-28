@@ -15,17 +15,35 @@ import {Column, Entity, Unique} from 'typeorm';
 const PROFILE_FILE_REGEX = /^[a-zA-Z0-9-_]+$/;
 
 @Entity({name: 'projects'})
-@Unique(['name'])
+@Unique(['fileName'])
 export class ProjectEntity extends ScaEntity {
+    @IsBoolean()
+    @ApiProperty({
+        description: 'The encrypted status of the project',
+        example: false
+    })
+    @Column()
+    encrypted: boolean;
+
     @IsString()
     @Matches(PROFILE_FILE_REGEX, {
-        message: 'The name of the project must be alphanumeric'
+        message: 'The name of the project file must be alphanumeric'
     })
     @MinLength(3)
     @MaxLength(128)
     @ApiProperty({
+        description: 'The name of the project file (alphanumeric)',
+        example: 'example-project.aigraphr'
+    })
+    @Column({length: 128})
+    fileName: string;
+
+    @IsString()
+    @MinLength(3)
+    @MaxLength(128)
+    @ApiProperty({
         description: 'The name of the project (alphanumeric)',
-        example: 'example-project'
+        example: 'My Project'
     })
     @Column({length: 128})
     name: string;
@@ -60,5 +78,5 @@ export class ProjectCreateDto extends OmitType(ProjectDto, [
  * @deprecated need to switch to using groups
  */
 export class ProjectUpdateDto extends PartialType(
-    OmitType(ProjectDto, ['id'] as const)
+    OmitType(ProjectDto, ['id', 'encrypted'] as const)
 ) {}

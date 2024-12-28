@@ -28,10 +28,10 @@ export class ProjectsValidatorService extends ScaValidatorService<
             }
         }
 
-        if (await this.projects.existsByName(data.name)) {
+        if (await this.projects.existsByName(data.fileName)) {
             invalidator.notUnique(
                 'name',
-                'Project with the same name already exists'
+                'Project with the same file name already exists'
             );
         }
 

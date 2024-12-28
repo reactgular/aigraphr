@@ -26,7 +26,9 @@ describe('Workspaces API (e2e) Tests', () => {
             .expect({
                 id: 1,
                 name: 'test',
-                open: true
+                fileName: 'test.aigraphr',
+                open: true,
+                encrypted: false
             } satisfies ProjectDto);
     });
 

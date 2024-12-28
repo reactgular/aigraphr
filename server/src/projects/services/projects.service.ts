@@ -175,7 +175,9 @@ export class ProjectsService extends ScaCrudService<
         createDto: ProjectCreateDto
     ): Omit<ProjectEntity, 'id'> {
         return {
-            name: createDto.name
+            name: createDto.name,
+            fileName: createDto.fileName,
+            encrypted: createDto.encrypted
         };
     }
 

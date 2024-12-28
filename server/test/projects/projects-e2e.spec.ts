@@ -36,19 +36,35 @@ describe('Projects API (e2e) Tests', () => {
                     {
                         id: 1,
                         name: 'one',
-                        open: true
+                        fileName: 'one.aigraphr',
+                        open: true,
+                        encrypted: false
                     } satisfies ProjectDto,
                     {
                         id: 2,
                         name: 'two',
-                        open: true
+                        fileName: 'two.aigraphr',
+                        open: true,
+                        encrypted: false
                     } satisfies ProjectDto,
                     {
                         id: 3,
                         name: 'three',
-                        open: true
+                        fileName: 'three.aigraphr',
+                        open: true,
+                        encrypted: false
                     } satisfies ProjectDto
                 ]);
+        });
+
+        it('should not create two projects with the same file name', () => {
+            //
+            throw new Error('Not implemented');
+        });
+
+        it('should fail to encrypt a project, because not supported yet', async () => {
+            //
+            throw new Error('Not implemented');
         });
 
         it('should get each project', async () => {
@@ -58,7 +74,9 @@ describe('Projects API (e2e) Tests', () => {
                 .expect({
                     id: 1,
                     name: 'one',
-                    open: true
+                    fileName: 'one.aigraphr',
+                    open: true,
+                    encrypted: false
                 } satisfies ProjectDto);
 
             await app.request
@@ -67,7 +85,9 @@ describe('Projects API (e2e) Tests', () => {
                 .expect({
                     id: 2,
                     name: 'two',
-                    open: true
+                    fileName: 'two.aigraphr',
+                    open: true,
+                    encrypted: false
                 } satisfies ProjectDto);
 
             await app.request
@@ -76,7 +96,9 @@ describe('Projects API (e2e) Tests', () => {
                 .expect({
                     id: 3,
                     name: 'three',
-                    open: true
+                    fileName: 'three.aigraphr',
+                    open: true,
+                    encrypted: false
                 } satisfies ProjectDto);
         });
 
@@ -133,17 +155,23 @@ describe('Projects API (e2e) Tests', () => {
                     {
                         id: 1,
                         name: 'one',
-                        open: false
+                        fileName: 'one.aigraphr',
+                        open: false,
+                        encrypted: false
                     } satisfies ProjectDto,
                     {
                         id: 2,
                         name: 'two',
-                        open: false
+                        fileName: 'two.aigraphr',
+                        open: false,
+                        encrypted: false
                     } satisfies ProjectDto,
                     {
                         id: 3,
                         name: 'three',
-                        open: false
+                        fileName: 'three.aigraphr',
+                        open: false,
+                        encrypted: false
                     } satisfies ProjectDto
                 ]);
         });
@@ -169,17 +197,23 @@ describe('Projects API (e2e) Tests', () => {
                     {
                         id: 1,
                         name: 'one-renamed',
-                        open: false
+                        fileName: 'one-renamed.aigraphr',
+                        open: false,
+                        encrypted: false
                     } satisfies ProjectDto,
                     {
                         id: 2,
                         name: 'two-renamed',
-                        open: false
+                        fileName: 'two-renamed.aigraphr',
+                        open: false,
+                        encrypted: false
                     } satisfies ProjectDto,
                     {
                         id: 3,
                         name: 'three-renamed',
-                        open: false
+                        fileName: 'three-renamed.aigraphr',
+                        open: false,
+                        encrypted: false
                     } satisfies ProjectDto
                 ]);
         });
@@ -225,7 +259,9 @@ describe('Projects API (e2e) Tests', () => {
                     .expect({
                         id: 1,
                         name: 'test',
-                        open: true
+                        fileName: 'test.aigraphr',
+                        open: true,
+                        encrypted: false
                     } satisfies ProjectDto);
 
                 expect(await app.projectExists('test')).toBe(true);
@@ -236,7 +272,9 @@ describe('Projects API (e2e) Tests', () => {
                     .expect({
                         id: 1,
                         name: 'test',
-                        open: true
+                        fileName: 'test.aigraphr',
+                        open: true,
+                        encrypted: false
                     } satisfies ProjectDto);
             });
 
@@ -250,7 +288,9 @@ describe('Projects API (e2e) Tests', () => {
                     .expect({
                         id: 1,
                         name: 'test',
-                        open: false
+                        fileName: 'test.aigraphr',
+                        open: false,
+                        encrypted: false
                     } satisfies ProjectDto);
 
                 await app.request.delete(`${route}/1`).expect({}).expect(204);
@@ -296,7 +336,11 @@ describe('Projects API (e2e) Tests', () => {
         it('should copy a project file', async () => {
             const resp1 = await app.request
                 .post(route)
-                .send({name: 'original'} satisfies ProjectCreateDto)
+                .send({
+                    name: 'original',
+                    fileName: 'original.aigraphr',
+                    encrypted: false
+                } satisfies ProjectCreateDto)
                 .expect(201)
                 .expect(/original/);
 
@@ -309,7 +353,9 @@ describe('Projects API (e2e) Tests', () => {
                 .post(route)
                 .send({
                     name: 'copy',
-                    cloneId: resp1.body.id
+                    fileName: 'copy.aigraphr',
+                    cloneId: resp1.body.id,
+                    encrypted: false
                 } satisfies ProjectCreateDto)
                 .expect(201)
                 .expect(/copy/);
@@ -321,7 +367,11 @@ describe('Projects API (e2e) Tests', () => {
         it('should report user deleted files as GONE', async () => {
             const resp = await app.request
                 .post(route)
-                .send({name: 'is-gone'} satisfies ProjectCreateDto)
+                .send({
+                    name: 'is-gone',
+                    fileName: 'is-gone.aigraphr',
+                    encrypted: false
+                } satisfies ProjectCreateDto)
                 .expect(201)
                 .expect(/is-gone/);
 
