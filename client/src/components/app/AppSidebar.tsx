@@ -1,5 +1,5 @@
 import {NavDashboard} from '@/components/navs/NavDashboard';
-import {NavProject} from '@/components/navs/NavProject';
+import {NavResources} from '@/components/navs/NavResources';
 import {NavUser} from '@/components/navs/NavUser';
 import {ProjectSwitcher} from '@/components/projects/ProjectSwitcher';
 import {
@@ -23,7 +23,7 @@ export const AppSidebar: FC<AppSidebarProps> = ({projectId}) => {
             </SidebarHeader>
             <SidebarContent>
                 <NavDashboard projectId={projectId} />
-                <NavProject projectId={projectId} />
+                <NavResources projectId={projectId} />
             </SidebarContent>
             <SidebarFooter>
                 <NavUser />

@@ -1,7 +1,7 @@
 import {AppSearchForm} from '@/components/app/AppSearchForm';
 import {Button} from '@/components/shadcn/ui/button';
 import {SidebarGroup, SidebarMenu} from '@/components/shadcn/ui/sidebar';
-import {UiSideBarItem} from '@/components/ui/sidebar/UiSideBarItem';
+import {UiSideBarItem} from '@/components/ui/UiSideBarItem';
 import {CircleGauge} from 'lucide-react';
 import type {FC} from 'react';
 

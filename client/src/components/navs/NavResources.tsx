@@ -3,7 +3,7 @@ import {
     SidebarGroupLabel,
     SidebarMenu
 } from '@/components/shadcn/ui/sidebar';
-import {UiSideBarItem} from '@/components/ui/sidebar/UiSideBarItem';
+import {UiSideBarItem} from '@/components/ui/UiSideBarItem';
 import {Database, Images, Workflow} from 'lucide-react';
 import type {FC} from 'react';
 
@@ -11,10 +11,10 @@ export interface NavProjectProps {
     projectId: number;
 }
 
-export const NavProject: FC<NavProjectProps> = ({projectId}) => {
+export const NavResources: FC<NavProjectProps> = ({projectId}) => {
     return (
         <SidebarGroup>
-            <SidebarGroupLabel>Project</SidebarGroupLabel>
+            <SidebarGroupLabel>Resources</SidebarGroupLabel>
             <SidebarMenu>
                 <UiSideBarItem
                     item={{
