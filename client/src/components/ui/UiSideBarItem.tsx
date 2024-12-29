@@ -7,7 +7,7 @@ import type {LucideProps} from 'lucide-react';
 import type {FC} from 'react';
 import {NavLink, type Path} from 'react-router';
 
-export interface UiSideBarItem {
+interface UiSideBarItem {
     icon: FC<LucideProps>;
 
     label: string;
@@ -15,7 +15,7 @@ export interface UiSideBarItem {
     to: string | Path;
 }
 
-export interface UiSideBarItemProps {
+interface UiSideBarItemProps {
     item: UiSideBarItem;
 }
 

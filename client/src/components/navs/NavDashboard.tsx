@@ -5,7 +5,7 @@ import {UiSideBarItem} from '@/components/ui/UiSideBarItem';
 import {CircleGauge} from 'lucide-react';
 import type {FC} from 'react';
 
-export interface NavDashboardProps {
+interface NavDashboardProps {
     projectId: number;
 }
 

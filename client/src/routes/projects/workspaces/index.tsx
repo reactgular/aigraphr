@@ -5,7 +5,7 @@ import {UiTable} from '@/components/ui/UiTable';
 import type {ColumnDef} from '@tanstack/react-table';
 import type {Route} from './+types/index';
 
-export const COLUMNS: ColumnDef<WorkspaceDto>[] = [
+const COLUMNS: ColumnDef<WorkspaceDto>[] = [
     {
         accessorKey: 'id',
         header: 'ID'

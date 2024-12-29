@@ -11,7 +11,7 @@ import {
 } from '@/components/shadcn/ui/sidebar';
 import type {FC} from 'react';
 
-export interface AppSidebarProps {
+interface AppSidebarProps {
     projectId: number;
 }
 

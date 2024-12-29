@@ -7,7 +7,7 @@ import {UiSideBarItem} from '@/components/ui/UiSideBarItem';
 import {Database, Images, Workflow} from 'lucide-react';
 import type {FC} from 'react';
 
-export interface NavProjectProps {
+interface NavProjectProps {
     projectId: number;
 }
 
