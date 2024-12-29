@@ -10,9 +10,15 @@ export default [
     layout('routes/layout.tsx', [
         // path: "/"
         index('routes/index.tsx'),
+        ...prefix('app', [
+            layout('routes/app/layout.tsx', [
+                // path: "/app"
+                index('routes/app/index.tsx'),
+                // path: "/app/projects"
+                route('projects', 'routes/app/projects/index.tsx')
+            ])
+        ]),
         ...prefix('projects', [
-            // path: "/projects"
-            index('routes/projects/index.tsx'),
             layout('routes/projects/layout.tsx', [
                 // path: "/projects/:projectId/dashboard"
                 route(':projectId/dashboard', 'routes/projects/dashboard.tsx'),

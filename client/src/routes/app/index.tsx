@@ -6,7 +6,7 @@ export default function Index({params}: Route.LoaderArgs) {
     const nav = useNavigate();
 
     useEffect(() => {
-        nav('/app');
+        nav('/app/projects');
     }, [nav]);
 
     return <Outlet />;

@@ -15,7 +15,7 @@ interface AppSidebarProps {
     projectId: number;
 }
 
-export const AppSidebar: FC<AppSidebarProps> = ({projectId}) => {
+export const ProjectSidebar: FC<AppSidebarProps> = ({projectId}) => {
     return (
         <Sidebar collapsible="icon">
             <SidebarHeader>
