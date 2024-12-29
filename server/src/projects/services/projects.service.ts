@@ -41,7 +41,7 @@ export class ProjectsService extends ScaCrudService<
             throw new BadRequestException(
                 `Cannot clone project ${id} because it is open`
             );
-        } else if (await this.existsByName(destName)) {
+        } else if (await this.existsByFileName(destName)) {
             throw new BadRequestException(
                 `Project with name ${destName} already exists`
             );
@@ -66,15 +66,19 @@ export class ProjectsService extends ScaCrudService<
 
     public async close(id: number): Promise<void> {
         this.log.log(`Close:${id}`);
-        await this.projectDataSources.close(await this.getName(id));
+        await this.projectDataSources.close(await this.getFileName(id));
     }
 
-    public async create(name: string): Promise<number> {
-        this.log.log(`Create:${name}`);
+    public async create(
+        name: string,
+        fileName: string,
+        encrypted: boolean
+    ): Promise<number> {
+        this.log.log(`Create:${name}:${fileName}:${encrypted}`);
 
-        await this.projectDataSources.open(name, false);
+        await this.projectDataSources.open(fileName, false);
 
-        const entity = this.projects.create({name});
+        const entity = this.projects.create({name, fileName, encrypted});
         const saved = await this.projects.save(entity);
 
         this.log.log(`Created:${JSON.stringify(saved)}`);
@@ -82,18 +86,18 @@ export class ProjectsService extends ScaCrudService<
         return saved.id;
     }
 
-    public async existsByName(name: string, ignoreId?: number) {
+    public async existsByFileName(fileName: string, ignoreId?: number) {
         return ignoreId
             ? (await this.projects.count({
                   where: {
                       id: Not(ignoreId),
-                      name
+                      fileName
                   }
               })) > 0
-            : (await this.projects.count({where: {name}})) > 0;
+            : (await this.projects.count({where: {fileName}})) > 0;
     }
 
-    public async getName(id: number): Promise<string> {
+    public async getFileName(id: number): Promise<string> {
         const {name} = await this.projects.findOneOrFail({
             where: {id},
             select: {name: true}
@@ -106,13 +110,13 @@ export class ProjectsService extends ScaCrudService<
     }
 
     public async isOpened(id: number): Promise<boolean> {
-        const name = await this.getName(id);
-        return this.projectDataSources.isOpen(name);
+        const fileName = await this.getFileName(id);
+        return this.projectDataSources.isOpen(fileName);
     }
 
     public async open(id: number): Promise<void> {
         this.log.log(`Open:${id}`);
-        await this.projectDataSources.open(await this.getName(id), true);
+        await this.projectDataSources.open(await this.getFileName(id), true);
     }
 
     public async remove(id: number): Promise<void> {

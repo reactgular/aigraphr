@@ -24,6 +24,11 @@ function toJson(value: unknown): object | undefined {
     }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function getHttpResponse(_default: string, value?: any): string {
+    return value?.['message']?.toString() ?? value?.toString() ?? _default;
+}
+
 @Catch()
 export class ScaExceptionFilter implements ExceptionFilter {
     public constructor(private readonly httpAdapterHost: HttpAdapterHost) {}
@@ -49,10 +54,12 @@ export class ScaExceptionFilter implements ExceptionFilter {
                 if (exception instanceof QueryFailedError) {
                     if (response.message.includes('constraint failed')) {
                         response.statusCode = HttpStatus.CONFLICT;
-                    } else if (response.message.includes('no such table')) {
+                    } else if (
+                        response.message.includes('no such table') ||
+                        response.message.includes('no such column')
+                    ) {
                         response.statusCode = HttpStatus.INTERNAL_SERVER_ERROR;
-                    } else {
-                        response.statusCode = HttpStatus.BAD_REQUEST;
+                        response.statusCode = HttpStatus.INTERNAL_SERVER_ERROR;
                     }
                 } else if (exception instanceof EntityNotFoundError) {
                     response.statusCode = HttpStatus.NOT_FOUND;
@@ -60,6 +67,10 @@ export class ScaExceptionFilter implements ExceptionFilter {
                 }
             } else if (exception instanceof HttpException) {
                 response.statusCode = exception.getStatus();
+                response.message = getHttpResponse(
+                    response.message,
+                    exception.getResponse()
+                );
                 response.cause = toJson(exception.cause);
             }
         }

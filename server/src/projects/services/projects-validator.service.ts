@@ -28,14 +28,32 @@ export class ProjectsValidatorService extends ScaValidatorService<
             }
         }
 
-        if (await this.projects.existsByName(data.fileName)) {
+        if (await this.projects.existsByFileName(data.fileName)) {
             invalidator.notUnique(
-                'name',
+                'fileName',
                 'Project with the same file name already exists'
             );
         }
 
-        this.validNameLength(data.name, invalidator);
+        if (data.fileName.length < 3) {
+            // @TODO can't this be handled by the validator pipe?
+            invalidator.invalid(
+                'fileName',
+                'Name must be at least 3 characters long'
+            );
+        }
+
+        // @TODO can't this be handled by the validator pipe?
+        if (data.name.length < 3) {
+            invalidator.invalid(
+                'fileName',
+                'Name must be at least 3 characters long'
+            );
+        }
+
+        if (data.encrypted) {
+            invalidator.invalid('encrypted', 'Encryption is not supported yet');
+        }
     }
 
     public async onUpdateValidate(
@@ -43,45 +61,45 @@ export class ProjectsValidatorService extends ScaValidatorService<
         id: number,
         data: ProjectUpdateDto
     ): Promise<void> {
-        if (data.name) {
-            if (typeof data.open === 'boolean') {
-                invalidator.invalid(
-                    'name',
-                    'Cannot change name and open status at the same time'
-                );
-            }
-
-            if (data.name === (await this.projects.getName(id))) {
-                invalidator.badValue(
-                    'name',
-                    'Name must be different from the current name'
-                );
-            }
-
-            this.validNameLength(data.name, invalidator);
-
-            if (await this.projects.existsByName(data.name, id)) {
-                invalidator.notUnique(
-                    'name',
-                    'Project with the same name already exists'
-                );
-            }
-        } else if (!data.name && typeof data.open === 'undefined') {
-            invalidator.invalid('name', 'Must provide name or open status');
-        }
-    }
-
-    private validNameLength(
-        name: string | undefined,
-        invalidator: ScaInvalidator<{name: string}>
-    ) {
-        if (!name) {
-            invalidator.required('name', 'Name must be provided');
-        } else if (name.length < 3) {
+        if (typeof data.open === 'boolean' && Object.keys(data).length > 1) {
             invalidator.invalid(
-                'name',
-                'Name must be at least 3 characters long'
+                'open',
+                'Cannot update open status with other fields'
             );
+        }
+
+        if (data.fileName) {
+            if (data.fileName === (await this.projects.getFileName(id))) {
+                invalidator.badValue(
+                    'fileName',
+                    'File name must be different from the current file name'
+                );
+            }
+
+            if (data.fileName.length < 3) {
+                // @TODO can't this be handled by the validator pipe?
+                invalidator.invalid(
+                    'fileName',
+                    'File name must be at least 3 characters long'
+                );
+            }
+
+            if (await this.projects.existsByFileName(data.fileName, id)) {
+                invalidator.notUnique(
+                    'fileName',
+                    'Project with the same file name already exists'
+                );
+            }
+        }
+
+        if (data.name) {
+            // @TODO can't this be handled by the validator pipe?
+            if (data.name.length < 3) {
+                invalidator.invalid(
+                    'fileName',
+                    'Name must be at least 3 characters long'
+                );
+            }
         }
     }
 }

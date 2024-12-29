@@ -20,10 +20,10 @@ export class ProjectDataSourcesService implements OnApplicationShutdown {
         private readonly projectsStorage: ProjectsStorage
     ) {}
 
-    public async close(name: string) {
-        this.log.log(`Closing data source: ${name}`);
+    public async close(fileName: string) {
+        this.log.log(`Closing data source: ${fileName}`);
 
-        const dataSource: DataSource | undefined = this.connections[name];
+        const dataSource: DataSource | undefined = this.connections[fileName];
         if (!dataSource) {
             return;
         }
@@ -31,18 +31,18 @@ export class ProjectDataSourcesService implements OnApplicationShutdown {
         try {
             await dataSource.destroy();
         } finally {
-            delete this.connections[name];
+            delete this.connections[fileName];
         }
     }
 
     public async closeAll() {
-        for (const name of Object.keys(this.connections)) {
-            await this.close(name);
+        for (const fileName of Object.keys(this.connections)) {
+            await this.close(fileName);
         }
     }
 
-    public isOpen(name: string): boolean {
-        return !!this.connections[name];
+    public isOpen(fileName: string): boolean {
+        return !!this.connections[fileName];
     }
 
     public async onApplicationShutdown() {
@@ -50,30 +50,30 @@ export class ProjectDataSourcesService implements OnApplicationShutdown {
     }
 
     public async open(
-        name: string,
+        fileName: string,
         strict: boolean = true
     ): Promise<DataSource> {
-        this.log.log(`Opening data source: ${name}`);
+        this.log.log(`Opening data source: ${fileName}`);
 
-        if (this.connections[name]) {
-            this.log.debug(`Data source already open: ${name}`);
-            return this.connections[name];
+        if (this.connections[fileName]) {
+            this.log.debug(`Data source already open: ${fileName}`);
+            return this.connections[fileName];
         }
 
         if (strict) {
-            const path = await this.projectsStorage.projectDatabase(name);
-            const exists = await this.projectsStorage.projectExists(name);
+            const path = await this.projectsStorage.projectDatabase(fileName);
+            const exists = await this.projectsStorage.projectExists(fileName);
 
             if (!exists) {
                 throw new GoneException(
-                    `Project ${name} database does not exist: ${path}`
+                    `Project ${fileName} database does not exist: ${path}`
                 );
             }
         }
 
         const dataSource = new DataSource({
             type: 'sqlite',
-            database: await this.projectsStorage.projectDatabase(name),
+            database: await this.projectsStorage.projectDatabase(fileName),
             entities: [`${__dirname}/../entities/*.entity{.ts,.js}`],
             subscribers: [
                 `${__dirname}/../entities/subscribers/*.subscriber{.ts,.js}`
@@ -86,7 +86,7 @@ export class ProjectDataSourcesService implements OnApplicationShutdown {
         await dataSource.initialize();
         await dataSource.runMigrations();
 
-        this.connections[name] = dataSource;
+        this.connections[fileName] = dataSource;
 
         return dataSource;
     }

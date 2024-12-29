@@ -46,7 +46,11 @@ export class ProjectsController extends scaReadOnlyMixin(
             const projectId =
                 typeof data.cloneId === 'number'
                     ? await this.projects.clone(data.cloneId, data.name)
-                    : await this.projects.create(data.name);
+                    : await this.projects.create(
+                          data.name,
+                          data.fileName,
+                          data.encrypted
+                      );
             return await this.projects.scaGet(projectId);
         }
         throw result.exception();

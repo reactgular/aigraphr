@@ -45,7 +45,7 @@ export class ProjectGuard implements CanActivate {
             }
 
             const fileExists = await this.projectsStorage.projectExists(
-                await this.projects.getName(projectId)
+                await this.projects.getFileName(projectId)
             );
 
             if (!fileExists) {
