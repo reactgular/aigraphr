@@ -43,6 +43,7 @@
         "strictPropertyInitialization": true,
         "strictBindCallApply": true,
         "noImplicitReturns": true,
-        "useUnknownInCatchVariables": true
+        "useUnknownInCatchVariables": true,
+        "verbatimModuleSyntax": true
     }
 }

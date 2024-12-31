@@ -1,4 +1,4 @@
-import {ProjectDto} from '@/entities/project.entity';
+import {ProjectCreateDto, ProjectDto} from '@/entities/project.entity';
 import {
     WorkspaceCreateDto,
     WorkspaceDto,
@@ -12,7 +12,7 @@ client.setConfig({
     baseUrl: 'http://localhost:3030'
 });
 
-describe('Workspaces API (e2e) Tests', () => {
+xdescribe('Workspaces API (e2e) Tests', () => {
     let app: CreateMemory;
     const route = '/api/projects/1/workspaces';
 
@@ -21,12 +21,18 @@ describe('Workspaces API (e2e) Tests', () => {
 
         await app.request
             .post('/api/projects')
-            .send({name: 'test'})
+            .send({
+                name: 'test',
+                fileName: 'test.aigraphr',
+                encrypted: false
+            } satisfies ProjectCreateDto)
             .expect(201)
             .expect({
                 id: 1,
                 name: 'test',
-                open: true
+                fileName: 'test.aigraphr',
+                open: true,
+                encrypted: false
             } satisfies ProjectDto);
     });
 

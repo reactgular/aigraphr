@@ -1,4 +1,4 @@
-import {ReactNode} from 'react';
+import type {ReactNode} from 'react';
 import {
     isRouteErrorResponse,
     Links,
@@ -9,18 +9,27 @@ import {
 } from 'react-router';
 import type {Route} from '../.react-router/types/src/+types/root';
 import stylesheet from './styles.css?url';
+import '@fontsource/inter';
+import '@fontsource/inter/100.css';
+import '@fontsource/inter/100-italic.css';
+import '@fontsource/inter/200.css';
+import '@fontsource/inter/200-italic.css';
+import '@fontsource/inter/300.css';
+import '@fontsource/inter/300-italic.css';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/400-italic.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/500-italic.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/inter/600-italic.css';
+import '@fontsource/inter/700.css';
+import '@fontsource/inter/700-italic.css';
+import '@fontsource/inter/800.css';
+import '@fontsource/inter/800-italic.css';
+import '@fontsource/inter/900.css';
+import '@fontsource/inter/900-italic.css';
 
 export const links: Route.LinksFunction = () => [
-    {rel: 'preconnect', href: 'https://fonts.googleapis.com'},
-    {
-        rel: 'preconnect',
-        href: 'https://fonts.gstatic.com',
-        crossOrigin: 'anonymous'
-    },
-    {
-        rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap'
-    },
     {rel: 'stylesheet', href: stylesheet}
 ];
 

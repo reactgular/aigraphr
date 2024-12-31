@@ -1,13 +1,13 @@
-import {Demo} from '@/demos/demo';
-import type {Route} from '../../.react-router/types/src/routes/+types';
+import {useEffect} from 'react';
+import {Outlet, useNavigate} from 'react-router';
+import type {Route} from './+types/index';
 
-export function meta(args: Route.MetaArgs) {
-    return [
-        {title: 'New React Router App'},
-        {name: 'description', content: 'Welcome to React Router!'}
-    ];
-}
+export default function Index({params}: Route.LoaderArgs) {
+    const nav = useNavigate();
 
-export default function Index() {
-    return <Demo />;
+    useEffect(() => {
+        nav('/app');
+    }, [nav]);
+
+    return <Outlet />;
 }
