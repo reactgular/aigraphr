@@ -21,8 +21,6 @@ import '@fontsource/inter/800-italic.css';
 import '@fontsource/inter/900.css';
 import '@fontsource/inter/900-italic.css';
 
-/* snipped for brevity */
-
 export const decorators = [
     withThemeByDataAttribute({
         themes: {
@@ -33,16 +31,6 @@ export const decorators = [
         attributeName: 'data-mode'
     })
 ];
-
-// export const decorators = [
-//     withThemeByClassName({
-//         themes: {
-//             light: 'light',
-//             dark: 'dark'
-//         },
-//         defaultTheme: 'light'
-//     })
-// ];
 
 const preview: Preview = {
     tags: ['autodocs'],
