@@ -1,19 +1,22 @@
-import {GraphNode} from '@/components/graph/GraphNode';
+import {GrNode} from '@/components/graph/GrNode';
 import type {Meta, StoryObj} from '@storybook/react';
 
 export default {
-    title: 'Graph/GraphNode',
-    component: GraphNode,
+    title: 'Graph/GrNode',
+    component: GrNode,
     parameters: {
         layout: 'centered'
     },
     tags: ['autodocs'],
     args: {
-        name: 'Example001'
+        name: 'Example001',
+        active: false,
+        selected: false,
+        disabled: false
     }
-} satisfies Meta<typeof GraphNode>;
+} satisfies Meta<typeof GrNode>;
 
-type Story = StoryObj<typeof GraphNode>;
+type Story = StoryObj<typeof GrNode>;
 
 export const Disabled: Story = {
     args: {}
