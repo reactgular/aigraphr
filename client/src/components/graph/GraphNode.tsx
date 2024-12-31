@@ -1,11 +1,16 @@
+import {
+    type GraphNodeModel,
+    GraphNodeState
+} from '@/components/graph/GraphNodeState';
+import {cn} from '@/components/shadcn/lib/utils';
 import type {FC} from 'react';
 
-interface GraphNodeProps {
-    title: string;
-}
-
-export const GraphNode: FC<GraphNodeProps> = ({title}) => {
+export const GraphNode: FC<GraphNodeModel> = (props) => {
     return (
-        <div className="bg-red-500 dark:bg-green-500 p-10">I am a Node!</div>
+        <GraphNodeState.Provider defaultValue={props}>
+            <div className={cn({'bg-red-500': props.disabled})}>
+                I am a Node!
+            </div>
+        </GraphNodeState.Provider>
     );
 };

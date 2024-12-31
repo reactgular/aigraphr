@@ -7,37 +7,26 @@ export default {
     parameters: {
         layout: 'centered'
     },
-    tags: ['autodocs']
+    tags: ['autodocs'],
+    args: {
+        name: 'Example001'
+    }
 } satisfies Meta<typeof GraphNode>;
 
 type Story = StoryObj<typeof GraphNode>;
 
-export const Primary: Story = {
-    args: {
-        title: 'Primary Node'
-    }
+export const Disabled: Story = {
+    args: {}
 };
 
 export const Secondary: Story = {
-    args: {
-        title: 'Secondary Node'
-    }
+    args: {}
 };
 
 export const Large: Story = {
-    args: {
-        title: 'Large Node'
-    }
+    args: {}
 };
 
 export const Small: Story = {
-    args: {
-        title: 'Small Node'
-    }
-};
-
-export const Nick: Story = {
-    args: {
-        title: 'Nick Node'
-    }
+    args: {}
 };
