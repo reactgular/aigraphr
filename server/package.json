@@ -24,8 +24,8 @@
         "start": "nest start",
         "start:debug": "nest start --debug --watch",
         "start:prod": "node dist/main",
-        "test:build": "tsc --project tsconfig.test.json --noEmit",
         "test": "jest --runInBand",
+        "test:build": "tsc --project tsconfig.test.json --noEmit",
         "test:cov": "jest --runInBand --coverage",
         "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register ../node_modules/.bin/jest --runInBand",
         "test:watch": "jest --runInBand --watch",
@@ -46,6 +46,9 @@
             "@shared/api/(.*)": "<rootDir>../client/src/api/$1"
         },
         "rootDir": ".",
+        "setupFilesAfterEnv": [
+            "<rootDir>/test/jest.setup.ts"
+        ],
         "testEnvironment": "node",
         "testRegex": ".*\\.spec\\.ts$",
         "transform": {
@@ -55,10 +58,7 @@
                     "tsconfig": "tsconfig.test.json"
                 }
             ]
-        },
-        "setupFilesAfterEnv": [
-            "<rootDir>/test/jest.setup.ts"
-        ]
+        }
     },
     "dependencies": {
         "@nestjs/common": "^10.0.0",
