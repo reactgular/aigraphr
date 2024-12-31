@@ -1,5 +1,6 @@
 import {withThemeByDataAttribute} from '@storybook/addon-themes';
-import type {Preview} from '@storybook/react';
+import type {DecoratorFunction} from '@storybook/csf';
+import type {Preview, ReactRenderer} from '@storybook/react';
 import '../src/styles.css';
 import '@fontsource/inter';
 import '@fontsource/inter/100.css';
@@ -19,9 +20,11 @@ import '@fontsource/inter/700-italic.css';
 import '@fontsource/inter/800.css';
 import '@fontsource/inter/800-italic.css';
 import '@fontsource/inter/900.css';
+// noinspection ES6PreferShortImport
+import {AppProviders} from '../src/components/app/AppProviders';
 import '@fontsource/inter/900-italic.css';
 
-export const decorators = [
+export const decorators: DecoratorFunction<ReactRenderer>[] = [
     withThemeByDataAttribute({
         themes: {
             light: 'light',
@@ -29,7 +32,12 @@ export const decorators = [
         },
         defaultTheme: 'light',
         attributeName: 'data-mode'
-    })
+    }),
+    (Story) => (
+        <AppProviders>
+            <Story />
+        </AppProviders>
+    )
 ];
 
 const preview: Preview = {
