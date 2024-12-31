@@ -20,9 +20,9 @@
     "scripts": {
         "build": "npm run build --workspaces",
         "dev": "concurrently --kill-others -n \"client,server\" -c \"bgBlue.bold,bgGreen.bold\" \"npm run dev --workspace=client\" \"npm run dev --workspace=server\"",
-        "openapi": "npm run openapi --workspace=server && npm run openapi --workspace=client",
         "format": "npm run sort && eslint *.json --fix && npm run format --workspaces",
         "lint": "eslint *.json && npm run lint --workspaces",
+        "openapi": "npm run openapi --workspace=server && npm run openapi --workspace=client",
         "sort": "npx --yes sort-package-json && npm run sort --workspaces"
     },
     "devDependencies": {
