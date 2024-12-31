@@ -5,5 +5,5 @@ interface GraphNodeProps {
 }
 
 export const GraphNode: FC<GraphNodeProps> = ({title}) => {
-    return <div>I am a Node!</div>;
+    return <div className="bg-red-500 p-10">I am a Node!</div>;
 };
