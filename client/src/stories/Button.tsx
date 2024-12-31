@@ -1,10 +1,15 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-
 import './button.css';
 
 /** Primary UI component for user interaction */
-export const Button = ({primary, backgroundColor, size, label, ...props}) => {
+export const Button = ({
+    primary,
+    backgroundColor,
+    size,
+    label,
+    ...props
+}: any) => {
     const mode = primary
         ? 'storybook-button--primary'
         : 'storybook-button--secondary';

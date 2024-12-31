@@ -4,7 +4,7 @@ import React from 'react';
 import {Button} from './Button.js';
 import './header.css';
 
-export const Header = ({user, onLogin, onLogout, onCreateAccount}) => (
+export const Header = ({user, onLogin, onLogout, onCreateAccount}: any) => (
     <header>
         <div className="storybook-header">
             <div>
