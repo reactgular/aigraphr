@@ -1,3 +1,4 @@
+import {withThemeByDataAttribute} from '@storybook/addon-themes';
 import type {Preview} from '@storybook/react';
 import '../src/styles.css';
 import '@fontsource/inter';
@@ -19,6 +20,29 @@ import '@fontsource/inter/800.css';
 import '@fontsource/inter/800-italic.css';
 import '@fontsource/inter/900.css';
 import '@fontsource/inter/900-italic.css';
+
+/* snipped for brevity */
+
+export const decorators = [
+    withThemeByDataAttribute({
+        themes: {
+            light: 'light',
+            dark: 'dark'
+        },
+        defaultTheme: 'light',
+        attributeName: 'data-mode'
+    })
+];
+
+// export const decorators = [
+//     withThemeByClassName({
+//         themes: {
+//             light: 'light',
+//             dark: 'dark'
+//         },
+//         defaultTheme: 'light'
+//     })
+// ];
 
 const preview: Preview = {
     tags: ['autodocs'],
