@@ -1,3 +1,4 @@
+import {GrNodeContent} from '@/components/graph/GrNodeContent';
 import {GrNodeFooter} from '@/components/graph/GrNodeFooter';
 import {GrNodeFrame} from '@/components/graph/GrNodeFrame';
 import {GrNodeHeader} from '@/components/graph/GrNodeHeader';
@@ -9,9 +10,9 @@ export const GrNode: FC<GraphNodeModel> = (props) => {
     return (
         <GrNodeState.Provider defaultValue={props}>
             <GrNodeName />
-            <GrNodeFrame>
+            <GrNodeFrame className="w-[20rem]">
                 <GrNodeHeader />
-                CONTENTS
+                <GrNodeContent />
                 <GrNodeFooter />
             </GrNodeFrame>
         </GrNodeState.Provider>

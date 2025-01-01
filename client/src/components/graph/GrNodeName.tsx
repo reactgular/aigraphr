@@ -1,8 +1,9 @@
 import {GrNodeState} from '@/components/graph/GrNodeState';
+import {cn, type PropsWithClassName} from '@/components/shadcn/lib/utils';
 import type {FC} from 'react';
 
-export const GrNodeName: FC = () => {
+export const GrNodeName: FC<PropsWithClassName> = ({className}) => {
     const {name} = GrNodeState.useState();
 
-    return <div>{name}</div>;
+    return <div className={cn(className)}>{name}</div>;
 };
