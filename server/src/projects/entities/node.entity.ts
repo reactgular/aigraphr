@@ -1,8 +1,9 @@
+import {NodeDescDto} from '@/projects/dtos/node-desc.dto';
 import {EdgeEntity} from '@/projects/entities/edge.entity';
 import {WorkspaceEntity} from '@/projects/entities/workspace.entity';
 import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {ApiProperty, ApiSchema, OmitType, PartialType} from '@nestjs/swagger';
-import {IsNumber, Min} from 'class-validator';
+import {IsNumber, IsString, Min} from 'class-validator';
 import {Column, Entity, ManyToOne, OneToMany} from 'typeorm';
 
 @ApiSchema({
@@ -35,6 +36,14 @@ export class NodeEntity extends ScaEntity {
     })
     outputEdges: EdgeEntity[];
 
+    @IsString()
+    @ApiProperty({
+        description: 'The type of the node',
+        example: 'forEach'
+    })
+    @Column()
+    type: string;
+
     @ApiProperty({
         type: () => WorkspaceEntity,
         description: 'The workspace of the node',
@@ -56,19 +65,33 @@ export class NodeEntity extends ScaEntity {
     workspaceId: number;
 }
 
-export class NodeDto extends OmitType(NodeEntity, [] as const) {}
+export class NodeDto extends OmitType(NodeEntity, [] as const) {
+    @ApiProperty({
+        description: 'The description of the node'
+    })
+    nodeDesc?: NodeDescDto;
+}
 
 /**
  * @deprecated need to switch to using groups
  */
 export class NodeCreateDto extends OmitType(NodeDto, [
     'id',
-    'workspace'
+    'workspace',
+    'inputEdges',
+    'outputEdges',
+    'nodeDesc'
 ] as const) {}
 
 /**
  * @deprecated need to switch to using groups
  */
 export class NodeUpdateDto extends PartialType(
-    OmitType(NodeDto, ['id', 'workspace'] as const)
+    OmitType(NodeDto, [
+        'id',
+        'workspace',
+        'inputEdges',
+        'outputEdges',
+        'nodeDesc'
+    ] as const)
 ) {}

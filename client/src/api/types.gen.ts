@@ -2,6 +2,14 @@
 
 export type ProjectCreateDto = {
     /**
+     * The encrypted status of the project
+     */
+    encrypted: boolean;
+    /**
+     * The name of the project file (alphanumeric)
+     */
+    fileName: string;
+    /**
      * The name of the project (alphanumeric)
      */
     name: string;
@@ -13,6 +21,14 @@ export type ProjectCreateDto = {
 
 export type ProjectDto = {
     id: number;
+    /**
+     * The encrypted status of the project
+     */
+    encrypted: boolean;
+    /**
+     * The name of the project file (alphanumeric)
+     */
+    fileName: string;
     /**
      * The name of the project (alphanumeric)
      */
@@ -49,6 +65,10 @@ export type ScaExceptionFilterDto = {
 };
 
 export type ProjectUpdateDto = {
+    /**
+     * The name of the project file (alphanumeric)
+     */
+    fileName?: string;
     /**
      * The name of the project (alphanumeric)
      */
@@ -165,6 +185,10 @@ export type NodeEntity = {
      */
     outputEdges?: EdgeEntity;
     /**
+     * The type of the node
+     */
+    type: string;
+    /**
      * The workspace of the node
      */
     workspace?: WorkspaceEntity;
@@ -246,17 +270,49 @@ export type EdgeUpdateDto = {
 
 export type NodeCreateDto = {
     /**
-     * The edges that connect to the node as inputs
+     * The type of the node
      */
-    inputEdges?: EdgeEntity;
-    /**
-     * The edges that connect to the node as outputs
-     */
-    outputEdges?: EdgeEntity;
+    type: string;
     /**
      * The ID of the workspace of the node
      */
     workspaceId: number;
+};
+
+/**
+ * NodeParam is a parameter of a node. It is used to generate the UI for the node.
+ */
+export type NodeParamDto = {
+    /**
+     * Whether the parameter is an array
+     */
+    isArray: boolean;
+    /**
+     * The name of the parameter
+     */
+    name: string;
+    /**
+     * The type of the parameter
+     */
+    type: 'string' | 'number' | 'boolean' | 'object';
+};
+
+/**
+ * NodeDesc describe how nodes are structured in the workspace. It is used to generate the UI for the node.
+ */
+export type NodeDescDto = {
+    /**
+     * The inputs of the node
+     */
+    inputs: Array<NodeParamDto>;
+    /**
+     * The outputs of the node
+     */
+    outputs: Array<NodeParamDto>;
+    /**
+     * The unique type of the node
+     */
+    type: string;
 };
 
 export type NodeDto = {
@@ -270,6 +326,10 @@ export type NodeDto = {
      */
     outputEdges?: EdgeEntity;
     /**
+     * The type of the node
+     */
+    type: string;
+    /**
      * The workspace of the node
      */
     workspace?: WorkspaceEntity;
@@ -277,17 +337,17 @@ export type NodeDto = {
      * The ID of the workspace of the node
      */
     workspaceId: number;
+    /**
+     * The description of the node
+     */
+    nodeDesc?: NodeDescDto;
 };
 
 export type NodeUpdateDto = {
     /**
-     * The edges that connect to the node as inputs
+     * The type of the node
      */
-    inputEdges?: EdgeEntity;
-    /**
-     * The edges that connect to the node as outputs
-     */
-    outputEdges?: EdgeEntity;
+    type?: string;
     /**
      * The ID of the workspace of the node
      */

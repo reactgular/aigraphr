@@ -1435,10 +1435,20 @@
             "ProjectCreateDto": {
                 "type": "object",
                 "properties": {
+                    "encrypted": {
+                        "type": "boolean",
+                        "description": "The encrypted status of the project",
+                        "example": false
+                    },
+                    "fileName": {
+                        "type": "string",
+                        "description": "The name of the project file (alphanumeric)",
+                        "example": "example-project.aigraphr"
+                    },
                     "name": {
                         "type": "string",
                         "description": "The name of the project (alphanumeric)",
-                        "example": "example-project"
+                        "example": "My Project"
                     },
                     "cloneId": {
                         "type": "number",
@@ -1447,6 +1457,8 @@
                     }
                 },
                 "required": [
+                    "encrypted",
+                    "fileName",
                     "name"
                 ]
             },
@@ -1457,10 +1469,20 @@
                         "type": "number",
                         "example": 1
                     },
+                    "encrypted": {
+                        "type": "boolean",
+                        "description": "The encrypted status of the project",
+                        "example": false
+                    },
+                    "fileName": {
+                        "type": "string",
+                        "description": "The name of the project file (alphanumeric)",
+                        "example": "example-project.aigraphr"
+                    },
                     "name": {
                         "type": "string",
                         "description": "The name of the project (alphanumeric)",
-                        "example": "example-project"
+                        "example": "My Project"
                     },
                     "open": {
                         "type": "boolean",
@@ -1469,6 +1491,8 @@
                 },
                 "required": [
                     "id",
+                    "encrypted",
+                    "fileName",
                     "name",
                     "open"
                 ]
@@ -1516,10 +1540,15 @@
             "ProjectUpdateDto": {
                 "type": "object",
                 "properties": {
+                    "fileName": {
+                        "type": "string",
+                        "description": "The name of the project file (alphanumeric)",
+                        "example": "example-project.aigraphr"
+                    },
                     "name": {
                         "type": "string",
                         "description": "The name of the project (alphanumeric)",
-                        "example": "example-project"
+                        "example": "My Project"
                     },
                     "open": {
                         "type": "boolean",
@@ -1761,6 +1790,11 @@
                             }
                         ]
                     },
+                    "type": {
+                        "type": "string",
+                        "description": "The type of the node",
+                        "example": "forEach"
+                    },
                     "workspace": {
                         "description": "The workspace of the node",
                         "example": {
@@ -1781,6 +1815,7 @@
                 "description": "Nodes store the run-time data needed by Node Instances to run. They are connected by Edges to form a graph.",
                 "required": [
                     "id",
+                    "type",
                     "workspaceId"
                 ]
             },
@@ -1962,31 +1997,10 @@
             "NodeCreateDto": {
                 "type": "object",
                 "properties": {
-                    "inputEdges": {
-                        "description": "The edges that connect to the node as inputs",
-                        "example": {
-                            "id": 1,
-                            "inputNodeId": 1,
-                            "outputNodeId": 1
-                        },
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/EdgeEntity"
-                            }
-                        ]
-                    },
-                    "outputEdges": {
-                        "description": "The edges that connect to the node as outputs",
-                        "example": {
-                            "id": 1,
-                            "inputNodeId": 1,
-                            "outputNodeId": 1
-                        },
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/EdgeEntity"
-                            }
-                        ]
+                    "type": {
+                        "type": "string",
+                        "description": "The type of the node",
+                        "example": "forEach"
                     },
                     "workspaceId": {
                         "type": "number",
@@ -1995,7 +2009,69 @@
                     }
                 },
                 "required": [
+                    "type",
                     "workspaceId"
+                ]
+            },
+            "NodeParamDto": {
+                "type": "object",
+                "properties": {
+                    "isArray": {
+                        "type": "boolean",
+                        "description": "Whether the parameter is an array",
+                        "example": false
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the parameter",
+                        "example": "count"
+                    },
+                    "type": {
+                        "enum": [
+                            "string",
+                            "number",
+                            "boolean",
+                            "object"
+                        ],
+                        "type": "string",
+                        "description": "The type of the parameter"
+                    }
+                },
+                "description": "NodeParam is a parameter of a node. It is used to generate the UI for the node.",
+                "required": [
+                    "isArray",
+                    "name",
+                    "type"
+                ]
+            },
+            "NodeDescDto": {
+                "type": "object",
+                "properties": {
+                    "inputs": {
+                        "description": "The inputs of the node",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/NodeParamDto"
+                        }
+                    },
+                    "outputs": {
+                        "description": "The outputs of the node",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/NodeParamDto"
+                        }
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "The unique type of the node",
+                        "example": "forEach"
+                    }
+                },
+                "description": "NodeDesc describe how nodes are structured in the workspace. It is used to generate the UI for the node.",
+                "required": [
+                    "inputs",
+                    "outputs",
+                    "type"
                 ]
             },
             "NodeDto": {
@@ -2031,6 +2107,11 @@
                             }
                         ]
                     },
+                    "type": {
+                        "type": "string",
+                        "description": "The type of the node",
+                        "example": "forEach"
+                    },
                     "workspace": {
                         "description": "The workspace of the node",
                         "example": {
@@ -2046,41 +2127,29 @@
                         "type": "number",
                         "description": "The ID of the workspace of the node",
                         "example": 1
+                    },
+                    "nodeDesc": {
+                        "description": "The description of the node",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/NodeDescDto"
+                            }
+                        ]
                     }
                 },
                 "required": [
                     "id",
+                    "type",
                     "workspaceId"
                 ]
             },
             "NodeUpdateDto": {
                 "type": "object",
                 "properties": {
-                    "inputEdges": {
-                        "description": "The edges that connect to the node as inputs",
-                        "example": {
-                            "id": 1,
-                            "inputNodeId": 1,
-                            "outputNodeId": 1
-                        },
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/EdgeEntity"
-                            }
-                        ]
-                    },
-                    "outputEdges": {
-                        "description": "The edges that connect to the node as outputs",
-                        "example": {
-                            "id": 1,
-                            "inputNodeId": 1,
-                            "outputNodeId": 1
-                        },
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/EdgeEntity"
-                            }
-                        ]
+                    "type": {
+                        "type": "string",
+                        "description": "The type of the node",
+                        "example": "forEach"
                     },
                     "workspaceId": {
                         "type": "number",
