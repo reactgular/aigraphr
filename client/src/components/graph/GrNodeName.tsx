@@ -3,7 +3,7 @@ import {cn, type PropsWithClassName} from '@/components/shadcn/lib/utils';
 import type {FC} from 'react';
 
 export const GrNodeName: FC<PropsWithClassName> = ({className}) => {
-    const {dto} = GrNodeState.useState();
+    const {data} = GrNodeState.useState();
 
-    return <div className={cn('text-xl', className)}>{dto?.name}</div>;
+    return <div className={cn('text-xl', className)}>Temp</div>;
 };

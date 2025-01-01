@@ -1,11 +1,11 @@
-import type {NodeMockDto} from '@/components/graph/GrNode.types';
+import type {NodeDto} from '@/api';
 import {createStateProvider} from '@/components/utils/createStateProvider';
 
 export interface GraphNodeModel {
     /**
      * undefined when node is loading from server
      */
-    dto?: NodeMockDto;
+    data?: NodeDto;
 
     /**
      * active when node property editor is open
@@ -43,4 +43,7 @@ export interface GraphNodeModel {
     reason?: string;
 }
 
+/**
+ * @deprecated this can be replaced by the use of `useQuery` hook
+ */
 export const GrNodeState = createStateProvider<GraphNodeModel>('GraphNode');
