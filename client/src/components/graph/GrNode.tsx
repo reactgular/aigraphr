@@ -9,12 +9,14 @@ import type {FC} from 'react';
 export const GrNode: FC<GraphNodeModel> = (props) => {
     return (
         <GrNodeState.Provider defaultValue={props}>
-            <GrNodeName />
-            <GrNodeFrame className="w-[20rem]">
-                <GrNodeHeader />
-                <GrNodeContent />
-                <GrNodeFooter />
-            </GrNodeFrame>
+            <div className="flex flex-col gap-2">
+                <GrNodeName />
+                <GrNodeFrame className="w-[20rem]">
+                    <GrNodeHeader />
+                    <GrNodeContent />
+                    <GrNodeFooter />
+                </GrNodeFrame>
+            </div>
         </GrNodeState.Provider>
     );
 };

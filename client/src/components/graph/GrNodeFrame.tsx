@@ -5,5 +5,9 @@ export const GrNodeFrame: FC<PropsWithChildren<PropsWithClassName>> = ({
     className,
     children
 }) => {
-    return <div className={cn('border rounded-md', className)}>{children}</div>;
+    return (
+        <div className={cn('border rounded-md overflow-hidden', className)}>
+            {children}
+        </div>
+    );
 };
