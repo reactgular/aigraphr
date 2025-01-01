@@ -67,7 +67,11 @@ import type {
     SettingsUpdateData,
     SettingsUpdateResponse,
     SettingsReplaceData,
-    SettingsReplaceResponse
+    SettingsReplaceResponse,
+    GrNodesPaginateData,
+    GrNodesPaginateResponse,
+    GrNodesGetData,
+    GrNodesGetResponse
 } from './types.gen';
 
 export const client = createClient(createConfig());
@@ -557,5 +561,37 @@ export const settingsReplace = <ThrowOnError extends boolean = false>(
             ...options?.headers
         },
         url: '/api/app/settings'
+    });
+};
+
+/**
+ * Paginate GrNode
+ */
+export const grNodesPaginate = <ThrowOnError extends boolean = false>(
+    options?: Options<GrNodesPaginateData, ThrowOnError>
+) => {
+    return (options?.client ?? client).get<
+        GrNodesPaginateResponse,
+        unknown,
+        ThrowOnError
+    >({
+        ...options,
+        url: '/api/graph/nodes'
+    });
+};
+
+/**
+ * Get GrNode by id
+ */
+export const grNodesGet = <ThrowOnError extends boolean = false>(
+    options: Options<GrNodesGetData, ThrowOnError>
+) => {
+    return (options?.client ?? client).get<
+        GrNodesGetResponse,
+        unknown,
+        ThrowOnError
+    >({
+        ...options,
+        url: '/api/graph/nodes/{id}'
     });
 };

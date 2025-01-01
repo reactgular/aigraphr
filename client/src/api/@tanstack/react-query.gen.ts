@@ -63,7 +63,9 @@ import type {
     SettingsUpdateData,
     SettingsUpdateResponse,
     SettingsReplaceData,
-    SettingsReplaceResponse
+    SettingsReplaceResponse,
+    GrNodesPaginateData,
+    GrNodesGetData
 } from '../types.gen';
 import {
     client,
@@ -93,7 +95,9 @@ import {
     workspacesUpdateValidate,
     settingsGet,
     settingsUpdate,
-    settingsReplace
+    settingsReplace,
+    grNodesPaginate,
+    grNodesGet
 } from '../sdk.gen';
 
 type QueryKey<TOptions extends Options> = [
@@ -783,4 +787,44 @@ export const settingsReplaceMutation = (
         }
     };
     return mutationOptions;
+};
+
+export const grNodesPaginateQueryKey = (
+    options?: Options<GrNodesPaginateData>
+) => [createQueryKey('grNodesPaginate', options)];
+
+export const grNodesPaginateOptions = (
+    options?: Options<GrNodesPaginateData>
+) => {
+    return queryOptions({
+        queryFn: async ({queryKey, signal}) => {
+            const {data} = await grNodesPaginate({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: grNodesPaginateQueryKey(options)
+    });
+};
+
+export const grNodesGetQueryKey = (options: Options<GrNodesGetData>) => [
+    createQueryKey('grNodesGet', options)
+];
+
+export const grNodesGetOptions = (options: Options<GrNodesGetData>) => {
+    return queryOptions({
+        queryFn: async ({queryKey, signal}) => {
+            const {data} = await grNodesGet({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: grNodesGetQueryKey(options)
+    });
 };

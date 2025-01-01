@@ -1,4 +1,4 @@
-import {NodeDescDto} from '@/projects/dtos/node-desc.dto';
+import {GrNodeDto} from '@/graph/dtos/gr-node.dto';
 import {EdgeEntity} from '@/projects/entities/edge.entity';
 import {WorkspaceEntity} from '@/projects/entities/workspace.entity';
 import {ScaEntity} from '@/scaffold/models/sca.entity';
@@ -69,7 +69,7 @@ export class NodeDto extends OmitType(NodeEntity, [] as const) {
     @ApiProperty({
         description: 'The description of the node'
     })
-    nodeDesc?: NodeDescDto;
+    grNode?: GrNodeDto;
 }
 
 /**
@@ -80,7 +80,7 @@ export class NodeCreateDto extends OmitType(NodeDto, [
     'workspace',
     'inputEdges',
     'outputEdges',
-    'nodeDesc'
+    'grNode'
 ] as const) {}
 
 /**
@@ -92,6 +92,6 @@ export class NodeUpdateDto extends PartialType(
         'workspace',
         'inputEdges',
         'outputEdges',
-        'nodeDesc'
+        'grNode'
     ] as const)
 ) {}

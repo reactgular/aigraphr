@@ -1,5 +1,5 @@
-import {NodeDescDto} from '@/projects/dtos/node-desc.dto';
-import {NodeParamDto} from '@/projects/dtos/node-param.dto';
+import {GrNodeDto} from '@/graph/dtos/gr-node.dto';
+import {GrParamDto} from '@/graph/dtos/gr-param.dto';
 import {ScaExceptionFilterDto} from '@/scaffold/dtos/sca-exception-filter.dto';
 import {INestApplication} from '@nestjs/common';
 import {DocumentBuilder, OpenAPIObject, SwaggerModule} from '@nestjs/swagger';
@@ -37,6 +37,6 @@ export const swaggerApiDocument = ({
 
     return SwaggerModule.createDocument(app, config, {
         operationIdFactory,
-        extraModels: [ScaExceptionFilterDto, NodeDescDto, NodeParamDto]
+        extraModels: [ScaExceptionFilterDto, GrNodeDto, GrParamDto]
     });
 };

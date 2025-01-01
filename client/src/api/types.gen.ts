@@ -280,9 +280,9 @@ export type NodeCreateDto = {
 };
 
 /**
- * NodeParam is a parameter of a node. It is used to generate the UI for the node.
+ * A parameter of a node. It is used to generate the UI for the node.
  */
-export type NodeParamDto = {
+export type GrParamDto = {
     /**
      * Whether the parameter is an array
      */
@@ -298,17 +298,18 @@ export type NodeParamDto = {
 };
 
 /**
- * NodeDesc describe how nodes are structured in the workspace. It is used to generate the UI for the node.
+ * Describes how nodes are structured. It is used to generate the UI for the node.
  */
-export type NodeDescDto = {
+export type GrNodeDto = {
+    id: number;
     /**
      * The inputs of the node
      */
-    inputs: Array<NodeParamDto>;
+    inputs: Array<GrParamDto>;
     /**
      * The outputs of the node
      */
-    outputs: Array<NodeParamDto>;
+    outputs: Array<GrParamDto>;
     /**
      * The unique type of the node
      */
@@ -340,7 +341,7 @@ export type NodeDto = {
     /**
      * The description of the node
      */
-    nodeDesc?: NodeDescDto;
+    grNode?: GrNodeDto;
 };
 
 export type NodeUpdateDto = {
@@ -1270,3 +1271,48 @@ export type SettingsReplaceResponses = {
 
 export type SettingsReplaceResponse =
     SettingsReplaceResponses[keyof SettingsReplaceResponses];
+
+export type GrNodesPaginateData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/graph/nodes';
+};
+
+export type GrNodesPaginateResponses = {
+    /**
+     * Return a list of GrNode
+     */
+    200: GrNodeDto;
+};
+
+export type GrNodesPaginateResponse =
+    GrNodesPaginateResponses[keyof GrNodesPaginateResponses];
+
+export type GrNodesGetData = {
+    body?: never;
+    path: {
+        /**
+         * The ID of a GrNode
+         */
+        id: number;
+    };
+    query?: never;
+    url: '/api/graph/nodes/{id}';
+};
+
+export type GrNodesGetErrors = {
+    /**
+     * A GrNode with the specified id was not found
+     */
+    404: unknown;
+};
+
+export type GrNodesGetResponses = {
+    /**
+     * Return a GrNode by id
+     */
+    200: GrNodeDto;
+};
+
+export type GrNodesGetResponse = GrNodesGetResponses[keyof GrNodesGetResponses];

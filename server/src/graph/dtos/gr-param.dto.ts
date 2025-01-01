@@ -1,7 +1,7 @@
 import {ApiProperty, ApiSchema} from '@nestjs/swagger';
 import {IsBoolean, IsEnum, IsString} from 'class-validator';
 
-export enum NodeParamType {
+export enum GrParamType {
     String = 'string',
     Number = 'number',
     Boolean = 'boolean',
@@ -10,9 +10,9 @@ export enum NodeParamType {
 
 @ApiSchema({
     description:
-        'NodeParam is a parameter of a node. It is used to generate the UI for the node.'
+        'A parameter of a node. It is used to generate the UI for the node.'
 })
-export class NodeParamDto {
+export class GrParamDto {
     @IsBoolean()
     @ApiProperty({
         description: 'Whether the parameter is an array',
@@ -27,10 +27,10 @@ export class NodeParamDto {
     })
     name: string;
 
-    @IsEnum(NodeParamType)
+    @IsEnum(GrParamType)
     @ApiProperty({
         description: 'The type of the parameter',
-        enum: NodeParamType
+        enum: GrParamType
     })
-    type: NodeParamType;
+    type: GrParamType;
 }

@@ -15,7 +15,8 @@ export default {
                 status: 200,
                 response: {
                     id: 1,
-                    workspaceId: 1
+                    workspaceId: 1,
+                    type: 'forEach'
                 } satisfies NodesGetResponses['200']
             }
         ]

@@ -1,25 +1,26 @@
+import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {ApiProperty, ApiSchema} from '@nestjs/swagger';
 import {IsString} from 'class-validator';
-import {NodeParamDto} from './node-param.dto';
+import {GrParamDto} from './gr-param.dto';
 
 @ApiSchema({
     description:
-        'NodeDesc describe how nodes are structured in the workspace. It is used to generate the UI for the node.'
+        'Describes how nodes are structured. It is used to generate the UI for the node.'
 })
-export class NodeDescDto {
+export class GrNodeDto extends ScaEntity {
     @ApiProperty({
         description: 'The inputs of the node',
-        type: NodeParamDto,
+        type: GrParamDto,
         isArray: true
     })
-    inputs: NodeParamDto[];
+    inputs: GrParamDto[];
 
     @ApiProperty({
         description: 'The outputs of the node',
-        type: NodeParamDto,
+        type: GrParamDto,
         isArray: true
     })
-    outputs: NodeParamDto[];
+    outputs: GrParamDto[];
 
     @IsString()
     @ApiProperty({

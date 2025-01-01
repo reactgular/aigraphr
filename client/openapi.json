@@ -1413,6 +1413,63 @@
                     "App"
                 ]
             }
+        },
+        "/api/graph/nodes": {
+            "get": {
+                "operationId": "GrNodes_paginate",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Return a list of GrNode",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GrNodeDto"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Paginate GrNode",
+                "tags": [
+                    "Graph"
+                ]
+            }
+        },
+        "/api/graph/nodes/{id}": {
+            "get": {
+                "operationId": "GrNodes_get",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "description": "The ID of a GrNode",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return a GrNode by id",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GrNodeDto"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "A GrNode with the specified id was not found"
+                    }
+                },
+                "summary": "Get GrNode by id",
+                "tags": [
+                    "Graph"
+                ]
+            }
         }
     },
     "info": {
@@ -2013,7 +2070,7 @@
                     "workspaceId"
                 ]
             },
-            "NodeParamDto": {
+            "GrParamDto": {
                 "type": "object",
                 "properties": {
                     "isArray": {
@@ -2037,28 +2094,32 @@
                         "description": "The type of the parameter"
                     }
                 },
-                "description": "NodeParam is a parameter of a node. It is used to generate the UI for the node.",
+                "description": "A parameter of a node. It is used to generate the UI for the node.",
                 "required": [
                     "isArray",
                     "name",
                     "type"
                 ]
             },
-            "NodeDescDto": {
+            "GrNodeDto": {
                 "type": "object",
                 "properties": {
+                    "id": {
+                        "type": "number",
+                        "example": 1
+                    },
                     "inputs": {
                         "description": "The inputs of the node",
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/NodeParamDto"
+                            "$ref": "#/components/schemas/GrParamDto"
                         }
                     },
                     "outputs": {
                         "description": "The outputs of the node",
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/NodeParamDto"
+                            "$ref": "#/components/schemas/GrParamDto"
                         }
                     },
                     "type": {
@@ -2067,8 +2128,9 @@
                         "example": "forEach"
                     }
                 },
-                "description": "NodeDesc describe how nodes are structured in the workspace. It is used to generate the UI for the node.",
+                "description": "Describes how nodes are structured. It is used to generate the UI for the node.",
                 "required": [
+                    "id",
                     "inputs",
                     "outputs",
                     "type"
@@ -2128,11 +2190,11 @@
                         "description": "The ID of the workspace of the node",
                         "example": 1
                     },
-                    "nodeDesc": {
+                    "grNode": {
                         "description": "The description of the node",
                         "allOf": [
                             {
-                                "$ref": "#/components/schemas/NodeDescDto"
+                                "$ref": "#/components/schemas/GrNodeDto"
                             }
                         ]
                     }
