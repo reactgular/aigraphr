@@ -1,4 +1,5 @@
 import {GrNode} from '@/components/graph/GrNode';
+import type {NodeMockDto} from '@/components/graph/GrNode.types';
 import type {Meta, StoryObj} from '@storybook/react';
 
 export default {
@@ -9,10 +10,13 @@ export default {
     },
     tags: ['autodocs'],
     args: {
-        name: 'Example1',
-        active: false,
-        selected: false,
-        disabled: false
+        disabled: false,
+        dto: {
+            id: 1,
+            name: 'Example1',
+            workspaceId: 1
+        } satisfies NodeMockDto,
+        readonly: false
     }
 } satisfies Meta<typeof GrNode>;
 
