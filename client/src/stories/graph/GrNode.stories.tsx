@@ -9,7 +9,7 @@ export default {
     },
     tags: ['autodocs'],
     args: {
-        name: 'Example001',
+        name: 'Example1',
         active: false,
         selected: false,
         disabled: false
