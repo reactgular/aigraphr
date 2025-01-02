@@ -21,7 +21,7 @@ export const GrNode: FC<GrNodeProps> = ({disabled, address, readonly}) => {
             <GrNodeName address={address} />
             <GrNodeFrame className="w-[20rem]">
                 <GrNodeHeader />
-                <GrNodeContent />
+                <GrNodeContent address={address} />
                 <GrNodeFooter />
             </GrNodeFrame>
         </GrNodeBoundary>
