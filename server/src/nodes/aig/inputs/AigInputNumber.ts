@@ -1,10 +1,10 @@
-import {AigType} from '../types/AigType';
+import {GrParamType} from '@/graph/dtos/gr-param.dto';
 import {AigTypeBase, AigTypeDef} from '../types/AigTypeBase';
 
 export class AigInputNumber extends AigTypeBase<number, AigTypeDef> {
     public constructor() {
         super({
-            type: AigType.Number,
+            type: GrParamType.Number,
             description: ''
         });
     }

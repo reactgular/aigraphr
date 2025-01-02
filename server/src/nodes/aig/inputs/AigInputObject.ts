@@ -1,5 +1,5 @@
+import {GrParamType} from '@/graph/dtos/gr-param.dto';
 import {ZodRawShape} from 'zod/lib/types';
-import {AigType} from '../types/AigType';
 import {AigTypeBase, AigTypeDef} from '../types/AigTypeBase';
 
 export class AigInputObject<TZodShape extends ZodRawShape> extends AigTypeBase<
@@ -8,7 +8,7 @@ export class AigInputObject<TZodShape extends ZodRawShape> extends AigTypeBase<
 > {
     public constructor(zod: TZodShape) {
         super({
-            type: AigType.Object,
+            type: GrParamType.Object,
             description: ''
         });
     }

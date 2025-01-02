@@ -1,3 +1,4 @@
+import {GrParamDto} from '@/graph/dtos/gr-param.dto';
 import {AigConstraint} from './AigConstraint';
 import {AigConstraintCtx} from './AigConstraintCtx';
 
@@ -10,6 +11,10 @@ export class AigConstraints<TValue, TContext> {
 
     public add(rule: AigConstraint<TValue, TContext>) {
         this.constraints.push(rule);
+    }
+
+    public compile(): GrParamDto[] {
+        return [];
     }
 
     public validate(value: TValue, context: TContext) {

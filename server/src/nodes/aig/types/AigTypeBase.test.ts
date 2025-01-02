@@ -1,10 +1,10 @@
-import {AigType} from './AigType';
+import {GrParamType} from '@/graph/dtos/gr-param.dto';
 import {AigTypeBase} from './AigTypeBase';
 
 class AigTypeBaseTest extends AigTypeBase<string> {
     public constructor() {
         super({
-            type: AigType.String,
+            type: GrParamType.String,
             description: ''
         });
     }

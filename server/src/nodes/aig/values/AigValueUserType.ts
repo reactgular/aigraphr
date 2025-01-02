@@ -1,7 +1,7 @@
-import {AigType} from '../types/AigType';
+import {GrParamType} from '@/graph/dtos/gr-param.dto';
 
 export class AigValueUserType {
-    public readonly type: AigType;
+    public readonly type: GrParamType;
 
     public constructor() {
         // ...
