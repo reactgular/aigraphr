@@ -1821,6 +1821,10 @@
                         "type": "number",
                         "example": 1
                     },
+                    "grNodeId": {
+                        "type": "number",
+                        "description": "The ID of the node type in the graph"
+                    },
                     "inputEdges": {
                         "description": "The edges that connect to the node as inputs",
                         "example": {
@@ -1834,6 +1838,11 @@
                             }
                         ]
                     },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the node (alphanumeric)",
+                        "example": "forEach1"
+                    },
                     "outputEdges": {
                         "description": "The edges that connect to the node as outputs",
                         "example": {
@@ -1846,11 +1855,6 @@
                                 "$ref": "#/components/schemas/EdgeEntity"
                             }
                         ]
-                    },
-                    "type": {
-                        "type": "string",
-                        "description": "The type of the node",
-                        "example": "forEach"
                     },
                     "workspace": {
                         "description": "The workspace of the node",
@@ -1872,7 +1876,8 @@
                 "description": "Nodes store the run-time data needed by Node Instances to run. They are connected by Edges to form a graph.",
                 "required": [
                     "id",
-                    "type",
+                    "grNodeId",
+                    "name",
                     "workspaceId"
                 ]
             },
@@ -2054,10 +2059,14 @@
             "NodeCreateDto": {
                 "type": "object",
                 "properties": {
-                    "type": {
+                    "grNodeId": {
+                        "type": "number",
+                        "description": "The ID of the node type in the graph"
+                    },
+                    "name": {
                         "type": "string",
-                        "description": "The type of the node",
-                        "example": "forEach"
+                        "description": "The name of the node (alphanumeric)",
+                        "example": "forEach1"
                     },
                     "workspaceId": {
                         "type": "number",
@@ -2066,7 +2075,8 @@
                     }
                 },
                 "required": [
-                    "type",
+                    "grNodeId",
+                    "name",
                     "workspaceId"
                 ]
             },
@@ -2143,6 +2153,10 @@
                         "type": "number",
                         "example": 1
                     },
+                    "grNodeId": {
+                        "type": "number",
+                        "description": "The ID of the node type in the graph"
+                    },
                     "inputEdges": {
                         "description": "The edges that connect to the node as inputs",
                         "example": {
@@ -2156,6 +2170,11 @@
                             }
                         ]
                     },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the node (alphanumeric)",
+                        "example": "forEach1"
+                    },
                     "outputEdges": {
                         "description": "The edges that connect to the node as outputs",
                         "example": {
@@ -2168,11 +2187,6 @@
                                 "$ref": "#/components/schemas/EdgeEntity"
                             }
                         ]
-                    },
-                    "type": {
-                        "type": "string",
-                        "description": "The type of the node",
-                        "example": "forEach"
                     },
                     "workspace": {
                         "description": "The workspace of the node",
@@ -2201,17 +2215,18 @@
                 },
                 "required": [
                     "id",
-                    "type",
+                    "grNodeId",
+                    "name",
                     "workspaceId"
                 ]
             },
             "NodeUpdateDto": {
                 "type": "object",
                 "properties": {
-                    "type": {
+                    "name": {
                         "type": "string",
-                        "description": "The type of the node",
-                        "example": "forEach"
+                        "description": "The name of the node (alphanumeric)",
+                        "example": "forEach1"
                     },
                     "workspaceId": {
                         "type": "number",

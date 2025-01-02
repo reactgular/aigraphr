@@ -177,17 +177,21 @@ export type EdgeEntity = {
 export type NodeEntity = {
     id: number;
     /**
+     * The ID of the node type in the graph
+     */
+    grNodeId: number;
+    /**
      * The edges that connect to the node as inputs
      */
     inputEdges?: EdgeEntity;
     /**
+     * The name of the node (alphanumeric)
+     */
+    name: string;
+    /**
      * The edges that connect to the node as outputs
      */
     outputEdges?: EdgeEntity;
-    /**
-     * The type of the node
-     */
-    type: string;
     /**
      * The workspace of the node
      */
@@ -270,9 +274,13 @@ export type EdgeUpdateDto = {
 
 export type NodeCreateDto = {
     /**
-     * The type of the node
+     * The ID of the node type in the graph
      */
-    type: string;
+    grNodeId: number;
+    /**
+     * The name of the node (alphanumeric)
+     */
+    name: string;
     /**
      * The ID of the workspace of the node
      */
@@ -319,17 +327,21 @@ export type GrNodeDto = {
 export type NodeDto = {
     id: number;
     /**
+     * The ID of the node type in the graph
+     */
+    grNodeId: number;
+    /**
      * The edges that connect to the node as inputs
      */
     inputEdges?: EdgeEntity;
     /**
+     * The name of the node (alphanumeric)
+     */
+    name: string;
+    /**
      * The edges that connect to the node as outputs
      */
     outputEdges?: EdgeEntity;
-    /**
-     * The type of the node
-     */
-    type: string;
     /**
      * The workspace of the node
      */
@@ -346,9 +358,9 @@ export type NodeDto = {
 
 export type NodeUpdateDto = {
     /**
-     * The type of the node
+     * The name of the node (alphanumeric)
      */
-    type?: string;
+    name?: string;
     /**
      * The ID of the workspace of the node
      */

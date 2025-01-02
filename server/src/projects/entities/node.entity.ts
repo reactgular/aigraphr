@@ -3,15 +3,30 @@ import {EdgeEntity} from '@/projects/entities/edge.entity';
 import {WorkspaceEntity} from '@/projects/entities/workspace.entity';
 import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {ApiProperty, ApiSchema, OmitType, PartialType} from '@nestjs/swagger';
-import {IsNumber, IsString, Min} from 'class-validator';
-import {Column, Entity, ManyToOne, OneToMany} from 'typeorm';
+import {
+    IsNumber,
+    IsString,
+    Matches,
+    MaxLength,
+    Min,
+    MinLength
+} from 'class-validator';
+import {Column, Entity, Index, ManyToOne, OneToMany} from 'typeorm';
 
 @ApiSchema({
     description:
         'Nodes store the run-time data needed by Node Instances to run. They are connected by Edges to form a graph.'
 })
 @Entity({name: 'nodes'})
+@Index(['workspaceId', 'name'], {unique: true})
 export class NodeEntity extends ScaEntity {
+    @IsNumber()
+    @ApiProperty({
+        description: 'The ID of the node type in the graph'
+    })
+    @Column()
+    grNodeId: number;
+
     @ApiProperty({
         type: () => EdgeEntity,
         description: 'The edges that connect to the node as inputs',
@@ -24,6 +39,19 @@ export class NodeEntity extends ScaEntity {
     })
     inputEdges: EdgeEntity[];
 
+    @IsString()
+    @Matches(/^[a-zA-Z0-9-_]+$/, {
+        message: 'The name of the node must be alphanumeric'
+    })
+    @MinLength(1)
+    @MaxLength(128)
+    @ApiProperty({
+        description: 'The name of the node (alphanumeric)',
+        example: 'forEach1'
+    })
+    @Column({length: 128})
+    name: string;
+
     @ApiProperty({
         type: () => EdgeEntity,
         description: 'The edges that connect to the node as outputs',
@@ -35,14 +63,6 @@ export class NodeEntity extends ScaEntity {
         eager: false
     })
     outputEdges: EdgeEntity[];
-
-    @IsString()
-    @ApiProperty({
-        description: 'The type of the node',
-        example: 'forEach'
-    })
-    @Column()
-    type: string;
 
     @ApiProperty({
         type: () => WorkspaceEntity,
@@ -92,6 +112,7 @@ export class NodeUpdateDto extends PartialType(
         'workspace',
         'inputEdges',
         'outputEdges',
+        'grNodeId',
         'grNode'
     ] as const)
 ) {}
