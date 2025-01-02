@@ -1,9 +1,15 @@
-import {GrNodeState} from '@/components/graph/GrNodeState';
+import {type NodeAddress, useNodesGet} from '@/components/graph/useNodesGet';
 import {cn, type PropsWithClassName} from '@/components/shadcn/lib/utils';
 import type {FC} from 'react';
 
-export const GrNodeName: FC<PropsWithClassName> = ({className}) => {
-    const {data} = GrNodeState.useState();
+interface GrNodeNameProps {
+    address: NodeAddress;
+}
 
-    return <div className={cn('text-xl', className)}>Temp</div>;
+export const GrNodeName: FC<PropsWithClassName<GrNodeNameProps>> = ({
+    address,
+    className
+}) => {
+    const {data} = useNodesGet(address);
+    return <div className={cn('text-xl', className)}>{data?.name}</div>;
 };

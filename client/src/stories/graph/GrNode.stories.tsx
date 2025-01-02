@@ -16,7 +16,8 @@ export default {
                 response: {
                     id: 1,
                     workspaceId: 1,
-                    type: 'forEach'
+                    grNodeId: 1,
+                    name: 'forEach1'
                 } satisfies NodesGetResponses['200']
             }
         ]
@@ -24,9 +25,11 @@ export default {
     tags: ['autodocs'],
     args: {
         disabled: false,
-        projectId: 1,
-        workspaceId: 1,
-        nodeId: 1,
+        address: {
+            projectId: 1,
+            workspaceId: 1,
+            nodeId: 1
+        },
         readonly: false
     }
 } satisfies Meta<typeof GrNode>;
