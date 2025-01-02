@@ -98,11 +98,11 @@ export class ProjectsService extends ScaCrudService<
     }
 
     public async getFileName(id: number): Promise<string> {
-        const {name} = await this.projects.findOneOrFail({
+        const {fileName} = await this.projects.findOneOrFail({
             where: {id},
-            select: {name: true}
+            select: {fileName: true}
         });
-        return name;
+        return fileName;
     }
 
     public async isClosed(id: number): Promise<boolean> {

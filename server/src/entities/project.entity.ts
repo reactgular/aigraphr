@@ -33,7 +33,7 @@ export class ProjectEntity extends ScaEntity {
     @MaxLength(128)
     @ApiProperty({
         description: 'The name of the project file (alphanumeric)',
-        example: 'example-project.aigraphr'
+        example: 'example-project'
     })
     @Column({length: 128})
     fileName: string;

@@ -37,7 +37,9 @@ export class ProjectReposService {
     protected async connection(): Promise<DataSource> {
         if (!this.dataSource) {
             const project = await this.projectParam.getProjectOrThrow();
-            this.dataSource = await this.projectDataSources.open(project.name);
+            this.dataSource = await this.projectDataSources.open(
+                project.fileName
+            );
         }
         return this.dataSource!;
     }
