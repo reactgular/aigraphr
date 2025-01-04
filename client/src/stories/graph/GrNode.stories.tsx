@@ -1,11 +1,13 @@
 import type {NodesGetResponses} from '@/api';
 import {GrNode} from '@/components/graph/GrNode';
 import type {Meta, StoryObj} from '@storybook/react';
+import {withSuspense} from '../decorators/withSuspense';
 
 // @see https://storybook-addon-mock.netlify.app/?path=/docs/docs-introduction--docs
 export default {
     title: 'Graph/GrNode',
     component: GrNode,
+    decorators: [withSuspense()],
     parameters: {
         layout: 'centered',
         mockData: [

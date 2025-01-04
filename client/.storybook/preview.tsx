@@ -20,9 +20,10 @@ import '@fontsource/inter/700-italic.css';
 import '@fontsource/inter/800.css';
 import '@fontsource/inter/800-italic.css';
 import '@fontsource/inter/900.css';
-// noinspection ES6PreferShortImport
-import {AppProviders} from '../src/components/app/AppProviders';
 import '@fontsource/inter/900-italic.css';
+// noinspection ES6PreferShortImport
+import {withAppProvider} from '../src/stories/decorators/withAppProvider';
+// noinspection ES6PreferShortImport
 
 export const decorators: DecoratorFunction<ReactRenderer>[] = [
     withThemeByDataAttribute({
@@ -33,11 +34,7 @@ export const decorators: DecoratorFunction<ReactRenderer>[] = [
         defaultTheme: 'light',
         attributeName: 'data-mode'
     }),
-    (Story) => (
-        <AppProviders>
-            <Story />
-        </AppProviders>
-    )
+    withAppProvider()
 ];
 
 const preview: Preview = {

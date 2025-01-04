@@ -4,7 +4,7 @@ import {GrNodeFooter} from '@/components/graph/GrNodeFooter';
 import {GrNodeFrame} from '@/components/graph/GrNodeFrame';
 import {GrNodeHeader} from '@/components/graph/GrNodeHeader';
 import {GrNodeName} from '@/components/graph/GrNodeName';
-import {type NodeAddress} from '@/components/graph/hooks/useNodesGet';
+import {type NodeAddress} from '@/components/graph/hooks/useNode';
 import type {FC} from 'react';
 
 interface GrNodeProps {
