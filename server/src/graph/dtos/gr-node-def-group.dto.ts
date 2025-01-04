@@ -1,4 +1,4 @@
-import {GrNodeDto} from '@/graph/dtos/gr-node.dto';
+import {GrNodeDefDto} from '@/graph/dtos/gr-node-def.dto';
 import {ApiProperty, ApiSchema} from '@nestjs/swagger';
 import {IsString} from 'class-validator';
 
@@ -6,7 +6,7 @@ import {IsString} from 'class-validator';
     description:
         'Describes how nodes are structured. It is used to generate the UI for the node.'
 })
-export class GrGroupDto {
+export class GrNodeDefGroupDto {
     @IsString()
     @ApiProperty({
         description: 'The description of the group',
@@ -23,8 +23,8 @@ export class GrGroupDto {
 
     @ApiProperty({
         description: 'The nodes in the group',
-        type: GrNodeDto,
+        type: GrNodeDefDto,
         isArray: true
     })
-    nodes: GrNodeDto[];
+    nodes: GrNodeDefDto[];
 }

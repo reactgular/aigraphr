@@ -1,4 +1,4 @@
-import {GrParamType} from '@/graph/dtos/gr-param.dto';
+import {GrParamType} from '@/graph/dtos/gr-node-def-param.dto';
 import {AigTypeBase, AigTypeDef} from '../types/AigTypeBase';
 
 export class AigInputNumber extends AigTypeBase<number, AigTypeDef> {

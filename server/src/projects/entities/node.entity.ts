@@ -1,4 +1,4 @@
-import {GrNodeDto} from '@/graph/dtos/gr-node.dto';
+import {GrNodeDefDto} from '@/graph/dtos/gr-node-def.dto';
 import {EdgeEntity} from '@/projects/entities/edge.entity';
 import {WorkspaceEntity} from '@/projects/entities/workspace.entity';
 import {ScaEntity} from '@/scaffold/models/sca.entity';
@@ -89,7 +89,7 @@ export class NodeDto extends OmitType(NodeEntity, [] as const) {
     @ApiProperty({
         description: 'The description of the node'
     })
-    grNode?: GrNodeDto;
+    grNode?: GrNodeDefDto;
 }
 
 /**

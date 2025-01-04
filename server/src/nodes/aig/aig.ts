@@ -1,15 +1,15 @@
 import {
-    AigNodeBuilder,
-    AigNodeBuilderOptions
-} from '@/nodes/aig/nodes/AigNodeBuilder';
+    AigNodeBuilderOptions,
+    AigNodeDefBuilder
+} from '@/nodes/aig/nodes/AigNodeDefBuilder';
 import {
-    AigNodeGroup,
+    AigNodeDefGroup,
     AigNodeGroupOptions
-} from '@/nodes/aig/nodes/AigNodeGroup';
+} from '@/nodes/aig/nodes/AigNodeDefGroup';
 
 export const aig = {
     group: (options: AigNodeGroupOptions) => {
-        return AigNodeGroup.create(options);
+        return AigNodeDefGroup.create(options);
     },
-    node: (options: AigNodeBuilderOptions) => AigNodeBuilder.create(options)
+    node: (options: AigNodeBuilderOptions) => AigNodeDefBuilder.create(options)
 };

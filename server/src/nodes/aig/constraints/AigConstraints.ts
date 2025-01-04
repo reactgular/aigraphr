@@ -1,4 +1,4 @@
-import {GrParamDto} from '@/graph/dtos/gr-param.dto';
+import {GrNodeDefParamDto} from '@/graph/dtos/gr-node-def-param.dto';
 import {AigConstraint} from './AigConstraint';
 import {AigConstraintCtx} from './AigConstraintCtx';
 
@@ -13,7 +13,7 @@ export class AigConstraints<TValue, TContext> {
         this.constraints.push(rule);
     }
 
-    public compile(): GrParamDto[] {
+    public compile(): GrNodeDefParamDto[] {
         return [];
     }
 

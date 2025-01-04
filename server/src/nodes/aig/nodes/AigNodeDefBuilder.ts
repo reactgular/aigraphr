@@ -1,6 +1,5 @@
-import {GrGroupDto} from '@/graph/dtos/gr-group.dto';
-import {GrNodeDto} from '@/graph/dtos/gr-node.dto';
-import {GrParamDto} from '@/graph/dtos/gr-param.dto';
+import {GrNodeDefParamDto} from '@/graph/dtos/gr-node-def-param.dto';
+import {GrNodeDefDto} from '@/graph/dtos/gr-node-def.dto';
 import {AigConstraint} from '../constraints/AigConstraint';
 import {AigConstraints} from '../constraints/AigConstraints';
 import {AigInputCtx} from '../inputs/AigInputCtx';
@@ -13,7 +12,7 @@ export interface AigNodeBuilderOptions {
     type: string;
 }
 
-export class AigNodeBuilder<
+export class AigNodeDefBuilder<
     TInputShape extends AigTypeShape,
     TOutputShape extends AigTypeShape
 > {
@@ -37,8 +36,8 @@ export class AigNodeBuilder<
 
     public static create(
         options: AigNodeBuilderOptions
-    ): AigNodeBuilder<AigTypeShape, AigTypeShape> {
-        return new AigNodeBuilder(
+    ): AigNodeDefBuilder<AigTypeShape, AigTypeShape> {
+        return new AigNodeDefBuilder(
             options,
             {},
             {},
@@ -47,12 +46,14 @@ export class AigNodeBuilder<
         );
     }
 
-    public compile(group: string, grGroupDto?: GrGroupDto): GrNodeDto {
-        const compileShape = (shape: AigTypeShape) =>
-            Object.entries(shape).reduce((acc, [key, value]) => {
+    public compile(group: string): GrNodeDefDto {
+        const compileShape = (shape: AigTypeShape) => {
+            const params = Object.entries(shape).reduce((acc, [key, value]) => {
                 acc.push(value.compile(key));
                 return acc;
-            }, [] as GrParamDto[]);
+            }, [] as GrNodeDefParamDto[]);
+            return params.sort((a, b) => a.name.localeCompare(b.name));
+        };
 
         return {
             description: this.options.description,
@@ -61,7 +62,7 @@ export class AigNodeBuilder<
             outputs: compileShape(this.outputShape),
             type: `${group}:${this.options.type}`,
             version: this.version
-        } satisfies GrNodeDto;
+        } satisfies GrNodeDefDto;
     }
 
     public constraint(
@@ -78,15 +79,15 @@ export class AigNodeBuilder<
         return this;
     }
 
-    public end(): AigNodeBuilder<AigTypeShape, AigTypeShape> {
-        return this as unknown as AigNodeBuilder<AigTypeShape, AigTypeShape>;
+    public end(): AigNodeDefBuilder<AigTypeShape, AigTypeShape> {
+        return this as unknown as AigNodeDefBuilder<AigTypeShape, AigTypeShape>;
     }
 
     public inputs<TInputs extends AigTypeShape>(
         inputs: (ctx: AigInputCtx) => TInputs
-    ): AigNodeBuilder<TInputs, TOutputShape> {
+    ): AigNodeDefBuilder<TInputs, TOutputShape> {
         const inputCtx = new AigInputCtx();
-        return new AigNodeBuilder(
+        return new AigNodeDefBuilder(
             this.options,
             inputs(inputCtx),
             this.outputShape,
@@ -103,9 +104,9 @@ export class AigNodeBuilder<
 
     public outputs<TOutputs extends AigTypeShape>(
         outputs: (ctx: AigOutputCtx<TInputShape>) => TOutputs
-    ): AigNodeBuilder<TInputShape, TOutputs> {
+    ): AigNodeDefBuilder<TInputShape, TOutputs> {
         const outputCtx = new AigOutputCtx(this.inputShape);
-        return new AigNodeBuilder(
+        return new AigNodeDefBuilder(
             this.options,
             this.inputShape,
             outputs(outputCtx),

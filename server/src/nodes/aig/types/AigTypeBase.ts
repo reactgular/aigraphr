@@ -1,4 +1,7 @@
-import {GrParamDto, GrParamType} from '@/graph/dtos/gr-param.dto';
+import {
+    GrNodeDefParamDto,
+    GrParamType
+} from '@/graph/dtos/gr-node-def-param.dto';
 import {AigConstraint} from '../constraints/AigConstraint';
 import {AigConstraints} from '../constraints/AigConstraints';
 
@@ -30,7 +33,7 @@ export abstract class AigTypeBase<TType, TDef extends AigTypeDef = AigTypeDef> {
         this.constraints = new AigConstraints();
     }
 
-    public compile(name: string): GrParamDto {
+    public compile(name: string): GrNodeDefParamDto {
         return {
             description: this._def.description,
             isArray: false,

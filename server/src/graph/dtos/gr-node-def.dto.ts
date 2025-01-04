@@ -1,12 +1,12 @@
 import {ApiProperty, ApiSchema} from '@nestjs/swagger';
 import {IsBoolean, IsNumber, IsString} from 'class-validator';
-import {GrParamDto} from './gr-param.dto';
+import {GrNodeDefParamDto} from './gr-node-def-param.dto';
 
 @ApiSchema({
     description:
         'Describes how nodes are structured. It is used to generate the UI for the node.'
 })
-export class GrNodeDto {
+export class GrNodeDefDto {
     @IsBoolean()
     @ApiProperty({
         description: 'Whether the node is deprecated',
@@ -31,17 +31,17 @@ export class GrNodeDto {
 
     @ApiProperty({
         description: 'The inputs of the node',
-        type: GrParamDto,
+        type: GrNodeDefParamDto,
         isArray: true
     })
-    inputs: GrParamDto[];
+    inputs: GrNodeDefParamDto[];
 
     @ApiProperty({
         description: 'The outputs of the node',
-        type: GrParamDto,
+        type: GrNodeDefParamDto,
         isArray: true
     })
-    outputs: GrParamDto[];
+    outputs: GrNodeDefParamDto[];
 
     @IsString()
     @ApiProperty({

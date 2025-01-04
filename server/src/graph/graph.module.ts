@@ -1,18 +1,21 @@
-import {GraphController} from '@/graph/controllers/graph.controller';
-import {GrNodesService, NODE_GROUPS} from '@/graph/services/gr-nodes.service';
+import {GrNodeDefController} from '@/graph/controllers/gr-node-def.controller';
+import {
+    GrNodeDefsService,
+    NODE_DEF_GROUPS
+} from '@/graph/services/gr-node-defs.service';
 import {CORE} from '@/nodes/core/core';
 import {Module} from '@nestjs/common';
 
 @Module({
     imports: [],
-    controllers: [GraphController],
+    controllers: [GrNodeDefController],
     providers: [
-        GrNodesService,
+        GrNodeDefsService,
         {
-            provide: NODE_GROUPS,
+            provide: NODE_DEF_GROUPS,
             useValue: [CORE]
         }
     ],
-    exports: [GrNodesService]
+    exports: [GrNodeDefsService]
 })
 export class GraphModule {}

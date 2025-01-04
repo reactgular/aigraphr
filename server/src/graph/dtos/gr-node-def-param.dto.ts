@@ -16,7 +16,7 @@ export enum GrParamType {
     description:
         'A parameter of a node. It is used to generate the UI for the node.'
 })
-export class GrParamDto {
+export class GrNodeDefParamDto {
     @IsString()
     @ApiProperty({
         description: 'The description of the parameter',
