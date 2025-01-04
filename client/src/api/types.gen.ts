@@ -1321,19 +1321,19 @@ export type SettingsReplaceResponses = {
 export type SettingsReplaceResponse =
     SettingsReplaceResponses[keyof SettingsReplaceResponses];
 
-export type GrNodeDefGetNodeDefGroundsData = {
+export type GrNodeDefGetNodeDefGroupsData = {
     body?: never;
     path?: never;
     query?: never;
     url: '/api/node-def/groups';
 };
 
-export type GrNodeDefGetNodeDefGroundsResponses = {
+export type GrNodeDefGetNodeDefGroupsResponses = {
     /**
      * Return a list of node definitions by groups
      */
     200: Array<GrNodeDefGroupDto>;
 };
 
-export type GrNodeDefGetNodeDefGroundsResponse =
-    GrNodeDefGetNodeDefGroundsResponses[keyof GrNodeDefGetNodeDefGroundsResponses];
+export type GrNodeDefGetNodeDefGroupsResponse =
+    GrNodeDefGetNodeDefGroupsResponses[keyof GrNodeDefGetNodeDefGroupsResponses];

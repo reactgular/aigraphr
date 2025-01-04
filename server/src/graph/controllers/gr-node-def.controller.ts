@@ -17,7 +17,7 @@ export class GrNodeDefController {
         isArray: true
     })
     @ScaValidateResponse([GrNodeDefGroupDto])
-    public async getNodeDefGrounds() {
+    public async getNodeDefGroups() {
         return this.grNodeDefs.getGroups();
     }
 }

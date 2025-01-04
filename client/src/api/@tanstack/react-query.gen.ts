@@ -64,7 +64,7 @@ import type {
     SettingsUpdateResponse,
     SettingsReplaceData,
     SettingsReplaceResponse,
-    GrNodeDefGetNodeDefGroundsData
+    GrNodeDefGetNodeDefGroupsData
 } from '../types.gen';
 import {
     client,
@@ -95,7 +95,7 @@ import {
     settingsGet,
     settingsUpdate,
     settingsReplace,
-    grNodeDefGetNodeDefGrounds
+    grNodeDefGetNodeDefGroups
 } from '../sdk.gen';
 
 type QueryKey<TOptions extends Options> = [
@@ -787,16 +787,16 @@ export const settingsReplaceMutation = (
     return mutationOptions;
 };
 
-export const grNodeDefGetNodeDefGroundsQueryKey = (
-    options?: Options<GrNodeDefGetNodeDefGroundsData>
-) => [createQueryKey('grNodeDefGetNodeDefGrounds', options)];
+export const grNodeDefGetNodeDefGroupsQueryKey = (
+    options?: Options<GrNodeDefGetNodeDefGroupsData>
+) => [createQueryKey('grNodeDefGetNodeDefGroups', options)];
 
-export const grNodeDefGetNodeDefGroundsOptions = (
-    options?: Options<GrNodeDefGetNodeDefGroundsData>
+export const grNodeDefGetNodeDefGroupsOptions = (
+    options?: Options<GrNodeDefGetNodeDefGroupsData>
 ) => {
     return queryOptions({
         queryFn: async ({queryKey, signal}) => {
-            const {data} = await grNodeDefGetNodeDefGrounds({
+            const {data} = await grNodeDefGetNodeDefGroups({
                 ...options,
                 ...queryKey[0],
                 signal,
@@ -804,6 +804,6 @@ export const grNodeDefGetNodeDefGroundsOptions = (
             });
             return data;
         },
-        queryKey: grNodeDefGetNodeDefGroundsQueryKey(options)
+        queryKey: grNodeDefGetNodeDefGroupsQueryKey(options)
     });
 };

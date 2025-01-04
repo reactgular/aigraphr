@@ -68,8 +68,8 @@ import type {
     SettingsUpdateResponse,
     SettingsReplaceData,
     SettingsReplaceResponse,
-    GrNodeDefGetNodeDefGroundsData,
-    GrNodeDefGetNodeDefGroundsResponse
+    GrNodeDefGetNodeDefGroupsData,
+    GrNodeDefGetNodeDefGroupsResponse
 } from './types.gen';
 
 export const client = createClient(createConfig());
@@ -565,13 +565,11 @@ export const settingsReplace = <ThrowOnError extends boolean = false>(
 /**
  * Get a list of node definitions by groups
  */
-export const grNodeDefGetNodeDefGrounds = <
-    ThrowOnError extends boolean = false
->(
-    options?: Options<GrNodeDefGetNodeDefGroundsData, ThrowOnError>
+export const grNodeDefGetNodeDefGroups = <ThrowOnError extends boolean = false>(
+    options?: Options<GrNodeDefGetNodeDefGroupsData, ThrowOnError>
 ) => {
     return (options?.client ?? client).get<
-        GrNodeDefGetNodeDefGroundsResponse,
+        GrNodeDefGetNodeDefGroupsResponse,
         unknown,
         ThrowOnError
     >({

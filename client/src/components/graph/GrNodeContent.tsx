@@ -1,4 +1,7 @@
-import {type NodeAddress, useNodesGet} from '@/components/graph/useNodesGet';
+import {
+    type NodeAddress,
+    useNodesGet
+} from '@/components/graph/hooks/useNodesGet';
 import {cn, type PropsWithClassName} from '@/components/shadcn/lib/utils';
 import type {FC} from 'react';
 

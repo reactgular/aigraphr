@@ -1416,7 +1416,7 @@
         },
         "/api/node-def/groups": {
             "get": {
-                "operationId": "GrNodeDef_getNodeDefGrounds",
+                "operationId": "GrNodeDef_getNodeDefGroups",
                 "parameters": [],
                 "responses": {
                     "200": {
