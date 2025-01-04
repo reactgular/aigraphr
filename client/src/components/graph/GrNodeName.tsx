@@ -13,6 +13,6 @@ export const GrNodeName: FC<PropsWithClassName<GrNodeNameProps>> = ({
     address,
     className
 }) => {
-    const {data} = useNodesGet(address);
-    return <div className={cn('text-xl', className)}>{data?.name}</div>;
+    const node = useNodesGet(address);
+    return <div className={cn('text-xl', className)}>{node.name}</div>;
 };

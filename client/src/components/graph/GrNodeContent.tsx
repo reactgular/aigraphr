@@ -13,6 +13,6 @@ export const GrNodeContent: FC<PropsWithClassName<GrNodeContentProps>> = ({
     address,
     className
 }) => {
-    const {data} = useNodesGet(address);
+    const node = useNodesGet(address);
     return <div className={cn('px-4 py-4', className)}>Contents</div>;
 };

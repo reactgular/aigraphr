@@ -1,9 +1,10 @@
-import type {NodesGetData} from '@/api';
+import type {NodeDto, NodesGetData} from '@/api';
 import {nodesGetOptions} from '@/api/@tanstack/react-query.gen';
-import {useQuery} from '@tanstack/react-query';
+import {useSuspenseQuery} from '@tanstack/react-query';
 
 export type NodeAddress = NodesGetData['path'];
 
-export const useNodesGet = (address: NodeAddress) => {
-    return useQuery({...nodesGetOptions({path: address})});
+export const useNodesGet = (address: NodeAddress): NodeDto => {
+    const {data} = useSuspenseQuery(nodesGetOptions({path: address}));
+    return data;
 };
