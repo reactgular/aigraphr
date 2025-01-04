@@ -1,3 +1,4 @@
+import {GrGroupDto} from '@/graph/dtos/gr-group.dto';
 import {GrNodeDto} from '@/graph/dtos/gr-node.dto';
 import {GrParamDto} from '@/graph/dtos/gr-param.dto';
 import {ScaExceptionFilterDto} from '@/scaffold/dtos/sca-exception-filter.dto';
@@ -37,6 +38,6 @@ export const swaggerApiDocument = ({
 
     return SwaggerModule.createDocument(app, config, {
         operationIdFactory,
-        extraModels: [ScaExceptionFilterDto, GrNodeDto, GrParamDto]
+        extraModels: [ScaExceptionFilterDto, GrGroupDto, GrNodeDto, GrParamDto]
     });
 };

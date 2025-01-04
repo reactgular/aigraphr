@@ -1500,7 +1500,7 @@
                     "fileName": {
                         "type": "string",
                         "description": "The name of the project file (alphanumeric)",
-                        "example": "example-project.aigraphr"
+                        "example": "example-project"
                     },
                     "name": {
                         "type": "string",
@@ -1534,7 +1534,7 @@
                     "fileName": {
                         "type": "string",
                         "description": "The name of the project file (alphanumeric)",
-                        "example": "example-project.aigraphr"
+                        "example": "example-project"
                     },
                     "name": {
                         "type": "string",
@@ -1600,7 +1600,7 @@
                     "fileName": {
                         "type": "string",
                         "description": "The name of the project file (alphanumeric)",
-                        "example": "example-project.aigraphr"
+                        "example": "example-project"
                     },
                     "name": {
                         "type": "string",
@@ -2083,6 +2083,10 @@
             "GrParamDto": {
                 "type": "object",
                 "properties": {
+                    "description": {
+                        "type": "string",
+                        "description": "The description of the parameter"
+                    },
                     "isArray": {
                         "type": "boolean",
                         "description": "Whether the parameter is an array",
@@ -2095,6 +2099,7 @@
                     },
                     "type": {
                         "enum": [
+                            "userType",
                             "string",
                             "number",
                             "boolean",
@@ -2106,6 +2111,7 @@
                 },
                 "description": "A parameter of a node. It is used to generate the UI for the node.",
                 "required": [
+                    "description",
                     "isArray",
                     "name",
                     "type"
@@ -2117,6 +2123,10 @@
                     "id": {
                         "type": "number",
                         "example": 1
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "The description of the node"
                     },
                     "inputs": {
                         "description": "The inputs of the node",
@@ -2136,14 +2146,20 @@
                         "type": "string",
                         "description": "The unique type of the node",
                         "example": "forEach"
+                    },
+                    "version": {
+                        "type": "number",
+                        "description": "The version of the node"
                     }
                 },
                 "description": "Describes how nodes are structured. It is used to generate the UI for the node.",
                 "required": [
                     "id",
+                    "description",
                     "inputs",
                     "outputs",
-                    "type"
+                    "type",
+                    "version"
                 ]
             },
             "NodeDto": {

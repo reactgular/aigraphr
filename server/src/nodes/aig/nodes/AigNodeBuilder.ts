@@ -1,6 +1,6 @@
+import {GrGroupDto} from '@/graph/dtos/gr-group.dto';
 import {GrNodeDto} from '@/graph/dtos/gr-node.dto';
 import {GrParamDto} from '@/graph/dtos/gr-param.dto';
-import {AigNodeType, AigNodeTypeToId} from '@/nodes/aig/AigNodeType';
 import {AigConstraint} from '../constraints/AigConstraint';
 import {AigConstraints} from '../constraints/AigConstraints';
 import {AigInputCtx} from '../inputs/AigInputCtx';
@@ -10,7 +10,7 @@ import {AigTypeSchema, AigTypeShape} from '../types/AigTypeBase';
 export interface AigNodeBuilderOptions {
     description: string;
 
-    type: AigNodeType;
+    type: string;
 }
 
 export class AigNodeBuilder<
@@ -47,7 +47,7 @@ export class AigNodeBuilder<
         );
     }
 
-    public compile(): GrNodeDto {
+    public compile(group: string, grGroupDto?: GrGroupDto): GrNodeDto {
         const compileShape = (shape: AigTypeShape) =>
             Object.entries(shape).reduce((acc, [key, value]) => {
                 acc.push(value.compile(key));
@@ -55,11 +55,12 @@ export class AigNodeBuilder<
             }, [] as GrParamDto[]);
 
         return {
-            id: AigNodeTypeToId[this.options.type],
+            description: this.options.description,
+            grGroupDto,
+            group,
             inputs: compileShape(this.inputShape),
             outputs: compileShape(this.outputShape),
-            type: this.options.type,
-            description: this.options.description,
+            type: `${group}:${this.options.type}`,
             version: this.version
         } satisfies GrNodeDto;
     }
@@ -76,6 +77,10 @@ export class AigNodeBuilder<
     ): this {
         this.outputConstraints.add(rule);
         return this;
+    }
+
+    public end(): AigNodeBuilder<AigTypeShape, AigTypeShape> {
+        return this as unknown as AigNodeBuilder<AigTypeShape, AigTypeShape>;
     }
 
     public inputs<TInputs extends AigTypeShape>(

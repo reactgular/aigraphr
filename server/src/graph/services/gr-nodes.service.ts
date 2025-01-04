@@ -1,26 +1,11 @@
-import {GrNodeDto} from '@/graph/dtos/gr-node.dto';
-import {ScaCrudRead} from '@/scaffold/crud/sca-crud-read';
-import {ScaGetResponse} from '@/scaffold/decorators/sca-get';
-import {ScaPaginateResponse} from '@/scaffold/decorators/sca-paginate';
-import {Inject, Injectable, NotFoundException} from '@nestjs/common';
+import {AigNodeGroup} from '@/nodes/aig/nodes/AigNodeGroup';
+import {Inject, Injectable} from '@nestjs/common';
 
-export const CORE_NODES = Symbol('CORE_NODES');
+export const NODE_GROUPS = Symbol('NODE_GROUPS');
 
 @Injectable()
-export class GrNodesService implements ScaCrudRead<GrNodeDto> {
+export class GrNodesService {
     public constructor(
-        @Inject(CORE_NODES) private readonly nodes: GrNodeDto[]
+        @Inject(NODE_GROUPS) private readonly nodeGroups: AigNodeGroup[]
     ) {}
-
-    public async scaGet(id: number): ScaGetResponse<GrNodeDto> {
-        const node = this.nodes.find((n) => n.id === id);
-        if (!node) {
-            throw new NotFoundException(`Node with ID ${id} not found`);
-        }
-        return node;
-    }
-
-    public async scaPaginate(): ScaPaginateResponse<GrNodeDto> {
-        return this.nodes;
-    }
 }

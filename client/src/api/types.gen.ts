@@ -292,6 +292,10 @@ export type NodeCreateDto = {
  */
 export type GrParamDto = {
     /**
+     * The description of the parameter
+     */
+    description: string;
+    /**
      * Whether the parameter is an array
      */
     isArray: boolean;
@@ -302,7 +306,7 @@ export type GrParamDto = {
     /**
      * The type of the parameter
      */
-    type: 'string' | 'number' | 'boolean' | 'object';
+    type: 'userType' | 'string' | 'number' | 'boolean' | 'object';
 };
 
 /**
@@ -310,6 +314,10 @@ export type GrParamDto = {
  */
 export type GrNodeDto = {
     id: number;
+    /**
+     * The description of the node
+     */
+    description: string;
     /**
      * The inputs of the node
      */
@@ -322,6 +330,10 @@ export type GrNodeDto = {
      * The unique type of the node
      */
     type: string;
+    /**
+     * The version of the node
+     */
+    version: number;
 };
 
 export type NodeDto = {
