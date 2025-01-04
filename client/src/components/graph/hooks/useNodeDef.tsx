@@ -1,14 +1,11 @@
 import type {GrNodeDefDto} from '@/api';
 import {useNodeDefGroups} from '@/components/graph/hooks/useNodeDefGroups';
 
-export const useNodeDef = (
-    group: string,
-    type: string
-): Readonly<GrNodeDefDto> => {
+export const useNodeDef = (type: string): Readonly<GrNodeDefDto> => {
     const {nodes} = useNodeDefGroups();
-    const node = nodes[`${group}:${type}`];
+    const node = nodes[type];
     if (!node) {
-        throw new Error(`Node ${group}:${type} not found`);
+        throw new Error(`Node definition not found for type: ${type}`);
     }
     return node;
 };

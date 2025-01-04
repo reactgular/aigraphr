@@ -19,7 +19,7 @@ export const GrNode: FC<GrNodeProps> = ({disabled, address, readonly}) => {
     return (
         <GrNodeBoundary className="flex flex-col gap-2">
             <GrNodeName address={address} />
-            <GrNodeFrame className="w-[20rem]">
+            <GrNodeFrame className="w-[12rem]">
                 <GrNodeHeader />
                 <GrNodeContent address={address} />
                 <GrNodeFooter />

@@ -29,7 +29,7 @@ const toModel = (data: GrNodeDefGroupDto[]): NodeDefModel => {
 
     const nodes = allNodes.reduce(
         (acc, node) => {
-            acc[`${node.group}:${node.type}`] = node;
+            acc[node.type] = node;
             return acc;
         },
         {} as Record<string, GrNodeDefDto>

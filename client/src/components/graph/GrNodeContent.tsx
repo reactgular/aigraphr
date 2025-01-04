@@ -1,4 +1,6 @@
+import {GrNodeParams} from '@/components/graph/GrNodeParams';
 import {type NodeAddress, useNode} from '@/components/graph/hooks/useNode';
+import {useNodeDef} from '@/components/graph/hooks/useNodeDef';
 import {cn, type PropsWithClassName} from '@/components/shadcn/lib/utils';
 import type {FC} from 'react';
 
@@ -11,5 +13,12 @@ export const GrNodeContent: FC<PropsWithClassName<GrNodeContentProps>> = ({
     className
 }) => {
     const node = useNode(address);
-    return <div className={cn('px-4 py-4', className)}>Contents</div>;
+    const def = useNodeDef(node.type);
+
+    return (
+        <div className={cn('flex py-2', className)}>
+            <GrNodeParams side="left" params={def.inputs} />
+            <GrNodeParams side="right" params={def.outputs} />
+        </div>
+    );
 };
