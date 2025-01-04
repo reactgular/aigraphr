@@ -1,6 +1,5 @@
-import {GrGroupDto} from '@/graph/dtos/gr-group.dto';
 import {ApiProperty, ApiSchema} from '@nestjs/swagger';
-import {IsNumber, IsString} from 'class-validator';
+import {IsBoolean, IsNumber, IsString} from 'class-validator';
 import {GrParamDto} from './gr-param.dto';
 
 @ApiSchema({
@@ -8,17 +7,20 @@ import {GrParamDto} from './gr-param.dto';
         'Describes how nodes are structured. It is used to generate the UI for the node.'
 })
 export class GrNodeDto {
+    @IsBoolean()
+    @ApiProperty({
+        description: 'Whether the node is deprecated',
+        example: false,
+        required: false
+    })
+    deprecated?: boolean;
+
     @IsString()
     @ApiProperty({
-        description: 'The description of the node'
+        description: 'The description of the node',
+        example: 'Iterates over a list of items'
     })
     description: string;
-
-    @ApiProperty({
-        description: 'The group of the node',
-        type: GrGroupDto
-    })
-    grGroupDto?: GrGroupDto;
 
     @IsString()
     @ApiProperty({
@@ -50,7 +52,8 @@ export class GrNodeDto {
 
     @IsNumber()
     @ApiProperty({
-        description: 'The version of the node'
+        description: 'The version of the node',
+        example: 1
     })
     version: number;
 }

@@ -19,7 +19,8 @@ export enum GrParamType {
 export class GrParamDto {
     @IsString()
     @ApiProperty({
-        description: 'The description of the parameter'
+        description: 'The description of the parameter',
+        example: 'A number parameter'
     })
     description: string;
 
@@ -40,6 +41,7 @@ export class GrParamDto {
     @IsEnum(GrParamType)
     @ApiProperty({
         description: 'The type of the parameter',
+        example: GrParamType.Number,
         enum: GrParamType
     })
     type: GrParamType;

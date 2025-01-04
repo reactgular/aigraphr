@@ -56,7 +56,6 @@ export class AigNodeBuilder<
 
         return {
             description: this.options.description,
-            grGroupDto,
             group,
             inputs: compileShape(this.inputShape),
             outputs: compileShape(this.outputShape),

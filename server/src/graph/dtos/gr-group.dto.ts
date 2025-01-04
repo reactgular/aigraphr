@@ -9,16 +9,10 @@ import {IsString} from 'class-validator';
 export class GrGroupDto {
     @IsString()
     @ApiProperty({
-        description: 'The description of the group'
+        description: 'The description of the group',
+        example: 'Core nodes'
     })
     description: string;
-
-    @ApiProperty({
-        description: 'The nodes in the group',
-        type: GrNodeDto,
-        isArray: true
-    })
-    grNodes?: GrNodeDto[];
 
     @IsString()
     @ApiProperty({
@@ -27,10 +21,10 @@ export class GrGroupDto {
     })
     name: string;
 
-    @IsString()
     @ApiProperty({
-        description: 'The types of nodes in the group',
+        description: 'The nodes in the group',
+        type: GrNodeDto,
         isArray: true
     })
-    types: string[];
+    nodes: GrNodeDto[];
 }
