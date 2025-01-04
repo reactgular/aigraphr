@@ -290,7 +290,7 @@ export type NodeCreateDto = {
 /**
  * A parameter of a node. It is used to generate the UI for the node.
  */
-export type GrParamDto = {
+export type GrNodeDefParamDto = {
     /**
      * The description of the parameter
      */
@@ -312,20 +312,27 @@ export type GrParamDto = {
 /**
  * Describes how nodes are structured. It is used to generate the UI for the node.
  */
-export type GrNodeDto = {
-    id: number;
+export type GrNodeDefDto = {
+    /**
+     * Whether the node is deprecated
+     */
+    deprecated?: boolean;
     /**
      * The description of the node
      */
     description: string;
     /**
+     * The group of the node
+     */
+    group: string;
+    /**
      * The inputs of the node
      */
-    inputs: Array<GrParamDto>;
+    inputs: Array<GrNodeDefParamDto>;
     /**
      * The outputs of the node
      */
-    outputs: Array<GrParamDto>;
+    outputs: Array<GrNodeDefParamDto>;
     /**
      * The unique type of the node
      */
@@ -365,7 +372,7 @@ export type NodeDto = {
     /**
      * The description of the node
      */
-    grNode?: GrNodeDto;
+    grNode?: GrNodeDefDto;
 };
 
 export type NodeUpdateDto = {
@@ -423,6 +430,24 @@ export type WorkspaceUpdateDto = {
 
 export type SettingDto = {
     test: string;
+};
+
+/**
+ * Describes how nodes are structured. It is used to generate the UI for the node.
+ */
+export type GrNodeDefGroupDto = {
+    /**
+     * The description of the group
+     */
+    description: string;
+    /**
+     * The name of the group
+     */
+    name: string;
+    /**
+     * The nodes in the group
+     */
+    nodes: Array<GrNodeDefDto>;
 };
 
 export type ProjectsPaginateData = {
@@ -1296,47 +1321,19 @@ export type SettingsReplaceResponses = {
 export type SettingsReplaceResponse =
     SettingsReplaceResponses[keyof SettingsReplaceResponses];
 
-export type GrNodesPaginateData = {
+export type GrNodeDefGetNodeDefGroundsData = {
     body?: never;
     path?: never;
     query?: never;
-    url: '/api/graph/nodes';
+    url: '/api/node-def/groups';
 };
 
-export type GrNodesPaginateResponses = {
+export type GrNodeDefGetNodeDefGroundsResponses = {
     /**
-     * Return a list of GrNode
+     * Return a list of node definitions by groups
      */
-    200: GrNodeDto;
+    200: Array<GrNodeDefGroupDto>;
 };
 
-export type GrNodesPaginateResponse =
-    GrNodesPaginateResponses[keyof GrNodesPaginateResponses];
-
-export type GrNodesGetData = {
-    body?: never;
-    path: {
-        /**
-         * The ID of a GrNode
-         */
-        id: number;
-    };
-    query?: never;
-    url: '/api/graph/nodes/{id}';
-};
-
-export type GrNodesGetErrors = {
-    /**
-     * A GrNode with the specified id was not found
-     */
-    404: unknown;
-};
-
-export type GrNodesGetResponses = {
-    /**
-     * Return a GrNode by id
-     */
-    200: GrNodeDto;
-};
-
-export type GrNodesGetResponse = GrNodesGetResponses[keyof GrNodesGetResponses];
+export type GrNodeDefGetNodeDefGroundsResponse =
+    GrNodeDefGetNodeDefGroundsResponses[keyof GrNodeDefGetNodeDefGroundsResponses];

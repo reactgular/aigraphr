@@ -1414,58 +1414,26 @@
                 ]
             }
         },
-        "/api/graph/nodes": {
+        "/api/node-def/groups": {
             "get": {
-                "operationId": "GrNodes_paginate",
+                "operationId": "GrNodeDef_getNodeDefGrounds",
                 "parameters": [],
                 "responses": {
                     "200": {
-                        "description": "Return a list of GrNode",
+                        "description": "Return a list of node definitions by groups",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/GrNodeDto"
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/GrNodeDefGroupDto"
+                                    }
                                 }
                             }
                         }
                     }
                 },
-                "summary": "Paginate GrNode",
-                "tags": [
-                    "Graph"
-                ]
-            }
-        },
-        "/api/graph/nodes/{id}": {
-            "get": {
-                "operationId": "GrNodes_get",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "required": true,
-                        "in": "path",
-                        "description": "The ID of a GrNode",
-                        "schema": {
-                            "type": "number"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Return a GrNode by id",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/GrNodeDto"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "A GrNode with the specified id was not found"
-                    }
-                },
-                "summary": "Get GrNode by id",
+                "summary": "Get a list of node definitions by groups",
                 "tags": [
                     "Graph"
                 ]
@@ -2080,12 +2048,13 @@
                     "workspaceId"
                 ]
             },
-            "GrParamDto": {
+            "GrNodeDefParamDto": {
                 "type": "object",
                 "properties": {
                     "description": {
                         "type": "string",
-                        "description": "The description of the parameter"
+                        "description": "The description of the parameter",
+                        "example": "A number parameter"
                     },
                     "isArray": {
                         "type": "boolean",
@@ -2106,7 +2075,8 @@
                             "object"
                         ],
                         "type": "string",
-                        "description": "The type of the parameter"
+                        "description": "The type of the parameter",
+                        "example": "number"
                     }
                 },
                 "description": "A parameter of a node. It is used to generate the UI for the node.",
@@ -2117,29 +2087,36 @@
                     "type"
                 ]
             },
-            "GrNodeDto": {
+            "GrNodeDefDto": {
                 "type": "object",
                 "properties": {
-                    "id": {
-                        "type": "number",
-                        "example": 1
+                    "deprecated": {
+                        "type": "boolean",
+                        "description": "Whether the node is deprecated",
+                        "example": false
                     },
                     "description": {
                         "type": "string",
-                        "description": "The description of the node"
+                        "description": "The description of the node",
+                        "example": "Iterates over a list of items"
+                    },
+                    "group": {
+                        "type": "string",
+                        "description": "The group of the node",
+                        "example": "core"
                     },
                     "inputs": {
                         "description": "The inputs of the node",
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/GrParamDto"
+                            "$ref": "#/components/schemas/GrNodeDefParamDto"
                         }
                     },
                     "outputs": {
                         "description": "The outputs of the node",
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/GrParamDto"
+                            "$ref": "#/components/schemas/GrNodeDefParamDto"
                         }
                     },
                     "type": {
@@ -2149,13 +2126,14 @@
                     },
                     "version": {
                         "type": "number",
-                        "description": "The version of the node"
+                        "description": "The version of the node",
+                        "example": 1
                     }
                 },
                 "description": "Describes how nodes are structured. It is used to generate the UI for the node.",
                 "required": [
-                    "id",
                     "description",
+                    "group",
                     "inputs",
                     "outputs",
                     "type",
@@ -2224,7 +2202,7 @@
                         "description": "The description of the node",
                         "allOf": [
                             {
-                                "$ref": "#/components/schemas/GrNodeDto"
+                                "$ref": "#/components/schemas/GrNodeDefDto"
                             }
                         ]
                     }
@@ -2334,6 +2312,34 @@
                 },
                 "required": [
                     "test"
+                ]
+            },
+            "GrNodeDefGroupDto": {
+                "type": "object",
+                "properties": {
+                    "description": {
+                        "type": "string",
+                        "description": "The description of the group",
+                        "example": "Core nodes"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the group",
+                        "example": "core"
+                    },
+                    "nodes": {
+                        "description": "The nodes in the group",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/GrNodeDefDto"
+                        }
+                    }
+                },
+                "description": "Describes how nodes are structured. It is used to generate the UI for the node.",
+                "required": [
+                    "description",
+                    "name",
+                    "nodes"
                 ]
             }
         }

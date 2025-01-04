@@ -64,8 +64,7 @@ import type {
     SettingsUpdateResponse,
     SettingsReplaceData,
     SettingsReplaceResponse,
-    GrNodesPaginateData,
-    GrNodesGetData
+    GrNodeDefGetNodeDefGroundsData
 } from '../types.gen';
 import {
     client,
@@ -96,8 +95,7 @@ import {
     settingsGet,
     settingsUpdate,
     settingsReplace,
-    grNodesPaginate,
-    grNodesGet
+    grNodeDefGetNodeDefGrounds
 } from '../sdk.gen';
 
 type QueryKey<TOptions extends Options> = [
@@ -789,16 +787,16 @@ export const settingsReplaceMutation = (
     return mutationOptions;
 };
 
-export const grNodesPaginateQueryKey = (
-    options?: Options<GrNodesPaginateData>
-) => [createQueryKey('grNodesPaginate', options)];
+export const grNodeDefGetNodeDefGroundsQueryKey = (
+    options?: Options<GrNodeDefGetNodeDefGroundsData>
+) => [createQueryKey('grNodeDefGetNodeDefGrounds', options)];
 
-export const grNodesPaginateOptions = (
-    options?: Options<GrNodesPaginateData>
+export const grNodeDefGetNodeDefGroundsOptions = (
+    options?: Options<GrNodeDefGetNodeDefGroundsData>
 ) => {
     return queryOptions({
         queryFn: async ({queryKey, signal}) => {
-            const {data} = await grNodesPaginate({
+            const {data} = await grNodeDefGetNodeDefGrounds({
                 ...options,
                 ...queryKey[0],
                 signal,
@@ -806,25 +804,6 @@ export const grNodesPaginateOptions = (
             });
             return data;
         },
-        queryKey: grNodesPaginateQueryKey(options)
-    });
-};
-
-export const grNodesGetQueryKey = (options: Options<GrNodesGetData>) => [
-    createQueryKey('grNodesGet', options)
-];
-
-export const grNodesGetOptions = (options: Options<GrNodesGetData>) => {
-    return queryOptions({
-        queryFn: async ({queryKey, signal}) => {
-            const {data} = await grNodesGet({
-                ...options,
-                ...queryKey[0],
-                signal,
-                throwOnError: true
-            });
-            return data;
-        },
-        queryKey: grNodesGetQueryKey(options)
+        queryKey: grNodeDefGetNodeDefGroundsQueryKey(options)
     });
 };

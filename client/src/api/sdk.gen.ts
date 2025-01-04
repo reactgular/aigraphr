@@ -68,10 +68,8 @@ import type {
     SettingsUpdateResponse,
     SettingsReplaceData,
     SettingsReplaceResponse,
-    GrNodesPaginateData,
-    GrNodesPaginateResponse,
-    GrNodesGetData,
-    GrNodesGetResponse
+    GrNodeDefGetNodeDefGroundsData,
+    GrNodeDefGetNodeDefGroundsResponse
 } from './types.gen';
 
 export const client = createClient(createConfig());
@@ -565,33 +563,19 @@ export const settingsReplace = <ThrowOnError extends boolean = false>(
 };
 
 /**
- * Paginate GrNode
+ * Get a list of node definitions by groups
  */
-export const grNodesPaginate = <ThrowOnError extends boolean = false>(
-    options?: Options<GrNodesPaginateData, ThrowOnError>
+export const grNodeDefGetNodeDefGrounds = <
+    ThrowOnError extends boolean = false
+>(
+    options?: Options<GrNodeDefGetNodeDefGroundsData, ThrowOnError>
 ) => {
     return (options?.client ?? client).get<
-        GrNodesPaginateResponse,
+        GrNodeDefGetNodeDefGroundsResponse,
         unknown,
         ThrowOnError
     >({
         ...options,
-        url: '/api/graph/nodes'
-    });
-};
-
-/**
- * Get GrNode by id
- */
-export const grNodesGet = <ThrowOnError extends boolean = false>(
-    options: Options<GrNodesGetData, ThrowOnError>
-) => {
-    return (options?.client ?? client).get<
-        GrNodesGetResponse,
-        unknown,
-        ThrowOnError
-    >({
-        ...options,
-        url: '/api/graph/nodes/{id}'
+        url: '/api/node-def/groups'
     });
 };
