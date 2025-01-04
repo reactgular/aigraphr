@@ -1789,10 +1789,6 @@
                         "type": "number",
                         "example": 1
                     },
-                    "grNodeId": {
-                        "type": "number",
-                        "description": "The ID of the node type in the graph"
-                    },
                     "inputEdges": {
                         "description": "The edges that connect to the node as inputs",
                         "example": {
@@ -1824,6 +1820,10 @@
                             }
                         ]
                     },
+                    "type": {
+                        "type": "string",
+                        "description": "The namespace of the node definition"
+                    },
                     "workspace": {
                         "description": "The workspace of the node",
                         "example": {
@@ -1844,8 +1844,8 @@
                 "description": "Nodes store the run-time data needed by Node Instances to run. They are connected by Edges to form a graph.",
                 "required": [
                     "id",
-                    "grNodeId",
                     "name",
+                    "type",
                     "workspaceId"
                 ]
             },
@@ -2027,14 +2027,14 @@
             "NodeCreateDto": {
                 "type": "object",
                 "properties": {
-                    "grNodeId": {
-                        "type": "number",
-                        "description": "The ID of the node type in the graph"
-                    },
                     "name": {
                         "type": "string",
                         "description": "The name of the node (alphanumeric)",
                         "example": "forEach1"
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "The namespace of the node definition"
                     },
                     "workspaceId": {
                         "type": "number",
@@ -2043,9 +2043,179 @@
                     }
                 },
                 "required": [
-                    "grNodeId",
                     "name",
+                    "type",
                     "workspaceId"
+                ]
+            },
+            "NodeDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number",
+                        "example": 1
+                    },
+                    "inputEdges": {
+                        "description": "The edges that connect to the node as inputs",
+                        "example": {
+                            "id": 1,
+                            "inputNodeId": 1,
+                            "outputNodeId": 1
+                        },
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/EdgeEntity"
+                            }
+                        ]
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the node (alphanumeric)",
+                        "example": "forEach1"
+                    },
+                    "outputEdges": {
+                        "description": "The edges that connect to the node as outputs",
+                        "example": {
+                            "id": 1,
+                            "inputNodeId": 1,
+                            "outputNodeId": 1
+                        },
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/EdgeEntity"
+                            }
+                        ]
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "The namespace of the node definition"
+                    },
+                    "workspace": {
+                        "description": "The workspace of the node",
+                        "example": {
+                            "id": 1
+                        },
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/WorkspaceEntity"
+                            }
+                        ]
+                    },
+                    "workspaceId": {
+                        "type": "number",
+                        "description": "The ID of the workspace of the node",
+                        "example": 1
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "type",
+                    "workspaceId"
+                ]
+            },
+            "NodeUpdateDto": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the node (alphanumeric)",
+                        "example": "forEach1"
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "The namespace of the node definition"
+                    },
+                    "workspaceId": {
+                        "type": "number",
+                        "description": "The ID of the workspace of the node",
+                        "example": 1
+                    }
+                }
+            },
+            "WorkspaceCreateDto": {
+                "type": "object",
+                "properties": {
+                    "description": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "Description of the workspace"
+                    },
+                    "engine": {
+                        "enum": [
+                            "javascript",
+                            "python"
+                        ],
+                        "type": "string",
+                        "description": "The engine of the workspace"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the workspace",
+                        "example": "main"
+                    }
+                },
+                "required": [
+                    "engine",
+                    "name"
+                ]
+            },
+            "WorkspaceDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number",
+                        "example": 1
+                    },
+                    "description": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "Description of the workspace"
+                    },
+                    "engine": {
+                        "enum": [
+                            "javascript",
+                            "python"
+                        ],
+                        "type": "string",
+                        "description": "The engine of the workspace"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the workspace",
+                        "example": "main"
+                    }
+                },
+                "required": [
+                    "id",
+                    "engine",
+                    "name"
+                ]
+            },
+            "WorkspaceUpdateDto": {
+                "type": "object",
+                "properties": {
+                    "description": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "Description of the workspace"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the workspace",
+                        "example": "main"
+                    }
+                }
+            },
+            "SettingDto": {
+                "type": "object",
+                "properties": {
+                    "test": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "test"
                 ]
             },
             "GrNodeDefParamDto": {
@@ -2138,180 +2308,6 @@
                     "outputs",
                     "type",
                     "version"
-                ]
-            },
-            "NodeDto": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "number",
-                        "example": 1
-                    },
-                    "grNodeId": {
-                        "type": "number",
-                        "description": "The ID of the node type in the graph"
-                    },
-                    "inputEdges": {
-                        "description": "The edges that connect to the node as inputs",
-                        "example": {
-                            "id": 1,
-                            "inputNodeId": 1,
-                            "outputNodeId": 1
-                        },
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/EdgeEntity"
-                            }
-                        ]
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "The name of the node (alphanumeric)",
-                        "example": "forEach1"
-                    },
-                    "outputEdges": {
-                        "description": "The edges that connect to the node as outputs",
-                        "example": {
-                            "id": 1,
-                            "inputNodeId": 1,
-                            "outputNodeId": 1
-                        },
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/EdgeEntity"
-                            }
-                        ]
-                    },
-                    "workspace": {
-                        "description": "The workspace of the node",
-                        "example": {
-                            "id": 1
-                        },
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/WorkspaceEntity"
-                            }
-                        ]
-                    },
-                    "workspaceId": {
-                        "type": "number",
-                        "description": "The ID of the workspace of the node",
-                        "example": 1
-                    },
-                    "grNode": {
-                        "description": "The description of the node",
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/GrNodeDefDto"
-                            }
-                        ]
-                    }
-                },
-                "required": [
-                    "id",
-                    "grNodeId",
-                    "name",
-                    "workspaceId"
-                ]
-            },
-            "NodeUpdateDto": {
-                "type": "object",
-                "properties": {
-                    "name": {
-                        "type": "string",
-                        "description": "The name of the node (alphanumeric)",
-                        "example": "forEach1"
-                    },
-                    "workspaceId": {
-                        "type": "number",
-                        "description": "The ID of the workspace of the node",
-                        "example": 1
-                    }
-                }
-            },
-            "WorkspaceCreateDto": {
-                "type": "object",
-                "properties": {
-                    "description": {
-                        "type": "string",
-                        "nullable": true,
-                        "description": "Description of the workspace"
-                    },
-                    "engine": {
-                        "enum": [
-                            "javascript",
-                            "python"
-                        ],
-                        "type": "string",
-                        "description": "The engine of the workspace"
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "The name of the workspace",
-                        "example": "main"
-                    }
-                },
-                "required": [
-                    "engine",
-                    "name"
-                ]
-            },
-            "WorkspaceDto": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "number",
-                        "example": 1
-                    },
-                    "description": {
-                        "type": "string",
-                        "nullable": true,
-                        "description": "Description of the workspace"
-                    },
-                    "engine": {
-                        "enum": [
-                            "javascript",
-                            "python"
-                        ],
-                        "type": "string",
-                        "description": "The engine of the workspace"
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "The name of the workspace",
-                        "example": "main"
-                    }
-                },
-                "required": [
-                    "id",
-                    "engine",
-                    "name"
-                ]
-            },
-            "WorkspaceUpdateDto": {
-                "type": "object",
-                "properties": {
-                    "description": {
-                        "type": "string",
-                        "nullable": true,
-                        "description": "Description of the workspace"
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "The name of the workspace",
-                        "example": "main"
-                    }
-                }
-            },
-            "SettingDto": {
-                "type": "object",
-                "properties": {
-                    "test": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "test"
                 ]
             },
             "GrNodeDefGroupDto": {

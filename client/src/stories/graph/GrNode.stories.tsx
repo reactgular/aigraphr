@@ -18,7 +18,7 @@ export default {
                 response: {
                     id: 1,
                     workspaceId: 1,
-                    grNodeId: 1,
+                    type: 'core:ifThenElse',
                     name: 'forEach1'
                 } satisfies NodesGetResponses['200']
             }

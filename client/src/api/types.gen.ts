@@ -177,10 +177,6 @@ export type EdgeEntity = {
 export type NodeEntity = {
     id: number;
     /**
-     * The ID of the node type in the graph
-     */
-    grNodeId: number;
-    /**
      * The edges that connect to the node as inputs
      */
     inputEdges?: EdgeEntity;
@@ -192,6 +188,10 @@ export type NodeEntity = {
      * The edges that connect to the node as outputs
      */
     outputEdges?: EdgeEntity;
+    /**
+     * The namespace of the node definition
+     */
+    type: string;
     /**
      * The workspace of the node
      */
@@ -274,17 +274,106 @@ export type EdgeUpdateDto = {
 
 export type NodeCreateDto = {
     /**
-     * The ID of the node type in the graph
+     * The name of the node (alphanumeric)
      */
-    grNodeId: number;
+    name: string;
+    /**
+     * The namespace of the node definition
+     */
+    type: string;
+    /**
+     * The ID of the workspace of the node
+     */
+    workspaceId: number;
+};
+
+export type NodeDto = {
+    id: number;
+    /**
+     * The edges that connect to the node as inputs
+     */
+    inputEdges?: EdgeEntity;
     /**
      * The name of the node (alphanumeric)
      */
     name: string;
     /**
+     * The edges that connect to the node as outputs
+     */
+    outputEdges?: EdgeEntity;
+    /**
+     * The namespace of the node definition
+     */
+    type: string;
+    /**
+     * The workspace of the node
+     */
+    workspace?: WorkspaceEntity;
+    /**
      * The ID of the workspace of the node
      */
     workspaceId: number;
+};
+
+export type NodeUpdateDto = {
+    /**
+     * The name of the node (alphanumeric)
+     */
+    name?: string;
+    /**
+     * The namespace of the node definition
+     */
+    type?: string;
+    /**
+     * The ID of the workspace of the node
+     */
+    workspaceId?: number;
+};
+
+export type WorkspaceCreateDto = {
+    /**
+     * Description of the workspace
+     */
+    description?: string | null;
+    /**
+     * The engine of the workspace
+     */
+    engine: 'javascript' | 'python';
+    /**
+     * The name of the workspace
+     */
+    name: string;
+};
+
+export type WorkspaceDto = {
+    id: number;
+    /**
+     * Description of the workspace
+     */
+    description?: string | null;
+    /**
+     * The engine of the workspace
+     */
+    engine: 'javascript' | 'python';
+    /**
+     * The name of the workspace
+     */
+    name: string;
+};
+
+export type WorkspaceUpdateDto = {
+    /**
+     * Description of the workspace
+     */
+    description?: string | null;
+    /**
+     * The name of the workspace
+     */
+    name?: string;
+};
+
+export type SettingDto = {
+    test: string;
 };
 
 /**
@@ -341,95 +430,6 @@ export type GrNodeDefDto = {
      * The version of the node
      */
     version: number;
-};
-
-export type NodeDto = {
-    id: number;
-    /**
-     * The ID of the node type in the graph
-     */
-    grNodeId: number;
-    /**
-     * The edges that connect to the node as inputs
-     */
-    inputEdges?: EdgeEntity;
-    /**
-     * The name of the node (alphanumeric)
-     */
-    name: string;
-    /**
-     * The edges that connect to the node as outputs
-     */
-    outputEdges?: EdgeEntity;
-    /**
-     * The workspace of the node
-     */
-    workspace?: WorkspaceEntity;
-    /**
-     * The ID of the workspace of the node
-     */
-    workspaceId: number;
-    /**
-     * The description of the node
-     */
-    grNode?: GrNodeDefDto;
-};
-
-export type NodeUpdateDto = {
-    /**
-     * The name of the node (alphanumeric)
-     */
-    name?: string;
-    /**
-     * The ID of the workspace of the node
-     */
-    workspaceId?: number;
-};
-
-export type WorkspaceCreateDto = {
-    /**
-     * Description of the workspace
-     */
-    description?: string | null;
-    /**
-     * The engine of the workspace
-     */
-    engine: 'javascript' | 'python';
-    /**
-     * The name of the workspace
-     */
-    name: string;
-};
-
-export type WorkspaceDto = {
-    id: number;
-    /**
-     * Description of the workspace
-     */
-    description?: string | null;
-    /**
-     * The engine of the workspace
-     */
-    engine: 'javascript' | 'python';
-    /**
-     * The name of the workspace
-     */
-    name: string;
-};
-
-export type WorkspaceUpdateDto = {
-    /**
-     * Description of the workspace
-     */
-    description?: string | null;
-    /**
-     * The name of the workspace
-     */
-    name?: string;
-};
-
-export type SettingDto = {
-    test: string;
 };
 
 /**

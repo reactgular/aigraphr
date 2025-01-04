@@ -1,4 +1,3 @@
-import {GrNodeDefDto} from '@/graph/dtos/gr-node-def.dto';
 import {EdgeEntity} from '@/projects/entities/edge.entity';
 import {WorkspaceEntity} from '@/projects/entities/workspace.entity';
 import {ScaEntity} from '@/scaffold/models/sca.entity';
@@ -20,13 +19,6 @@ import {Column, Entity, Index, ManyToOne, OneToMany} from 'typeorm';
 @Entity({name: 'nodes'})
 @Index(['workspaceId', 'name'], {unique: true})
 export class NodeEntity extends ScaEntity {
-    @IsNumber()
-    @ApiProperty({
-        description: 'The ID of the node type in the graph'
-    })
-    @Column()
-    grNodeId: number;
-
     @ApiProperty({
         type: () => EdgeEntity,
         description: 'The edges that connect to the node as inputs',
@@ -64,6 +56,17 @@ export class NodeEntity extends ScaEntity {
     })
     outputEdges: EdgeEntity[];
 
+    @IsString()
+    @Matches(/^[a-zA-Z0-9]+:[a-zA-Z0-9]+$/, {
+        message:
+            'The name of the node must be in the format alphanumeric:alphanumeric'
+    })
+    @ApiProperty({
+        description: 'The namespace of the node definition'
+    })
+    @Column()
+    type: string;
+
     @ApiProperty({
         type: () => WorkspaceEntity,
         description: 'The workspace of the node',
@@ -85,12 +88,7 @@ export class NodeEntity extends ScaEntity {
     workspaceId: number;
 }
 
-export class NodeDto extends OmitType(NodeEntity, [] as const) {
-    @ApiProperty({
-        description: 'The description of the node'
-    })
-    grNode?: GrNodeDefDto;
-}
+export class NodeDto extends OmitType(NodeEntity, [] as const) {}
 
 /**
  * @deprecated need to switch to using groups
@@ -99,20 +97,12 @@ export class NodeCreateDto extends OmitType(NodeDto, [
     'id',
     'workspace',
     'inputEdges',
-    'outputEdges',
-    'grNode'
+    'outputEdges'
 ] as const) {}
 
 /**
  * @deprecated need to switch to using groups
  */
 export class NodeUpdateDto extends PartialType(
-    OmitType(NodeDto, [
-        'id',
-        'workspace',
-        'inputEdges',
-        'outputEdges',
-        'grNodeId',
-        'grNode'
-    ] as const)
+    OmitType(NodeDto, ['id', 'workspace', 'inputEdges', 'outputEdges'] as const)
 ) {}
