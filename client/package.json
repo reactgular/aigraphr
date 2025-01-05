@@ -42,6 +42,7 @@
     },
     "devDependencies": {
         "@chromatic-com/storybook": "^3.2.3",
+        "@faker-js/faker": "^9.3.0",
         "@hey-api/openapi-ts": "^0.59.1",
         "@react-router/dev": "^7.0.2",
         "@storybook/addon-essentials": "^8.4.7",

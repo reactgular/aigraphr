@@ -14,7 +14,29 @@ export default {
         layout: 'centered',
         mockData: [
             mockGetNode({projectId: 1, workspaceId: 1, nodeId: 1}, 'core:mock'),
-            mockGetNodeDefs([mockGrNodeDefDto('core:mock')])
+            mockGetNode(
+                {projectId: 1, workspaceId: 1, nodeId: 2},
+                'core:no-outputs'
+            ),
+            mockGetNode(
+                {projectId: 1, workspaceId: 1, nodeId: 3},
+                'core:no-inputs'
+            ),
+            mockGetNode(
+                {projectId: 1, workspaceId: 1, nodeId: 4},
+                'core:no-params'
+            ),
+            mockGetNode(
+                {projectId: 1, workspaceId: 1, nodeId: 5},
+                'core:too-many'
+            ),
+            mockGetNodeDefs([
+                mockGrNodeDefDto('core:mock'),
+                mockGrNodeDefDto('core:no-outputs', 5, 0),
+                mockGrNodeDefDto('core:no-inputs', 0, 5),
+                mockGrNodeDefDto('core:no-params', 0, 0),
+                mockGrNodeDefDto('core:too-many', 12, 12)
+            ])
         ]
     },
     tags: ['autodocs'],
@@ -56,16 +78,41 @@ export const Active: Story = {
 };
 
 export const NoOutputs: Story = {
-    parameters: {
-        layout: 'centered',
-        mockData: [
-            mockGetNode({projectId: 1, workspaceId: 1, nodeId: 1}, 'core:mock'),
-            mockGetNodeDefs([mockGrNodeDefDto('core:mock')])
-        ]
-    },
-    args: {}
+    args: {
+        address: {
+            projectId: 1,
+            workspaceId: 1,
+            nodeId: 2
+        }
+    }
 };
 
 export const NoInputs: Story = {
-    args: {}
+    args: {
+        address: {
+            projectId: 1,
+            workspaceId: 1,
+            nodeId: 3
+        }
+    }
+};
+
+export const NoParams: Story = {
+    args: {
+        address: {
+            projectId: 1,
+            workspaceId: 1,
+            nodeId: 4
+        }
+    }
+};
+
+export const TooMany: Story = {
+    args: {
+        address: {
+            projectId: 1,
+            workspaceId: 1,
+            nodeId: 5
+        }
+    }
 };

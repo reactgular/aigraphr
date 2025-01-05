@@ -1,38 +1,17 @@
 import type {GrNodeDefDto} from '@/api';
+import {mockGrNodeDefParamDto} from '@/stories/mocks/MockGrNodeDefParamDto';
+import {faker} from '@faker-js/faker';
 
-export const mockGrNodeDefDto = (type: string): GrNodeDefDto => {
+export const mockGrNodeDefDto = (
+    type: string,
+    inputs: number = 3,
+    outputs = 1
+): GrNodeDefDto => {
     return {
-        description:
-            'If the condition is true, then return the then value, otherwise return the else value',
+        description: faker.lorem.sentence(8),
         group: 'core',
-        inputs: [
-            {
-                description: 'The condition to check',
-                isArray: false,
-                name: 'condition',
-                type: 'boolean'
-            },
-            {
-                description: 'The else value',
-                isArray: false,
-                name: 'else',
-                type: 'userType'
-            },
-            {
-                description: 'The then value',
-                isArray: false,
-                name: 'then',
-                type: 'userType'
-            }
-        ],
-        outputs: [
-            {
-                description: 'The output value',
-                isArray: false,
-                name: 'value',
-                type: 'userType'
-            }
-        ],
+        inputs: Array.from({length: inputs}, () => mockGrNodeDefParamDto()),
+        outputs: Array.from({length: outputs}, () => mockGrNodeDefParamDto()),
         type,
         version: 1
     };
