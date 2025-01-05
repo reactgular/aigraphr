@@ -2,8 +2,11 @@ import {GrNode} from '@/components/graph/GrNode';
 import {mockGetNode} from '@/stories/mocks/MockGetNode';
 import {mockGetNodeDefs} from '@/stories/mocks/MockGetNodeDefs';
 import {mockGrNodeDefDto} from '@/stories/mocks/MockGrNodeDefDto';
+import {faker} from '@faker-js/faker';
 import type {Meta, StoryObj} from '@storybook/react';
 import {withSuspense} from '../decorators/withSuspense';
+
+faker.seed(123);
 
 // @see https://storybook-addon-mock.netlify.app/?path=/docs/docs-introduction--docs
 export default {
