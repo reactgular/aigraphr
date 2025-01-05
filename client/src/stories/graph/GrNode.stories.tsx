@@ -51,7 +51,8 @@ export default {
             projectId: 1,
             workspaceId: 1,
             nodeId: 1
-        }
+        },
+        width: 200
     }
 } satisfies Meta<typeof GrNode>;
 

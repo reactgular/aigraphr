@@ -15,10 +15,25 @@ export const GrNodeContent: FC<PropsWithClassName<GrNodeContentProps>> = ({
     const node = useNode(address);
     const def = useNodeDef(node.type);
 
+    const hasLeft = def.inputs.length > 0;
+    const hasRight = def.outputs.length > 0;
+
     return (
         <div className={cn('flex py-2', className)}>
-            <GrNodeParams side="left" params={def.inputs} />
-            <GrNodeParams side="right" params={def.outputs} />
+            {hasLeft ? (
+                <GrNodeParams
+                    className={hasRight ? 'w-1/2' : 'w-full'}
+                    side="left"
+                    params={def.inputs}
+                />
+            ) : null}
+            {hasRight ? (
+                <GrNodeParams
+                    className={hasLeft ? 'w-1/2' : 'w-full'}
+                    side="right"
+                    params={def.outputs}
+                />
+            ) : null}
         </div>
     );
 };

@@ -3,8 +3,8 @@ import type {FC} from 'react';
 
 export const GrNodeFooter: FC<PropsWithClassName> = ({className}) => {
     return (
-        <div className={cn('rounded-b-md bg-gray-200/60 px-4 py-2', className)}>
-            Footer
+        <div className={cn('rounded-b-md bg-gray-200/60', className)}>
+            <div className="px-4 py-2 truncate overflow-hidden">Footer</div>
         </div>
     );
 };

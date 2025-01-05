@@ -15,18 +15,21 @@ interface GrNodeProps {
     error?: boolean;
 
     selected?: boolean;
+
+    width: number;
 }
 
-export const GrNode: FC<GrNodeProps> = ({active, address, error, selected}) => {
+export const GrNode: FC<GrNodeProps> = ({
+    active,
+    address,
+    error,
+    selected,
+    width
+}) => {
     return (
-        <GrNodeBoundary className="flex flex-col gap-2">
+        <GrNodeBoundary className="flex flex-col gap-2" width={width}>
             <GrNodeName address={address} />
-            <GrNodeFrame
-                className="w-[12rem]"
-                selected={selected}
-                error={error}
-                active={active}
-            >
+            <GrNodeFrame selected={selected} error={error} active={active}>
                 <GrNodeHeader />
                 <GrNodeContent address={address} />
                 <GrNodeFooter />

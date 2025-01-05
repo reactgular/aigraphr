@@ -9,7 +9,9 @@ export const GrNodeHeader: FC<PropsWithClassName> = ({className}) => {
                 className
             )}
         >
-            <div className="px-4 py-2">Wait for 1 day</div>
+            <div className="pl-4 pr-1 py-2 truncate overflow-hidden">
+                Wait for 1 day
+            </div>
             <button className="bg-green-400" />
         </div>
     );

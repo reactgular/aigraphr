@@ -21,7 +21,7 @@ const paramVariants = cva('flex gap-1 items-center', {
     }
 });
 
-const dotVariants = cva('w-[0.75rem] h-[0.75rem] rounded-full', {
+const dotVariants = cva('w-[0.75rem] h-[0.75rem] rounded-full shrink-0', {
     variants: {
         type: {
             userType: 'bg-green-600 dark:bg-green-400',
@@ -41,7 +41,7 @@ const GrNodeParam: FC<GrNodeParamProps> = ({param: {name, type}, side}) => {
     return (
         <div className={paramVariants({side, type})}>
             <div className={dotVariants({type})} />
-            {name}
+            <div className="text-ellipsis overflow-hidden">{name}</div>
         </div>
     );
 };
@@ -58,7 +58,7 @@ export const GrNodeParams: FC<PropsWithClassName<GrNodeParamsProps>> = ({
     side
 }) => {
     return (
-        <div className={cn('flex flex-col w-1/2', className)}>
+        <div className={cn('flex flex-col', className)}>
             {params.map((param) => (
                 <GrNodeParam key={param.name} param={param} side={side} />
             ))}
