@@ -3,8 +3,14 @@ import type {FC} from 'react';
 
 export const GrNodeHeader: FC<PropsWithClassName> = ({className}) => {
     return (
-        <div className={cn('rounded-t-md bg-gray-200/60 px-4 py-2', className)}>
-            Wait for 1 day
+        <div
+            className={cn(
+                'grid grid-cols-[1fr_1rem_0.5rem] rounded-t-md border-b bg-gray-200/60',
+                className
+            )}
+        >
+            <div className="px-4 py-2">Wait for 1 day</div>
+            <button className="bg-green-400" />
         </div>
     );
 };
