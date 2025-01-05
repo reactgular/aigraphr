@@ -1,10 +1,18 @@
 import type {NodeDto} from '@/api';
 
-export const mockNodeDto = (): NodeDto => {
+export const mockNodeDto = ({
+    workspaceId,
+    nodeId,
+    type
+}: {
+    workspaceId: number;
+    nodeId: number;
+    type: string;
+}): NodeDto => {
     return {
-        id: 1,
-        workspaceId: 1,
-        type: 'core:if-then-else',
-        name: 'forEach1'
+        id: nodeId,
+        workspaceId,
+        type,
+        name: 'mockNode1'
     };
 };

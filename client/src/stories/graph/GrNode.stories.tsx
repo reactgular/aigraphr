@@ -1,10 +1,7 @@
-import type {
-    GrNodeDefGetNodeDefGroupsResponses,
-    NodesGetResponses
-} from '@/api';
 import {GrNode} from '@/components/graph/GrNode';
+import {mockGetNode} from '@/stories/mocks/MockGetNode';
+import {mockGetNodeDefs} from '@/stories/mocks/MockGetNodeDefs';
 import {mockGrNodeDefDto} from '@/stories/mocks/MockGrNodeDefDto';
-import {mockNodeDto} from '@/stories/mocks/MockNodeDto';
 import type {Meta, StoryObj} from '@storybook/react';
 import {withSuspense} from '../decorators/withSuspense';
 
@@ -16,19 +13,8 @@ export default {
     parameters: {
         layout: 'centered',
         mockData: [
-            {
-                url: 'http://localhost:6006/api/projects/1/workspaces/1/nodes/1',
-                method: 'GET',
-                status: 200,
-                response: mockNodeDto() satisfies NodesGetResponses['200']
-            },
-            {
-                url: 'http://localhost:6006/api/node-def/groups',
-                method: 'GET',
-                status: 200,
-                response:
-                    mockGrNodeDefDto() satisfies GrNodeDefGetNodeDefGroupsResponses['200']
-            }
+            mockGetNode({projectId: 1, workspaceId: 1, nodeId: 1}, 'core:mock'),
+            mockGetNodeDefs([mockGrNodeDefDto('core:mock')])
         ]
     },
     tags: ['autodocs'],
@@ -67,4 +53,19 @@ export const Active: Story = {
     args: {
         active: true
     }
+};
+
+export const NoOutputs: Story = {
+    parameters: {
+        layout: 'centered',
+        mockData: [
+            mockGetNode({projectId: 1, workspaceId: 1, nodeId: 1}, 'core:mock'),
+            mockGetNodeDefs([mockGrNodeDefDto('core:mock')])
+        ]
+    },
+    args: {}
+};
+
+export const NoInputs: Story = {
+    args: {}
 };
