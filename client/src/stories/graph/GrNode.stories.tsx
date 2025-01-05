@@ -115,30 +115,34 @@ export default {
     },
     tags: ['autodocs'],
     args: {
-        disabled: false,
+        active: false,
+        selected: false,
+        error: false,
         address: {
             projectId: 1,
             workspaceId: 1,
             nodeId: 1
-        },
-        readonly: false
+        }
     }
 } satisfies Meta<typeof GrNode>;
 
 type Story = StoryObj<typeof GrNode>;
 
-export const Disabled: Story = {
-    args: {}
+export const Selected: Story = {
+    args: {
+        selected: true
+    }
 };
 
-export const Secondary: Story = {
-    args: {}
+export const Error: Story = {
+    args: {
+        selected: true,
+        error: true
+    }
 };
 
-export const Large: Story = {
-    args: {}
-};
-
-export const Small: Story = {
-    args: {}
+export const Active: Story = {
+    args: {
+        active: true
+    }
 };
