@@ -1,9 +1,11 @@
+import {GrNodeDefIcon} from '@/graph/dtos/gr-node-def.dto';
 import {aig} from '@/nodes/aig/aig';
 import {z} from 'zod';
 
 export const coreJsonObject = aig
     .node({
         type: 'object',
+        icon: GrNodeDefIcon.OTHER,
         description: 'An object'
     })
     .inputs((ctx) => ({

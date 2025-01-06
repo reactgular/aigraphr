@@ -1,5 +1,5 @@
 import type {NodesGetResponses} from '@/api';
-import type {NodeAddress} from '@/components/graph/hooks/useNode';
+import type {NodeAddress} from '@/components/hooks/useNodeDto';
 import {mockNodeDto} from '@/stories/mocks/MockNodeDto';
 
 export const mockGetNode = (

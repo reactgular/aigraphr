@@ -1,8 +1,10 @@
+import {GrNodeDefIcon} from '@/graph/dtos/gr-node-def.dto';
 import {aig} from '@/nodes/aig/aig';
 
 export const coreIfThenElse = aig
     .node({
         type: 'if-then-else',
+        icon: GrNodeDefIcon.CORE,
         description:
             'If the condition is true, then return the then value, otherwise return the else value'
     })

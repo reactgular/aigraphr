@@ -1,3 +1,4 @@
+import {GrNodeIcon} from '@/components/graph/GrNodeIcon';
 import {cn, type PropsWithClassName} from '@/components/shadcn/lib/utils';
 import type {FC} from 'react';
 
@@ -10,7 +11,7 @@ export const GrNodeHeader: FC<PropsWithClassName> = ({className}) => {
             )}
         >
             <div className="pl-4 pr-1 py-2 truncate overflow-hidden">
-                Wait for 1 day
+                <GrNodeIcon />
             </div>
             <button className="bg-green-400" />
         </div>

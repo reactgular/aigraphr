@@ -45,7 +45,7 @@ const toModel = (data: GrNodeDefGroupDto[]): NodeDefModel => {
     };
 };
 
-export const useNodeDefGroups = () => {
+export const useGrNodeDefGetNodeDefGroups = () => {
     const {data} = useSuspenseQuery(
         queryOptions({
             queryFn: async ({queryKey, signal}) => {

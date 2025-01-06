@@ -3,6 +3,7 @@ import {WorkspaceEntity} from '@/projects/entities/workspace.entity';
 import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {ApiProperty, ApiSchema, OmitType, PartialType} from '@nestjs/swagger';
 import {
+    IsBoolean,
     IsNumber,
     IsString,
     Matches,
@@ -66,6 +67,13 @@ export class NodeEntity extends ScaEntity {
     })
     @Column()
     type: string;
+
+    @IsBoolean()
+    @ApiProperty({
+        description: 'Whether the node has a view open',
+        example: true
+    })
+    view: boolean;
 
     @ApiProperty({
         type: () => WorkspaceEntity,

@@ -1,19 +1,10 @@
 import {GrNodeParams} from '@/components/graph/GrNodeParams';
-import {type NodeAddress, useNode} from '@/components/graph/hooks/useNode';
-import {useNodeDef} from '@/components/graph/hooks/useNodeDef';
+import {useGrNodeDef} from '@/components/graph/hooks/useGrNodeDef';
 import {cn, type PropsWithClassName} from '@/components/shadcn/lib/utils';
 import type {FC} from 'react';
 
-interface GrNodeContentProps {
-    address: NodeAddress;
-}
-
-export const GrNodeContent: FC<PropsWithClassName<GrNodeContentProps>> = ({
-    address,
-    className
-}) => {
-    const node = useNode(address);
-    const def = useNodeDef(node.type);
+export const GrNodeContent: FC<PropsWithClassName> = ({className}) => {
+    const def = useGrNodeDef();
 
     const hasLeft = def.inputs.length > 0;
     const hasRight = def.outputs.length > 0;

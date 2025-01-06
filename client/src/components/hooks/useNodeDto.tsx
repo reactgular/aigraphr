@@ -4,7 +4,7 @@ import {useSuspenseQuery} from '@tanstack/react-query';
 
 export type NodeAddress = NodesGetData['path'];
 
-export const useNode = (address: NodeAddress): NodeDto => {
+export const useNodeDto = (address: NodeAddress): NodeDto => {
     const {data} = useSuspenseQuery(nodesGetOptions({path: address}));
     return data;
 };

@@ -1,10 +1,10 @@
 import type {GrNodeDefGroupDto} from '@/api';
-import {useNodeDefGroups} from '@/components/graph/hooks/useNodeDefGroups';
+import {useGrNodeDefGetNodeDefGroups} from '@/components/hooks/useGrNodeDefGetNodeDefGroups';
 
-export const useNodeDefGroup = (
+export const useGrNodeDefGroupDto = (
     groupName: string
 ): Readonly<GrNodeDefGroupDto> => {
-    const {groups} = useNodeDefGroups();
+    const {groups} = useGrNodeDefGetNodeDefGroups();
     const group = groups[groupName];
     if (!group) {
         throw new Error(`Group ${groupName} not found`);

@@ -1824,6 +1824,11 @@
                         "type": "string",
                         "description": "The namespace of the node definition"
                     },
+                    "view": {
+                        "type": "boolean",
+                        "description": "Whether the node has a view open",
+                        "example": true
+                    },
                     "workspace": {
                         "description": "The workspace of the node",
                         "example": {
@@ -1846,6 +1851,7 @@
                     "id",
                     "name",
                     "type",
+                    "view",
                     "workspaceId"
                 ]
             },
@@ -2036,6 +2042,11 @@
                         "type": "string",
                         "description": "The namespace of the node definition"
                     },
+                    "view": {
+                        "type": "boolean",
+                        "description": "Whether the node has a view open",
+                        "example": true
+                    },
                     "workspaceId": {
                         "type": "number",
                         "description": "The ID of the workspace of the node",
@@ -2045,6 +2056,7 @@
                 "required": [
                     "name",
                     "type",
+                    "view",
                     "workspaceId"
                 ]
             },
@@ -2090,6 +2102,11 @@
                         "type": "string",
                         "description": "The namespace of the node definition"
                     },
+                    "view": {
+                        "type": "boolean",
+                        "description": "Whether the node has a view open",
+                        "example": true
+                    },
                     "workspace": {
                         "description": "The workspace of the node",
                         "example": {
@@ -2111,6 +2128,7 @@
                     "id",
                     "name",
                     "type",
+                    "view",
                     "workspaceId"
                 ]
             },
@@ -2125,6 +2143,11 @@
                     "type": {
                         "type": "string",
                         "description": "The namespace of the node definition"
+                    },
+                    "view": {
+                        "type": "boolean",
+                        "description": "Whether the node has a view open",
+                        "example": true
                     },
                     "workspaceId": {
                         "type": "number",
@@ -2275,6 +2298,24 @@
                         "description": "The group of the node",
                         "example": "core"
                     },
+                    "icon": {
+                        "enum": [
+                            "core",
+                            "custom",
+                            "file",
+                            "image",
+                            "math",
+                            "network",
+                            "other",
+                            "social",
+                            "text",
+                            "time",
+                            "web"
+                        ],
+                        "type": "string",
+                        "description": "The icon of the node",
+                        "example": "core"
+                    },
                     "inputs": {
                         "description": "The inputs of the node",
                         "type": "array",
@@ -2304,6 +2345,7 @@
                 "required": [
                     "description",
                     "group",
+                    "icon",
                     "inputs",
                     "outputs",
                     "type",

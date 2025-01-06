@@ -193,6 +193,10 @@ export type NodeEntity = {
      */
     type: string;
     /**
+     * Whether the node has a view open
+     */
+    view: boolean;
+    /**
      * The workspace of the node
      */
     workspace?: WorkspaceEntity;
@@ -282,6 +286,10 @@ export type NodeCreateDto = {
      */
     type: string;
     /**
+     * Whether the node has a view open
+     */
+    view: boolean;
+    /**
      * The ID of the workspace of the node
      */
     workspaceId: number;
@@ -306,6 +314,10 @@ export type NodeDto = {
      */
     type: string;
     /**
+     * Whether the node has a view open
+     */
+    view: boolean;
+    /**
      * The workspace of the node
      */
     workspace?: WorkspaceEntity;
@@ -324,6 +336,10 @@ export type NodeUpdateDto = {
      * The namespace of the node definition
      */
     type?: string;
+    /**
+     * Whether the node has a view open
+     */
+    view?: boolean;
     /**
      * The ID of the workspace of the node
      */
@@ -414,6 +430,21 @@ export type GrNodeDefDto = {
      * The group of the node
      */
     group: string;
+    /**
+     * The icon of the node
+     */
+    icon:
+        | 'core'
+        | 'custom'
+        | 'file'
+        | 'image'
+        | 'math'
+        | 'network'
+        | 'other'
+        | 'social'
+        | 'text'
+        | 'time'
+        | 'web';
     /**
      * The inputs of the node
      */

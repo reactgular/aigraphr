@@ -1,15 +1,8 @@
-import {type NodeAddress, useNode} from '@/components/graph/hooks/useNode';
+import {useGrNode} from '@/components/graph/hooks/useGrNode';
 import {cn, type PropsWithClassName} from '@/components/shadcn/lib/utils';
 import type {FC} from 'react';
 
-interface GrNodeNameProps {
-    address: NodeAddress;
-}
-
-export const GrNodeName: FC<PropsWithClassName<GrNodeNameProps>> = ({
-    address,
-    className
-}) => {
-    const node = useNode(address);
+export const GrNodeName: FC<PropsWithClassName> = ({className}) => {
+    const node = useGrNode();
     return <div className={cn('text-xl', className)}>{node.name}</div>;
 };

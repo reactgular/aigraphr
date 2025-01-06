@@ -2,6 +2,20 @@ import {ApiProperty, ApiSchema} from '@nestjs/swagger';
 import {IsBoolean, IsNumber, IsString} from 'class-validator';
 import {GrNodeDefParamDto} from './gr-node-def-param.dto';
 
+export enum GrNodeDefIcon {
+    CORE = 'core',
+    CUSTOM = 'custom',
+    FILE = 'file',
+    IMAGE = 'image',
+    MATH = 'math',
+    NETWORK = 'network',
+    OTHER = 'other',
+    SOCIAL = 'social',
+    TEXT = 'text',
+    TIME = 'time',
+    WEB = 'web'
+}
+
 @ApiSchema({
     description:
         'Describes how nodes are structured. It is used to generate the UI for the node.'
@@ -28,6 +42,14 @@ export class GrNodeDefDto {
         example: 'core'
     })
     group: string;
+
+    @IsString()
+    @ApiProperty({
+        description: 'The icon of the node',
+        example: GrNodeDefIcon.CORE,
+        enum: GrNodeDefIcon
+    })
+    icon: GrNodeDefIcon;
 
     @ApiProperty({
         description: 'The inputs of the node',

@@ -1,5 +1,5 @@
 import {GrNodeDefParamDto} from '@/graph/dtos/gr-node-def-param.dto';
-import {GrNodeDefDto} from '@/graph/dtos/gr-node-def.dto';
+import {GrNodeDefDto, GrNodeDefIcon} from '@/graph/dtos/gr-node-def.dto';
 import {AigConstraint} from '../constraints/AigConstraint';
 import {AigConstraints} from '../constraints/AigConstraints';
 import {AigInputCtx} from '../inputs/AigInputCtx';
@@ -8,6 +8,8 @@ import {AigTypeSchema, AigTypeShape} from '../types/AigTypeBase';
 
 export interface AigNodeBuilderOptions {
     description: string;
+
+    icon: GrNodeDefIcon;
 
     type: string;
 }
@@ -57,6 +59,7 @@ export class AigNodeDefBuilder<
 
         return {
             description: this.options.description,
+            icon: this.options.icon,
             group,
             inputs: compileShape(this.inputShape),
             outputs: compileShape(this.outputShape),
