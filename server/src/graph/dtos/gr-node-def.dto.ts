@@ -2,18 +2,21 @@ import {ApiProperty, ApiSchema} from '@nestjs/swagger';
 import {IsBoolean, IsNumber, IsString} from 'class-validator';
 import {GrNodeDefParamDto} from './gr-node-def-param.dto';
 
+/**
+ * These must match exports from the icon library "lucide-react", and then
+ * the icons.ts script in the client project is used to generates imports.
+ */
 export enum GrNodeDefIcon {
-    CORE = 'core',
-    CUSTOM = 'custom',
-    FILE = 'file',
-    IMAGE = 'image',
-    MATH = 'math',
-    NETWORK = 'network',
-    OTHER = 'other',
-    SOCIAL = 'social',
-    TEXT = 'text',
-    TIME = 'time',
-    WEB = 'web'
+    Bookmark = 'Bookmark',
+    Bot = 'Bot',
+    Calculator = 'Calculator',
+    Clock = 'Clock',
+    Cog = 'Cog',
+    Cpu = 'Cpu',
+    File = 'File',
+    Image = 'Image',
+    Network = 'Network',
+    Text = 'Text'
 }
 
 @ApiSchema({
@@ -46,7 +49,7 @@ export class GrNodeDefDto {
     @IsString()
     @ApiProperty({
         description: 'The icon of the node',
-        example: GrNodeDefIcon.CORE,
+        example: GrNodeDefIcon.Cog,
         enum: GrNodeDefIcon
     })
     icon: GrNodeDefIcon;

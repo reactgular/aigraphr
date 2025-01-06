@@ -4,7 +4,7 @@ import {aig} from '@/nodes/aig/aig';
 export const coreIfThenElse = aig
     .node({
         type: 'if-then-else',
-        icon: GrNodeDefIcon.CORE,
+        icon: GrNodeDefIcon.Cog,
         description:
             'If the condition is true, then return the then value, otherwise return the else value'
     })

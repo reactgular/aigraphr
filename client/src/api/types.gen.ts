@@ -434,17 +434,16 @@ export type GrNodeDefDto = {
      * The icon of the node
      */
     icon:
-        | 'core'
-        | 'custom'
-        | 'file'
-        | 'image'
-        | 'math'
-        | 'network'
-        | 'other'
-        | 'social'
-        | 'text'
-        | 'time'
-        | 'web';
+        | 'Bookmark'
+        | 'Bot'
+        | 'Calculator'
+        | 'Clock'
+        | 'Cog'
+        | 'Cpu'
+        | 'File'
+        | 'Image'
+        | 'Network'
+        | 'Text';
     /**
      * The inputs of the node
      */

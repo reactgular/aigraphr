@@ -5,7 +5,7 @@ import {z} from 'zod';
 export const coreJsonObject = aig
     .node({
         type: 'object',
-        icon: GrNodeDefIcon.OTHER,
+        icon: GrNodeDefIcon.Cog,
         description: 'An object'
     })
     .inputs((ctx) => ({

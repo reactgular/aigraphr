@@ -4,7 +4,7 @@ import {aig} from '@/nodes/aig/aig';
 export const coreConstant = aig
     .node({
         type: 'constant',
-        icon: GrNodeDefIcon.CORE,
+        icon: GrNodeDefIcon.Cog,
         description: 'A constant value'
     })
     .inputs((ctx) => ({

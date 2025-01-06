@@ -6,13 +6,14 @@
         "build": "npm run typecheck && react-router build",
         "dev": "react-router dev",
         "format": "eslint . --fix",
+        "icons": "tsx ./scripts/icons.ts ./src/api/types.gen.ts ./src/components/graph/icons.tsx",
         "lint": "eslint .",
         "openapi": "openapi-ts",
         "sort": "npx --yes sort-package-json",
         "start": "react-router-serve ./build/server/index.js",
-        "typecheck": "react-router typegen && tsc --build --noEmit",
         "storybook": "storybook dev -p 6006",
-        "storybook:build": "storybook build"
+        "storybook:build": "storybook build",
+        "typecheck": "react-router typegen && tsc --build --noEmit"
     },
     "dependencies": {
         "@fontsource/inter": "^5.1.0",
