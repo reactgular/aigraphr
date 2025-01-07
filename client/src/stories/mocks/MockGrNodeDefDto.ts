@@ -9,6 +9,7 @@ export const mockGrNodeDefDto = (
 ): GrNodeDefDto => {
     return {
         description: faker.lorem.sentence(8),
+        icon: 'Bot',
         group: 'core',
         inputs: Array.from({length: inputs}, () => mockGrNodeDefParamDto()),
         outputs: Array.from({length: outputs}, () => mockGrNodeDefParamDto()),

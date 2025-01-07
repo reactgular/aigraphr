@@ -13,6 +13,7 @@ export const mockNodeDto = ({
         id: nodeId,
         workspaceId,
         type,
+        view: false,
         name: 'mockNode1'
     };
 };
