@@ -9,6 +9,7 @@ import {
 } from 'react-router';
 import type {Route} from './+types/root';
 import stylesheet from './styles.css?url';
+import '@xyflow/react/dist/style.css';
 import '@fontsource/inter';
 import '@fontsource/inter/100.css';
 import '@fontsource/inter/100-italic.css';

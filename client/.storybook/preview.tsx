@@ -2,6 +2,7 @@ import {withThemeByDataAttribute} from '@storybook/addon-themes';
 import type {DecoratorFunction} from '@storybook/csf';
 import type {Preview, ReactRenderer} from '@storybook/react';
 import '../src/styles.css';
+import '@xyflow/react/dist/style.css';
 import '@fontsource/inter';
 import '@fontsource/inter/100.css';
 import '@fontsource/inter/100-italic.css';
@@ -23,7 +24,6 @@ import '@fontsource/inter/900.css';
 import '@fontsource/inter/900-italic.css';
 // noinspection ES6PreferShortImport
 import {withAppProvider} from '../src/stories/decorators/withAppProvider';
-// noinspection ES6PreferShortImport
 
 export const decorators: DecoratorFunction<ReactRenderer>[] = [
     withThemeByDataAttribute({
