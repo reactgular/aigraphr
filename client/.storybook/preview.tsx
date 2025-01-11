@@ -39,6 +39,13 @@ export const decorators: DecoratorFunction<ReactRenderer>[] = [
 
 const preview: Preview = {
     tags: ['autodocs'],
+    argTypes: {
+        className: {
+            table: {
+                disable: true // Hides all `className` props
+            }
+        }
+    },
     parameters: {
         controls: {
             matchers: {

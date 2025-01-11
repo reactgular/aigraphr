@@ -11,10 +11,8 @@ export default {
     component: Editor,
     decorators: [withSuspense()],
     parameters: {
-        layout: 'centered',
         mockData: []
     },
-    tags: ['autodocs'],
     args: {}
 } satisfies Meta<typeof Editor>;
 
