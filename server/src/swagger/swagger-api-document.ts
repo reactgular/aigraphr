@@ -1,3 +1,6 @@
+import {GrNodeDefGroupDto} from '@/graph/dtos/gr-node-def-group.dto';
+import {GrNodeDefParamDto} from '@/graph/dtos/gr-node-def-param.dto';
+import {GrNodeDefDto} from '@/graph/dtos/gr-node-def.dto';
 import {ScaExceptionFilterDto} from '@/scaffold/dtos/sca-exception-filter.dto';
 import {INestApplication} from '@nestjs/common';
 import {DocumentBuilder, OpenAPIObject, SwaggerModule} from '@nestjs/swagger';
@@ -35,6 +38,11 @@ export const swaggerApiDocument = ({
 
     return SwaggerModule.createDocument(app, config, {
         operationIdFactory,
-        extraModels: [ScaExceptionFilterDto]
+        extraModels: [
+            ScaExceptionFilterDto,
+            GrNodeDefGroupDto,
+            GrNodeDefDto,
+            GrNodeDefParamDto
+        ]
     });
 };

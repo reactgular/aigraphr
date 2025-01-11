@@ -1,4 +1,4 @@
-import {AigType} from '../types/AigType';
+import {GrParamType} from '@/graph/dtos/gr-node-def-param.dto';
 import {AigTypeBase, AigTypeDef} from '../types/AigTypeBase';
 import {AigValueUserType} from '../values/AigValueUserType';
 
@@ -8,7 +8,7 @@ export class AigInputUserType extends AigTypeBase<
 > {
     public constructor() {
         super({
-            type: AigType.UserType,
+            type: GrParamType.UserType,
             description: ''
         });
     }

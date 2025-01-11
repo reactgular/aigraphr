@@ -19,4 +19,8 @@ export class NodesController extends workspaceCrudMixin({
     public constructor(private readonly nodes: NodesService) {
         super();
     }
+
+    public crud() {
+        return this.nodes;
+    }
 }

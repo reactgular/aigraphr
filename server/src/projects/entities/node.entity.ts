@@ -2,14 +2,23 @@ import {EdgeEntity} from '@/projects/entities/edge.entity';
 import {WorkspaceEntity} from '@/projects/entities/workspace.entity';
 import {ScaEntity} from '@/scaffold/models/sca.entity';
 import {ApiProperty, ApiSchema, OmitType, PartialType} from '@nestjs/swagger';
-import {IsNumber, Min} from 'class-validator';
-import {Column, Entity, ManyToOne, OneToMany} from 'typeorm';
+import {
+    IsBoolean,
+    IsNumber,
+    IsString,
+    Matches,
+    MaxLength,
+    Min,
+    MinLength
+} from 'class-validator';
+import {Column, Entity, Index, ManyToOne, OneToMany} from 'typeorm';
 
 @ApiSchema({
     description:
         'Nodes store the run-time data needed by Node Instances to run. They are connected by Edges to form a graph.'
 })
 @Entity({name: 'nodes'})
+@Index(['workspaceId', 'name'], {unique: true})
 export class NodeEntity extends ScaEntity {
     @ApiProperty({
         type: () => EdgeEntity,
@@ -23,6 +32,19 @@ export class NodeEntity extends ScaEntity {
     })
     inputEdges: EdgeEntity[];
 
+    @IsString()
+    @Matches(/^[a-zA-Z0-9-_]+$/, {
+        message: 'The name of the node must be alphanumeric'
+    })
+    @MinLength(1)
+    @MaxLength(128)
+    @ApiProperty({
+        description: 'The name of the node (alphanumeric)',
+        example: 'forEach1'
+    })
+    @Column({length: 128})
+    name: string;
+
     @ApiProperty({
         type: () => EdgeEntity,
         description: 'The edges that connect to the node as outputs',
@@ -34,6 +56,24 @@ export class NodeEntity extends ScaEntity {
         eager: false
     })
     outputEdges: EdgeEntity[];
+
+    @IsString()
+    @Matches(/^[a-zA-Z0-9]+:[a-zA-Z0-9]+$/, {
+        message:
+            'The name of the node must be in the format alphanumeric:alphanumeric'
+    })
+    @ApiProperty({
+        description: 'The namespace of the node definition'
+    })
+    @Column()
+    type: string;
+
+    @IsBoolean()
+    @ApiProperty({
+        description: 'Whether the node has a view open',
+        example: true
+    })
+    view: boolean;
 
     @ApiProperty({
         type: () => WorkspaceEntity,
@@ -63,12 +103,14 @@ export class NodeDto extends OmitType(NodeEntity, [] as const) {}
  */
 export class NodeCreateDto extends OmitType(NodeDto, [
     'id',
-    'workspace'
+    'workspace',
+    'inputEdges',
+    'outputEdges'
 ] as const) {}
 
 /**
  * @deprecated need to switch to using groups
  */
 export class NodeUpdateDto extends PartialType(
-    OmitType(NodeDto, ['id', 'workspace'] as const)
+    OmitType(NodeDto, ['id', 'workspace', 'inputEdges', 'outputEdges'] as const)
 ) {}

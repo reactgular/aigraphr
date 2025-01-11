@@ -2,6 +2,14 @@
 
 export type ProjectCreateDto = {
     /**
+     * The encrypted status of the project
+     */
+    encrypted: boolean;
+    /**
+     * The name of the project file (alphanumeric)
+     */
+    fileName: string;
+    /**
      * The name of the project (alphanumeric)
      */
     name: string;
@@ -13,6 +21,14 @@ export type ProjectCreateDto = {
 
 export type ProjectDto = {
     id: number;
+    /**
+     * The encrypted status of the project
+     */
+    encrypted: boolean;
+    /**
+     * The name of the project file (alphanumeric)
+     */
+    fileName: string;
     /**
      * The name of the project (alphanumeric)
      */
@@ -49,6 +65,10 @@ export type ScaExceptionFilterDto = {
 };
 
 export type ProjectUpdateDto = {
+    /**
+     * The name of the project file (alphanumeric)
+     */
+    fileName?: string;
     /**
      * The name of the project (alphanumeric)
      */
@@ -161,9 +181,21 @@ export type NodeEntity = {
      */
     inputEdges?: EdgeEntity;
     /**
+     * The name of the node (alphanumeric)
+     */
+    name: string;
+    /**
      * The edges that connect to the node as outputs
      */
     outputEdges?: EdgeEntity;
+    /**
+     * The namespace of the node definition
+     */
+    type: string;
+    /**
+     * Whether the node has a view open
+     */
+    view: boolean;
     /**
      * The workspace of the node
      */
@@ -246,13 +278,17 @@ export type EdgeUpdateDto = {
 
 export type NodeCreateDto = {
     /**
-     * The edges that connect to the node as inputs
+     * The name of the node (alphanumeric)
      */
-    inputEdges?: EdgeEntity;
+    name: string;
     /**
-     * The edges that connect to the node as outputs
+     * The namespace of the node definition
      */
-    outputEdges?: EdgeEntity;
+    type: string;
+    /**
+     * Whether the node has a view open
+     */
+    view: boolean;
     /**
      * The ID of the workspace of the node
      */
@@ -266,9 +302,21 @@ export type NodeDto = {
      */
     inputEdges?: EdgeEntity;
     /**
+     * The name of the node (alphanumeric)
+     */
+    name: string;
+    /**
      * The edges that connect to the node as outputs
      */
     outputEdges?: EdgeEntity;
+    /**
+     * The namespace of the node definition
+     */
+    type: string;
+    /**
+     * Whether the node has a view open
+     */
+    view: boolean;
     /**
      * The workspace of the node
      */
@@ -281,13 +329,17 @@ export type NodeDto = {
 
 export type NodeUpdateDto = {
     /**
-     * The edges that connect to the node as inputs
+     * The name of the node (alphanumeric)
      */
-    inputEdges?: EdgeEntity;
+    name?: string;
     /**
-     * The edges that connect to the node as outputs
+     * The namespace of the node definition
      */
-    outputEdges?: EdgeEntity;
+    type?: string;
+    /**
+     * Whether the node has a view open
+     */
+    view?: boolean;
     /**
      * The ID of the workspace of the node
      */
@@ -338,6 +390,94 @@ export type WorkspaceUpdateDto = {
 
 export type SettingDto = {
     test: string;
+};
+
+/**
+ * A parameter of a node. It is used to generate the UI for the node.
+ */
+export type GrNodeDefParamDto = {
+    /**
+     * The description of the parameter
+     */
+    description: string;
+    /**
+     * Whether the parameter is an array
+     */
+    isArray: boolean;
+    /**
+     * The name of the parameter
+     */
+    name: string;
+    /**
+     * The type of the parameter
+     */
+    type: 'userType' | 'string' | 'number' | 'boolean' | 'object';
+};
+
+/**
+ * Describes how nodes are structured. It is used to generate the UI for the node.
+ */
+export type GrNodeDefDto = {
+    /**
+     * Whether the node is deprecated
+     */
+    deprecated?: boolean;
+    /**
+     * The description of the node
+     */
+    description: string;
+    /**
+     * The group of the node
+     */
+    group: string;
+    /**
+     * The icon of the node
+     */
+    icon:
+        | 'Bookmark'
+        | 'Bot'
+        | 'Calculator'
+        | 'Clock'
+        | 'Cog'
+        | 'Cpu'
+        | 'File'
+        | 'Image'
+        | 'Network'
+        | 'Text';
+    /**
+     * The inputs of the node
+     */
+    inputs: Array<GrNodeDefParamDto>;
+    /**
+     * The outputs of the node
+     */
+    outputs: Array<GrNodeDefParamDto>;
+    /**
+     * The unique type of the node
+     */
+    type: string;
+    /**
+     * The version of the node
+     */
+    version: number;
+};
+
+/**
+ * Describes how nodes are structured. It is used to generate the UI for the node.
+ */
+export type GrNodeDefGroupDto = {
+    /**
+     * The description of the group
+     */
+    description: string;
+    /**
+     * The name of the group
+     */
+    name: string;
+    /**
+     * The nodes in the group
+     */
+    nodes: Array<GrNodeDefDto>;
 };
 
 export type ProjectsPaginateData = {
@@ -1210,3 +1350,20 @@ export type SettingsReplaceResponses = {
 
 export type SettingsReplaceResponse =
     SettingsReplaceResponses[keyof SettingsReplaceResponses];
+
+export type GrNodeDefGetNodeDefGroupsData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/node-def/groups';
+};
+
+export type GrNodeDefGetNodeDefGroupsResponses = {
+    /**
+     * Return a list of node definitions by groups
+     */
+    200: Array<GrNodeDefGroupDto>;
+};
+
+export type GrNodeDefGetNodeDefGroupsResponse =
+    GrNodeDefGetNodeDefGroupsResponses[keyof GrNodeDefGetNodeDefGroupsResponses];

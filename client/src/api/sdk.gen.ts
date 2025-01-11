@@ -67,7 +67,9 @@ import type {
     SettingsUpdateData,
     SettingsUpdateResponse,
     SettingsReplaceData,
-    SettingsReplaceResponse
+    SettingsReplaceResponse,
+    GrNodeDefGetNodeDefGroupsData,
+    GrNodeDefGetNodeDefGroupsResponse
 } from './types.gen';
 
 export const client = createClient(createConfig());
@@ -557,5 +559,21 @@ export const settingsReplace = <ThrowOnError extends boolean = false>(
             ...options?.headers
         },
         url: '/api/app/settings'
+    });
+};
+
+/**
+ * Get a list of node definitions by groups
+ */
+export const grNodeDefGetNodeDefGroups = <ThrowOnError extends boolean = false>(
+    options?: Options<GrNodeDefGetNodeDefGroupsData, ThrowOnError>
+) => {
+    return (options?.client ?? client).get<
+        GrNodeDefGetNodeDefGroupsResponse,
+        unknown,
+        ThrowOnError
+    >({
+        ...options,
+        url: '/api/node-def/groups'
     });
 };

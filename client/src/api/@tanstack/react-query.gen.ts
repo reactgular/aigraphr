@@ -63,7 +63,8 @@ import type {
     SettingsUpdateData,
     SettingsUpdateResponse,
     SettingsReplaceData,
-    SettingsReplaceResponse
+    SettingsReplaceResponse,
+    GrNodeDefGetNodeDefGroupsData
 } from '../types.gen';
 import {
     client,
@@ -93,7 +94,8 @@ import {
     workspacesUpdateValidate,
     settingsGet,
     settingsUpdate,
-    settingsReplace
+    settingsReplace,
+    grNodeDefGetNodeDefGroups
 } from '../sdk.gen';
 
 type QueryKey<TOptions extends Options> = [
@@ -783,4 +785,25 @@ export const settingsReplaceMutation = (
         }
     };
     return mutationOptions;
+};
+
+export const grNodeDefGetNodeDefGroupsQueryKey = (
+    options?: Options<GrNodeDefGetNodeDefGroupsData>
+) => [createQueryKey('grNodeDefGetNodeDefGroups', options)];
+
+export const grNodeDefGetNodeDefGroupsOptions = (
+    options?: Options<GrNodeDefGetNodeDefGroupsData>
+) => {
+    return queryOptions({
+        queryFn: async ({queryKey, signal}) => {
+            const {data} = await grNodeDefGetNodeDefGroups({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: grNodeDefGetNodeDefGroupsQueryKey(options)
+    });
 };

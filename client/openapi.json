@@ -1413,6 +1413,31 @@
                     "App"
                 ]
             }
+        },
+        "/api/node-def/groups": {
+            "get": {
+                "operationId": "GrNodeDef_getNodeDefGroups",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Return a list of node definitions by groups",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/GrNodeDefGroupDto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Get a list of node definitions by groups",
+                "tags": [
+                    "Graph"
+                ]
+            }
         }
     },
     "info": {
@@ -1435,10 +1460,20 @@
             "ProjectCreateDto": {
                 "type": "object",
                 "properties": {
+                    "encrypted": {
+                        "type": "boolean",
+                        "description": "The encrypted status of the project",
+                        "example": false
+                    },
+                    "fileName": {
+                        "type": "string",
+                        "description": "The name of the project file (alphanumeric)",
+                        "example": "example-project"
+                    },
                     "name": {
                         "type": "string",
                         "description": "The name of the project (alphanumeric)",
-                        "example": "example-project"
+                        "example": "My Project"
                     },
                     "cloneId": {
                         "type": "number",
@@ -1447,6 +1482,8 @@
                     }
                 },
                 "required": [
+                    "encrypted",
+                    "fileName",
                     "name"
                 ]
             },
@@ -1457,10 +1494,20 @@
                         "type": "number",
                         "example": 1
                     },
+                    "encrypted": {
+                        "type": "boolean",
+                        "description": "The encrypted status of the project",
+                        "example": false
+                    },
+                    "fileName": {
+                        "type": "string",
+                        "description": "The name of the project file (alphanumeric)",
+                        "example": "example-project"
+                    },
                     "name": {
                         "type": "string",
                         "description": "The name of the project (alphanumeric)",
-                        "example": "example-project"
+                        "example": "My Project"
                     },
                     "open": {
                         "type": "boolean",
@@ -1469,6 +1516,8 @@
                 },
                 "required": [
                     "id",
+                    "encrypted",
+                    "fileName",
                     "name",
                     "open"
                 ]
@@ -1516,10 +1565,15 @@
             "ProjectUpdateDto": {
                 "type": "object",
                 "properties": {
+                    "fileName": {
+                        "type": "string",
+                        "description": "The name of the project file (alphanumeric)",
+                        "example": "example-project"
+                    },
                     "name": {
                         "type": "string",
                         "description": "The name of the project (alphanumeric)",
-                        "example": "example-project"
+                        "example": "My Project"
                     },
                     "open": {
                         "type": "boolean",
@@ -1748,6 +1802,11 @@
                             }
                         ]
                     },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the node (alphanumeric)",
+                        "example": "forEach1"
+                    },
                     "outputEdges": {
                         "description": "The edges that connect to the node as outputs",
                         "example": {
@@ -1760,6 +1819,15 @@
                                 "$ref": "#/components/schemas/EdgeEntity"
                             }
                         ]
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "The namespace of the node definition"
+                    },
+                    "view": {
+                        "type": "boolean",
+                        "description": "Whether the node has a view open",
+                        "example": true
                     },
                     "workspace": {
                         "description": "The workspace of the node",
@@ -1781,6 +1849,9 @@
                 "description": "Nodes store the run-time data needed by Node Instances to run. They are connected by Edges to form a graph.",
                 "required": [
                     "id",
+                    "name",
+                    "type",
+                    "view",
                     "workspaceId"
                 ]
             },
@@ -1962,31 +2033,19 @@
             "NodeCreateDto": {
                 "type": "object",
                 "properties": {
-                    "inputEdges": {
-                        "description": "The edges that connect to the node as inputs",
-                        "example": {
-                            "id": 1,
-                            "inputNodeId": 1,
-                            "outputNodeId": 1
-                        },
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/EdgeEntity"
-                            }
-                        ]
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the node (alphanumeric)",
+                        "example": "forEach1"
                     },
-                    "outputEdges": {
-                        "description": "The edges that connect to the node as outputs",
-                        "example": {
-                            "id": 1,
-                            "inputNodeId": 1,
-                            "outputNodeId": 1
-                        },
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/EdgeEntity"
-                            }
-                        ]
+                    "type": {
+                        "type": "string",
+                        "description": "The namespace of the node definition"
+                    },
+                    "view": {
+                        "type": "boolean",
+                        "description": "Whether the node has a view open",
+                        "example": true
                     },
                     "workspaceId": {
                         "type": "number",
@@ -1995,6 +2054,9 @@
                     }
                 },
                 "required": [
+                    "name",
+                    "type",
+                    "view",
                     "workspaceId"
                 ]
             },
@@ -2018,6 +2080,11 @@
                             }
                         ]
                     },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the node (alphanumeric)",
+                        "example": "forEach1"
+                    },
                     "outputEdges": {
                         "description": "The edges that connect to the node as outputs",
                         "example": {
@@ -2030,6 +2097,15 @@
                                 "$ref": "#/components/schemas/EdgeEntity"
                             }
                         ]
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "The namespace of the node definition"
+                    },
+                    "view": {
+                        "type": "boolean",
+                        "description": "Whether the node has a view open",
+                        "example": true
                     },
                     "workspace": {
                         "description": "The workspace of the node",
@@ -2050,37 +2126,28 @@
                 },
                 "required": [
                     "id",
+                    "name",
+                    "type",
+                    "view",
                     "workspaceId"
                 ]
             },
             "NodeUpdateDto": {
                 "type": "object",
                 "properties": {
-                    "inputEdges": {
-                        "description": "The edges that connect to the node as inputs",
-                        "example": {
-                            "id": 1,
-                            "inputNodeId": 1,
-                            "outputNodeId": 1
-                        },
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/EdgeEntity"
-                            }
-                        ]
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the node (alphanumeric)",
+                        "example": "forEach1"
                     },
-                    "outputEdges": {
-                        "description": "The edges that connect to the node as outputs",
-                        "example": {
-                            "id": 1,
-                            "inputNodeId": 1,
-                            "outputNodeId": 1
-                        },
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/EdgeEntity"
-                            }
-                        ]
+                    "type": {
+                        "type": "string",
+                        "description": "The namespace of the node definition"
+                    },
+                    "view": {
+                        "type": "boolean",
+                        "description": "Whether the node has a view open",
+                        "example": true
                     },
                     "workspaceId": {
                         "type": "number",
@@ -2172,6 +2239,144 @@
                 },
                 "required": [
                     "test"
+                ]
+            },
+            "GrNodeDefParamDto": {
+                "type": "object",
+                "properties": {
+                    "description": {
+                        "type": "string",
+                        "description": "The description of the parameter",
+                        "example": "A number parameter"
+                    },
+                    "isArray": {
+                        "type": "boolean",
+                        "description": "Whether the parameter is an array",
+                        "example": false
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the parameter",
+                        "example": "count"
+                    },
+                    "type": {
+                        "enum": [
+                            "userType",
+                            "string",
+                            "number",
+                            "boolean",
+                            "object"
+                        ],
+                        "type": "string",
+                        "description": "The type of the parameter",
+                        "example": "number"
+                    }
+                },
+                "description": "A parameter of a node. It is used to generate the UI for the node.",
+                "required": [
+                    "description",
+                    "isArray",
+                    "name",
+                    "type"
+                ]
+            },
+            "GrNodeDefDto": {
+                "type": "object",
+                "properties": {
+                    "deprecated": {
+                        "type": "boolean",
+                        "description": "Whether the node is deprecated",
+                        "example": false
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "The description of the node",
+                        "example": "Iterates over a list of items"
+                    },
+                    "group": {
+                        "type": "string",
+                        "description": "The group of the node",
+                        "example": "core"
+                    },
+                    "icon": {
+                        "enum": [
+                            "Bookmark",
+                            "Bot",
+                            "Calculator",
+                            "Clock",
+                            "Cog",
+                            "Cpu",
+                            "File",
+                            "Image",
+                            "Network",
+                            "Text"
+                        ],
+                        "type": "string",
+                        "description": "The icon of the node",
+                        "example": "Cog"
+                    },
+                    "inputs": {
+                        "description": "The inputs of the node",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/GrNodeDefParamDto"
+                        }
+                    },
+                    "outputs": {
+                        "description": "The outputs of the node",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/GrNodeDefParamDto"
+                        }
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "The unique type of the node",
+                        "example": "forEach"
+                    },
+                    "version": {
+                        "type": "number",
+                        "description": "The version of the node",
+                        "example": 1
+                    }
+                },
+                "description": "Describes how nodes are structured. It is used to generate the UI for the node.",
+                "required": [
+                    "description",
+                    "group",
+                    "icon",
+                    "inputs",
+                    "outputs",
+                    "type",
+                    "version"
+                ]
+            },
+            "GrNodeDefGroupDto": {
+                "type": "object",
+                "properties": {
+                    "description": {
+                        "type": "string",
+                        "description": "The description of the group",
+                        "example": "Core nodes"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the group",
+                        "example": "core"
+                    },
+                    "nodes": {
+                        "description": "The nodes in the group",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/GrNodeDefDto"
+                        }
+                    }
+                },
+                "description": "Describes how nodes are structured. It is used to generate the UI for the node.",
+                "required": [
+                    "description",
+                    "name",
+                    "nodes"
                 ]
             }
         }

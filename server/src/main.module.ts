@@ -1,5 +1,6 @@
 import {AppModule} from '@/app/app.module';
 import {VALIDATE_ENV_CONFIG} from '@/configs/env.config';
+import {GraphModule} from '@/graph/graph.module';
 import {PROJECTS_STORAGE} from '@/projects/project.symbols';
 import {ProjectsModule} from '@/projects/projects.module';
 import {ProjectsStorage} from '@/projects/storages/projects-storage';
@@ -35,6 +36,7 @@ import {TypeOrmModule, TypeOrmModuleOptions} from '@nestjs/typeorm';
             inject: [PROJECTS_STORAGE]
         }),
         AppModule,
+        GraphModule,
         ProjectsModule,
         UtilsModule
     ],

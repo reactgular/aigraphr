@@ -7,7 +7,7 @@ import {
     Scripts,
     ScrollRestoration
 } from 'react-router';
-import type {Route} from '../.react-router/types/src/+types/root';
+import type {Route} from './+types/root';
 import stylesheet from './styles.css?url';
 import '@fontsource/inter';
 import '@fontsource/inter/100.css';
