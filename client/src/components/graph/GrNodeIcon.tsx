@@ -5,6 +5,6 @@ import type {FC} from 'react';
 
 export const GrNodeIcon: FC<PropsWithClassName> = ({className}) => {
     const def = useGrNodeDef();
-    const Icon = GrNodeDefIcons[def.icon] ?? GrNodeDefIcons.custom;
+    const Icon = GrNodeDefIcons[def.icon] ?? GrNodeDefIcons.Cog;
     return <Icon className={cn(className)} />;
 };
