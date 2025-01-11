@@ -12,11 +12,11 @@ import {
 } from '@xyflow/react';
 import type {FC} from 'react';
 
-interface EditorProps {
+interface GrEditorProps {
     address: WorkspaceAddress;
 }
 
-export const Editor: FC<PropsWithClassName<EditorProps>> = ({
+export const GrEditor: FC<PropsWithClassName<GrEditorProps>> = ({
     address,
     className
 }) => {

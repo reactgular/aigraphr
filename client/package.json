@@ -6,7 +6,7 @@
         "build": "npm run typecheck && react-router build",
         "dev": "react-router dev",
         "format": "eslint . --fix",
-        "icons": "tsx ./scripts/icons.ts ./src/api/types.gen.ts ./src/components/graph/GrNodeDefIcons.tsx",
+        "icons": "tsx ./scripts/icons.ts ./src/api/types.gen.ts src/components/graph/node/GrNodeDefIcons.tsx",
         "lint": "eslint .",
         "openapi": "openapi-ts && npm run icons && npm run format",
         "sort": "npx --yes sort-package-json",

@@ -1,7 +1,7 @@
 import {cn, type PropsWithClassName} from '@/components/shadcn/lib/utils';
 import {Tally1, Tally2, Tally3} from 'lucide-react';
 import type {FC} from 'react';
-import {ToggleGroup, ToggleGroupItem} from '../shadcn/ui/toggle-group';
+import {ToggleGroup, ToggleGroupItem} from '../../shadcn/ui/toggle-group';
 
 export const GrNodeFooter: FC<PropsWithClassName> = ({className}) => {
     return (

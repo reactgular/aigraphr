@@ -1,4 +1,4 @@
-import {GrNodeIcon} from '@/components/graph/GrNodeIcon';
+import {GrNodeIcon} from '@/components/graph/node/GrNodeIcon';
 import {cn, type PropsWithClassName} from '@/components/shadcn/lib/utils';
 import type {FC} from 'react';
 

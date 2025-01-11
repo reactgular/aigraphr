@@ -1,4 +1,4 @@
-import {GrNode} from '@/components/graph/GrNode';
+import {GrNode} from '@/components/graph/node/GrNode';
 import {mockGetNode} from '@/stories/mocks/MockGetNode';
 import {mockGetNodeDefs} from '@/stories/mocks/MockGetNodeDefs';
 import {mockGrNodeDefDto} from '@/stories/mocks/MockGrNodeDefDto';

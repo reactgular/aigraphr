@@ -5,6 +5,9 @@ interface GrNodeBoundaryProps {
     width: number;
 }
 
+/**
+ * @deprecated Was supposed to be an error boundary, but it's not.
+ */
 export const GrNodeBoundary: FC<
     PropsWithChildren<PropsWithClassName<GrNodeBoundaryProps>>
 > = ({className, children, width}) => {

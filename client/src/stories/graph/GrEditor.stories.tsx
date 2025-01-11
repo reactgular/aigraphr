@@ -1,4 +1,4 @@
-import {Editor} from '@/components/editor/Editor';
+import {GrEditor} from '@/components/graph/editor/GrEditor';
 import {faker} from '@faker-js/faker';
 import type {Meta, StoryObj} from '@storybook/react';
 import {withSuspense} from '../decorators/withSuspense';
@@ -6,8 +6,8 @@ import {withSuspense} from '../decorators/withSuspense';
 faker.seed(123);
 
 export default {
-    title: 'Editor/Editor',
-    component: Editor,
+    title: 'Graph/GrEditor',
+    component: GrEditor,
     decorators: [withSuspense()],
     parameters: {
         layout: 'fullscreen',
@@ -19,9 +19,9 @@ export default {
             workspaceId: 1
         }
     }
-} satisfies Meta<typeof Editor>;
+} satisfies Meta<typeof GrEditor>;
 
-type Story = StoryObj<typeof Editor>;
+type Story = StoryObj<typeof GrEditor>;
 
 export const Normal: Story = {
     args: {}
