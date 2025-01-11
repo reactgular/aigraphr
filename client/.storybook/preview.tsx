@@ -2,6 +2,7 @@ import {withThemeByDataAttribute} from '@storybook/addon-themes';
 import type {DecoratorFunction} from '@storybook/csf';
 import type {Preview, ReactRenderer} from '@storybook/react';
 import '../src/styles.css';
+import './storybook.css';
 import '@xyflow/react/dist/style.css';
 import '@fontsource/inter';
 import '@fontsource/inter/100.css';
@@ -38,7 +39,6 @@ export const decorators: DecoratorFunction<ReactRenderer>[] = [
 ];
 
 const preview: Preview = {
-    tags: ['autodocs'],
     argTypes: {
         className: {
             table: {

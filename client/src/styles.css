@@ -3,6 +3,43 @@
 @tailwind utilities;
 
 @layer base {
+    html, body {
+        @apply block relative min-w-0 min-h-0 w-full h-full m-0 p-0;
+    }
+
+    html {
+        -ms-touch-action: none;
+        -webkit-touch-callout: none;
+        -ms-content-zooming: none;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        -webkit-overflow-scrolling: touch;
+        overflow-scrolling: touch;
+
+        -webkit-text-size-adjust: none;
+        -moz-text-size-adjust: none;
+        -ms-text-size-adjust: none;
+        -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+    }
+
+    ::-webkit-scrollbar {
+        @apply w-[10px] h-[10px];
+    }
+
+    ::-webkit-scrollbar-corner {
+        @apply bg-transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        @apply bg-gray-500;
+        @apply bg-clip-padding border border-transparent rounded-full;
+    }
+
+    ::-webkit-scrollbar-track {
+        @apply bg-clip-padding;
+        @apply border border-transparent;
+    }
+
     :root {
         --background: 0 0% 97%;
         --foreground: 240 10% 3.9%;

@@ -11,6 +11,7 @@ export default {
     component: Editor,
     decorators: [withSuspense()],
     parameters: {
+        layout: 'fullscreen',
         mockData: []
     },
     args: {}
