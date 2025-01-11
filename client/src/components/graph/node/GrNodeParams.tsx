@@ -1,11 +1,12 @@
 import type {GrNodeDefParamDto} from '@/api';
 import {cn, type PropsWithClassName} from '@/components/shadcn/lib/utils';
+import {Handle, Position} from '@xyflow/react';
 import {cva, type VariantProps} from 'class-variance-authority';
 import type {FC} from 'react';
 
 type Side = 'left' | 'right';
 
-const paramVariants = cva('flex gap-1 items-center', {
+const paramVariants = cva('flex gap-1 relative items-center', {
     variants: {
         side: {
             left: 'ml-[-0.4rem]',
@@ -41,6 +42,12 @@ const GrNodeParam: FC<GrNodeParamProps> = ({param: {name, type}, side}) => {
     return (
         <div className={paramVariants({side, type})}>
             <div className={dotVariants({type})} />
+            <Handle
+                id="distributorFor"
+                type="target"
+                position={side === 'left' ? Position.Left : Position.Right}
+                style={{top: 12}}
+            />
             <div className="text-ellipsis overflow-hidden">{name}</div>
         </div>
     );
@@ -58,7 +65,7 @@ export const GrNodeParams: FC<PropsWithClassName<GrNodeParamsProps>> = ({
     side
 }) => {
     return (
-        <div className={cn('flex flex-col', className)}>
+        <div className={cn('relative flex flex-col', className)}>
             {params.map((param) => (
                 <GrNodeParam key={param.name} param={param} side={side} />
             ))}
