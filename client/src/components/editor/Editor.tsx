@@ -14,7 +14,7 @@ export const Editor: FC<PropsWithClassName> = ({className}) => {
             <ReactFlow nodes={[]} edges={[]} fitView>
                 <Controls />
                 <MiniMap />
-                <Background color="#ccc" variant={BackgroundVariant.Dots} />
+                <Background color="#bbb" variant={BackgroundVariant.Dots} />
             </ReactFlow>
         </div>
     );
