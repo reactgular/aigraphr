@@ -1,13 +1,7 @@
+import {GrEditorFlow} from '@/components/graph/editor/GrEditorFlow';
 import {GrEditorProvider} from '@/components/graph/editor/GrEditorProvider';
 import {type WorkspaceAddress} from '@/components/hooks/useWorkspaceDto';
 import {cn, type PropsWithClassName} from '@/components/shadcn/lib/utils';
-import {
-    Background,
-    BackgroundVariant,
-    Controls,
-    MiniMap,
-    ReactFlow
-} from '@xyflow/react';
 import type {FC} from 'react';
 import {GrWorkspaceAddress} from '../context/GrWorkspaceAddress';
 
@@ -23,14 +17,7 @@ export const GrEditor: FC<PropsWithClassName<GrEditorProps>> = ({
         <GrWorkspaceAddress.Provider value={address}>
             <GrEditorProvider>
                 <div className={cn('w-full h-full', className)}>
-                    <ReactFlow nodes={[]} edges={[]} fitView>
-                        <Controls />
-                        <MiniMap />
-                        <Background
-                            color="#bbb"
-                            variant={BackgroundVariant.Dots}
-                        />
-                    </ReactFlow>
+                    <GrEditorFlow />
                 </div>
             </GrEditorProvider>
         </GrWorkspaceAddress.Provider>
