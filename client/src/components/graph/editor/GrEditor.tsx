@@ -1,7 +1,5 @@
-import {
-    useWorkspaceDto,
-    type WorkspaceAddress
-} from '@/components/hooks/useWorkspaceDto';
+import {GrWorkspaceAddress} from '@/components/graph/context/GrWorkspaceAddress';
+import {type WorkspaceAddress} from '@/components/hooks/useWorkspaceDto';
 import {cn, type PropsWithClassName} from '@/components/shadcn/lib/utils';
 import {
     Background,
@@ -20,15 +18,15 @@ export const GrEditor: FC<PropsWithClassName<GrEditorProps>> = ({
     address,
     className
 }) => {
-    const data = useWorkspaceDto(address);
-
     return (
         <div className={cn('w-full h-full', className)}>
-            <ReactFlow nodes={[]} edges={[]} fitView>
-                <Controls />
-                <MiniMap />
-                <Background color="#bbb" variant={BackgroundVariant.Dots} />
-            </ReactFlow>
+            <GrWorkspaceAddress.Provider value={address}>
+                <ReactFlow nodes={[]} edges={[]} fitView>
+                    <Controls />
+                    <MiniMap />
+                    <Background color="#bbb" variant={BackgroundVariant.Dots} />
+                </ReactFlow>
+            </GrWorkspaceAddress.Provider>
         </div>
     );
 };

@@ -1,5 +1,4 @@
 import {GrNodeAddress} from '@/components/graph/context/GrNodeAddress';
-import {GrNodeBoundary} from '@/components/graph/node/GrNodeBoundary';
 import {GrNodeContent} from '@/components/graph/node/GrNodeContent';
 import {GrNodeFooter} from '@/components/graph/node/GrNodeFooter';
 import {GrNodeFrame} from '@/components/graph/node/GrNodeFrame';
@@ -28,7 +27,7 @@ export const GrNode: FC<GrNodeProps> = ({
     width
 }) => {
     return (
-        <GrNodeBoundary className="flex flex-col gap-2" width={width}>
+        <div className="flex flex-col gap-2" style={{width: `${width}px`}}>
             <GrNodeAddress.Provider value={address}>
                 <GrNodeName />
                 <GrNodeFrame selected={selected} error={error} active={active}>
@@ -37,6 +36,6 @@ export const GrNode: FC<GrNodeProps> = ({
                     <GrNodeFooter />
                 </GrNodeFrame>
             </GrNodeAddress.Provider>
-        </GrNodeBoundary>
+        </div>
     );
 };
