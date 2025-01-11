@@ -22,15 +22,28 @@ const paramVariants = cva('flex gap-1 relative items-center', {
     }
 });
 
-const dotVariants = cva('w-[0.75rem] h-[0.75rem] rounded-full shrink-0', {
+const dotVariants = cva('!w-[0.75rem] !h-[0.75rem] !rounded-full !shrink-0', {
     variants: {
+        side: {
+            left: '!left-[0.4rem]',
+            right: '!right-[0.4rem]'
+        } satisfies Record<Side, string>,
         type: {
-            userType: 'bg-green-600 dark:bg-green-400',
-            string: 'bg-emerald-600 dark:bg-emerald-400',
-            number: 'bg-teal-600 dark:bg-teal-400',
-            boolean: 'bg-cyan-600 dark:bg-cyan-400',
-            object: 'bg-sky-600 dark:bg-sky-400'
+            userType: '!bg-green-600 !dark:bg-green-400',
+            string: '!bg-emerald-600 !dark:bg-emerald-400',
+            number: '!bg-teal-600 !dark:bg-teal-400',
+            boolean: '!bg-cyan-600 !dark:bg-cyan-400',
+            object: '!bg-sky-600 !dark:bg-sky-400'
         } satisfies Record<GrNodeDefParamDto['type'], string>
+    }
+});
+
+const nameVariants = cva('text-ellipsis overflow-hidden', {
+    variants: {
+        side: {
+            left: 'pl-4',
+            right: 'pr-4'
+        } satisfies Record<Side, string>
     }
 });
 
@@ -41,14 +54,13 @@ interface GrNodeParamProps extends VariantProps<typeof paramVariants> {
 const GrNodeParam: FC<GrNodeParamProps> = ({param: {name, type}, side}) => {
     return (
         <div className={paramVariants({side, type})}>
-            <div className={dotVariants({type})} />
             <Handle
-                id="distributorFor"
+                id={`param-${side}-${name}`}
+                className={dotVariants({side, type})}
                 type="target"
                 position={side === 'left' ? Position.Left : Position.Right}
-                style={{top: 12}}
             />
-            <div className="text-ellipsis overflow-hidden">{name}</div>
+            <div className={nameVariants({side})}>{name}</div>
         </div>
     );
 };
