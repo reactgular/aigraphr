@@ -72,6 +72,15 @@ export class EdgeEntity extends ScaEntity {
         onDelete: 'CASCADE'
     })
     workspace: WorkspaceEntity;
+
+    @ApiProperty({
+        description: 'The ID of the workspace of the node',
+        example: 1
+    })
+    @IsNumber()
+    @Min(1)
+    @Column()
+    workspaceId: number;
 }
 
 export class EdgeDto extends OmitType(EdgeEntity, [] as const) {}
@@ -79,11 +88,14 @@ export class EdgeDto extends OmitType(EdgeEntity, [] as const) {}
 /**
  * @deprecated need to switch to using groups
  */
-export class EdgeCreateDto extends OmitType(EdgeDto, ['id'] as const) {}
+export class EdgeCreateDto extends OmitType(EdgeDto, [
+    'id',
+    'workspace'
+] as const) {}
 
 /**
  * @deprecated need to switch to using groups
  */
 export class EdgeUpdateDto extends PartialType(
-    OmitType(EdgeDto, ['id'] as const)
+    OmitType(EdgeDto, ['id', 'workspace', 'workspaceId'] as const)
 ) {}

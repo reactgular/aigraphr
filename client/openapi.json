@@ -1785,13 +1785,19 @@
                                 "$ref": "#/components/schemas/WorkspaceEntity"
                             }
                         ]
+                    },
+                    "workspaceId": {
+                        "type": "number",
+                        "description": "The ID of the workspace of the node",
+                        "example": 1
                     }
                 },
                 "description": "Edges connect nodes in a workspace. They are used to define the flow of data between nodes.",
                 "required": [
                     "id",
                     "inputNodeId",
-                    "outputNodeId"
+                    "outputNodeId",
+                    "workspaceId"
                 ]
             },
             "NodeEntity": {
@@ -1908,21 +1914,16 @@
                         "description": "The ID of the node that the edge connects to as an output",
                         "example": 1
                     },
-                    "workspace": {
-                        "description": "The workspace of the edge",
-                        "example": {
-                            "id": 1
-                        },
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/WorkspaceEntity"
-                            }
-                        ]
+                    "workspaceId": {
+                        "type": "number",
+                        "description": "The ID of the workspace of the node",
+                        "example": 1
                     }
                 },
                 "required": [
                     "inputNodeId",
-                    "outputNodeId"
+                    "outputNodeId",
+                    "workspaceId"
                 ]
             },
             "EdgeDto": {
@@ -1980,12 +1981,18 @@
                                 "$ref": "#/components/schemas/WorkspaceEntity"
                             }
                         ]
+                    },
+                    "workspaceId": {
+                        "type": "number",
+                        "description": "The ID of the workspace of the node",
+                        "example": 1
                     }
                 },
                 "required": [
                     "id",
                     "inputNodeId",
-                    "outputNodeId"
+                    "outputNodeId",
+                    "workspaceId"
                 ]
             },
             "EdgeUpdateDto": {
@@ -2028,17 +2035,6 @@
                         "type": "number",
                         "description": "The ID of the node that the edge connects to as an output",
                         "example": 1
-                    },
-                    "workspace": {
-                        "description": "The workspace of the edge",
-                        "example": {
-                            "id": 1
-                        },
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/WorkspaceEntity"
-                            }
-                        ]
                     }
                 }
             },

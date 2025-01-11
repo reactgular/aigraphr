@@ -169,6 +169,10 @@ export type EdgeEntity = {
      * The workspace of the edge
      */
     workspace?: WorkspaceEntity;
+    /**
+     * The ID of the workspace of the node
+     */
+    workspaceId: number;
 };
 
 /**
@@ -224,9 +228,9 @@ export type EdgeCreateDto = {
      */
     outputNodeId: number;
     /**
-     * The workspace of the edge
+     * The ID of the workspace of the node
      */
-    workspace?: WorkspaceEntity;
+    workspaceId: number;
 };
 
 export type EdgeDto = {
@@ -251,6 +255,10 @@ export type EdgeDto = {
      * The workspace of the edge
      */
     workspace?: WorkspaceEntity;
+    /**
+     * The ID of the workspace of the node
+     */
+    workspaceId: number;
 };
 
 export type EdgeUpdateDto = {
@@ -270,10 +278,6 @@ export type EdgeUpdateDto = {
      * The ID of the node that the edge connects to as an output
      */
     outputNodeId?: number;
-    /**
-     * The workspace of the edge
-     */
-    workspace?: WorkspaceEntity;
 };
 
 export type NodeCreateDto = {

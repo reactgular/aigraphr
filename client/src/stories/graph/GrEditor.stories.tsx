@@ -1,11 +1,7 @@
 import {GrEditor} from '@/components/graph/editor/GrEditor';
-import {mockGetNode} from '@/stories/mocks/MockGetNode';
-import {mockGetWorkspace} from '@/stories/mocks/MockGetWorkspace';
-import {faker} from '@faker-js/faker';
+import {mockData} from '@/stories/mocks/MockEngine';
 import type {Meta, StoryObj} from '@storybook/react';
 import {withSuspense} from '../decorators/withSuspense';
-
-faker.seed(123);
 
 export default {
     title: 'Graph/GrEditor',
@@ -13,10 +9,7 @@ export default {
     decorators: [withSuspense()],
     parameters: {
         layout: 'fullscreen',
-        mockData: [
-            mockGetNode({projectId: 1, workspaceId: 1, nodeId: 1}, 'core:mock'),
-            mockGetWorkspace({projectId: 1, workspaceId: 1})
-        ]
+        mockData
     },
     args: {
         address: {
