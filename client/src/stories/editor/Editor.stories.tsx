@@ -5,7 +5,6 @@ import {withSuspense} from '../decorators/withSuspense';
 
 faker.seed(123);
 
-// @see https://storybook-addon-mock.netlify.app/?path=/docs/docs-introduction--docs
 export default {
     title: 'Editor/Editor',
     component: Editor,
@@ -14,7 +13,12 @@ export default {
         layout: 'fullscreen',
         mockData: []
     },
-    args: {}
+    args: {
+        address: {
+            projectId: 1,
+            workspaceId: 1
+        }
+    }
 } satisfies Meta<typeof Editor>;
 
 type Story = StoryObj<typeof Editor>;
