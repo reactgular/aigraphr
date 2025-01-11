@@ -1,5 +1,8 @@
 import {GrWorkspaceAddress} from '@/components/graph/context/GrWorkspaceAddress';
-import {type WorkspaceAddress} from '@/components/hooks/useWorkspaceDto';
+import {
+    useWorkspaceDto,
+    type WorkspaceAddress
+} from '@/components/hooks/useWorkspaceDto';
 import {cn, type PropsWithClassName} from '@/components/shadcn/lib/utils';
 import {
     Background,
@@ -18,6 +21,8 @@ export const GrEditor: FC<PropsWithClassName<GrEditorProps>> = ({
     address,
     className
 }) => {
+    const data = useWorkspaceDto(address);
+
     return (
         <div className={cn('w-full h-full', className)}>
             <GrWorkspaceAddress.Provider value={address}>
