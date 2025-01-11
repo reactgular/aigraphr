@@ -1,5 +1,6 @@
 import {GrEditorContext} from '@/components/graph/editor/GrEditorContext';
 import {useGrEditorAddress} from '@/components/graph/editor/useGrEditorAddress';
+import {useGrEditorNodes} from '@/components/graph/editor/useGrEditorNodes';
 import {useEdgesDto} from '@/components/hooks/useEdgesDto';
 import {useNodesDto} from '@/components/hooks/useNodesDto';
 import {useWorkspaceDto} from '@/components/hooks/useWorkspaceDto';
@@ -9,7 +10,7 @@ import {GrEditorAddress} from './GrEditorAddress';
 export const GrEditorProvider: FC<PropsWithChildren> = ({children}) => {
     const address = useGrEditorAddress();
     const workspace = useWorkspaceDto(address);
-    const nodes = useNodesDto(address);
+    const nodes = useGrEditorNodes(useNodesDto(address));
     const edges = useEdgesDto(address);
 
     return (

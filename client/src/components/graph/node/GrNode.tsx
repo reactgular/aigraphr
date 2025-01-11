@@ -14,7 +14,7 @@ export const GrNode: FC<NodeProps<GrNodeType>> = (props) => {
     return (
         <div
             className="flex flex-col gap-2"
-            style={{width: `${props.width}px`}}
+            style={{width: `${props.width}px`, height: `${props.height}px`}}
         >
             <GrNodeContext.Provider value={props}>
                 <GrNodeName />

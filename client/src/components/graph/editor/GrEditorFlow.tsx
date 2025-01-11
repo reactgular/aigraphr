@@ -16,7 +16,7 @@ const nodeTypes: NodeTypes = {GrNode};
 
 export const GrEditorFlow: FC = () => {
     const {nodes: _nodes, edges: _edges} = useGrEditor();
-    const [nodes, setNodes, onNodesChange] = useNodesState([]);
+    const [nodes, setNodes, onNodesChange] = useNodesState(_nodes);
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
     return (

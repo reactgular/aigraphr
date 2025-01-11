@@ -6,7 +6,7 @@ import {
 import {grNodeDefGetNodeDefGroupsQueryKey} from '@/api/@tanstack/react-query.gen';
 import {queryOptions, useSuspenseQuery} from '@tanstack/react-query';
 
-interface NodeDefModel {
+export interface NodeDefModel {
     readonly groups: Record<string, Readonly<GrNodeDefGroupDto>>;
 
     readonly groupsIndex: ReadonlyArray<string>;
