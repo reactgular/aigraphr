@@ -74,7 +74,10 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ProjectDto"
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ProjectDto"
+                                    }
                                 }
                             }
                         }
@@ -448,7 +451,10 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/EdgeDto"
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/EdgeDto"
+                                    }
                                 }
                             }
                         }
@@ -759,7 +765,10 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/NodeDto"
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/NodeDto"
+                                    }
                                 }
                             }
                         }
@@ -1052,7 +1061,10 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/WorkspaceDto"
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/WorkspaceDto"
+                                    }
                                 }
                             }
                         }

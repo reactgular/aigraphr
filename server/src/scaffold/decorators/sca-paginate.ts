@@ -6,6 +6,7 @@ import {ApiOkResponse, ApiOperation} from '@nestjs/swagger';
 
 interface ScaPaginateOptions<T extends ScaEntity> {
     decorators?: () => Array<MethodDecorator>;
+
     dto: Type<T>;
 }
 
@@ -19,7 +20,8 @@ export function ScaPaginate<T extends ScaEntity>({
         ApiOperation({summary: `Paginate ${name}`}),
         ApiOkResponse({
             description: `Return a list of ${name}`,
-            type: dto
+            type: dto,
+            isArray: true
         }),
         ScaValidateResponse([dto]),
         ...(decoratorsFn?.() ?? [])

@@ -491,7 +491,7 @@ export type ProjectsPaginateResponses = {
     /**
      * Return a list of Project
      */
-    200: ProjectDto;
+    200: Array<ProjectDto>;
 };
 
 export type ProjectsPaginateResponse =
@@ -716,7 +716,7 @@ export type EdgesPaginateResponses = {
     /**
      * Return a list of Edge
      */
-    200: EdgeDto;
+    200: Array<EdgeDto>;
 };
 
 export type EdgesPaginateResponse =
@@ -905,7 +905,7 @@ export type NodesPaginateResponses = {
     /**
      * Return a list of Node
      */
-    200: NodeDto;
+    200: Array<NodeDto>;
 };
 
 export type NodesPaginateResponse =
@@ -1090,7 +1090,7 @@ export type WorkspacesPaginateResponses = {
     /**
      * Return a list of Workspace
      */
-    200: WorkspaceDto;
+    200: Array<WorkspaceDto>;
 };
 
 export type WorkspacesPaginateResponse =
