@@ -1,22 +1,22 @@
-import {GrEditorContext} from '@/components/graph/context/GrEditorContext';
-import {useGrWorkspaceAddress} from '@/components/graph/hooks/useGrWorkspaceAddress';
+import {GrEditorContext} from '@/components/graph/editor/GrEditorContext';
+import {useGrEditorAddress} from '@/components/graph/editor/useGrEditorAddress';
 import {useEdgesDto} from '@/components/hooks/useEdgesDto';
 import {useNodesDto} from '@/components/hooks/useNodesDto';
 import {useWorkspaceDto} from '@/components/hooks/useWorkspaceDto';
 import type {FC, PropsWithChildren} from 'react';
-import {GrWorkspaceAddress} from '../context/GrWorkspaceAddress';
+import {GrEditorAddress} from './GrEditorAddress';
 
 export const GrEditorProvider: FC<PropsWithChildren> = ({children}) => {
-    const address = useGrWorkspaceAddress();
+    const address = useGrEditorAddress();
     const workspace = useWorkspaceDto(address);
     const nodes = useNodesDto(address);
     const edges = useEdgesDto(address);
 
     return (
         <GrEditorContext.Provider value={{workspace, nodes, edges}}>
-            <GrWorkspaceAddress.Provider value={address}>
+            <GrEditorAddress.Provider value={address}>
                 {children}
-            </GrWorkspaceAddress.Provider>
+            </GrEditorAddress.Provider>
         </GrEditorContext.Provider>
     );
 };

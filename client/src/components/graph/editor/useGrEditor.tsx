@@ -1,5 +1,5 @@
-import {GrEditorContext} from '@/components/graph/context/GrEditorContext';
-import type {GrEditorModel} from '@/components/graph/context/GrEditorModel';
+import {GrEditorContext} from '@/components/graph/editor/GrEditorContext';
+import type {GrEditorModel} from '@/components/graph/editor/GrEditorModel';
 import {useContext} from 'react';
 
 export const useGrEditor = (): GrEditorModel => {

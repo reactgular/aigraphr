@@ -1,8 +1,8 @@
 import type {GrNodeDefDto} from '@/api';
-import {useGrNode} from '@/components/graph/hooks/useGrNode';
+import {useGrNodeContext} from '@/components/graph/node/useGrNodeContext';
 import {useGrNodeDefDto} from '@/components/hooks/useGrNodeDefDto';
 
 export const useGrNodeDef = (): Readonly<GrNodeDefDto> => {
-    const node = useGrNode();
-    return useGrNodeDefDto(node.type);
+    const {data} = useGrNodeContext();
+    return useGrNodeDefDto(data.type);
 };

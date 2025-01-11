@@ -1,14 +1,18 @@
-import {useGrEditor} from '@/components/graph/hooks/useGrEditor';
+import {useGrEditor} from '@/components/graph/editor/useGrEditor';
+import {GrNode} from '@/components/graph/node/GrNode';
 import {
     Background,
     BackgroundVariant,
     Controls,
     MiniMap,
+    type NodeTypes,
     ReactFlow,
     useEdgesState,
     useNodesState
 } from '@xyflow/react';
 import type {FC} from 'react';
+
+const nodeTypes: NodeTypes = {GrNode};
 
 export const GrEditorFlow: FC = () => {
     const {nodes: _nodes, edges: _edges} = useGrEditor();
@@ -18,6 +22,7 @@ export const GrEditorFlow: FC = () => {
     return (
         <ReactFlow
             nodes={nodes}
+            nodeTypes={nodeTypes}
             edges={edges}
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}

@@ -1,5 +1,5 @@
 import {GrNodeDefIcons} from '@/components/graph/node/GrNodeDefIcons';
-import {useGrNodeDef} from '@/components/graph/hooks/useGrNodeDef';
+import {useGrNodeDef} from '@/components/graph/node/useGrNodeDef';
 import {cn, type PropsWithClassName} from '@/components/shadcn/lib/utils';
 import type {FC} from 'react';
 
