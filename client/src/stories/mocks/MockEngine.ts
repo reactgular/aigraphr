@@ -94,7 +94,7 @@ class MockEngine {
         this.projects = [project1];
     }
 
-    public getMockData(): Array<MockApi> {
+    public getMockApis(): Array<MockApi> {
         const eachWorkspace = (
             mock: MockProject,
             workspaceId: number
@@ -103,11 +103,13 @@ class MockEngine {
             this.apiNodes(mock.project.id, workspaceId),
             this.apiEdges(mock.project.id, workspaceId),
             ...mock.nodes
+                .filter((node) => node.workspaceId === workspaceId)
                 .map((node) =>
                     this.apiNode(mock.project.id, node.workspaceId, node.id)
                 )
                 .flat(),
             ...mock.edges
+                .filter((edge) => edge.workspaceId === workspaceId)
                 .map((edge) =>
                     this.apiEdge(mock.project.id, edge.workspaceId, edge.id)
                 )
@@ -163,7 +165,7 @@ class MockEngine {
             url: `${base}/projects/${projectId}/workspaces/${workspaceId}/edges`,
             method: 'GET',
             status: 200,
-            response: project.edges
+            response: project.edges.filter((n) => n.workspaceId === workspaceId)
         };
     }
 
@@ -209,7 +211,7 @@ class MockEngine {
             url: `${base}/projects/${projectId}/workspaces/${workspaceId}/nodes`,
             method: 'GET',
             status: 200,
-            response: project.nodes
+            response: project.nodes.filter((n) => n.workspaceId === workspaceId)
         };
     }
 
@@ -274,7 +276,7 @@ class MockEngine {
 
 export const mockEngine = new MockEngine();
 
-export const mockData = mockEngine.getMockData();
+export const mockData = mockEngine.getMockApis();
 
 console.log('*'.repeat(80));
 console.log(mockData);
