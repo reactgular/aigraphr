@@ -61,7 +61,14 @@ class MockEngine {
 
         const project1: MockProject = {
             project: mockProjectDto({projectId: 1}),
-            workspaces: [mockWorkspaceDto({workspaceId: 1})],
+            workspaces: [
+                mockWorkspaceDto({workspaceId: 1}),
+                mockWorkspaceDto({workspaceId: 2}),
+                mockWorkspaceDto({workspaceId: 3}),
+                mockWorkspaceDto({workspaceId: 4}),
+                mockWorkspaceDto({workspaceId: 5}),
+                mockWorkspaceDto({workspaceId: 6})
+            ],
             nodes: [
                 mockNodeDto({workspaceId: 1, nodeId: 1, type: 'core:mock'}),
                 mockNodeDto({
@@ -118,6 +125,15 @@ class MockEngine {
             this.apiProjects(),
             ...this.projects.map((mock) => eachProject(mock)).flat()
         ];
+    }
+
+    public getNode(projectId: number, nodeId: number): NodeDto {
+        const project = this.getProject(projectId);
+        const response = project.nodes.find((n) => n.id === nodeId);
+        if (!response) {
+            throw new Error(`Node ${nodeId} not found`);
+        }
+        return response;
     }
 
     private apiEdge(
@@ -256,7 +272,9 @@ class MockEngine {
     }
 }
 
-export const mockData = new MockEngine().getMockData();
+export const mockEngine = new MockEngine();
+
+export const mockData = mockEngine.getMockData();
 
 console.log('*'.repeat(80));
 console.log(mockData);

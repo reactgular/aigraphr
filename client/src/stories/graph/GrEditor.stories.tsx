@@ -11,16 +11,43 @@ export default {
         layout: 'fullscreen',
         mockData
     },
-    args: {
-        address: {
-            projectId: 1,
-            workspaceId: 1
-        }
-    }
+    args: {}
 } satisfies Meta<typeof GrEditor>;
 
 type Story = StoryObj<typeof GrEditor>;
 
-export const Normal: Story = {
-    args: {}
+export const Empty: Story = {
+    args: {
+        address: {projectId: 1, workspaceId: 1}
+    }
+};
+
+export const Example: Story = {
+    args: {
+        address: {projectId: 1, workspaceId: 2}
+    }
+};
+
+export const NoInputs: Story = {
+    args: {
+        address: {projectId: 1, workspaceId: 3}
+    }
+};
+
+export const NoOutputs: Story = {
+    args: {
+        address: {projectId: 1, workspaceId: 4}
+    }
+};
+
+export const NoParams: Story = {
+    args: {
+        address: {projectId: 1, workspaceId: 5}
+    }
+};
+
+export const TooMany: Story = {
+    args: {
+        address: {projectId: 1, workspaceId: 6}
+    }
 };
